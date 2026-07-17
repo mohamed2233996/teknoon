@@ -1,0 +1,33 @@
+---
+title: "جافاسكربتما هي المزامنة"
+source: "https://harmash.com/tutorials/javascript/asynchronous"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T15:04:31.577Z"
+---
+
+> المصدر الأساسي لهذا الدرس: [هرمش](https://harmash.com/tutorials/javascript/asynchronous) — تم النقل بإذن من إدارة الموقع.
+## مفهوم الكود المتزامن
+
+الكود المتزامن ( Synchronous Code ) هو الكود الذي تتنفذ جميع أوامره بذات الترتيب الموضوعة فيه، فلا يتم الإنتقال إلى الأمر التالي إلا عندما يتم تنفيذ الأمر الحالي و بنجاح.
+
+![كود متزامن](/tutorials/javascript/asynchronous/50a83df6-8e0a-4d09-addc-925ae5a91410_synchronous.PNG)
+
+في المثال التالي، قمنا بتعريف دالة إسمها `executeCode()`، عند استدعائها تظهر نافذة تنبيه منبثقة و من بعدها تقوم بتغيير لون خلفية الصفحة.  
+**ملاحظة:** أمر تغيير لون الخلفية لن يتنفذ إلا بعد أن يتم إغلاق نافذة التنبيه.
+
+#### مثال
+
+<button onclick\="executeCode()"\>Click me</button\>
+
+<script\>
+    // executeCode هنا قمنا بتعريف الدالة
+    function executeCode() {
+        // هنا قمنا بإظهار نافذة تنبيه منبثقة
+        alert('This code execute first');
+
+        // هنا قمنا بتغيير لون خلفية الصفحة
+        document.querySelector('body').style.background = 'khaki';
+    }
+</script\>
+
+[جرب الكود](/tryit?file=/tutorials/javascript/asynchronous/synchronous-code)
