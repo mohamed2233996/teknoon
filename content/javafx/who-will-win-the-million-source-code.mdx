@@ -1,0 +1,2046 @@
+---
+title: "JavaFXطريقة إنشاء لعبة من سيربح المليون"
+source: "https://harmash.com/tutorials/javafx/who-will-win-the-million-source-code"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:21:49.972Z"
+---
+
+في هذا الدرس ستتعلم طريقة إنشاء لعبة من سيربح المليون ( Who will win the million ) إحترافية بإستخدام إطار JavaFX.
+
+![سورس كود لعبة من سيربح المليون](/content-images/javafx/who-will-win-the-million-source-code/1784305309642-p1ed3o.gif)
+
+  
+
+### مميزات اللعبة
+
+*   تلائم حجم أي شاشة كمبيوتر يتم تشغيلها عليه لأنها مبنية بطريقة ( Responsive ).
+*   فيها أشكال هندسية مخصصة و مصممة بطريقة تجذب المستخدم, و عدة أصوات و مؤثرات بصرية يتم تشغيلها عندما يتفاعل المستخدم مع اللعبة.
+*   تحتوي على 100 سؤال و 400 إجابة يتم عرضهم بشكل عشوائي.
+*   فيها نفس وسائل المساعدة الموجودة في لعبة من سيربح المليون.
+*   يمكنك تطوير اللعبة و تغيير الأسئلة و الإجابات بسهولة إذا أردت إنشاء نسختك الخاصة من اللعبة.
+
+  
+  
+
+### بناء اللعبة
+
+*   ملفات الجافا وضعناها مباشرةً في المشروع.
+*   إستخدمنا خط خاص وضعناه في مجلد إسمه `fonts`.
+*   الصور وضعناه بداخل مجلد إسمه `images`.
+*   الأصوات وضعناه بداخل مجلد إسمه `sounds`.
+
+![سورس كود لعبة من سيربح المليون](/content-images/javafx/who-will-win-the-million-source-code/1784305309735-f0c4n5.PNG)
+
+  
+  
+
+### خيارات التحميل
+
+[⇓ تحميل اللعبة](/tutorials/javafx/who-will-win-the-million-source-code/83f731c2-f135-4c83-9e20-cea7a005601b_javafx-who-will-win-the-million.jar) [⇓ تحميل المشروع كاملاً](/tutorials/javafx/who-will-win-the-million-source-code/1c7c7592-e1e8-4051-a652-3c39bdfe5891_javafx-who-will-win-the-million-project.zip)
+
+  
+  
+
+### معلومات عامة عن الكود
+
+*   الكلاس `AboutButtonShape` قمنا ببنائه خصيصاً لنحصل على شكل الزر الذي أظهرناه في صفحة **حول التطبيق**
+*   الكلاس `AboutPane` قمنا ببنائه خصيصاً لنحصل على الحاوية الأساسية التي سنعرضها في صفحة **حول التطبيق** مع الإشارة إلى أننا وضعنا فيه كل محتوى الصفحة.
+*   الكلاس `GameAnswerButton` قمنا ببنائه خصيصاً لنحصل على شكل الأزرار التي يمكن النقر عليها لاختيار الإجابة في **صفحة اللعب**
+*   الكلاس `GamePane` قمنا ببنائه خصيصاً لتمثيل **صفحة اللعب**
+*   الكلاس `GameQuestionShape` قمنا ببنائه خصيصاً لنحصل على شكل الحاوية التي ستوضع فيها الأسئلة في **صفحة اللعب**
+*   الكلاس `Main` قمنا ببناء نافذة اللعبة كل الصفحات الموجودة فيها بالإضافة إلى أنه يعتبر نقطة البداية في هذا المشروع.
+*   الكلاس `MenuItemShape` قمنا ببنائه خصيصاً لبناء شكل الأزرار التي وضعناها في **صفحة القائمة الرئيسية**
+*   الكلاس `MenuPane` قمنا ببنائه خصيصاً لتمثيل **صفحة القائمة الرئيسية**
+*   الكلاس `Questions` وضعنا فيه جميع أسئلة اللعبة مع الإجابات الخاصة بها.
+*   الكلاس `ResultPane` قمنا ببنائه خصيصاً لتمثيل **صفحة النتيجة النهائية**
+*   الكلاس `Sounds` قمنا ببنائه خصيصاً لتجهيز دوال يمكن إستخدامها لتشغيل أصوات في اللعبة.
+*   الإنترفيس `ScreenBounds` وضعنا فيه المعلومات الأساسية و المشتركة التي يجب أن تتوفر في كل حاوية تمثل صفحة في اللعبة.
+
+  
+  
+
+#### كود اللعبة
+
+AboutButtonShape.java
+
+import javafx.beans.binding.Bindings;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+
+// و جعله قابل للنقر (Width + Height) هو لتمكيننا من إعطائه حجم Rectangle يرث من الكلاس AboutButtonShape سبب جعل الكلاس
+public class AboutButtonShape extends Rectangle {
+
+    // AboutButtonShape لأننا سنعتمد عليه لنرسم شكل الزر الذي نريد الحصول عليه عند إنشاء كائن من الكلاس Polygon هنا قمنا بتعريف كائن نوعه
+    Polygon polygon;
+
+    // هنا قمنا بتجهيز هذا الكونستركتور حتى نستطيع تحديد حجم الزر مباشرةً عند إنشاء كائن من هذا الكلاس
+    public AboutButtonShape(int width, int height) {
+
+        // عند إنشاء كائن من الكلاس height و width لاحظ أن شكل الزر الذي سيتم رسمه يعتمد بشكل أساسي على القيم التي سنمررها للباراميترين
+        polygon = new Polygon(
+                0, height/2,
+                20, 0,
+                width-20, 0,
+                width, height/2,
+                width-20, height,
+                20, height,
+                0, height/2
+        );
+        
+        // لأننا سندمجه معه AboutButtonShape و الذي بدوره سيتم تطبيقه على الكائن الذي ننشئه من الكلاس polygon هنا قمنا بإضافة لون أبيض باهت حول الكائن
+        polygon.setStroke(Color.color(1, 1, 1, 0.75));
+
+        // الطبيعي هو غامق بنسبة 25 بالمئة و سيصبح أغمق بنسبة 50 بالمئة حين ننقر فوقه بالفأرة polygon هنا حددنا أن لون خلفية الكائن
+        polygon.fillProperty().bind(Bindings.when(pressedProperty())
+                .then(Color.color(0, 0, 0, 0.50))
+                .otherwise(Color.color(0, 0, 0, 0.25))
+        );
+        
+        // AboutButtonShape عند إنشاء كائن من الكلاس height و width حددنا أن حجم الشكل الذي سنحصل عليه سيكون مطابقاً للقيم التي نمررها مكان البارميترين
+        // AboutButtonShape يساوي حجم الكائن الذي سنحصل عليه عند دمجه مع الكائن الذي ننشئه من الكلاس polygon بهذه الطريقة يكون حجم الكائن
+        this.setWidth(width);
+        this.setHeight(height);
+        
+        // هو أزرق AboutButtonShape هنا حددنا أن لون خلفية الكائن الذي سنحصل عليه عند إنشاء كائن من الكلاس
+        // كما أنه عند تمرير الفأرة فوقه سيتحول شكل السهم إلى شكل إصبع, مما يجعل المستخدم يدرك أن هذا الشكل قابل للنقر
+        this.setFill(Color.BLUE);
+        this.setStyle("-fx-cursor: hand;");
+
+        // AboutButtonShape على الكائن الذي ننشئه من الكلاس polygon هنا قمنا بدمج و تطبيق خصائص الكائن
+        this.setClip(polygon);
+
+    }
+
+}
+
+  
+AboutPane.java
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+
+// حتى يظهر محتواه في وسط النافذة StackPane يرث من الكلاس AboutPane هنا جعلنا الكلاس
+// حتى يكون حجمه مطابق لحجم شاشة المستخدم ScreenBounds و جعلناه يطبق الإنترفيس
+public class AboutPane extends StackPane implements ScreenBounds {
+
+    // حتى نستطيع إستدعاء دوال تشغيل الأصوات التي جهزناها فيه Sounds هنا قمنا بإنشاء كائن من الكلاس
+    Sounds mySounds \= new Sounds();
+
+    // لأننا سنعرض النص عليه Label هنا قمنا بإنشاء كائن من الكلاس
+    Label label \= new Label("تم تصميم هذه اللعبة لتشجيع الطلاب على التعلم و لمساعدتهم في إختبار قدراتهم على الحفظ\\n"
+            + "اللعبة من إعداد المبرمج محمد هرموش و هي مجانية بالكامل");
+    
+    // حتى نحصل على شكل زر خاص لونه لون خلفيته أزرق, مع تحديد حجمه AboutButtonShape هنا قمنا بإنشاء كائن من الكلاس
+    AboutButtonShape buttonShape \= new AboutButtonShape(220, 40);
+    
+    // buttonShape بهدف وضعه كنص للزر الذي يمثله الكائن Label هنا قمنا بإنشاء كائن من الكلاس
+    Label buttonLabel \= new Label("رجوع");
+    
+    // label لأننا ننوي إنشاء حاوية عامودية حتى نعرض بواسطتها نص الكائن VBox هنا قمنا بإنشاء كائن من الكلاس
+    // buttonLabel نص الزر الذي يمثله الكائن + buttonShape و تحته الزر الذي يمثله الكائن 
+    VBox vBox \= new VBox(30);
+
+    // AboutPane هنا قمنا بتجهيز هذا الكونستركتور لتحديد ما سيحدث عند إنشاء كائن من الكلاس
+    public AboutPane() {
+
+        // AboutPane كخلفية للحاوية التي سنحصل عليها عند إنشاء كائن من الكلاس GetBGImage() هنا قمنا بوضع الصورة التي ترجعها الدالة
+        this.setBackground(Main.GetBGImage());
+        
+        // ( لون النص, نوع الخط, حجم الخط و مكان ظهوره ) label هنا قمنا بتحديد خصائص ظهور الكائن
+        label.setTextFill(Color.WHITE);
+        label.setFont(Font.loadFont(Main.class.getResource("res/fonts/droidnaskh-regular-webfon.ttf").toExternalForm(), 18));
+        label.setTextAlignment(TextAlignment.CENTER);
+
+        // ( حجمه, مكان ظهوره, لون النص, نوع الخط, حجم الخط و حجم الفراغ حوله ) buttonLabel هنا قمنا بتحديد خصائص ظهور الكائن
+        buttonLabel.setPrefSize(220, 40);
+        buttonLabel.setAlignment(Pos.CENTER);
+        buttonLabel.setTextFill(Color.WHITE);
+        buttonLabel.setFont(Font.loadFont(Main.class.getResource("res/fonts/droidnaskh-regular-webfon.ttf").toExternalForm(), 14));
+        buttonLabel.setPadding(new Insets(-5, 0, 0, 0));
+        
+        // buttonShape يظهر فوق شكل الزر الذي يمثله الكائن buttonLabel خصيصاً لنجعل نص الكائن StackPane قمنا بإنشاء كائن من الكلاس
+        // buttonPane و أصبحنا نستطيع تحريكهما معاً بواسطة الكائن buttonShape بالكائن buttonLabel أي كأننا ألصقنا الكائن
+        StackPane buttonPane \= new StackPane();
+        buttonPane.setPrefSize(220, 40);
+        buttonPane.getChildren().addAll(buttonLabel, buttonShape);
+
+        // buttonPane و تحته الزر الذي تمثله الحاوية label هكذا سيظهر في الصفحة نص الكائن .vBox في الكائن buttonPane و من ثم الكائن label هنا قمنا بإضافة الكائن
+        vBox.getChildren().addAll(label, buttonPane);
+
+        // AboutPane يظهر في وسطها و من ثم أضفناها إلى الحاوية التي سنحصل عليها عند إنشاء كائن من الكلاس vBox هنا جعلنا محتوى الحاوية
+        vBox.setAlignment(Pos.CENTER);
+        this.getChildren().add(vBox);
+        
+        // buttonShape هنا قمنا بتحديد ما سيحدث عند النقر على الزر الذي يمثله الكائن
+        buttonShape.setOnMouseClicked((MouseEvent t) -> {
+            // Scene لتشغيل صوت نقرة. بعدها سيتم تبديل الحاوية الأساسية في الـ clickSound() سيتم إستدعاء الدالة
+            // و بالتالي سيظهر للمستخدم كأنه عاد لصفحة القائمة الأساسية في البرنامج .PANE\_MENU بالحاوية
+            mySounds.clickSound();
+            Main.STAGE.getScene().setRoot(Main.PANE\_MENU);
+        });
+
+    }
+
+}
+
+  
+GameAnswerButton.java
+
+import javafx.beans.binding.Bindings;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+
+// و جعله قابل للنقر (Width + Height) هو لتمكيننا من إعطائه حجم Rectangle يرث من الكلاس GameAnswerButton سبب جعل الكلاس
+public class GameAnswerButton extends Rectangle {
+
+    // GameAnswerButton لأننا سنعتمد عليه لنرسم شكل الزر الذي نريد الحصول عليه عند إنشاء كائن من الكلاس Polygon قمنا بتعريف كائن من الكلاس
+    // GameAnswerButton لأننا سنعتمد عليه لعرض النص الذي نريد وضعه على الزر الذي سيملثه الكائن الذي ننشئه من الكلاس Label و قمنا بتعريف كائن من الكلاس
+    Polygon clip;
+    Label label \= new Label();
+    
+    // clip يظهر فوق شكل الزر الذي يمثله الكائن label خصيصاً لنجعل نص الكائن Pane قمنا بإنشاء كائن من الكلاس
+    Pane pane \= new Pane();
+
+    // هنا قمنا بتجهيز هذا الكونستركتور حتى نستطيع تحديد حجم الزر + مكان ظهوره مباشرةً عند إنشاء كائن من هذا الكلاس
+    public GameAnswerButton(int width, int height, int x, int y) {
+
+        // عند إنشاء كائن من الكلاس height و width لاحظ أن شكل الزر الذي سيتم رسمه يعتمد بشكل أساسي على القيم التي سنمررها للباراميترين
+        clip = new Polygon(
+                0, height / 2,
+                20, height / 2,
+                40, 0,
+                width - 40, 0,
+                width - 20, height / 2,
+                width, height / 2,
+                width - 20, height / 2,
+                width - 40, height,
+                40, height,
+                20, height / 2
+        );
+
+        // لأننا سندمجه معه GameAnswerButton و الذي بدوره سيتم تطبيقه على الكائن الذي ننشئه من الكلاس polygon هنا قمنا بإضافة لون أبيض باهت حول الكائن
+        clip.setStroke(Color.color(1, 1, 1, 0.75));
+
+        // الطبيعي هو غامق بنسبة 25 بالمئة و سيصبح أغمق بنسبة 50 بالمئة حين ننقر فوقه بالفأرة polygon هنا حددنا أن لون خلفية الكائن
+        clip.fillProperty().bind(Bindings.when(pressedProperty())
+                .then(Color.color(0, 0, 0, 0.50))
+                .otherwise(Color.color(0, 0, 0, 0.25))
+        );
+
+        // GameAnswerButton عند إنشاء كائن من الكلاس height و width حددنا أن حجم الشكل الذي سنحصل عليه سيكون مطابقاً للقيم التي نمررها مكان البارميترين
+        // GameAnswerButton يساوي حجم الكائن الذي سنحصل عليه عند دمجه مع الكائن الذي ننشئه من الكلاس polygon بهذه الطريقة يكون حجم الكائن
+        this.setWidth(width);
+        this.setHeight(height);
+
+        // هو أزرق GameAnswerButton هنا حددنا أن لون خلفية الكائن الذي سنحصل عليه عند إنشاء كائن من الكلاس
+        // كما أنه عند تمرير الفأرة فوقه سيتحول شكل السهم إلى شكل إصبع, مما يجعل المستخدم يدرك أن هذا الشكل قابل للنقر        
+        this.setDefaultBg();
+        this.setStyle("-fx-cursor: hand;");
+        
+        // GameAnswerButton على الكائن الذي ننشئه من الكلاس polygon هنا قمنا بدمج و تطبيق خصائص الكائن
+        this.setClip(clip);
+
+        // ( حجمه, مكان ظهوره, لون النص, نوع الخط, حجم الخط و حجم الفراغ حوله ) label هنا قمنا بتحديد خصائص ظهور الكائن
+        label.setFont(new Font(16));
+        label.setTextFill(Color.WHITE);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setPrefSize(width, height);
+        label.setTextFill(Color.WHITE);
+        label.setAlignment(Pos.CENTER\_RIGHT);
+        label.setPadding(new Insets(-5, 45, 0, 45));
+        
+        // pane في الكائن GameAnswerButton ثم الكائن الأساسي الذي ننشئه من الكلاس label هنا قمنا بوضع الكائن
+        // pane و أصبحنا نستطيع تحريكهما معاً بواسطة الكائن GameAnswerButton بالكائن الذي يتم إنشاؤه من الكلاس label أي كأننا ألصقنا الكائن
+        pane.getChildren().addAll(label, this);
+
+        // GameAnswerButton و حجمها و جعلناها مطابقة لحجم الكائن الذي ننشئه من الكلاس pane هنا قمنا بتحديد مكان ظهور الحاوية 
+        pane.setTranslateX(x);
+        pane.setTranslateY(y);
+        pane.setPrefSize(width, height);
+    }
+
+    // أخضر, و نستدعيها في حال نقر المستخدم على الإجابة الصحيحة GameAnswerButton هذه الدالة تجعل لون خلفية الزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public void setWinBg() {
+        this.setFill(Color.GREEN);
+    }
+
+    // برتقالي, و نستدعيها في حال نقر المستخدم على إجابة خطائة GameAnswerButton هذه الدالة تجعل لون خلفية الزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public void setLooseBg() {
+        this.setFill(Color.ORANGE);
+    }
+
+    // أزرق, و نستدعيها لوضع اللون الإفتراضي للزر GameAnswerButton هذه الدالة تجعل لون خلفية الزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public void setDefaultBg() {
+        this.setFill(Color.BLUE);
+    }
+
+    // GameAnswerButton هذه الدالة نمرر لها النص الذي نريد وضعه كنس للزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public void setText(String s) {
+        this.label.setText(s);
+    }
+
+    // GameAnswerButton هذه الدالة ترجع النص الظاهر على الزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public String getText() {
+        return this.label.getText();
+    }
+
+    // و النص الموضوع فوقه GameAnswerButton هذه الدالة ترجع الحاوية التي تحتوي على الزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public Pane getPane() {
+        return pane;
+    }
+
+    // و النص الموضوع فوقه GameAnswerButton هذه الدالة تستخدم لإخفاء الزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public void hide() {
+        this.setVisible(false);
+        label.setVisible(false);
+    }
+
+    // و النص الموضوع فوقه GameAnswerButton هذه الدالة تستخدم لعرض الزر الذي يمثله الكائن الذي ننشئه من الكلاس
+    public void show() {
+        this.setVisible(true);
+        label.setVisible(true);
+    }
+
+}
+
+  
+GamePane.java
+
+import java.util.ArrayList;
+import java.util.Collections;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.util.Duration;
+
+public class GamePane extends Pane implements ScreenBounds {
+
+    // حتى نستطيع إستدعاء دوال تشغيل الأصوات التي جهزناها فيه Sounds هنا قمنا بإنشاء كائن من الكلاس
+    Sounds mySounds \= new Sounds();
+
+    // هنا قمنا بإنشاء كل العناصر الظاهرة في النافذة
+    Button btnExit \= new Button("", new ImageView(new Image(getClass().getResourceAsStream("/res/images/Close-icon.png"))));
+    Button btnBack \= new Button("", new ImageView(new Image(getClass().getResourceAsStream("/res/images/Go-back-icon.png"))));
+    Button btnCallFriend \= new Button("", new ImageView(new Image(getClass().getResourceAsStream("/res/images/Phone-icon.png"))));
+    Button btnAskAudience \= new Button("", new ImageView(new Image(getClass().getResourceAsStream("/res/images/User-Group-icon.png"))));
+    Button btnDeleteTwoAnswers \= new Button("", new ImageView(new Image(getClass().getResourceAsStream("/res/images/Number-2-icon.png"))));
+    Button btnPlayGame \= new Button("إبدأ الآن");
+    Label timerLabel \= new Label();                  // هذا الكائن سنعرض عليه التوقيت الباقي للإجابة عن الأسئلة و الذي يظهر عندما تبدأ اللعبة
+    StackPane playButtonPane \= new StackPane();      // هذه الحاوية الأساسية التي وضعنا فيها كل شيء, و التي بدورها ستظهره في وسط النافذة
+    ArrayList<Label> moneyLabels = new ArrayList();  // ArrayList موجود في هذا الـ Label حاوية المال التي تظهر في يمين النافذة, كل مربع فيها عبارة
+
+    // هذا الكائن يمثل الحاوية التي يظهر فيها السؤال
+    GameQuestionShape questionShape \= new GameQuestionShape(640, 60);
+
+    // هذه الكائنات تمثل الأزرار التي تظهر عليها الإجابات المحتلمة لكل سؤال
+    GameAnswerButton answer1 \= new GameAnswerButton(320, 40, 320, 10);
+    GameAnswerButton answer2 \= new GameAnswerButton(320, 40, 0, 10);
+    GameAnswerButton answer3 \= new GameAnswerButton(320, 40, 320, 60);
+    GameAnswerButton answer4 \= new GameAnswerButton(320, 40, 0, 60);
+
+    // محتوى نافذة اللعب سيتم تقسيمه فعلياً على الخمس حاوية التالية
+    HBox hBox \= new HBox();
+    VBox vBox \= new VBox();
+    Pane answersPane \= new Pane();
+    HBox topMenuBox \= new HBox(10);
+    VBox moneyBox \= new VBox(4);
+
+    // سنخزن فيه جميع الأسئلة و الإجابات التي قمنا بإعدادها للعبة questions الكائن
+    Questions questions;
+    
+    // سنخزن فيه في كل مرة سؤال جديد مع الإجابات الخاصة بهذا السؤال question الكائن
+    Question question;
+
+    // سنستخدم جميع المتغيرات التالية لإظهار المؤثرات بأوقات محددة بالإضافة إلى حفظ نشاط اللاعب بشكل مؤقت
+    boolean isGameOver;
+    int InitialSeconds;
+    Integer RemainingSeconds;
+    boolean anAnswerButtonIsClicked;
+    boolean isAnswerCorrect;
+    String whichButtonIsClicked;
+    int correctAnswersCounter;
+    int totalEarning;
+
+    // هذا الكائن سنستخدمه عند إعطاء المستخدم مهلة 30 ثانية للإجابة بالإضافة إلى المؤثرات التي سنعرضها خلال فترات مختلفة
+    Timeline timeline;
+    
+    // هذا المتغير سنستخدمه لتخزين عدد الإجابات التي يمكن للمستخدم أن أن ينقر عليها و فعلياً ستتغير قيمته فقط عندما يقوم بحذف إجابتين
+    int hiddenButtonsCounter;
+
+    // هذا المتغير سنستخدمه كمؤشر لمعرفة ما إن كان المستخدم قد إستخدم وسيلة الإتصال بصديق أم لا
+    boolean aFriendIsCalled;
+
+    // هذا المتغير سنستخدمه كمؤشر لمعرفة ما إن كان المستخدم قد إستخدم وسيلة سؤال الجمهور أم لا
+    boolean userIsAskingAudience;
+
+    // لكل شيء Reset هذه الدالة يجب استدعاءها في كل مرة سيتم فيها البدء باللعب بهدف أن تقوم بتصفير اللعبة أو تفعل ما نسميه
+    public void initialValues() {
+        questions = new Questions();
+        isGameOver = false;
+        timeline = new Timeline();
+        InitialSeconds = 30;
+        RemainingSeconds = InitialSeconds;
+        anAnswerButtonIsClicked = false;
+        isAnswerCorrect = false;
+        whichButtonIsClicked = "";
+        correctAnswersCounter = 0;
+        totalEarning = 0;
+        hiddenButtonsCounter = 0;
+        aFriendIsCalled = false;
+        userIsAskingAudience = false;
+    }
+
+    // هذه الدالة يجب استدعاءها عندما يتم بدأ اللعبة و هي بدورها ستقوم فقط باستدعاء الدوال الموضوعة فيها بالترتيب
+    public void playGame() {
+        initialValues();
+        mySounds.clickSound();
+        displayNewQestion();
+        checkAnswer();
+    }
+
+    // هذه الدالة يجب استدعاءها عندما يقوم المستخدم باختيار إجابة صحيحة بهدف أن تحدد له كم ربح حتى الآن, فعلياً ستجعل المرحلة التي وصل إليها تظهر بلون متميز
+    public void markLastPassedLevel() {
+        for (Label label : moneyLabels) {
+            label.setTextFill(Color.YELLOW);
+            label.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), Insets.EMPTY)));
+        }
+        moneyLabels.get(correctAnswersCounter).setTextFill(Color.WHITE);
+        moneyLabels.get(correctAnswersCounter).setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(5), Insets.EMPTY)));
+        totalEarning = Integer.parseInt(moneyLabels.get(correctAnswersCounter).getText());
+    }
+
+    // و من ثم عرضه في واجهة المستخدم questions هذه الدالة تستخدم لجلب سؤال جديد بشكل عشوائي من الكائن
+    // نلاحظ أنه قبل جلب أي سؤال جديد يجب التأكد من عدة أمور, فمثلاً إذا كان المستخدم
+    // قد أجاب عن 15 سؤال بشكل صحيح, يجب إعلامه بأنه قد ربح بدل عرض سؤال جديد أمامه
+    public void displayNewQestion() {        
+        if (userIsAskingAudience == true) {
+            userIsAskingAudience = false;
+        }
+        
+        if (aFriendIsCalled == true) {
+            aFriendIsCalled = false;
+        }
+
+        if (correctAnswersCounter >= 15) {
+            timeline.stop();
+            ResultPane.setResult(correctAnswersCounter, totalEarning);
+            Main.STAGE.getScene().setRoot(Main.PANE\_RESULT);
+        }
+        else {
+            if (hiddenButtonsCounter != 0) {
+                hiddenButtonsCounter = 0;
+                answer1.show();
+                answer2.show();
+                answer3.show();
+                answer4.show();
+            }
+
+            question = questions.getQuestion();
+            Collections.shuffle(question.answers);
+
+            answer1.setDefaultBg();
+            answer2.setDefaultBg();
+            answer3.setDefaultBg();
+            answer4.setDefaultBg();
+
+            questionShape.setText(question.getPhrase());
+            answer1.setText(question.getAnswer(0).getText());
+            answer2.setText(question.getAnswer(1).getText());
+            answer3.setText(question.getAnswer(2).getText());
+            answer4.setText(question.getAnswer(3).getText());
+        }
+    }
+
+    // هذه الدالة تستخدم لنقل اللاعب إلى الحاوية التي تعرض له نتيجته
+    public void displayResult() {
+        timeline.stop();
+        ResultPane.setResult(correctAnswersCounter, totalEarning);
+        Main.STAGE.getScene().setRoot(Main.PANE\_RESULT);
+    }
+
+    // هذه الدالة تستخدم للتأكد من إجابة المستخدم, مع الإشارة إلى أنها أكثر دالة معقدة في كل هذا البرنامج
+    // حيث أنها تحلل كل ما يقوم به المستخدم, لعرض كل الأشياء التي يجب أن تظهر له في التوقيت المناسب
+    public void checkAnswer() {
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
+
+            if (RemainingSeconds == 0) {
+                timerLabel.setText("إنتهى الوقت");
+                // سيتم استدعاءها بعد ثانيتين displayResult() قمنا بإضافة الأسطر الثلاثة التالية فقك لضمان أن الدالة
+                RemainingSeconds = -5;
+                isAnswerCorrect = false;
+                anAnswerButtonIsClicked = true;
+            }
+            else {
+                // إذا لم يقم المستخدم بالنقر على أي إجابة, سيتم عرض الوقت المتبقي له للإجابة فقط
+                if (anAnswerButtonIsClicked == false) {
+                    // في حال قام بالنقر على زر الإتصال بصديق, سيتم طباعة الجمل التالية مع عرض كل جملة مدة ثانيتين تقريباً
+                    // و في النهاية سيتم عرض الجواب الصحيح أمامه
+                    if (aFriendIsCalled == true) {
+                        if (RemainingSeconds == 40) {
+                            timerLabel.setText("يتم الآن الإتصال بصديقك");
+                        } else if (RemainingSeconds == 37) {
+                            timerLabel.setText("مرحباً بك أيها الصديق");
+                        } else if (RemainingSeconds == 34) {
+                            timerLabel.setText("معك 30 ثانية للإجابة على السؤال التالي");
+                        } else if (RemainingSeconds == 30) {
+                            timerLabel.setText(question.getPhrase());
+                        } else if (RemainingSeconds == 22) {
+                            timerLabel.setText("أعتقد أن الجواب الصحيح هو");
+                        } else if (RemainingSeconds == 18) {
+                            if (question.getAnswer(0).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(0).getText());
+                            } else if (question.getAnswer(1).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(1).getText());
+                            } else if (question.getAnswer(2).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(2).getText());
+                            } else if (question.getAnswer(3).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(3).getText());
+                            }
+                        } else if (RemainingSeconds == 1) {
+                            aFriendIsCalled = false;
+                            RemainingSeconds = InitialSeconds;
+                        }
+                    }
+                    /////////////////////////////////////////////////////////////
+                    // في حال قام بالنقر على زر طلب المساعدة من الجمهور, سيتم طباعة الجمل التالية مع عرض كل جملة مدة خمس ثواني
+                    // و في النهاية سيتم عرض الجواب الصحيح أمامه
+                    else if (userIsAskingAudience == true) {
+                        if (RemainingSeconds == 40) {
+                            timerLabel.setText("سيساعدك الآن الجمهور باختيار الإجابة الصحيحة");
+                        } else if (RemainingSeconds == 35) {
+                            timerLabel.setText("النسبة الأكبر من الأصوات إختارت الإجابة");
+                        } else if (RemainingSeconds == 30) {
+                            if (question.getAnswer(0).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(0).getText());
+                            } else if (question.getAnswer(1).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(1).getText());
+                            } else if (question.getAnswer(2).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(2).getText());
+                            } else if (question.getAnswer(3).isCorrect == true) {
+                                timerLabel.setText(question.getAnswer(3).getText());
+                            }
+                        } else if (RemainingSeconds == 20) {
+                            userIsAskingAudience = false;
+                            RemainingSeconds = InitialSeconds;
+                        }
+                    }
+                    // هذا الأمر, يعني أنه سيتم عرض الوقت المتبقي للإجابة في حال كان المستخدم لا يطلب حالياً مساعدة صديق أو مساعدة جمهور
+                    else {
+                        timerLabel.setText(RemainingSeconds.toString());
+                    }
+                    RemainingSeconds--;
+                }
+                // إذا تم النقر على أي إجابة, سيتم التأكد من ما إذا كانت الإجابة صحيحة أم لا و على أساس ذلك سيتم عرض جمل معينة أمامه
+                else if (anAnswerButtonIsClicked == true) {
+
+                    // أكبر من 0, سيتم عرض جملة جديدة كل ثانيتين RemainingSeconds إذا كانت قيمة المتغير 
+                    if (RemainingSeconds > 0) {
+                        RemainingSeconds = 0;
+                    }
+
+                    // RemainingSeconds بعدها سيتم إنقاص ثانية واحدة من المتغير
+                    RemainingSeconds--;
+
+                    // هنا قمنا بتحديد الجملة الأولى التي سيتم طباعتها
+                    if (RemainingSeconds <= -2 && RemainingSeconds >= -5) {
+                        if (isAnswerCorrect == true) {
+                            timerLabel.setText("الإجابة صحيحة");
+                        } else {
+                            timerLabel.setText("الإجابة غير صحيحة");
+                            // إذا كان المستخدم قد قام باختيار إجابة خاطئة, سيتم جعل لون خلفية الزر الذي نقر عليه برتقالي
+                            switch (whichButtonIsClicked) {
+                                case "answer1":
+                                    answer1.setLooseBg();
+                                    break;
+                                case "answer2":
+                                    answer2.setLooseBg();
+                                    break;
+                                case "answer3":
+                                    answer3.setLooseBg();
+                                    break;
+                                case "answer4":
+                                    answer4.setLooseBg();
+                                    break;
+                            }
+                            if (RemainingSeconds == -3) {
+                                // بعد أن يقوم المستخدم باختيار أي إجابة, سيتم تلوين خلفية الإجابة الصحيحة باللون الأخضر
+                                if (question.getAnswer(0).isCorrect == true) {
+                                    answer1.setWinBg();
+                                } else if (question.getAnswer(1).isCorrect == true) {
+                                    answer2.setWinBg();
+                                } else if (question.getAnswer(2).isCorrect == true) {
+                                    answer3.setWinBg();
+                                } else if (question.getAnswer(3).isCorrect == true) {
+                                    answer4.setWinBg();
+                                }
+                            }
+                        }
+                    }
+                    // هنا قمنا بتحديد الجملة الثانية التي سيتم طباعتها
+                    else if (RemainingSeconds <= -6 && RemainingSeconds >= -9) {
+                        if (isAnswerCorrect == true) {
+                            if (RemainingSeconds == -6) {
+                                timerLabel.setText("أصبح رصيدك " + moneyLabels.get(correctAnswersCounter).getText());
+                                markLastPassedLevel();
+                                correctAnswersCounter++;
+                            }
+
+                            // حتى يتم نقله لصفحة النتيجة displayResult() إذا تم إنهاء جميع الأسئلة بنجاح سيتم إستدعاء الدالة
+                            if (correctAnswersCounter == 16 && RemainingSeconds == -9) {
+                                displayResult();
+                            }
+                        } 
+                        else {
+                            if (RemainingSeconds == -9) {
+                                displayResult();
+                            }
+                        }
+                    }
+                    // هنا قمنا بتحديد الجملة الثالثة التي سيتم طباعتها
+                    else if (RemainingSeconds <= -10 && RemainingSeconds >= -13) {
+                        timerLabel.setText("إستعد للسؤال التالي");
+                    } 
+                    // هنا قمنا بوضع السؤال التالي للمستخدم
+                    else if (RemainingSeconds <= -14 && RemainingSeconds >= -16) {
+                        if (RemainingSeconds == -16) {
+                            anAnswerButtonIsClicked = false;
+                            RemainingSeconds = InitialSeconds;
+                            displayNewQestion();
+                        }
+                    }
+                }
+            }
+
+            // إذا كان المستخدم يملك 10 ثواني أو أقل للإجابة سيتم تشغيل صوت يشبه دقة الثانية في كل ثانية
+            if (RemainingSeconds >= 0
+                    && RemainingSeconds < 10
+                    && aFriendIsCalled == false
+                    && userIsAskingAudience == false) {
+                mySounds.clockTickSound();
+            }
+        }
+        ));
+        // كما كان قبل تشغيله. أي كأنها تقوم بتصفيره timeline حتى تعيد الكائن playFromStart() الدالة 
+        timeline.playFromStart();
+    }
+
+    // هذا كونستركتور الكلاس
+    public GamePane() {
+
+        answer1.setOnMousePressed((MouseEvent t) -> {
+            if (anAnswerButtonIsClicked == false) {
+                answer1.setWinBg();
+                if (question.getAnswer(0).isCorrect == true) {
+                    mySounds.ClickOnCorrectAnswerSound();
+                    isAnswerCorrect = true;
+                } else {
+                    mySounds.ClickOnWrongAnswerSound();
+                    isAnswerCorrect = false;
+                }
+                anAnswerButtonIsClicked = true;
+                whichButtonIsClicked = "answer1";
+            }
+        });
+
+        answer2.setOnMousePressed((MouseEvent t) -> {
+            if (anAnswerButtonIsClicked == false) {
+                answer2.setWinBg();
+                if (question.getAnswer(1).isCorrect == true) {
+                    mySounds.ClickOnCorrectAnswerSound();
+                    isAnswerCorrect = true;
+                } else {
+                    mySounds.ClickOnWrongAnswerSound();
+                    isAnswerCorrect = false;
+                }
+                anAnswerButtonIsClicked = true;
+                whichButtonIsClicked = "answer2";
+            }
+        });
+
+        answer3.setOnMousePressed((MouseEvent t) -> {
+            if (anAnswerButtonIsClicked == false) {
+                answer3.setWinBg();
+                if (question.getAnswer(2).isCorrect == true) {
+                    mySounds.ClickOnCorrectAnswerSound();
+                    isAnswerCorrect = true;
+                } else {
+                    mySounds.ClickOnWrongAnswerSound();
+                    isAnswerCorrect = false;
+                }
+                anAnswerButtonIsClicked = true;
+                whichButtonIsClicked = "answer3";
+            }
+        });
+
+        answer4.setOnMousePressed((MouseEvent t) -> {
+            if (anAnswerButtonIsClicked == false) {
+                answer4.setWinBg();
+                if (question.getAnswer(3).isCorrect == true) {
+                    mySounds.ClickOnCorrectAnswerSound();
+                    isAnswerCorrect = true;
+                } else {
+                    mySounds.ClickOnWrongAnswerSound();
+                    isAnswerCorrect = false;
+                }
+                anAnswerButtonIsClicked = true;
+                whichButtonIsClicked = "answer4";
+            }
+        });
+
+        this.setPrefSize(WIDTH, HEIGHT);
+        setGameImage();
+
+        answersPane.setPrefSize(640, 100);
+        moneyBox.setPrefSize(130, 510);
+
+        btnExit.setPrefSize(100, 50);
+        btnBack.setPrefSize(100, 50);
+        btnCallFriend.setPrefSize(100, 50);
+        btnAskAudience.setPrefSize(100, 50);
+        btnDeleteTwoAnswers.setPrefSize(100, 50);
+
+        timerLabel.setPrefSize(640, 300);
+        timerLabel.setFont(new Font(30));
+        timerLabel.setTextFill(Color.WHITE);
+        timerLabel.setContentDisplay(ContentDisplay.CENTER);
+        timerLabel.setAlignment(Pos.CENTER);
+
+        String btnStyle \= "-fx-focus-color: transparent; -fx-border-width:2; -fx-border-color: #87cefa; -fx-border-radius:50; -fx-background-radius:50; -fx-background-color:rgba(30, 30, 30, 0.5); -fx-cursor: hand;";
+        btnExit.setStyle(btnStyle);
+        btnBack.setStyle(btnStyle);
+        btnCallFriend.setStyle(btnStyle);
+        btnAskAudience.setStyle(btnStyle);
+        btnDeleteTwoAnswers.setStyle(btnStyle);
+
+        btnStyle
+                = "-fx-focus-color: transparent; "
+                + "-fx-border-width: 2;"
+                + "-fx-border-color: #00f;"
+                + "-fx-border-radius: 10;"
+                + "-fx-text-fill: white;"
+                + "-fx-background-color: rgba(30, 30, 30, 0.5);"
+                + "-fx-cursor: hand;"
+                + "-fx-font-size: 18;"
+                + "-fx-padding: 10 0 10 0;"
+                + "-fx-pref-width: 220;"
+                + "-fx-pref-height: 40;"
+                + "-fx-padding: 10 0 10 0;";
+
+        btnPlayGame.setStyle(btnStyle);
+
+        playButtonPane.setPrefSize(640, 300);
+        playButtonPane.getChildren().add(btnPlayGame);
+
+        topMenuBox.setPadding(new Insets(0, 0, 0, 50));
+
+        topMenuBox.getChildren().addAll(btnExit, btnBack, btnCallFriend, btnAskAudience, btnDeleteTwoAnswers);
+        answersPane.getChildren().addAll(answer1.getPane(), answer2.getPane(), answer3.getPane(), answer4.getPane());
+        vBox.getChildren().addAll(topMenuBox, playButtonPane, questionShape, answersPane);
+        hBox.getChildren().addAll(vBox, moneyBox);
+
+        hBox.autosize();
+
+        hBox.setTranslateX((WIDTH / 2) - (hBox.getWidth() / 2));
+        hBox.setTranslateY((HEIGHT / 2) - (hBox.getHeight() / 2));
+
+        this.getChildren().add(hBox);
+        addMoneyBox();
+
+        btnExit.setOnAction(e -> {
+            Platform.exit();
+        });
+
+        btnBack.setOnAction(e -> {
+            questionShape.setText("");
+            mySounds.clickSound();
+            Main.STAGE.getScene().setRoot(Main.PANE\_MENU);
+            timeline.stop();
+            timeline = null;
+            questions = null;
+            vBox.getChildren().set(1, playButtonPane);
+            answer1.setText("");
+            answer1.setDefaultBg();
+            answer1.setVisible(true);
+            answer2.setText("");
+            answer2.setDefaultBg();
+            answer2.setVisible(true);
+            answer3.setText("");
+            answer3.setDefaultBg();
+            answer3.setVisible(true);
+            answer4.setText("");
+            answer4.setDefaultBg();
+            answer4.setVisible(true);
+            initialValues();
+            btnCallFriend.setDisable(false);
+            btnAskAudience.setDisable(false);
+            btnDeleteTwoAnswers.setDisable(false);
+        });
+
+        btnCallFriend.setOnAction(e -> {
+            mySounds.clickSound();
+            btnCallFriend.setDisable(true);
+            RemainingSeconds = 40;
+            aFriendIsCalled = true;
+        });
+
+        btnAskAudience.setOnAction(e -> {
+            mySounds.clickSound();
+            btnAskAudience.setDisable(true);
+            RemainingSeconds = 40;
+            userIsAskingAudience = true;
+        });
+
+        btnDeleteTwoAnswers.setOnAction(e -> {
+            mySounds.clickSound();
+            btnDeleteTwoAnswers.setDisable(true);
+
+            if (question.getAnswer(0).isCorrect == false && hiddenButtonsCounter < 2) {
+                answer1.hide();
+                hiddenButtonsCounter++;
+            }
+
+            if (question.getAnswer(1).isCorrect == false && hiddenButtonsCounter < 2) {
+                answer2.hide();
+                hiddenButtonsCounter++;
+            }
+
+            if (question.getAnswer(2).isCorrect == false && hiddenButtonsCounter < 2) {
+                answer3.hide();
+                hiddenButtonsCounter++;
+            }
+
+            if (question.getAnswer(3).isCorrect == false && hiddenButtonsCounter < 2) {
+                answer4.hide();
+                hiddenButtonsCounter++;
+            }
+        });
+
+        btnPlayGame.setOnAction(e -> {
+            vBox.getChildren().set(1, timerLabel);
+            playGame();
+        });
+
+    }
+
+    // هذه الدالة تستخدم لوضع خلفية للعبة, مع الإشارة إلى أننا استدمنا أيضاً نفس الخلفية التي وضعناها في كل الصفحات
+    public void setGameImage() {
+        this.setBackground(Main.GetBGImage());
+    }
+
+    // هذه الدالة تستخدم لإنشاء و إضافة عناصر الحاوية التي يظهر فيها رصيد المستخدم
+    public void addMoneyBox() {
+        moneyLabels.add(new Label("100"));
+        moneyLabels.add(new Label("200"));
+        moneyLabels.add(new Label("300"));
+        moneyLabels.add(new Label("500"));
+        moneyLabels.add(new Label("1000"));
+        moneyLabels.add(new Label("2000"));
+        moneyLabels.add(new Label("4000"));
+        moneyLabels.add(new Label("8000"));
+        moneyLabels.add(new Label("16000"));
+        moneyLabels.add(new Label("22000"));
+        moneyLabels.add(new Label("64000"));
+        moneyLabels.add(new Label("125000"));
+        moneyLabels.add(new Label("250000"));
+        moneyLabels.add(new Label("500000"));
+        moneyLabels.add(new Label("1000000"));
+
+        for (int i \= moneyLabels.size() - 1; i > -1; i--) {
+            moneyLabels.get(i).setAlignment(Pos.CENTER);
+            moneyLabels.get(i).setStyle(
+                    "-fx-border-color: #aaa;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-background-color: black;"
+                    + "-fx-text-fill: yellow;"
+                    + "-fx-font-family: calibry;"
+                    + "-fx-font-size: 17;"
+                    + "-fx-text-alignment: center;"
+                    + "-fx-pref-width: 120;"
+                    + "-fx-pref-height: 30;"
+            );
+            moneyBox.getChildren().add(moneyLabels.get(i));
+        }
+        moneyBox.setAlignment(Pos.CENTER\_RIGHT);
+    }
+
+}
+
+  
+GameQuestionShape.java
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
+import javafx.scene.text.Font;
+
+// ( لأننا ننوي جعله يكون عبارة عن حاوية لها شكل معين و فيها نص ( السؤال Pane يرث من الكلاس GameQuestionShape هنا جعلنا الكلاس
+public class GameQuestionShape extends Pane {
+
+    // لأننا سنعرض النص عليه Label هنا قمنا بإنشاء كائن من الكلاس
+    Label label \= new Label();
+
+    // هنا قمنا بتجهيز هذا الكونستركتور حتى نستطيع تحديد حجم النص مباشرةً عند إنشاء كائن من هذا الكلاس
+    public GameQuestionShape(int width, int height) {
+
+        // label سيمثل الشكل الهندسي الذي سيظهر حول السؤال, أي حول نص الكائن polyline الكائن
+        Polyline polyline \= new Polyline(
+                0, 30,
+                20, 30,
+                40, 0,
+                600, 0,
+                620, 30,
+                640, 30,
+                620, 30,
+                600, 60,
+                40, 60,
+                20, 30
+        );
+        
+        // لأننا سندمجه معه GameQuestionShape و الذي بدوره سيتم تطبيقه على الكائن الذي ننشئه من الكلاس polyline هنا قمنا بإضافة لون أبيض باهت حول الكائن
+        polyline.setStroke(Color.color(1, 1, 1, 0.75));
+
+        // ( حجمه, مكان ظهوره, لون النص, نوع الخط, حجم الخط و حجم الفراغ حوله ) label هنا قمنا بتحديد خصائص ظهور الكائن
+        label.setTranslateX(0);
+        label.setTranslateY(0);
+        label.setPrefSize(width, height);
+        label.setAlignment(Pos.CENTER\_RIGHT);
+        label.setPadding(new Insets(-10, 40, 0, 40));
+        label.setFont(Font.loadFont(Main.class.getResource("res/fonts/droidnaskh-regular-webfon.ttf").toExternalForm(), 16));
+        label.setTextFill(Color.WHITE);
+
+        // GameQuestionShape في الحاوية التي يمثلها الكائن الذي ننشئه من الكلاس polyline و label هنا قمنا بوضع الكائن
+        // و أصبحنا نستطيع تحريكهما معاً GameQuestionShape بالكائن الذي يتم إنشاؤه من الكلاس polyline و label أي كأننا ألصقنا الكائن
+        getChildren().addAll(polyline, label);
+    }
+
+    // GameQuestionShape و الذي بدوره سيوضع في الكائن الذي ننشئه من الكلاس label هذه الدالة نمرر لها النص الذي نريد وضعه للكائن
+    public void setText(String s) {
+        this.label.setText(s);
+    }
+}
+
+  
+Main.java
+
+import java.util.Locale;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+public class Main extends Application implements ScreenBounds {
+
+    // لأننا سنعتبر كل واحد منهم كصفحة في التطبيق Pane لأنه سيمثل نافذة التطبيق, و 4 كائنات من الكلاس STAGE هنا قمنا بإنشاء كائن من الكلاس
+    // لتسهيل الوصول إليهم و لعدم الحاجة إلى إنشاء كائن منهم كلما أردنا التنقل بين الصفحات و هذا الأمر يجعل حجم البرنامج أصغر في الذاكرة static و قمنا بتعريفهم كـ
+    static Stage STAGE;
+    static Pane PANE\_MENU \= new MenuPane();
+    static Pane PANE\_ABOUT \= new AboutPane();
+    static Pane PANE\_RESULT \= new ResultPane();
+    static Pane PANE\_GAME \= new GamePane();
+
+    @Override
+    public void start(Stage stage) {
+
+        // هنا قمنا بإنشاء النافذة و جعلناها تملئ شاشة المستخدم, غير قابلة للتصغير, و وضعنا أيقونة لها, كما أننا وضعنا لها عنوان
+        STAGE = stage;
+        STAGE.setFullScreen(true);
+        STAGE.setResizable(false);
+        STAGE.setFullScreenExitKeyCombination(KeyCombination.NO\_MATCH);
+        STAGE.getIcons().add(new Image(Main.class.getResourceAsStream("res/images/icon.png")));
+        STAGE.setTitle("من سيربح المليون - أسئلة إسلامية");
+
+        // STAGE ثم مررناه للكائن ( PANE\_MENU وضعنا فيه الحاوية ) Scene هنا قمنا بإنشاء كائن من الكلاس
+        // هي أول حاوية ( أي أول صفحة ) يتم عرضها عند تشغيل اللعبة PANE\_MENU هكذا ستكون الحاوية 
+        STAGE.setScene(new Scene(PANE\_MENU));
+
+        // هنا قمنا بإظهار نافذة اللعبة
+        STAGE.show();
+
+    }
+
+    // هذه الدالة قمنا ببنائها لتعيين الصورة التي نريد وضعها كخلفية لأي حاوية ( و نقصد صفحة ) نعرضها في اللعبة, فعلياً ترجع لنا الصورة فقط
+    public static Background GetBGImage() {
+        BackgroundImage myBI \= new BackgroundImage(
+                new Image("res/images/black-wallpaper.jpg"),
+                BackgroundRepeat.NO\_REPEAT,
+                BackgroundRepeat.NO\_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        return new Background(myBI);
+    }
+
+    public static void main(String\[\] args) {
+        Locale.setDefault(new Locale("ar"));
+        launch(args);
+    }
+
+}
+
+  
+MenuItemShape.java
+
+import javafx.beans.binding.Bindings;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+
+// و جعله قابل للنقر (Width + Height) هو لتمكيننا من إعطائه حجم Rectangle يرث من الكلاس MenuItemShape سبب جعل الكلاس
+public class MenuItemShape extends Rectangle {
+
+    // MenuItemShape لأننا سنعتمد عليه لنرسم شكل الزر الذي نريد الحصول عليه عند إنشاء كائن من الكلاس Polygon قمنا بتعريف كائن من الكلاس
+    Polygon polygon;
+
+    // هنا قمنا بتجهيز هذا الكونستركتور حتى نستطيع تحديد حجم الزر مباشرةً عند إنشاء كائن من هذا الكلاس
+    public MenuItemShape(int width, int height) {
+
+        // عند إنشاء كائن من الكلاس height و width لاحظ أن شكل الزر الذي سيتم رسمه يعتمد بشكل أساسي على القيم التي سنمررها للباراميترين
+        polygon = new Polygon(
+                0, height/2,
+                20, 0,
+                width, 0,
+                width, height,
+                20, height,
+                0, height/2
+        );
+        
+        // لأننا سندمجه معه MenuItemShape و الذي بدوره سيتم تطبيقه على الكائن الذي ننشئه من الكلاس polygon هنا قمنا بإضافة لون أبيض باهت حول الكائن
+        polygon.setStroke(Color.color(1, 1, 1, 0.75));
+
+        // الطبيعي هو غامق بنسبة 25 بالمئة و سيصبح أغمق بنسبة 50 بالمئة حين ننقر فوقه بالفأرة polygon هنا حددنا أن لون خلفية الكائن
+        polygon.fillProperty().bind(Bindings.when(pressedProperty())
+                .then(Color.color(0, 0, 0, 0.50))
+                .otherwise(Color.color(0, 0, 0, 0.25))
+        );
+        
+        // MenuItemShape عند إنشاء كائن من الكلاس height و width حددنا أن حجم الشكل الذي سنحصل عليه سيكون مطابقاً للقيم التي نمررها مكان البارميترين
+        // MenuItemShape يساوي حجم الكائن الذي سنحصل عليه عند دمجه مع الكائن الذي ننشئه من الكلاس polygon بهذه الطريقة يكون حجم الكائن
+        this.setWidth(width);
+        this.setHeight(height);
+        
+        // هو أزرق MenuItemShape هنا حددنا أن لون خلفية الكائن الذي سنحصل عليه عند إنشاء كائن من الكلاس
+        // كما أنه عند تمرير الفأرة فوقه سيتحول شكل السهم إلى شكل إصبع, مما يجعل المستخدم يدرك أن هذا الشكل قابل للنقر
+        this.setFill(Color.BLUE);
+        this.setStyle("-fx-cursor: hand;");
+
+        // MenuItemShape على الكائن الذي ننشئه من الكلاس polygon هنا قمنا بدمج و تطبيق خصائص الكائن
+        this.setClip(polygon);
+
+    }
+    
+}
+
+  
+MenuPane.java
+
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
+
+public class MenuPane extends Pane implements ScreenBounds {
+
+    Text title \= new Text("من سيربح المليون");
+    VBox vBox \= new VBox(5);
+    Line line \= new Line();
+    Sounds mySounds \= new Sounds();
+
+    // هذه الدالة تستخدم لرسم العامود الأبيض الذي سيظهر على يمين الأزرار
+    private void addLine() {
+
+        double xStart \= (WIDTH / 2) + 110;
+        double yStart \= (HEIGHT / 2) - (vBox.getChildren().size() \* 40 / 2);
+
+        double xEnd \= xStart;   // جعلنا هاتين النقتطين متساويتين حتى يظهر الخط بشكل عامودي
+        double yEnd \= (HEIGHT / 2) + (vBox.getChildren().size() \* 40 / 2) + (vBox.getChildren().size() \* 5) - 5;
+
+        line = new Line(xStart, yStart, xEnd, yEnd);
+        line.setStrokeWidth(3);
+        line.setStroke(Color.color(0, 0, 1, 0.75));
+        line.setEffect(new DropShadow(5, Color.BLACK));
+        line.setScaleY(0);
+
+        this.getChildren().add(line);
+    }
+
+    // هذه الدالة تستخدم لتشغيل المؤثرات الموضوعة لعناصر الحاوية
+    private void startAnimation() {
+        ScaleTransition st \= new ScaleTransition(Duration.seconds(1));
+        st.setNode(title);
+        st.setToY(1);
+        st.play();
+
+        ScaleTransition st2 \= new ScaleTransition(Duration.seconds(1));
+        st2.setDelay(Duration.seconds(1));
+        st2.setNode(line);
+        st2.setToY(1);
+        st2.setOnFinished(e -> {
+
+            for (int i \= 0; i < vBox.getChildren().size(); i++) {
+                Node n \= vBox.getChildren().get(i);
+
+                TranslateTransition tt \= new TranslateTransition(Duration.seconds(1 + i \* 0.15), n);
+                tt.setToX(0);
+                tt.setOnFinished(e2 -> n.setClip(null));
+                tt.play();
+            }
+        });
+        st2.play();
+    }
+
+    // هذه الدالة تستخدم لإضافة حاوية الأزرار في حاوية الصفحة الأساسية و لتحديد مكان ظهورها
+    private void addVBox() {
+        double x \= (WIDTH / 2) - (220 / 2);
+        double y \= (HEIGHT / 2) - (vBox.getChildren().size() \* 40 / 2);
+
+        vBox.setTranslateX(x);
+        vBox.setTranslateY(y);
+
+        this.getChildren().add(vBox);
+    }
+
+    // هذه الدالة تستخدم لإضافة عنوان الصفحة ( و الذي في حالتنا يمثل إسم اللعبة ) و لتحديد حجمه, لونه, نوع خطه و مكان ظهوره
+    private void addTitle() {
+        title.setFont(Font.loadFont(Main.class.getResource("res/fonts/droidnaskh-regular-webfon.ttf").toExternalForm(), 36));
+        title.setFill(Color.WHITE);
+        title.setEffect(new DropShadow(30, Color.BLACK));
+        
+        title.setTranslateX(WIDTH / 2 - title.getLayoutBounds().getWidth() / 2);
+        title.setTranslateY(HEIGHT / 3);
+        title.setScaleY(0);
+
+        this.getChildren().add(title);
+    }
+
+    // vBox هنا قمنا ببناء الأزرار الثلاثة الذين سيظهروا في الصفحة و من ثم إضافتهم على الحاوية
+    // MenuItemShape يحتوي على كائن Pane كل زر, عبارة عن كائن
+    // الذي جلعنا خلفيته شفافة MenuItemShape موضوع خلف الكائن Label و النص الموضوع على كل زر عبارة كائن
+    // إضافة إلى ذلك, قمنا بتحديد النافذة التي نريدها أن تفتح عند النقر على كل زر منهم
+    private void addItems() {
+
+        MenuItemShape item1 \= new MenuItemShape(220, 40);
+        MenuItemShape item2 \= new MenuItemShape(220, 40);
+        MenuItemShape item3 \= new MenuItemShape(220, 40);
+
+        Pane pane1 \= new Pane();
+        Pane pane2 \= new Pane();
+        Pane pane3 \= new Pane();
+
+        pane1.setPrefSize(220, 40);
+        pane2.setPrefSize(220, 40);
+        pane3.setPrefSize(220, 40);
+
+        Label label1 \= new Label("إبدأ التحدي");
+        label1.setPrefSize(220, 40);
+        label1.setAlignment(Pos.CENTER\_RIGHT);
+        label1.setPadding(new Insets(-5, 15, 0, 0));
+        label1.setFont(Font.loadFont(Main.class.getResource("res/fonts/droidnaskh-regular-webfon.ttf").toExternalForm(), 14));
+        label1.setTextFill(Color.WHITE);
+
+        Label label2 \= new Label("حول اللعبة");
+        label2.setPrefSize(220, 40);
+        label2.setAlignment(Pos.CENTER\_RIGHT);
+        label2.setPadding(new Insets(-5, 15, 0, 0));
+        label2.setFont(Font.loadFont(Main.class.getResource("res/fonts/droidnaskh-regular-webfon.ttf").toExternalForm(), 14));
+        label2.setTextFill(Color.WHITE);
+
+        Label label3 \= new Label("خروج من اللعبة");
+        label3.setPrefSize(220, 40);
+        label3.setAlignment(Pos.CENTER\_RIGHT);
+        label3.setPadding(new Insets(-5, 15, 0, 0));
+        label3.setFont(Font.loadFont(Main.class.getResource("res/fonts/droidnaskh-regular-webfon.ttf").toExternalForm(), 14));
+        label3.setTextFill(Color.WHITE);
+
+        pane1.getChildren().addAll(label1, item1);
+        pane2.getChildren().addAll(label2, item2);
+        pane3.getChildren().addAll(label3, item3);
+
+        pane1.setTranslateX(220);
+        Rectangle clip1 \= new Rectangle(220, 40);
+        pane1.setClip(clip1);
+        clip1.translateXProperty().bind(pane1.translateXProperty().negate());
+
+        pane2.setTranslateX(220);
+        Rectangle clip2 \= new Rectangle(220, 40);
+        pane2.setClip(clip2);
+        clip2.translateXProperty().bind(pane2.translateXProperty().negate());
+
+        pane3.setTranslateX(220);
+        Rectangle clip3 \= new Rectangle(220, 40);
+        pane3.setClip(clip3);
+        clip3.translateXProperty().bind(pane3.translateXProperty().negate());
+
+        vBox.getChildren().addAll(pane1, pane2, pane3);
+
+        item1.setOnMouseClicked((MouseEvent t) -> {
+            mySounds.clickSound();
+            Main.STAGE.getScene().setRoot(Main.PANE\_GAME);
+        });
+
+        item2.setOnMouseClicked((MouseEvent t) -> {
+            mySounds.clickSound();
+            Main.STAGE.getScene().setRoot(Main.PANE\_ABOUT);
+        });
+
+        item3.setOnMouseClicked((MouseEvent t) -> {
+            Platform.exit();
+        });
+    }
+
+    // هذا كونستركتور الكلاس
+    public MenuPane() {
+        setPrefSize(WIDTH, HEIGHT);
+        setBackground(Main.GetBGImage());
+        addItems();
+        addTitle();
+        addLine();
+        addVBox();
+        startAnimation();
+        mySounds.introSound();
+    }
+
+}
+
+  
+Questions.java
+
+// بما أن كل سؤال في اللعبة يجب أن يكون له 4 أجوبة و منهم إجابة واحدة صحيحة فعلنا التالي
+// لأن كل جواب سيكون له نص ( أي نص الإجابة ) بالإضافة إلى مؤشر لنعرف من خلاله ما إن كانت الإجابة صحيحة أم لا Answer قمنا بتمثيل كل جواب بالكلاس
+// Answer لأن كل سؤال سيكون له نص ( أي نص السؤال ) مع 4 إجابات, أي مصفوفة فيها 4 كائنات من الكلاس Question قمنا بتمثيل كل جواب بالكلاس
+// Answer و الكلاس Question الذي بنيناه على أساس الكلاس Questions قمنا بتمثيل كل الأسئلة و الأجوبة التي نريد وضعها في اللعبة في الكلاس
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+// هذا الكلاس يمثل كيف سيتم تخزين كل إجابة في اللعبة سواء كانت صحيحة أو خاطئة
+class Answer {
+
+    String text;
+    boolean isCorrect;
+
+    public Answer(String text, boolean isCorrect) {
+        this.text = text;
+        this.isCorrect = isCorrect;
+    }
+
+    public Answer(String text) {
+        this.text = text;
+        this.isCorrect = false;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public boolean isCorrect() {
+        return this.isCorrect;
+    }
+
+}
+
+// هذا الكلاس يمثل كيف سيتم تخزين كل سؤال في اللعبة مع الإجابات الأربعة الخاصة فيه
+class Question {
+
+    String phrase;
+    ArrayList<Answer> answers = new ArrayList();
+
+    public Question(String phrase, Answer\[\] answers) {
+        this.phrase = phrase;
+        this.answers.add(answers\[0\]);
+        this.answers.add(answers\[1\]);
+        this.answers.add(answers\[2\]);
+        this.answers.add(answers\[3\]);
+    }
+
+    public String getPhrase() {
+        return this.phrase;
+    }
+
+    public Answer getAnswer(int answerIndex) {
+        return this.answers.get(answerIndex);
+    }
+    
+}
+
+// Question و الكلاس Answer هذا الكلاس يستخدم للحصول على مئة سؤال و هو مبني على أساس الكلاس
+public class Questions {
+
+    ArrayList<Question> al = new ArrayList();
+
+    public Questions() {
+        createQuestions();
+    }
+
+    public Question getQuestion() {
+        Question question \= al.get(0);
+        al.remove(0);
+        return question;
+    }
+
+    public void createQuestions() {
+
+        al.add(new Question("كان من خلق النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("الصدق", true),
+                    new Answer("الغضب"),
+                    new Answer("عدم التواضع"),
+                    new Answer("عدم الصدق"),})
+        );
+
+        al.add(new Question("ما اسم والد النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("عبدالله", true),
+                    new Answer("محمد"),
+                    new Answer("إبراهيم"),
+                    new Answer("عبد مناف"),})
+        );
+
+        al.add(new Question("ما اسم والدة النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("آمنة بنت وهب", true),
+                    new Answer("حليمة السعدية"),
+                    new Answer("فاطمة بنت حبيش"),
+                    new Answer("خديجة بنت خويلد"),})
+        );
+
+        al.add(new Question("في أي يوم ولد النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("في الثاني عشر من ربيع الأول", true),
+                    new Answer("في الأول من صفر"),
+                    new Answer("في الثاني من محرم"),
+                    new Answer("في السابع من شوال"),})
+        );
+
+        al.add(new Question("كم كان عمر النبي عندما توفي والده؟",
+                new Answer\[\]{
+                    new Answer("كان جنينا في بطن أمه", true),
+                    new Answer("كان رضيعا"),
+                    new Answer("كان طفلا"),
+                    new Answer("كان شابا"),})
+        );
+
+        al.add(new Question("ما اسم عمه الذي كفله وحماه من المشركين؟",
+                new Answer\[\]{
+                    new Answer("أبو طالب", true),
+                    new Answer("أبو لهب"),
+                    new Answer("أبو جهل"),
+                    new Answer("أبو عبيدة"),})
+        );
+
+        al.add(new Question("ما اسم زوجة النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("خديجة بنت خويلد", true),
+                    new Answer("فاطمة بنت قبيس"),
+                    new Answer("مريم بنت الزبير"),
+                    new Answer("الخنساء"),})
+        );
+
+        al.add(new Question("ما اسم الغار الذي كان النبي يعبد ربه فيه؟",
+                new Answer\[\]{
+                    new Answer("غار حراء", true),
+                    new Answer("غار ثور"),
+                    new Answer("غار علقمة"),
+                    new Answer("غار تميم"),})
+        );
+
+        al.add(new Question("كم كان عمر النبي عندما نزل عليه الوحي؟",
+                new Answer\[\]{
+                    new Answer("41 سنة", true),
+                    new Answer("50 سنة"),
+                    new Answer("60 سنة"),
+                    new Answer("44 سنة"),})
+        );
+
+        al.add(new Question("ما اسم ملك الوحي الذي نزل على النبي في الغار؟",
+                new Answer\[\]{
+                    new Answer("جبريل", true),
+                    new Answer("ميكائيل"),
+                    new Answer("إسرافيل"),
+                    new Answer("ملك الجبال"),})
+        );
+
+        al.add(new Question("من أول من أسلم من النساء؟",
+                new Answer\[\]{
+                    new Answer("خديجة بنت خويلد", true),
+                    new Answer("فاطمة بنت قبيس"),
+                    new Answer("عائشة بنت أبي بكر"),
+                    new Answer("زينب أم المساكين"),})
+        );
+
+        al.add(new Question("من أول من أسلم من الصبيان؟",
+                new Answer\[\]{
+                    new Answer("علي بن أبي طالب", true),
+                    new Answer("زيد بن حارثة"),
+                    new Answer("عبدالله بن عمر"),
+                    new Answer("عبدالله بن عباس"),})
+        );
+
+        al.add(new Question("من أول من أسلم من الرجال؟",
+                new Answer\[\]{
+                    new Answer("أبو بكر الصديق", true),
+                    new Answer("عثمان بن عفان"),
+                    new Answer("عبدالله بن مسعود"),
+                    new Answer("عمر بن الخطاب"),})
+        );
+
+        al.add(new Question("ما اسم القبيلة التي حاربت النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("قريش", true),
+                    new Answer("بنو تميم"),
+                    new Answer("ثقيف"),
+                    new Answer("بنو قيس"),})
+        );
+
+        al.add(new Question("أين كان يعيش النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("مكة المكرمة", true),
+                    new Answer("العراق"),
+                    new Answer("الشام"),
+                    new Answer("اليمن"),})
+        );
+
+        al.add(new Question("ما اسم عمَ النبي الذي لقب بأسد الله؟",
+                new Answer\[\]{
+                    new Answer("حمزة بن عبد المطلب", true),
+                    new Answer("أبو لهب"),
+                    new Answer("أبو طالب"),
+                    new Answer("العباس"),})
+        );
+
+        al.add(new Question("إلى أي بلاد هاجر المسلمون أول مرة؟",
+                new Answer\[\]{
+                    new Answer("الحبشة", true),
+                    new Answer("اليمن "),
+                    new Answer("الشام"),
+                    new Answer("نجد"),})
+        );
+
+        al.add(new Question("ما اسم الصحابي الذي قاد المسلمين إلى الحبشة؟",
+                new Answer\[\]{
+                    new Answer("جعفر بن أبي طالب", true),
+                    new Answer("حذيفة بن اليمان"),
+                    new Answer("أبو عبيدة بن الجراح"),
+                    new Answer("سعد بن معاذ"),})
+        );
+
+        al.add(new Question("ماذا كان اسم ملك الحبشة؟",
+                new Answer\[\]{
+                    new Answer("النجاشي", true),
+                    new Answer("كسرى"),
+                    new Answer("قيصر"),
+                    new Answer("النمرود"),})
+        );
+
+        al.add(new Question("ماذا كان اسم ملك الحبشة؟",
+                new Answer\[\]{
+                    new Answer("النجاشي", true),
+                    new Answer("كسرى"),
+                    new Answer("قيصر"),
+                    new Answer("النمرود"),})
+        );
+
+        al.add(new Question("تقع الكعبة المشرفة في ...",
+                new Answer\[\]{
+                    new Answer("مكة المكرمة", true),
+                    new Answer("خيبر"),
+                    new Answer("الشام"),
+                    new Answer("يثرب"),})
+        );
+
+        al.add(new Question("يقع المسجد الأقصى في ...",
+                new Answer\[\]{
+                    new Answer("القدس", true),
+                    new Answer("الطائف "),
+                    new Answer("يثرب"),
+                    new Answer("اليمن"),})
+        );
+
+        al.add(new Question("القدس عاصمة أي من الدول الآتية؟",
+                new Answer\[\]{
+                    new Answer("فلسطين", true),
+                    new Answer("العراق"),
+                    new Answer("اليمن"),
+                    new Answer("لبنان"),})
+        );
+
+        al.add(new Question("ما هما الرحلتان العظيمتان اللتان قام بهما الرسول؟",
+                new Answer\[\]{
+                    new Answer("الاسراء والمعراج", true),
+                    new Answer("حطين"),
+                    new Answer("عين جالوت"),
+                    new Answer("أحد"),})
+        );
+
+        al.add(new Question("ماذا فرض الله تعالى في ليلة الاسراء والمعراج؟",
+                new Answer\[\]{
+                    new Answer("الصلوات الخمس", true),
+                    new Answer("صوم رمضان"),
+                    new Answer("حج البيت"),
+                    new Answer("الزكاة"),})
+        );
+
+        al.add(new Question("ما اسم أول بيعة للأنصار في الإسلام؟",
+                new Answer\[\]{
+                    new Answer("بيعة العقبة", true),
+                    new Answer("بيعة نجد"),
+                    new Answer("بيعة ثقيف"),
+                    new Answer("بيعة الخزرج"),})
+        );
+
+        al.add(new Question("إلى أين هاجر المسلمون بعد الحبشة؟",
+                new Answer\[\]{
+                    new Answer("المدينة المنورة", true),
+                    new Answer("مكة"),
+                    new Answer("اليمن"),
+                    new Answer("الشام"),})
+        );
+
+        al.add(new Question("ماذا كان لقب المسلمين من أهل المدينة؟",
+                new Answer\[\]{
+                    new Answer("الأنصار", true),
+                    new Answer("المهاجرين"),
+                    new Answer("الفقراء"),
+                    new Answer("المسافرين"),})
+        );
+
+        al.add(new Question("ماذا كان لقب المسلمين القادمين من مكة؟",
+                new Answer\[\]{
+                    new Answer("المهاجرين", true),
+                    new Answer("الانصار"),
+                    new Answer("المقاتلين"),
+                    new Answer("الاغنياء"),})
+        );
+
+        al.add(new Question("من الصحابي الذي هاجر مع النبي إلى المدينة المنورة؟",
+                new Answer\[\]{
+                    new Answer("أبو بكر الصديق", true),
+                    new Answer("عمر بن الخطاب"),
+                    new Answer("علي بن أبي طالب"),
+                    new Answer("عثمان بن عفان"),})
+        );
+
+        al.add(new Question("ما اسم الغار الذي ارتاح فيه النبي قبل الوصول الى المدينة؟",
+                new Answer\[\]{
+                    new Answer("غار ثور", true),
+                    new Answer("غار حراء"),
+                    new Answer("غار شعلان"),
+                    new Answer("غار آدم"),})
+        );
+
+        al.add(new Question("ماذا قال النبي لأبي بكر وهما في الغار؟",
+                new Answer\[\]{
+                    new Answer("لا تحزن إن الله معنا", true),
+                    new Answer("لا تحزن سنموت سويا"),
+                    new Answer("لا تحزن لن نقتل"),
+                    new Answer("لا تحزن سنهزمهم"),})
+        );
+
+        al.add(new Question("ما هو أول أمر فعله النبي عندما وصل إلى المدينة؟",
+                new Answer\[\]{
+                    new Answer("بنى مسجدا", true),
+                    new Answer("أعطاهم مالا"),
+                    new Answer("أخذ تمرا"),
+                    new Answer("اشترى منزلا"),})
+        );
+
+        al.add(new Question("في بيت من أقام النبي عندما وصل إلى المدينة؟",
+                new Answer\[\]{
+                    new Answer("أبو أيوب الأنصاري", true),
+                    new Answer("سعد بن معاذ"),
+                    new Answer("عبادة بن الصامت"),
+                    new Answer("معاذ بن جبل"),})
+        );
+
+        al.add(new Question("ماذا فعل النبي بعد بناء المسجد؟",
+                new Answer\[\]{
+                    new Answer("آخى بين المهاجرين والأنصار", true),
+                    new Answer("حاسب الظالمين"),
+                    new Answer("بناء القصور"),
+                    new Answer("الراحة بعد السفر"),})
+        );
+
+        al.add(new Question("من كان يسكن في المدينة بجانب المسلمين؟",
+                new Answer\[\]{
+                    new Answer("اليهود", true),
+                    new Answer("الروم"),
+                    new Answer("الفرس"),
+                    new Answer("النصارى"),})
+        );
+
+        al.add(new Question("ماذا فعل النبي بعد المؤخاة بين المسلمين؟",
+                new Answer\[\]{
+                    new Answer("أقام معاهدة مع اليهود", true),
+                    new Answer("حارب اليهود"),
+                    new Answer("دعى الناس للطعام"),
+                    new Answer("نصب نفسه ملكا"),})
+        );
+
+        al.add(new Question("في أي سنة بعد الهجرة فرض الله صيام رمضان؟",
+                new Answer\[\]{
+                    new Answer("السنة الثانية", true),
+                    new Answer("السنة الأولى"),
+                    new Answer("السنة الخامسة"),
+                    new Answer("السنة الرابعة"),})
+        );
+
+        al.add(new Question("أول سرية في الاسلام كانت بقيادة من ...",
+                new Answer\[\]{
+                    new Answer("عبدالله بن جحش", true),
+                    new Answer("ابن مسعود"),
+                    new Answer("ابو عبيدة"),
+                    new Answer("خالد بن الوليد"),})
+        );
+
+        al.add(new Question("ماذا كان اسم رأس المنافقين في المدينة؟",
+                new Answer\[\]{
+                    new Answer("عبدالله بن أبي سلول", true),
+                    new Answer("عبدالله بن سلام"),
+                    new Answer("ولعان الأعمى"),
+                    new Answer("سعيد المصلوب"),})
+        );
+
+        al.add(new Question("ماذا كان اسم ـول معركة بين المسلمين والمشركين؟",
+                new Answer\[\]{
+                    new Answer("معركة بدر", true),
+                    new Answer("معركة ذات السلاسل"),
+                    new Answer("معركة القادسية"),
+                    new Answer("معركة أحد"),})
+        );
+
+        al.add(new Question("في أي سنة كانت معركة بدر الكبرى؟",
+                new Answer\[\]{
+                    new Answer("السنة الثانية", true),
+                    new Answer("السنة الثالثة"),
+                    new Answer("السنة السابعة"),
+                    new Answer("السنة الرابعة"),})
+        );
+
+        al.add(new Question("كم كان عدد المسلمين في معركة بدر؟",
+                new Answer\[\]{
+                    new Answer("313 رجلا", true),
+                    new Answer("500 رجل"),
+                    new Answer("1000 رجل"),
+                    new Answer("800 رجل"),})
+        );
+
+        al.add(new Question("كم كان عدد المشركين في معركة بدر؟",
+                new Answer\[\]{
+                    new Answer("1000 رجل", true),
+                    new Answer("2000 رجل"),
+                    new Answer("1500 رجل"),
+                    new Answer("900 رجل"),})
+        );
+
+        al.add(new Question("ما اسم الصحابي الذي اقترح مكان المعركة في بدر؟",
+                new Answer\[\]{
+                    new Answer("الحباب بن المنذر", true),
+                    new Answer("عمر بن الخطاب"),
+                    new Answer("أبو عبيدة بن الجراح"),
+                    new Answer("خالد بن الوليد"),})
+        );
+
+        al.add(new Question("من انتصر في معركة بدر؟",
+                new Answer\[\]{
+                    new Answer("المسلمون", true),
+                    new Answer("المشركون"),
+                    new Answer("الشيطان"),
+                    new Answer("الباطل"),})
+        );
+
+        al.add(new Question("كم عدد أركان الإسلام؟",
+                new Answer\[\]{
+                    new Answer("خمسة أركان", true),
+                    new Answer("ركنان"),
+                    new Answer("ثلاثة أركان"),
+                    new Answer("ركن واحد"),})
+        );
+
+        al.add(new Question("كان من خلق النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("الأمانة ", true),
+                    new Answer("الخيانة"),
+                    new Answer("الغش"),
+                    new Answer("التكبر"),})
+        );
+
+        al.add(new Question("من هو الصحابي الذي لقب بالصديق؟",
+                new Answer\[\]{
+                    new Answer("أبو بكر", true),
+                    new Answer("عثمان بن عفان"),
+                    new Answer("أبو عبيدة بن الجراح"),
+                    new Answer("أبو هريرة"),})
+        );
+
+        al.add(new Question("من هو الصحابي الذي لقب بالفاروق؟",
+                new Answer\[\]{
+                    new Answer("عمر بن الخطاب", true),
+                    new Answer("سعد بن معاذ"),
+                    new Answer("عبدالله بن الزبير"),
+                    new Answer("خالد بن الوليد"),})
+        );
+
+        al.add(new Question("من هو الصحابي الذي لقب بذي النورين؟",
+                new Answer\[\]{
+                    new Answer("عثمان بن عفان", true),
+                    new Answer("الزبير بن العوام"),
+                    new Answer("حذيفة بن اليمان"),
+                    new Answer("أبو صخر"),})
+        );
+
+        al.add(new Question("من هو الصحابي الذي لقب بأمين الأمة؟",
+                new Answer\[\]{
+                    new Answer("أبو عبيدة بن الجراح", true),
+                    new Answer("عامر بن عبدالله"),
+                    new Answer("أبو موسى الأشعري"),
+                    new Answer("عيينة بن حصين"),})
+        );
+
+        al.add(new Question("من هو الصحابي الذي لقب بسيف الله المسلول؟",
+                new Answer\[\]{
+                    new Answer("خالد بن الوليد", true),
+                    new Answer("الزبير بن العوام"),
+                    new Answer("الاقرع بن الحابس"),
+                    new Answer("عبدالله بن عباس"),})
+        );
+
+        al.add(new Question("من هو الصحابي الذي لقب بأمين السر النبوي؟",
+                new Answer\[\]{
+                    new Answer("حذيفة بن اليمان", true),
+                    new Answer("ابن مسعود"),
+                    new Answer("ابن عمر"),
+                    new Answer("عمر بن الخطاب"),})
+        );
+
+        al.add(new Question("من هو الصحابي الذي لقب بترجمان القرآن؟",
+                new Answer\[\]{
+                    new Answer("عبدالله بن عباس", true),
+                    new Answer("الحباب بن المنذر"),
+                    new Answer("قتادة"),
+                    new Answer("بلال بن رباح"),})
+        );
+
+        al.add(new Question("من هو مؤذن رسول الله؟",
+                new Answer\[\]{
+                    new Answer("بلال بن رباح", true),
+                    new Answer("عطاء بن أبي رباح"),
+                    new Answer("أبي بن كعب"),
+                    new Answer("زيد بن ثابت"),})
+        );
+
+        al.add(new Question("ما هو لقب الرسول صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("الصادق الأمين", true),
+                    new Answer("التاجر الصدوق"),
+                    new Answer("البر الأمين"),
+                    new Answer("الأمين الأمين"),})
+        );
+
+        al.add(new Question("ما هو عمل الرسول في شبابه؟",
+                new Answer\[\]{
+                    new Answer("التجارة", true),
+                    new Answer("الزراعة"),
+                    new Answer("السياسة"),
+                    new Answer("الحياكة"),})
+        );
+
+        al.add(new Question("إلى من أرسل الرسول صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("إلى كافة الناس", true),
+                    new Answer("إلى قريش"),
+                    new Answer("إلى بني هاشم"),
+                    new Answer("إلى الحجاز"),})
+        );
+
+        al.add(new Question("ما الذي جاء به الرسول محمد صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("بالشريعة الإسلامية", true),
+                    new Answer("باليهودية"),
+                    new Answer("بالمجوسية"),
+                    new Answer("بالنصرانية"),})
+        );
+
+        al.add(new Question("ما أكثر طعام الرسول صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("التمر والماء", true),
+                    new Answer("اللحم والخبز"),
+                    new Answer("الدجاج واللبن"),
+                    new Answer("الفاكهة والخضار"),})
+        );
+
+        al.add(new Question("كم حجة حج النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("حجة واحدة", true),
+                    new Answer("حجتان"),
+                    new Answer("ثلاث حجات"),
+                    new Answer("خمس حجات"),})
+        );
+
+        al.add(new Question("كم رمضان صام النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("تسع مرات", true),
+                    new Answer("ثلاث مرات"),
+                    new Answer("خمس مرات"),
+                    new Answer("مرتان"),})
+        );
+
+        al.add(new Question("ما هي كنية الرسول صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("أبو القاسم", true),
+                    new Answer("أبو ابراهيم"),
+                    new Answer("أبو يوسف"),
+                    new Answer("أبو اسماعيل"),})
+        );
+
+        al.add(new Question("ما آخر غزوة غزاها الرسول؟",
+                new Answer\[\]{
+                    new Answer("غزوة تبوك", true),
+                    new Answer("غزوة الخندق"),
+                    new Answer("غزوة بدر"),
+                    new Answer("غزوة ذات السلاسل"),})
+        );
+
+        al.add(new Question("ما هي معجزة النبي الخالدة؟",
+                new Answer\[\]{
+                    new Answer("القرآن الكريم", true),
+                    new Answer("الانجيل"),
+                    new Answer("التوراة"),
+                    new Answer("الزبور"),})
+        );
+
+        al.add(new Question("متى توفي الرسول صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("شهر ربيع الاول عام 11 للهجرة", true),
+                    new Answer("شهر صفر عام 14 للهجرة"),
+                    new Answer("شهر محرم عام 8 للهجرة"),
+                    new Answer("شهر شعبان عام 20 للهجرة"),})
+        );
+
+        al.add(new Question("كم كان عمره صلى الله عليه وسلم عند وفاته؟",
+                new Answer\[\]{
+                    new Answer("63 سنة", true),
+                    new Answer("64 سنة"),
+                    new Answer("70 سنة"),
+                    new Answer("55 سنة"),})
+        );
+
+        al.add(new Question("في أي بلد دفن النبي صلى الله عليه وسلم؟",
+                new Answer\[\]{
+                    new Answer("المدينة المنورة", true),
+                    new Answer("مكة المكرمة"),
+                    new Answer("فلسطين"),
+                    new Answer("اليمن"),})
+        );
+
+        al.add(new Question("ماذا نسمي معرفة حياة الرسول من ولادته حتى مماته؟",
+                new Answer\[\]{
+                    new Answer("السيرة النبوية", true),
+                    new Answer("قصة"),
+                    new Answer("فيلم وثائقي"),
+                    new Answer("رواية"),})
+        );
+
+        Collections.shuffle(al);
+    }
+
+}
+
+  
+ResultPane.java
+
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
+// حتى يظهر محتواه في وسط النافذة StackPane يرث من الكلاس ResultPane هنا جعلنا الكلاس
+// حتى يكون حجمه مطابق لحجم شاشة المستخدم ScreenBounds و جعلناه يطبق الإنترفيس
+public class ResultPane extends StackPane implements ScreenBounds {
+    
+    // حتى نستطيع إستدعاء دوال تشغيل الأصوات التي جهزناها فيه Sounds هنا قمنا بإنشاء كائن من الكلاس
+    Sounds mySounds \= new Sounds();
+    
+    // ResultPane هنا منا بتعريف جميع الأشياء التي سنعرضها في الحاوية التي سيمثلها الكائن الذي نرجعه من الكلاس
+    static Label label \= new Label();
+    Button buttonClose \= new Button("خروج");
+    Button buttonRetry \= new Button("إلعب من جديد");
+    VBox vBox \= new VBox(20);
+
+    // هذا كونستركتور الكلاس
+    public ResultPane() {
+
+        // ResultPane كخلفية للحاوية التي سنحصل عليها عند إنشاء كائن من الكلاس GetBGImage() هنا قمنا بوضع الصورة التي ترجعها الدالة
+        this.setBackground(Main.GetBGImage());
+
+        // Label هنا قمنا بتجهيز التصميم الذي نريد تطبيقه على الكائن
+        String labelStyle
+                \= "-fx-text-fill: white; "
+                + "-fx-font-size: 24;"
+                + "-fx-padding: 0 0 20 0;"
+                + "-fx-alignment: CENTER;";
+
+        // buttonRetry و buttonClose هنا قمنا بتجهيز التصميم الذي نريد تطبيقه على الكائنين
+        String btnStyle
+                \= "-fx-focus-color: transparent; "
+                + "-fx-border-width: 2;"
+                + "-fx-border-color: #00f;"
+                + "-fx-border-radius: 10;"
+                + "-fx-text-fill: white;"
+                + "-fx-background-color: rgba(30, 30, 30, 0.5);"
+                + "-fx-cursor: hand;"
+                + "-fx-font-size: 18;"
+                + "-fx-padding: 10 0 10 0;"
+                + "-fx-pref-width: 220;"
+                + "-fx-pref-height: 40;"
+                + "-fx-padding: 10 0 10 0;";
+
+        // buttonRetry و buttonClose, label هنا قمنا بتطبيق التصاميم على الكائنات
+        label.setStyle(labelStyle);
+        buttonClose.setStyle(btnStyle);
+        buttonRetry.setStyle(btnStyle);
+
+        // لكي يظهروا عامودياً تحت بعضهم البعض و في وسط الحاويةvBox في الحاوية buttonRetry و buttonClose, label هنا قمنا بإضافة الكائنات
+        vBox.getChildren().addAll(label, buttonRetry, buttonClose);
+        vBox.setAlignment(Pos.CENTER);
+        
+        // أي في الحاوية التي تمثل الصفحة نفسها .ResultPane في الكائن الذي ستم إنشاؤه من الكلاس vBox هنا أضفنا الحاوية
+        this.getChildren().addAll(vBox);
+
+        // buttonRetry هنا قمنا بتحديد ما سيحدث عند النقر على الزر الذي يمثله الكائن
+        buttonRetry.setOnAction(e -> {
+            mySounds.clickSound();
+            Main.STAGE.getScene().setRoot(new GamePane());
+        });
+
+        // buttonClose هنا قمنا بتحديد ما سيحدث عند النقر على الزر الذي يمثله الكائن
+        buttonClose.setOnAction(e -> {
+            Platform.exit();
+        });
+
+    }
+
+    public static void setResult(int answeredQuestions, int totalEarning) {
+        if (answeredQuestions == 0) {
+            label.setText("لم تعرف إجابة أي سؤال لذلك لم تفز بأي مبلغ !");
+        }
+        else if (answeredQuestions < 15){
+            label.setText("لقد تخطيت السؤال رقم " + answeredQuestions + " و فزت بمبلغ " + totalEarning + "$");
+        }
+        else if (answeredQuestions == 15) {
+            label.setText("لقد تخطيت جميع الأسئلة و فزت بمبلغ "\+ totalEarning + "$");            
+        }
+    }
+    
+}
+
+  
+ScreenBounds.java
+
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+
+// وضعنا في هذا الإنترفيس, المعلومات الأساسية و المشتركة التي يجب أن تتوفر في كل حاوية تمثل صفحة في اللعبة
+public interface ScreenBounds {
+    
+    Screen SCREEN \= Screen.getPrimary();
+    Rectangle2D BOUNDS \= SCREEN.getVisualBounds();
+
+    double WIDTH \= BOUNDS.getMaxX();
+    double HEIGHT \= BOUNDS.getMaxY();
+    
+}
+
+  
+Sounds.java
+
+import javafx.scene.media.AudioClip;
+
+// وضعنا فيه 5 دوال, كل دالة منهم تعطينا صوت معين عند إستدعاءها Sounds الكلاس
+public class Sounds {
+    
+    // لتمثلها و لنستطيع تشغيلها من خلالها AudioClip الملفات الصوتية الموضوعة في المشروع قمنا بإنشاء كائنات من الكلاس
+    AudioClip audio\_1 \= new AudioClip(getClass().getResource("res/sounds/general-click.wav").toString());
+    AudioClip audio\_2 \= new AudioClip(getClass().getResource("res/sounds/playing-click.wav").toString());
+    AudioClip audio\_3 \= new AudioClip(getClass().getResource("res/sounds/intro.MP3").toString());
+    AudioClip audio\_4 \= new AudioClip(getClass().getResource("res/sounds/clock-tick.wav").toString());
+    AudioClip audio\_5 \= new AudioClip(getClass().getResource("res/sounds/win-sound.mp3").toString());
+    
+    public void clickSound() {
+        audio\_1.play();
+    }
+    
+    public void ClickOnWrongAnswerSound() {
+        audio\_2.play();
+    }
+    
+    public void ClickOnCorrectAnswerSound() {
+        audio\_5.play();
+    }
+    
+    public void introSound() {
+        audio\_3.play();
+    }
+    
+    public void clockTickSound() {
+        audio\_4.play();
+    }
+    
+}

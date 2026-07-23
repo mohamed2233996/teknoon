@@ -1,0 +1,92 @@
+---
+title: "Swingالإنترفيس WindowListener"
+source: "https://harmash.com/tutorials/swing/awt-windowlistener"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:36.605Z"
+---
+
+يستخدم هذا الإنترفيس للتنبه لأي شيء يحدث للنافذة مثل عند تصغيرها, تكبيرها, فتحها, خروجها, ناشطة, غير ناشطة.
+
+الإنترفيس `WindowListener` يحتوي على خمس دوال يجب أن تفعل لها Override عند إنشاء كائن منه:  
+
+*   الدالة `windowOpened(WindowEvent e)`: يتم إستدعاءها بعد أن يتم فتح النافذة.
+*   الدالة `windowClosing(WindowEvent e)`: يتم إستدعاءها أثناء إغلاق النافذة
+*   الدالة `windowClosed(WindowEvent)`: يتم إستدعاءها بعد أن يتم إغلاق النافذة.
+*   الدالة `windowIconified(WindowEvent)`: يتم إستدعاءها بعد أن يتم إخفاء النافذة بالنقر على زر التصغير الموجود أعلاها.
+*   الدالة `windowDeiconified(WindowEvent e)`: يتم إستدعاءها بعد أن يتم إظهارها من جديد.
+*   الدالة `windowActivated(WindowEvent)`: يتم إستدعاءها في حال كانت النافذة ناشطة, أي في حال لم يكن هناك أي نافذة أخرى أو تطبيق مفتوح فوقها.
+*   الدالة `windowDeactivated(WindowEvent e)`: يتم إستدعاءها في حال كانت النافذة غير ناشطة, أي في حال كان هناك نافذة أخرى أو تطبيق مفتوح فوقها.
+
+  
+
+#### مثال
+
+Main.java
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        JFrame frame \= new JFrame("WindowListener Demo");
+ 
+        // هنا قلنا أنه كلما تفاعل المستخدم مع النافذة سيتم إظهار الحدث الذي فعله كرسالة
+        frame.addWindowListener(new WindowListener() {
+ 
+            @Override
+            public void windowOpened(WindowEvent e) {
+                JOptionPane.showMessageDialog(frame, "Event: Window Opened");
+            }
+ 
+            @Override
+            public void windowClosing(WindowEvent e) {
+                JOptionPane.showMessageDialog(frame, "Event: Window Closing");
+            }
+ 
+            @Override
+            public void windowClosed(WindowEvent e) {
+ 
+            }
+ 
+            @Override
+            public void windowIconified(WindowEvent e) {
+                JOptionPane.showMessageDialog(null, "Event: Window Iconified");
+            }
+ 
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                JOptionPane.showMessageDialog(null, "Event: Window Deiconified");
+            }
+ 
+            @Override
+            public void windowActivated(WindowEvent e) {
+ 
+            }
+ 
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+ 
+            }
+ 
+        });
+ 
+        frame.setSize(300, 300);                                // هنا قمنا بتحديد حجم النافذة. عرضها 300 و طولها 300
+        frame.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.setVisible(true);                                 // هنا جعلنا النافذة مرئية
+ 
+    }
+ 
+}
+
+ستظهر لك الرسالة التالية فوق النافذة عند التشغيل.
+
+![مثال يشرح طريقة تعريف الحدث WindowListener في جافا](/content-images/swing/awt-windowlistener/1784305416492-nn8mmt.PNG)
+
+ستظهر لك الرسالة التالية فوق النافذة قبل أن يتم إغلاق النافذة مباشرةً.
+
+![](/content-images/swing/awt-windowlistener/1784305416596-l2cati.PNG)

@@ -1,0 +1,133 @@
+---
+title: "Swingالكلاس JRadioButton"
+source: "https://harmash.com/tutorials/swing/jradiobutton"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:27.668Z"
+---
+
+## مقدمة
+
+الكلاس `JRadioButton` يستخدم لإضافة (Radio Button) في واجهة المستخدم.
+
+الـ Radio Button يستخدم في العادة عند وضع عدة خيارات ( Options ) للمستخدم و تجبره على إختيار واحدة منهم.
+
+لوضع مجموعة من الـ Radio Buttons و جعل Radio Button واحد يمكن إختياره في نفس الوقت, عليك وضعهم ضمن مجموعة واحدة.  
+لا تقلق ستفهم المقصود لاحقاً من الأمثلة.
+
+  
+
+### بناؤه
+
+public class JRadioButton
+extends JToggleButton
+implements Accessible
+
+## كونستركتورات الكلاس `JRadioButton`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JRadioButton`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JRadioButton()` ينشئ كائن من الكلاس `JRadioButton` يمثل Radio Button لا يوجد بجانبه نص أو صورة.
+
+2
+
+`public JRadioButton(String text)` ينشئ كائن من الكلاس `JRadioButton` يمثل Radio Button بجانبه نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه بجانب الـ Radio Button.
+
+3
+
+`public JRadioButton(String text, boolean selected)` ينشئ كائن من الكلاس `JRadioButton` يمثل Radio Button بجانبه نص.  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه بجانب الـ Radio Button.
+*   مكان الباراميتر `selected` نمرر القيمة `true` في حال أردنا إختيار الـ Radio Button.
+
+4
+
+`public JRadioButton(Icon image)` ينشئ كائن من الكلاس `JRadioButton` يمثل Radio Button بجانبه أيقونة.  
+مكان الباراميتر `Icon` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها بجانب الـ Radio Button.
+
+5
+
+`public JRadioButton(Icon image, boolean selected)` ينشئ كائن من الكلاس `JRadioButton` يمثل Radio Button بجانبه أيقونة.  
+
+*   مكان الباراميتر `Icon` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها بجانب الـ Radio Button.
+*   مكان الباراميتر `selected` نمرر القيمة `true` في حال أردنا إختيار الـ Radio Button.
+
+6
+
+`public JRadioButton(String text, Icon image, boolean selected)` ينشئ كائن من الكلاس `JRadioButton` يمثل Radio Button بجانبه نص و أيقونة معاً.  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه بجانب الـ Radio Button.
+*   مكان الباراميتر `Icon` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها بجانب الـ Radio Button.
+*   مكان الباراميتر `selected` نمرر القيمة `true` في حال أردنا إختيار الـ Radio Button.
+
+7
+
+`public JRadioButton(Action a)` ينشئ كائن من الكلاس `JRadioButton` يمثل Radio Button لا يوجد بجانبه نص أو صورة.  
+مكان الباراميتر `a` نمرر كائن من الكلاس `Action` يمثل ماذا سيحدث عند وضع أو إذالة على الصح من الـ Radio Button.
+
+## دوال الكلاس `JRadioButton`
+
+الدالة مع تعريفها
+
+1
+
+`public void addActionListener(ActionListener al)` تستخدم لتنفيذ أوامر معينة عند النقر على كائن الـ `JRadioButton` الذي قام بإستدعائها.  
+مكان الباراميتر `al` نضع كائن من الكلاس `ActionListener` و نفعل بداخله Override لدالة إسمها `actionPerformed(ActionEvent ae)`.
+
+2
+
+`public boolean isSelected()` تستخدم لمعرفة إذا تم إختيار كائن الـ `JRadioButton` الذي قام بإستدعائها, أي تم وضع نقطة عليه أم لا.  
+ترجع `true` إذا كان يوجد عليه نقطة, و ترجع `false` إذا كان لا يوجد نقطة.
+
+3
+
+`public void setSelected(boolean select)` تستخدم لتحديد إذا كان سيتم إختيار كائن الـ `JRadioButton` الذي قام بإستدعائها, أي سيتم وضع نقطة عليه أم لا.  
+مكان الباراميتر `select` نضع `true` إذا أردنا أن يتم إختيار كائن الـ `JRadioButton`, أي إذا أردنا وضع نقطة عليه, و نضع `false` إذا أردنا عدم إختياره, أي عدم وضع نقطة عليه.
+
+4
+
+`public boolean isEnabled()` تستخدم لمعرفة إذا كان متاحاً إختيار كائن الـ `JRadioButton` الذي قام بإستدعائها أم لا.  
+ترجع `true` إذا كان متاحاً, و ترجع `false` إذا لم يكن كذلك.
+
+5
+
+`public void setEnabled(boolean enable)` تستخدم لتحديد إذا كان كائن الـ `JRadioButton` الذي قام بإستدعائها متاحاً أم لا.  
+مكان الباراميتر `select` نضع `true` إذا أردنا جعل كائن الـ `JRadioButton` متاحاً, و نضع `false` إذا لم نرد جعله متاحاً.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JRadioButton` و إضافته في النافذة.
+
+![طريقة إضافة JRadioButton في ال JFrame](/content-images/swing/jradiobutton/1784305347465-bq8ktd.PNG)
+
+[شاهد المثال](/tutorials/swing/jradiobutton/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط كائن الـ `JRadioButton`.
+
+![تغيير لون و حجم و نوع خط ال JRadioButton](/content-images/swing/jradiobutton/1784305347556-3nyja4.PNG)
+
+[شاهد المثال](/tutorials/swing/jradiobutton/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة معرفة الـ Radio Button الذي قام المستخدم بإختياره ضمن مجموعة Radio Buttons.
+
+![طريقة معرفة ال JRadioButton الذي قام المستخدم بإختياره في جافا](/content-images/swing/jradiobutton/1784305347648-tzq6e1.PNG)
+
+[شاهد المثال](/tutorials/swing/jradiobutton/example-3)

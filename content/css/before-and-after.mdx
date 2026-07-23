@@ -1,0 +1,185 @@
+---
+title: "CSSبداية و نهاية العنصر"
+source: "https://harmash.com/tutorials/css/before-and-after"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:24.485Z"
+---
+
+## مفهوم بداية و نهاية العنصر
+
+أي عنصر في الصفحة يمكن إضافة محتوى في أوله و كذلك إضافة محتوى في آخره إضافةً إلى محتواه الأساسي.  
+فمثلاً يمكنك عرض أيقونة ما في بداية كل عنوان و يمكنك عرض أيقونة في نهاية كل رابط موضوع في الصفحة و هكذا.
+
+Pseudo selector definition
+
+Pseudo after selector
+
+Pseudo before selector
+
+في هذا الدرس ستتعلم كيف تضيف عنصر HTML في بداية أو نهاية أي عنصر موجود في الصفحة بواسطة محددات CSS.
+
+## إضافة محتوى في بداية العنصر
+
+لإضافة محتوى في بداية العنصر نكتب `::before` بعد محدد العنصر و من ثم نستخدم الخاصية `content` و نمرر لها المحتوى الذي نريد عرضه كقيمة.
+
+  
+
+في المثال التالي قمنا بإضافة النص `'Read this: '` في بداية كل عنصر `<p>`.
+
+#### المثال الأول
+
+p::before {
+    content: 'Read this: ';
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/content-before)
+
+  
+
+في المثال التالي قمنا بتعديل تصميم المحتوى الذي أضفناه قبل العنصر.
+
+#### المثال الثاني
+
+p::before {
+    content: 'Read';
+    display: inline-block;
+    background: lightseagreen;
+    color: white;
+    font-size: 13px;
+    padding: 2px 6px;
+    margin-right: 5px;
+    border-radius: 4px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/customize-inserted-content-before)
+
+  
+
+في المثال التالي قمنا بإضافة صورة صغيرة الحجم في بداية العنصر.  
+**ملاحظة:** هنا اخترنا صورة حجمها مناسب لحجم النص الذي سنضعها بجانبه حتى لا نضطر إلى التلاعب بحجم الصورة.
+
+#### المثال الثالث
+
+p::before {
+    content: url(checkmark.png);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/insert-image-before)
+
+  
+
+في المثال التالي قمنا بإضافة صورة في بداية العنصر مع ضبط حجمها لأن حجمها الأساسي غير مناسب.  
+الحيلة التي اعتمدناها لكي نتمكن من ضبط حجم الصورة هي أننا جعلنا محتوى العنصر فارغ و لكننا حددنا حجمه و أضفنا الصورة كخلفية له حتى نستطيع التحكم بحجمها.
+
+#### المثال الرابع
+
+p::before {
+    content: '';
+    background-image: url(carret.png);
+    background-size: contain;
+    width: 14px;
+    height: 14px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/set-the-size-of-image-inside-the-before-selector)
+
+  
+
+في المثال التالي قمنا بإضافة أيقونة من الإصدار 6 من مكتبة Fontawesome في بداية العنصر.  
+**ملاحظة:** أول ثلاث خصائص وضعناها ضرورية حتى يستطيع المتصفح عرض الأيقونة، و القيمة `"\f5bc"` هي قيمة جاهزة من المكتبة و هي تمثل كود الأيقونة التي سنستخدمها.
+
+#### المثال الخامس
+
+p::before {
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font: var(--fa-font-solid);
+    content: "\\f5bc";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/insert-fontawesome-icon-before)
+
+## إضافة محتوى في نهاية العنصر
+
+لإضافة محتوى في نهاية العنصر نكتب `::after` بعد محدد العنصر و من ثم نستخدم الخاصية `content` و نمرر لها المحتوى الذي نريد عرضه كقيمة.
+
+  
+
+في المثال التالي قمنا بإضافة النص `'correct!'` في نهاية كل عنصر `<p>`.
+
+#### المثال الأول
+
+p::after {
+    content: ' - Correct';
+}
+
+[جرب الكود](</tryit?file=/tutorials/css/before-and-after/content-after >)
+
+  
+
+في المثال التالي قمنا بتعديل تصميم المحتوى الذي أضفناه بعد العنصر.
+
+#### المثال الثاني
+
+p::after  {
+    content: 'Done';
+    display: inline-block;
+    background: lightseagreen;
+    color: white;
+    font-size: 13px;
+    padding: 2px 6px;
+    margin-left: 5px;
+    border-radius: 4px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/customize-inserted-content-after)
+
+  
+
+في المثال التالي قمنا بإضافة صورة صغيرة الحجم في نهاية العنصر.  
+**ملاحظة:** هنا اخترنا صورة حجمها مناسب لحجم النص الذي سنضعها بجانبه حتى لا نضطر إلى التلاعب بحجم الصورة.
+
+#### المثال الثالث
+
+p::after {
+    content: url(checkmark.png);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/insert-image-after)
+
+  
+
+في المثال التالي قمنا بإضافة صورة في نهاية العنصر مع ضبط حجمها لأن حجمها الأساسي غير مناسب.  
+الحيلة التي اعتمدناها لكي نتمكن من ضبط حجم الصورة هي أننا جعلنا محتوى العنصر فارغ و لكننا حددنا حجمه و أضفنا الصورة كخلفية له حتى نستطيع التحكم بحجمها.
+
+#### المثال الرابع
+
+p::after {
+    content: '';
+    background-image: url(carret.png);
+    background-size: contain;
+    width: 14px;
+    height: 14px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/set-the-size-of-image-inside-the-after-selector)
+
+  
+
+في المثال التالي قمنا بإضافة أيقونة من الإصدار 6 من مكتبة Fontawesome في بداية العنصر.  
+**ملاحظة:** أول ثلاث خصائص وضعناها ضرورية حتى يستطيع المتصفح عرض الأيقونة، و القيمة `"\f5bc"` هي قيمة جاهزة من المكتبة و هي تمثل كود الأيقونة التي سنستخدمها.
+
+#### المثال الخامس
+
+p::after {
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font: var(--fa-font-solid);
+    content: "\\f5bc";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/before-and-after/insert-fontawesome-icon-after)

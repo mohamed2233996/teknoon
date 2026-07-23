@@ -1,0 +1,172 @@
+---
+title: "Swingالكلاس GroupLayout"
+source: "https://harmash.com/tutorials/swing/grouplayout"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:20.241Z"
+---
+
+## مقدمة
+
+الكلاس `GroupLayout` يستخدم لترتيب الأشياء التي نضيفها ضمن مجموعات.  
+كل مجموعة يتم وضعها تكون في الأساس عبارة عن كائن من أحد الكلاسات التي ترث من الكلاس `Group`.
+
+إنتبه: هنا سيتوجب عليك تحديد تسلسل جميع الأشياء التي أضفتها في المجموعة أفقياً و عمودياً.  
+و في حال لم تحدد تسلسل جميع الأشياء التي أضفتها أفقياً و عامودياً فإنه سيتم رمي الإستثناء IllegalArgumentException.
+
+  
+
+### بناؤه
+
+public class GroupLayout
+extends Object
+implements LayoutManager2
+
+  
+
+الكلاس `GroupLayout` يحتوي على ثلاث كلاسات بداخله تم تصميمهم لتحديد طريقة ترتيب عناصر كل مجموعة. الكلاسات هم:
+
+*   الكلاس `SequentialGroup` يرث من الكلاس `Group`, و يستخدم لترتيبب الأشياء التي نضعها في المجموعة وراء بعضها البعض.
+*   الكلاس `ParallelGroup` يرث من الكلاس `Group`, و يستخدم لترتيبب الأشياء التي نضعها في المجموعة بشكل متوازي أفقياً أو عامودياً.
+*   الكلاس الثابت `Alignment` يحتوي على الثوابت ( `BASELINE`, `CENTER`, `LEADING`, `TRAILING` ) و التي تستخدم لتحديد طريقة إصطفاف الأشياء التي يتم وضعها في المجموعة.
+
+## ثوابت الكلاس `GroupLayout`
+
+الجدول التالي يحتوي على ثوابت الكلاس `GroupLayout`.
+
+الثابت
+
+إستخدامه
+
+`DEFAULT_SIZE`
+
+يستخدم لتحديد الحجم الإفتراضي للأشياء أو الفراغ بينهم.
+
+`PREFERRED_SIZE`
+
+يستخدم لتحديد الحجم المفضل للأشياء أو الفراغ بينهم.
+
+## كونستركتورات الكلاس `GroupLayout`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `GroupLayout`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public GroupLayout(Container host)` يرتب الأشياء التي نضيفها في النافذة أو الحاوية كمجموعة واحدة.  
+مكان الباراميتر `host` نضع النافذة أو الحاوية التي سيتم وضع المجموعة فيها.  
+  
+يرمي الإستثناء IllegalArgumentException في حال تم وضع `null` مكان الباراميتر `host`.
+
+## دوال الكلاس `GroupLayout`
+
+الجدول التالي يحتوي على أهم الدوال الموجودة في الكلاس `GroupLayout`.
+
+الدالة مع تعريفها
+
+1
+
+`public GroupLayout.SequentialGroup createSequentialGroup()` ترجع كائن من الكلاس `SequentialGroup`.  
+أي تستخدم لإنشاء مجموعة ترتب المحتوى الذي يتم وضعه فيها وراء بعضه البعض.
+
+2
+
+`public GroupLayout.ParallelGroup createParallelGroup(GroupLayout.Alignment alignment)` ترجع كائن من الكلاس `ParallelGroup`.  
+أي تستخدم لإنشاء مجموعة ترتب المحتوى الذي يتم وضعه فيها بشكل متوازي مع تحديد طريقة إصطفاف الأشياء التي نضيفها فيها.  
+مكان الباراميتر `alignment` نضع إحدى ثوابت الكلاس `Alignment` المخصصة لتحديد طريقة إصطفاف الأشياء التي يتم وضعها في المجموعة.  
+  
+ترمي الإستثناء IllegalArgumentException في حال تم وضع `null` مكان الباراميتر `alignment`.
+
+3
+
+`public void setHorizontalGroup(GroupLayout.Group group)` تستخدم لتحديد تسلسل الأشياء المراد إضافتها في المجموعة أفقياً.  
+مكان الباراميتر `group` نضع المجموعة التي سيتم تحديد تسلسل محتواها أفقياً.  
+  
+ترمي الإستثناء IllegalArgumentException في حال تم وضع `null` مكان الباراميتر `group`.
+
+4
+
+`public void setVerticalGroup(GroupLayout.Group group)` تستخدم لتحديد تسلسل الأشياء المراد إضافتها في المجموعة عامودياً.  
+مكان الباراميتر `group` نضع المجموعة التي سيتم تحديد تسلسل محتواها عامودياً.  
+  
+ترمي الإستثناء IllegalArgumentException في حال تم وضع `null` مكان الباراميتر `group`.
+
+5
+
+`public void setAutoCreateGaps(boolean autoCreatePadding)` تستخدم لإضافة هامش بشكل تلقائي بين الأشياء التي تم إضافتها في المجموعة.  
+مكان الباراميتر `autoCreatePadding` نضع القيمة `true` في حال أردنا إضافة هامش بشكل تلقائي بين الأشياء الموضوعة في المجموعة.  
+و نضع `false` إذا لم نرد ذلك.
+
+6
+
+`public void setAutoCreateContainerGaps(boolean autoCreateContainerPadding)` تستخدم لإضافة هامش بشكل تلقائي في محيط الأشياء التي تم إضافتها في المجموعة.  
+مكان الباراميتر `autoCreatePadding` نضع القيمة `true` في حال أردنا إضافة هامش بشكل تلقائي بين الأشياء الموضوعة في المجموعة و حدودها.  
+و نضع `false` إذا لم نرد ذلك.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة ترتيب محتوى الـ Frame بشكل متوازي أفقياً بواسطة الكلاس `GroupLayout`.
+
+![طريقة ترتيب محتوى ال JFrame بشكل متوازي أفقياً بواسطة الكلاس GroupLayout في جافا](/content-images/swing/grouplayout/1784305399766-f0z7rv.PNG)
+
+[شاهد المثال](/tutorials/swing/grouplayout/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة ترتيب محتوى الـ Frame بشكل متوازي عامودياً بواسطة الكلاس `GroupLayout`.
+
+![طريقة ترتيب محتوى ال JFrame بشكل متوازي عامودياً بواسطة الكلاس GroupLayout في جافا](/content-images/swing/grouplayout/1784305399859-3qy0i0.PNG)
+
+[شاهد المثال](/tutorials/swing/grouplayout/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة ترتيب محتوى الـ Frame بشكل متوازي أفقياً و عامودياً بواسطة الكلاس `GroupLayout`.
+
+![طريقة ترتيب محتوى ال JFrame بشكل متوازي أفقياً و عامودياً بواسطة الكلاس GroupLayout في جافا](/content-images/swing/grouplayout/1784305399950-1ugemz.PNG)
+
+[شاهد المثال](/tutorials/swing/grouplayout/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة إنشاء واجهة تسجيل دخول بواسطة الكلاس `GroupLayout`.
+
+![طريقة إنشاء واجهة تسجيل دخول بواسطة الكلاس GroupLayout في جافا](/content-images/swing/grouplayout/1784305400041-dv4o30.PNG)
+
+[شاهد المثال](/tutorials/swing/grouplayout/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة تحديد حجم الأشياء التي تضيفها في الـ Frame و حجم الفراغات بينهم عند إستخدام الـكلاس `GroupLayout`.
+
+![طريقة تحديد حجم الأشياء التي تضيفها في ال JFrame و حجم الفراغات بينهم عند إستخدام الكلاس GroupLayout في جافا](/content-images/swing/grouplayout/1784305400134-hi0zjl.PNG)
+
+[شاهد المثال](/tutorials/swing/grouplayout/example-5)
+
+  
+  
+
+### المثال السادس
+
+المثال التالي يعلمك طريقة جعل حجم الأشياء التي تضيفها في الـ Frame يتغير بشكل تلقائي عند تكبير أو تصغير النافذة عند إستخدام الكلاس `GroupLayout`.  
+أي ستتعلم كيف تجعل محتوى النافذة Resizable.
+
+![طريقة جعل حجم الأشياء التي تضيفها في ال JFrame يتغير بشكل تلقائي عند تكبير أو تصغير النافذة عند إستخدام الكلاس GroupLayout في جافا](/content-images/swing/grouplayout/1784305400227-mi1qms.PNG)
+
+[شاهد المثال](/tutorials/swing/grouplayout/example-6)

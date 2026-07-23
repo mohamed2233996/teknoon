@@ -1,0 +1,71 @@
+---
+title: "تحديات برمجيةالتعامل مع الأرقام و النصوص - التحدي الثاني"
+source: "https://harmash.com/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:24:31.242Z"
+---
+
+## التمرين الأول
+
+قم بتعريف دالة إسمها `RemoveAll`, عند استدعاءها نمرر لها نصيّن, فترجع نسخة من النص لا تحتوي على النص الثاني.  
+بعدها قم بتجربة هذه الدالة في البرنامج.
+
+**مثال:** إذا قمنا باستخدام الدالة `RemoveAll()` و تمرير النص `"I like cats. I have one cat."` و الكلمة `"cat"` لها فإنها سترجع النص `"I like s. I have one ."`.
+
+  
+
+[الحل بلغة بايثون](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-1-solution-using-python) [الحل بلغة جافا](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-1-solution-using-java) [الحل بلغة C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-1-solution-using-c) [الحل بلغة #C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-1-solution-using-csharp) [الحل بلغة ++C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-1-solution-using-cpp)
+
+## التمرين الثاني
+
+قم بتعريف دالة إسمها `ReplaceAll`, فكرتها البحث في النص عن جزئية ( كلمة أو جملة ) محددة و تبديلها بجزئية أخرى.  
+عند استدعاءها يجب أن نمرر لها ثلاث نصوص. الأول يمثل نص عادي, الثاني يمثل الجزئية التي نريد البحث عنها, و الثالث يمثل الجزئية التي نريد وضعها مكان الجزئية الثانية.  
+في النهاية يجب أن ترجع نسخة من النص الأول بعد أن تم تبديل الجزئية التي البحث عنها بالجزئية التي نريد وضعها مكانها.  
+بعدها قم بتجربة هذه الدالة في البرنامج.
+
+**مثال:** باستخدام الدالة `ReplaceAll()` يمكننا تبديل كل كلمة `"cat"` موجودة في النص `"I like cats. I have one cat."` بالكلمة `"dog"` و عندها سترجع لنا النص `"I like dogs. I have one dog."`.
+
+  
+
+[الحل بلغة بايثون](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-2-solution-using-python) [الحل بلغة جافا](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-2-solution-using-java) [الحل بلغة C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-2-solution-using-c) [الحل بلغة #C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-2-solution-using-csharp) [الحل بلغة ++C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-2-solution-using-cpp)
+
+## التمرين الثالث
+
+قم بتعريف دالة إسمها `DoubleChars`, نمرر لها نص عند إستدعاءها فتعيد لنا نسخة من هذا النص كل حرف فيها مكرر مرتين.
+
+**مثال:** إذا قمنا باستخدام الدالة `DoubleChars()` و تمرير النص `"Iron Man"` فإنها سترجع النص `"IIrroonn MMaann"`.
+
+  
+
+[الحل بلغة بايثون](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-3-solution-using-python) [الحل بلغة جافا](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-3-solution-using-java) [الحل بلغة C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-3-solution-using-c) [الحل بلغة #C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-3-solution-using-csharp) [الحل بلغة ++C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-3-solution-using-cpp)
+
+## التمرين الرابع
+
+قم بإنشاء برنامج يطلب من المستخدم إدخال ثلاث نصوص و يخزنهم في ثلاث متغيرات نصية هي `S1`, `S2` و `S3` و بعدها ينفذ التالي:
+
+1.  يخبره ما إن كان دمج `S1` مع `S2` يساوي `S3` أم لا.
+2.  يخبره ما إن كان `S1` يمثل جزء من `S2` أو يساويه ( أي `S1 == s2` ).
+3.  إذا كان طول `S1` أكبر من طول `S2` قم بإضافة نص `S2` على `S1` و خزن الناتج في متغير نصي جديد إسمه `S4`.
+4.  إذا كان طول `S2` أكبر من طول `S1` قم بإضافة نص `S1` على `S2` و خزن الناتج في متغير نصي جديد إسمه `S4`.
+5.  يخبره ما إن كان `S2` يمثل جزء من ثاني نصف في `S1`.
+6.  يعرض له الأحرف الموجودة في أول نصف في `S1`.
+
+  
+
+[الحل بلغة بايثون](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-4-solution-using-python) [الحل بلغة جافا](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-4-solution-using-java) [الحل بلغة C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-4-solution-using-c) [الحل بلغة #C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-4-solution-using-csharp) [الحل بلغة ++C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-4-solution-using-cpp)
+
+## التمرين الخامس
+
+قم بإنشاء برنامج يطلب من المستخدم إدخال نص و من ثم إدخال حرف واحد.  
+بعدها سيقوم البرنامج بطباعة مكان كل ( Index ) موجود عليه هذا الحرف في النص.
+
+**مثال:** إذا قام المستخدم بإدخال النص `"Harmash is the best site to learn programming"` و من ثم أدخل الحرف `"a"` فيجب أن يطبع له النتيجة التالية عند التشغيل.
+
+'a' found at index: 1
+'a' found at index: 4
+'a' found at index: 30
+'a' found at index: 39
+
+  
+
+[الحل بلغة بايثون](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-5-solution-using-python) [الحل بلغة جافا](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-5-solution-using-java) [الحل بلغة C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-5-solution-using-c) [الحل بلغة #C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-5-solution-using-csharp) [الحل بلغة ++C](/tutorials/algorithms-and-data-structure/numbers-and-strings-test-2/ex-5-solution-using-cpp)

@@ -1,0 +1,137 @@
+---
+title: "CSSالأعمدة المتعددة"
+source: "https://harmash.com/tutorials/css/multiple-columns"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:51.844Z"
+---
+
+## مفهوم الأعمدة المتعددة
+
+تخطيط الأعمدة المتعددة ( Multi-Column Layout ) هو أسلوب لعرض النصوص على شكل أعمدة تماماً كما يتم عرض النصوص في الصحف.
+
+CSS Multi-Column Layout
+
+The CSS multi-column layout module lets you divide content across multiple columns. By using the properties in this module, you can define the number and width of columns, the gap size between columns, and the visual appearance of the optional column dividing lines (known as column rules). You can also define how content should flow from column to column and how to break content between columns.
+
+عند عرض النص على شكل أعمدة فإنك قادر على تحديد عدد الأعمدة التي تريد توزيع النص عليها، حجم الهامش بين الأعمدة، عرض خطوط فاصلة بين الأعمدة و غيرها.
+
+في هذا الدرس سنتعرف على جميع الخصائص التالية و القيم التي يمكن إعطائها لها:
+
+`column-count` `column-gap` `column-rule-style` `column-rule-width` `column-rule-color` `column-rule` `column-span` `column-width`
+
+## تحديد عدد الأعمدة النصية
+
+لتحديد عدد الأعمدة التي يمكن أن يظهر النص عليها يمكنك استخدام الخاصية `column-count` و تمرير عدد الأعمدة كقيمة لها.
+
+في المثال التالي قمنا بجعل النص يظهر على ثلاث أعمدة.
+
+#### مثال
+
+.newspaper {
+    column-count: 3;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-count)
+
+## إضافة هامش بين الأعمدة النصية
+
+لإضافة أو تحديد حجم الهامش بين الأعمدة النصية نستخدم الخاصية `column-gap` و نضع لها عدد بوحدة قياس محددة كقيمة مثل `px`، `pt`، `cm` ليمثل حجم الهامش.
+
+في المثال التالي قمنا بإضافة هامش بين الأعمدة 40 بكسل.
+
+#### مثال
+
+.newspaper {
+    column-gap: 40px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-gap)
+
+## إظهار حدود الأعمدة النصية
+
+لتحديد شكل الحدود بين الأعمدة النصية يمكنك استخدام الخاصية `column-rule-style` و تمرير إحدى القيم المخصصة لتحديد شكل الحدود لها.
+
+#### المثال الأول
+
+.newspaper {
+    column-rule-style: solid;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-rule-style)
+
+  
+
+لتحديد سُمك الحدود بين الأعمدة النصية يمكنك استخدام الخاصية `column-rule-width` و تمرير عدد بوحدة قياس معينة لها.
+
+#### المثال الثاني
+
+.newspaper {
+    column-rule-width: 1px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-rule-width)
+
+  
+
+لتحديد لون الحدود بين الأعمدة النصية يمكنك استخدام الخاصية `column-rule-color` و تمرير اللون لها كقيمة.
+
+#### المثال الثالث
+
+.newspaper {
+    column-rule-color: deeppink;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-rule-color)
+
+  
+
+لتحديد كل خصائص الحدود بشكل مختصر ( Shorthand )، يمكنك استخدام الخاصية `column-rule` و تمرير القيمة التي تمثّل سُمكها، شكلها و لونها تباعاً.
+
+#### المثال الرابع
+
+.newspaper {
+    column-rule: 1px solid deeppink;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-rule)
+
+## تحديد عرض الأعمدة النصية
+
+لتحديد كم هو العرض الأدنى للعمود، يمكنك استخدام الخاصية `column-width` مع وضع عدد بوحدة قياس محددة لها كقيمة مثل `px`، `pt`، `cm`.
+
+في المثال التالي قمنا بتحديد أن حجم كل عمود من الأعمدة يجب أن يكون على الأقل 100 بكسل.
+
+#### مثال
+
+.newspaper {
+    column-width: 100px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-width)
+
+## دمج الأعمدة النصية
+
+في حال أردت إظهار عنوان يظهر على جميع أعمدة النص بدون أن يتم تقطيعه إلى أعمدة، يمكنك استخدام الخاصية `column-span` و هذه القيم التي يمكنك تمريرها لها:
+
+*   `none` هي القيمة الإفتراضية و التي تجعل محتوى العنصر يظهر في العمود و يمكنه أن يتوزع على عدة أعمدة.
+*   `all` تقوم بدمج الأعمدة حيث سيظهر محتوى العنصر، و من بعده يعود باقي المحتوى للظهور بداخل الأعمدة.
+
+#### مثال
+
+h3 {
+    column-span: all;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/column-span)
+
+## تحديد عدد و حجم الأعمدة النصية
+
+يمكنك استخدام الخاصية `columns` لتحديد أقل عرض ممكن للأعمدة النصية و عددها دفعة واحدة بدلاً من استخدام `column-width` و `column-count` لأجل ذلك.
+
+#### مثال
+
+.newspaper {
+    columns: 100px 3;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-columns/columns)

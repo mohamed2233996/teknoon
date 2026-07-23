@@ -1,0 +1,186 @@
+---
+title: "JavaFXالكلاس Slider"
+source: "https://harmash.com/tutorials/javafx/slider"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:16.831Z"
+---
+
+## مقدمة
+
+الكلاس `Slider` يستخدم لإضافة Slider في واجهة المستخدم.
+
+  
+
+### بناء الكلاس `Slider`
+
+public class Slider
+extends Control
+
+  
+  
+
+### مصطلحات تقنية
+
+ركز على المصطلحات التالية لأنك ستحتاج معرفتها عند التعامل مع الـ `Slider`.
+
+![javafx slider](/content-images/javafx/slider/1784305216128-uo8qhm.gif)
+
+## كونستركتورات الكلاس `Slider`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `Slider`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public Slider()` ينشئ كائن من الكلاس `Slider` يمثل Slider قيمته الأولية تساوي 0.0.
+
+2
+
+`public Slider(double min, double max, double value)` ينشئ كائن من الكلاس `Slider` يمثل Slider مع تحديد أصغر و أكبر قيمة فيه, بالإضافة للقيمة الأولية التي ستظهر مختارة فيه.  
+
+*   مكان الباراميتر `min` نضع أصغر قيمة يمكن اختيارها في الـ Slider.
+*   مكان الباراميتر `max` نضع أكبر قيمة يمكن اختيارها في الـ Slider.
+*   مكان الباراميتر `value` نضع القيمة التي نريدها مختارها بشكل إفتراضي في الـ Slider عند تشغيل البرنامج.
+
+## دوال الكلاس `Slider`
+
+الجدول التالي يحتوي على دوال الكلاس `Slider` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setMin(double value)` تستخدم لتحديد أصغر قيمة في كائن الـ `Slider` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة و التي يجب أن تكون منطقياً أصغر من أكبر قيمة يمكن إختيارها.
+
+2
+
+`public final double getMin()` ترجع أصغر قيمة يمكن إختيارها في كائن الـ `Slider` الذي قام بإستدعائها.  
+ترجعها كـ `double`.
+
+3
+
+`public final void setMax(double value)` تستخدم لتحديد أكبر قيمة في كائن الـ `Slider` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة و التي يجب أن تكون منطقياً أكبر من أصغر قيمة يمكن إختيارها.
+
+4
+
+`public final double getMax()` ترجع أكبر قيمة يمكن إختيارها في كائن الـ `Slider` الذي قام بإستدعائها.  
+ترجعها كـ `double`.
+
+5
+
+`public final void setValue(double value)` تستخدم لتحديد قيمة كائن الـ `Slider` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة الجديدة و التي يجب أن تكون بين أصغر و أكبر قيمة يمكن أن يحتويها كائن الـ `Slider`.
+
+6
+
+`public final double getValue()` ترجع قيمة كائن الـ `Slider` الذي قام بإستدعائها كرقم نوعه `double`.
+
+7
+
+`public final void setShowTickLabels(boolean value)` تستخدم لإظهار أو إخفاء قيم الـ Major Ticks في كائن الـ `Slider` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع `true` إذا أردنا جعل قيم الـ Major Ticks ظاهرة. و نضع `false` في حال أردنا إخفائهم.
+
+8
+
+`public final void setShowTickMarks(boolean value)` تستخدم لإظهار أو إخفاء خطوط الـ Major Ticks و الـ Minor Ticks في كائن الـ `Slider` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع `true` إذا أردنا جعل خطوط الـ Major Ticks و الـ Minor Ticks ظاهرة. و نضع `false` في حال أردنا إخفائهم.
+
+9
+
+`public final void setMajorTickUnit(double value)` تستخدم لتحديد فارق القيمة بين الـ Major Ticks في كائن الـ `Slider` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع رقم أكبر من صفر و يجب أن لا خارج عن المنطق.  
+فمثلاً, إذا كانت أصغر قيمة في الـ `Slider` هي 1 و أكبر قيمة فيه هي 10. يجب أن تضع مكان الباراميتر `value` رقم بين هذا المدى `0 > value < 10` حتى تظهر الـ Major Ticks.
+
+10
+
+`public final void setMinorTickCount(double value)` تستخدم لتحديد فارق القيمة بين الـ Minor Ticks في كائن الـ `Slider` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع رقم أكبر من صفر و يجب أن لا خارج عن المنطق.  
+فمثلاً, إذا كانت أصغر قيمة في الـ `Slider` هي 1 و أكبر قيمة فيه هي 10. يجب أن تضع مكان الباراميتر `value` رقم بين هذا المدى `0 > value < 10` حتى تظهر الـ Minor Ticks.
+
+11
+
+`public final void setBlockIncrement(double value)` تستخدم لتحديد كم وحدة سيتم زيادة أو إنقاص قيمة كائن الـ `Slider` الذي قام باستدعائها في حال قام المستخدم بتغيير قيمته بالنقر على الأسهم ⯅ ⯆ ⯈ ⯇ الموجودة في لوحدة المفاتيح.  
+مكان الباراميتر `value` نضع رقم أكبر من صفر و بين أصغر و أكبر قيمة موجودة في الـ `Slider`.
+
+12
+
+`public final DoubleProperty valueProperty()` ترجع كائن من الكلاس `DoubleProperty` يحتوي على قيمة كائن الـ `Slider` الذي قام بإستدعائها.  
+بناءاً على الكائن الذي ترجعه هذه الدالة يمكنك إستدعاء دالة إسمها `addListener()` لتحدد ما سيحدث عند تغيير قيمة الـ `Slider`.  
+لا تقلق إذا لم تفهم المقصود لأننا وضعنا مثال حول هذا الأمر.
+
+13
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `Slider` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+14
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `Slider` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+15
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `Slider` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `Slider` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `Slider` بالـ Pixel.
+
+16
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `Slider` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+17
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `Slider` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `Slider` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `Slider` و إضافته في النافذة.
+
+![طريقة إضافة Slider في javafx](/content-images/javafx/slider/1784305216218-rriibh.PNG)
+
+[شاهد المثال](/tutorials/javafx/slider/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إنشاء `Slider` أفقي مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط تحته.
+
+![طريقة عرض ال Slider أفقياً مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط تحته في javafx](/content-images/javafx/slider/1784305216357-c1z7ez.PNG)
+
+[شاهد المثال](/tutorials/javafx/slider/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة إنشاء `Slider` عامودي مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط بجانبه.
+
+![طريقة عرض ال Slider عامودياً مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط بجانبه في javafx](/content-images/javafx/slider/1784305216474-pvlk6c.PNG)
+
+[شاهد المثال](/tutorials/javafx/slider/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة تنفيذ أوامر في كل مرة يتم فيها تغيير قيمة الـ `Slider`.  
+في كل مرة يقوم فيها المستخدم بتغيير قيمة الـ `Slider` سيتم عرضها بداخل `TextField`.
+
+![طريقة تنفيذ أوامر في كل مرة يتم فيها تغيير قيمة ال JSlidr في javafx](/content-images/javafx/slider/1784305216806-ail1x3.gif)
+
+[شاهد المثال](/tutorials/javafx/slider/example-4)

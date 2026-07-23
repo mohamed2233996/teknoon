@@ -1,0 +1,201 @@
+---
+title: "جافاسكربتالكائنات"
+source: "https://harmash.com/tutorials/javascript/objects"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:34.292Z"
+---
+
+## مفهوم الكائن
+
+الكائن ( Object ) عبارة عن نوع يمكنه إمتلاك خصائص و دوال خاص به.  
+في عالم البرمجة، نستخدم الكائنات عند الحاجة لتخزين أو نقل مجموعة من البيانات معاً بشكل مرتب.
+
+أي شيء يملك عدة معلومات يمكنك تخزينها له في كائن واحد حتى لا تضطر إلى تخزين كل معلومة منها في متغير لوحدها.
+
+في هذا الدرس ستتعلم كيفية إنشاء كائنات و التعامل معها خطوة خطوة.
+
+## طريقة تعريف كائن
+
+الكائن يتم تعريفه بواسطة الرمزين `{ }`.  
+كل خاصية في الكائن تملك إسم و قيمة، حيث يتم ذكر إسم الخاصية ويليها الرمز `:` و يليها القيمة.
+
+objectName = {
+    propertyName1: value1,
+    propertyName2: value2,
+    ...
+};
+
+يجب وضع فاصلة `,` بين كل خاصيتين في الكائن.  
+لست مجبر على وضع كل خاصية في الكائن على سطر منفرد و لكن ترتيبها كذلك أمر يجعل قراءتها أكثر وضوحاً.
+
+  
+
+### الوصول لخصائص الكائن
+
+خصائص الكائن سواء أردت الحصول على قيمها أو تحديثها فإنه يمكنك الوصول إليها بطريقتين:
+
+1- يمكنك وضع نقطة بعد إسم الكائن و يليها إسم الخاصية كما يلي.
+
+objectName.propertyName
+
+2- يمكنك وضع إسم الخاصية بين `[ ]` كما يلي.
+
+objectName\['propertyName'\]
+
+أغلب المبرمجين يفضلون الطريقة الأولى لأنها أبسط.  
+الطريقة الثانية تحتاجها حصراً إذا كان إسم الخاصية عبارة عن نص يتألف من أكثر من كلمة.
+
+  
+
+في المثال التالي قمنا بتعريف كائن وضعنا فيه 3 خصائص مع إعطاء كل خاصية منهم قيمة.  
+بعدها قمنا بطباعة قيم جميع الخصائص التي يملكها الكائن.
+
+#### المثال الأول
+
+// وضعنا فيه ثلاث خصائص person هنا قمنا بتعريف كائن إسمه
+let person = {
+    id: 1024,
+    username: 'mhamad',
+    isWorking: true
+};
+
+// person هنا قمنا بطباعة قيم جميع الخصائص التي يملكها الكائن
+document.write('id = ' + person.id + '<br>');
+document.write('username = ' + person.username + '<br>');
+document.write('isWorking = ' + person.isWorking);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/objects/define-object)
+
+  
+
+في المثال التالي قمنا بتعريف كائن وضعنا فيه 4 خصائص مع إعطاء كل خاصية منهم قيمة.  
+بعدها قمنا بطباعة قيم جميع الخصائص التي يملكها الكائن.
+
+#### المثال الثاني
+
+// وضعنا فيه أربع خصائص book هنا قمنا بتعريف كائن إسمه
+let book = {
+    author: 'Mhamad Harmush',
+    title: 'Learn Javascript For Beginners',
+    totalPages: 340,
+    'publication date': '6 August 2023'
+};
+
+// book هنا قمنا بطباعة قيم جميع الخصائص التي يملكها الكائن
+document.write('author = ' + book.id + '<br>');
+document.write('title = ' + book.title + '<br>');
+document.write('totalPages = ' + book.totalPages + '<br>');
+document.write('publication date = ' + book\['publication date'\]);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/objects/define-object-2)
+
+## طريقة تعريف دالة في الكائن
+
+يمكنك جعل الكائن يملك دوال خاصة به من خلال تمرير الدوال كقيم للخصائص.  
+لتعريف دالة في الكائن عليك جعل الخاصية تساوي الدالة التي سيتم تعريفها و تكون بلا إسم ( Anonymous Function )، و عندها يصبح بإمكانك استدعاء هذه الخاصية لاحقاً من خلال إسم الخاصية نفسها.
+
+عند استدعاء دالة من الكائن لا تنسى وضع `()` بعد كتابة إسمها حتى يفهم مفسّر جافاسكربت أنك تريد تنفيذها.
+
+  
+
+في المثال التالي قمنا بإنشاء كائن إسمه `rectangle` يمثل مستطيل وضعنا فيه ما يلي:
+
+*   خاصية عادية إسمها `description` فيها نص عبارة عن وصف للمستطيل.
+*   دالة إسمها `getPerimeter()` نمرر لها عددين عند استدعائها يمثلان الطول و العرض فترجع لنا محيط المستطيل.
+
+بعدها قمنا بعرض قيمة الخاصية `description` و ما سترجعه الدالة `getPerimeter()`.
+
+#### مثال
+
+// وضعنا فيه خاصية عادية و دالة rectangle هنا قمنا بتعريف كائن إسمه
+let rectangle = {
+    description: 'A rectangle is a quadrilateral with four right angles<br>',
+    getPerimeter: function(length, width) {
+        return length \* width;
+    }
+};
+
+// rectangle التي يملكها الكائن description هنا قمنا بطباعة قيمة الخاصية 
+document.write('Rectangle description = ' + rectangle.description);
+
+// rectangle التي يملكها الكائن getPerimeter هنا قمنا بطباعة القيمة التي ترجعها الدالة 
+document.write('Rectangle getPerimeter = ' + rectangle.getPerimeter(4, 6));
+
+[جرب الكود](/tryit?file=/tutorials/javascript/objects/define-function-inside-object)
+
+## طريقة تعريف كائن بداخل الكائن
+
+يمكن للخاصية أن تحتوي على كائن كقيمة و هذا الأمر يمكنك فعله إذا كان الكائن الأساسي سيحتوي على الكثير من الخصائص و التي يمكن تقسيمها لمجموعات حتى يكون التعامل معها أكثر سهولة.
+
+في المثال التالي قمنا بإنشاء كائن إسمه `user` و بداخله كائن آخر إسمه `job` و من ثم قمنا بعرض القيم الموجودة فيهما.
+
+#### مثال
+
+// وضعنا فيه خصائص person هنا قمنا بتعريف كائن إسمه
+let person = {
+    id: 1024,
+    username: 'mhamad',
+    job: {
+        title: 'Programmer',
+        experienceYears: 3
+    }
+};
+
+// person هنا قمنا بطباعة قيم جميع الخصائص التي يملكها الكائن
+document.write('username = ' + person.username + '<br>');
+document.write('job.title = ' + person.job.title);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/objects/nested-objects)
+
+## الكلمة المفتاحية `this`
+
+الكلمة `this` تمثل الكائن نفسه الموجودة فيه.  
+يمكن استخدامها في الدوال الموضوعة في الكائن للوصول لخصائص الكائن نفسه.
+
+في المثال التالي قمنا بتعريف كائن إسمه `user` وضعنا فيه ما يلي:
+
+*   خاصية إسمها `firstName` تحتوي على إسم المستخدم.
+*   خاصية إسمها `lastName` تحتوي على إسم عائلة المستخدم.
+*   دالة إسمها `fullName()` ترجع نص عبارة عن إسم المستخدم و إسم عائلته.
+
+#### مثال
+
+// وضعنا فيه 3 خصائص user هنا قمنا بتعريف كائن إسمه
+// عبارة عن دالة ترجع إسم المستخدم fullName الخاصية
+let user = {
+    firstName: 'Mhamad',
+    lastName: 'Harmush',
+    fullName: function() {
+        return this.firstName + ' ' + this.lastName;
+    }
+};
+
+document.write('fullName = ' + user.fullName());
+
+[جرب الكود](/tryit?file=/tutorials/javascript/objects/this-object)
+
+## الكلمة `this` و الكائن `Window`
+
+أي صفحة ويب تتصفحها تكون مرتبطة بشكل تلقائي بكائن إسمه `Window` يملك الكثير من المعلومات و الدوال التي يمكنك الإستفادة منها.
+
+في هذا الدرس لن نتطرق لخصائص و دوال الكائن `Window` فهذا الموضوع كبير جداً و سنتعرف عليه بشكل مفصل في دروس لاحقة. و لكن ما نود الإشارة إليه أنه في حال استخدام الكلمة `this` لوحدها بدون استخدامها في الكائن فإنها ستمثل الكائن `Window` الذي يمثل الصفحة نفسها.
+
+  
+
+في المثال التالي قمنا بطابعة الكلمة `this` لوحدها لتلاحظ كيف أنه سيتم طباعة `[object Window]` مما يعني أن هذه الكلمة تمثل الكائن الخاص بالصفحة.
+
+#### المثال الأول
+
+document.write(this);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/objects/this-global-object)
+
+  
+
+في المثال التالي قمنا بعرض مسار الصفحة الموجود في الكائن الذي يمثل الصفحة في الخاصية `window.location.href` و الذي يمكننا الوصول إليه على النحو التالي `this.location.href` أيضاً.
+
+#### المثال الثاني
+
+document.write(this.location.href);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/objects/this-global-object-2)

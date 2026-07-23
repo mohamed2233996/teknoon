@@ -1,0 +1,61 @@
+---
+title: "Swingالإنترفيس AdjustmentListener"
+source: "https://harmash.com/tutorials/swing/awt-adjustmentlistener"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:38.339Z"
+---
+
+الإنترفيس `AdjustmentListener` يستخدم للتنبه كلما تم تحريك الـ `JScrollBar`.
+
+  
+
+#### مثال
+
+Main.java
+
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollBar;
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        JFrame frame \= new JFrame("AdjustmentListener demo");  // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        JScrollBar scrollBar \= new JScrollBar();               // scrollBar إسمه Scroll Bar هنا أنشأنا
+        JLabel label \= new JLabel("Adjustment Value:  50");    // label إسمه Label هنا أنشأنا
+ 
+        label.setBounds(90, 90,150, 30);                       // frame في الـ label هنا قمنا بتحديد حجم و موقع الـ
+        scrollBar.setBounds(40, 30, 30, 150);                  // frame في الـ scrollBar هنا قمنا بتحديد حجم و موقع الـ
+ 
+        scrollBar.setMinimum(1);                               // scrollBar هنا قمنا القيمة 1 كأصغر قيمة في الـ
+        scrollBar.setMaximum(101);                             // scrollBar هنا قمنا القيمة 100 كأبر قيمة في الـ
+        scrollBar.setValue(50);                                // الأولية scrollBar هنا قمنا بتحديد قيمة الـ
+        scrollBar.setVisibleAmount(1);                         // تزداد أو تقل واحداً واحداً عند تحريكه scrollBar هنا جعلنا قيمة الـ
+ 
+        frame.add(scrollBar);                                  // frame في الـ scrollBar هنا أضفنا الـ
+        frame.add(label);                                      // frame في الـ label هنا أضفنا الـ
+ 
+        frame.setSize(300, 250);                               // هنا قمنا بتحديد حجم النافذة. عرضها 300 و طولها 250
+        frame.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);  // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.setLayout(null);                                 // لذلك قمنا بتحديد مكان كل شيء قمنا بإضافته في النافذة Layout Manager أي لم نستخدم أي null هنا وضعنا
+        frame.setVisible(true);                                // هنا جعلنا النافذة مرئية
+ 
+        // أي كلما تم تحريكه .scrollBar هنا نضع الأوامر التي نريد تنفيذها عند تغيير قيمة الـ
+        scrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                // سيتم عرض قيمته scrollBar في كل مرة يتم فيها تحريك الـ
+                label.setText("Adjustment Value:  " + scrollBar.getValue());
+            }
+        });
+ 
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+![مثال يشرح طريقة تعريف الحدث AdjustmentListener في جافا](/content-images/swing/awt-adjustmentlistener/1784305418325-zens5u.PNG)

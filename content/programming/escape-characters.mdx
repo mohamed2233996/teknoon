@@ -1,0 +1,170 @@
+---
+title: "أحرف الهروب في البرمجة"
+source: "https://harmash.com/tutorials/programming/escape-characters"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:07:42.120Z"
+---
+
+## مفهوم حروف الهروب
+
+حروف الهروب ( Escape Characters ) تستخدم بهدف عرض النتيجة بشكل أفضل.  
+إذاً حروف الهروب ليست أحرف المراد طباعتها كما هي بل هي أحرف تستخدم تحسين طريقة عرض النتيجة.
+
+إذا أردت استخدام حروف الهروب عليك وضع الرمز `\` و يليه مباشرةً الحرف الذي تريده.
+
+سنتعرف في هذا الدرس على حروف الهروب التالية التي تعتبر الأكثر استخداماً في البرمجة:
+
+*   `\n` نستخدمه للنزول على سطر جديد.
+*   `\'` نستخدمه لعرض الرمز `'`.
+*   `\"` نستخدمه لعرض الرمز `"`.
+*   `\\` نستخدمه لعرض الرمز `\`.
+
+## الحرف `\n`
+
+نستخدم هذا الحرف للنزول على سطر جديد، أي لجعل المحتوى التالي الذي يأتي بعده يظهر على سطر جديد.
+
+  
+
+في المثال التالي قمنا بوضع `\n` بعد الكلمة `Mhamad` لجعل أي شيء يأتي بعدها يظهر على سطر جديد.
+
+#### المثال الأول
+
+write("Hello Mhamad\\nWelcome back!");
+
+النتيجة
+
+Hello Mhamad  
+Welcome back!
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/n-1) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/escape-characters/n-1)
+
+  
+
+في العادة لا نقوم بوضع نص يتألف من عدة أسطر بداخل أمر طباعة واحد كما فعلنا في المثال السابق بل نقوم بوضع كل سطر بداخل أمر طباعة حتى يكون أكثر وضوحاً و أسهل علينا في القراءة و الكتابة.
+
+  
+
+في المثال التالي قمنا بوضع `\n` في نهاية أمر الطباعة الأول حتى يتم عرض النص الموضوع في أمر الطباعة الثاني على سطر جديد.
+
+#### المثال الثاني
+
+write("Hello Mhamad\\n");
+write("Welcome back!");
+
+النتيجة
+
+Hello Mhamad  
+Welcome back!
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/n-2) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/escape-characters/n-2)
+
+## حرف الهروب `\"`
+
+إذا كان النص بالأساس موضوع بداخل الرمز `" "` و تريد أن تعرض الرمز `"` فيه أيضاً، يجب أن تضعه بهذا الشكل `\"` لجعل محرر الكود يفهم أنك تريد عرض هذا الرمز كباقي الأحرف.
+
+  
+
+في المثال التالي قمنا بوضع النص الذي نريد عرضه بين `" "` و بداخله حاولنا عرض الرمز `"` بدون أن نضع قبله `\` الأمر الذي سيسبب مشكلة.
+
+#### المثال الأول
+
+write("I like "Harmash.com"");
+
+النتيجة
+
+Syntax Error!
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/double-quotes-1)
+
+  
+
+في المثال التالي قمنا بوضع الرمز `\` قبل كل رمز `"` موضوع في النص حتى نعلم المحرر أننا نريد طباعته كحرف عادي.
+
+#### المثال الثاني
+
+write("I like \\"Harmash.com\\"");
+
+النتيجة
+
+I like "Harmash.com"
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/double-quotes-2) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/escape-characters/double-quotes-2)
+
+  
+
+في حال كان النص بالأساس موضوع بين `' '` يمكنك وضع الرمز `"` كما هو فيه بدون الحاجة لوضعه هكذا `\"` .
+
+#### المثال الثالث
+
+write('I like "Harmash.com"');
+
+النتيجة
+
+I like "Harmash.com"
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/double-quotes-3) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/escape-characters/double-quotes-3)
+
+## حرف الهروب `\'`
+
+إذا كان النص بالأساس موضوع بداخل الرمز `' '` و تريد أن تعرض الرمز `'` فيه أيضاً، يجب أن تضعه بهذا الشكل `\'` لجعل محرر الكود يفهم أنك تريد عرض هذا الرمز كباقي الأحرف.
+
+  
+
+في المثال التالي قمنا بوضع النص الذي نريد عرضه بين `' '` و بداخله حاولنا عرض الرمز `'` بدون أن نضع قبله `\` الأمر الذي سيسبب مشكلة.
+
+#### المثال الأول
+
+write('I like 'Harmash.com'');
+
+النتيجة
+
+Syntax Error!
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/single-quotes-1)
+
+  
+
+في المثال التالي قمنا بوضع الرمز `\` قبل كل رمز `'` موضوع في النص حتى نعلم المحرر أننا نريد طباعته كحرف عادي.
+
+#### المثال الثاني
+
+write('I like \\'Harmash.com\\'');
+
+النتيجة
+
+I like 'Harmash.com'
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/single-quotes-2) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/escape-characters/single-quotes-2)
+
+  
+
+في حال كان النص بالأساس موضوع بين `" "` يمكنك وضع الرمز `'` كما هو فيه بدون الحاجة لوضعه هكذا `\'`.
+
+#### المثال الثالث
+
+write("I like 'Harmash.com'");
+
+النتيجة
+
+I like 'Harmash.com'
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/single-quotes-3) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/escape-characters/single-quotes-3)
+
+## حرف الهروب `\\`
+
+بما أن الرمز `\` هو الرمز المخصص لأحرف الهروب فهذا يعني أنه في حال وضعه كما هو لن يتم عرضه كباقي الأحرف.  
+لعرض `\` يجب أن تضعه بهذا الشكل `\\` و عندها سيفهم محرر الكود أنك تريد عرض هذا الرمز كباقي الأحرف.
+
+  
+
+في المثال التالي قمنا بوضع `\\` حتى نعرض الرمز `\` و كأنه حرف عادي.
+
+#### مثال
+
+write("Use \\\\n to move to next line.");
+
+النتيجة
+
+Use \\n to move to next line.
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/escape-characters/back-slash) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/escape-characters/back-slash)

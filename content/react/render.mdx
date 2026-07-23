@@ -1,0 +1,141 @@
+---
+title: "Reactعرض المحتوى"
+source: "https://harmash.com/tutorials/react/render"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:14:52.275Z"
+---
+
+## كيفية عرض المحتوى في React
+
+عناصر واجهة المستخدم يتم ربطها ببعضها البعض بشكل شجري كما يلي.
+
+![عناصر المشروع في React](/content-images/react/render/1784304891655-7ptn61.png)
+
+نلاحظ أنه لا بد من وجود عنصر أساسي ( Root Element ) و من بعدها يمكن إضافة العناصر الأخرى تحته.
+
+## دوال عرض المحتوى في React
+
+بشكل عام، نستخدم الدالة `ReactDOM.render()` لعرض محتوى جديد بداخل عنصر محدد في الصفحة. المحتوى قد يكون وسوم HTML عادية و قد يكون بمثابة مكوّن ( Component ) معد مسبقاً.
+
+بالنسبة لتحديد العنصر الذي سيتم إضافة المحتوى فيه نستخدم الدالة `ReactDOM.createRoot()`.
+
+قبل الإصدار 18 في React كنا نستخدم الدالة `ReactDOM.render()` لعرض المحتوى مع تحديد العنصر الذي سيتم عرضه فيه و لكن هذا الأمر تم الإستغناء عنه لأنه يتعارض مع أسلوب التوجيه الجديد Root API الذي أضيف في React.
+
+## تحليل القالب الرئيسي في React
+
+قبل أن نبدأ باستخدام دوال العرض بأنفسنا، يمكننا رؤية كيف تم استخدامها في بناء القالب الإفتراضي في React.
+
+الآن قم بإنشاء مشروع جديد، ثم افتحه بواسطة VSCode لكي تبدأ بفهم كيف يتم ربط كل ملفات المشروع حينما تقوم بتشغيله و عرضها لك كصفحة واحدة. ركز فقط على الملفات التي قمنا بتعليمها باللون الأحمر.
+
+![تحليل طريقة عرض واجهة المستخدم في React](/content-images/react/render/1784304891746-qlw53o.PNG)
+
+  
+
+أثناء شرح طريقة عمل هذه الملفات قمنا بحذف التعليقات المكتوبة فيها باللغة الإنجليزية و وضعنا بدلاً منها تعليقات باللغة العربية.
+
+  
+
+الملف `index.html` يمثل القالب الإفتراضي لواجهة المستخدم، حيث أن كل معلومات الصفحة الأساسية مثل عنوانها، أيقونتها، نوع الترميز الخاص بها تكون مذكورة فيه. كما أنه يحتوي على الوسم `<div id="root"></div>` الذي سيتم استخدامه ليكون بمثابة العنصر الأساسي في واجهة المستخدم.
+
+index.html
+
+<!DOCTYPE html\>
+<html lang\="en"\>
+  <head\>
+    <meta charset\="utf-8" />
+    <link rel\="icon" href\="%PUBLIC\_URL%/favicon.ico" />
+    <meta name\="viewport" content\="width=device-width, initial-scale=1" />
+    <meta name\="theme-color" content\="#000000" />
+    <meta name\="description" content\="Web site created using create-react-app" />
+    <link rel\="apple-touch-icon" href\="%PUBLIC\_URL%/logo192.png" />
+    <link rel\="manifest" href\="%PUBLIC\_URL%/manifest.json" />
+    <title\>React App</title\>
+  </head\>
+  <body\>
+    <noscript\>You need to enable JavaScript to run this app.</noscript\>
+    
+    <!-- index.js الوسم التالي سيتم تعيينه كعنصر أساسي في الملف -->
+    <div id\="root"\></div\>
+    
+  </body\>
+</html\>
+
+  
+
+الملف `index.js` هو سكربت يتنفذ بشكل تلقائي بهدف جعل محتوى المكوّن `App` الموجود في الملف `App.js` يُعرض في الوسم `<div id="root"></div>`.
+
+index.js
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+// كأول عنصر في الصفحة root يساوي id تم تعيين الوسم الذي يملك createRoot() بواسطة الدالة
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// root بداخل العنصر الذي يمثله المتغير App سيتم عرض المحتوى الموجود في المكوّن render() بواسطة الدالة
+root.render(
+  <React.StrictMode\>
+    <App/>
+  </React.StrictMode\>
+);
+
+reportWebVitals();
+
+في الملف السابق لاحظ أنه تم استخدام الدالة `ReactDOM.createRoot()` لتعيين العنصر الأساسي في الصفحة و الدالة `ReactDOM.render()` لتعيين المحتوى الذي سيتم عرضه فيها.
+
+  
+
+الملف `App.js` عبارة عن مكوّن إسمه `App` مكتوب بأسلوب JSX و هو يمثل المحتوى الذي سيتم عرضه بداخل الوسم `<div id="root"></div>`.
+
+App.js
+
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    {/\* <div id="root"></div>  سيتم إضافة المحتوى التالي بداخل الوسم \*/}
+    <div className="App"\>
+      <header className\="App-header"\>
+        <img src\={logo} className\="App-logo" alt\="logo"/>
+        <p\>
+          Edit <code\>src/App.js</code\> and save to reload.
+        </p\>
+        <a
+          className\="App-link"
+          href\="https://reactjs.org"
+          target\="\_blank"
+          rel\="noopener noreferrer"\>
+          Learn React
+        </a\>
+      </header\>
+    </div>
+  );
+}
+
+export default App;
+
+لا تقلق بشأن الكود الموجود في الملف `App.js` لأنك ستتعلم JSX و ستتعلم كيفية إنشاء مكونات مثله في دروس لاحقة.
+
+## مشاهدة مكونات الصفحة في React
+
+لتتأكد ما إن كانت المكونات مضافة في مكانها الصحيح، يمكنك بعد تشغيل المشروع في المتصفح أن تشاهد عناصر الصفحة.
+
+لمشاهد عناصر الصفحة في متصفح كروم ضع مؤشر الماوس فوق أي عنصر موجود في الصفحة، ثم أنقر على زر الماوس الأيمن حتى يظهر لك قائمة خيارات، و من بعدها إختر Inspect.
+
+لاحظ كيف أن كل المحتوى الموجود في المكون `App` تم إضافته بداخل الوسم `<div id="root"></div>`.
+
+![Inspect React Elements](/content-images/react/render/1784304892254-degel2.PNG)
+
+## أين يجب وضع المحتوى الجديد في React
+
+الملفات الإفتراضية في المشروع مثل `index.html` و `index.js` و `App.js` عادةً ما يتم إبقاءها لأنها ملفات متعارف عليها.
+
+بالنسبة للملف `App.js` فإنه يتم حذف الوسوم الإفتراضية الموجودة فيه لأنه لا داعي لها.  
+بعدها نبدأ بإنشاء مكونات الصفحة و من ثم نعرض محتواها بداخله.  
+في النهاية سيكون الملف `App.js` بمثابة المكون الذي سيحتوي على جميع مكونات واجهة المستخدم.
+
+طرق إنشاء المكونات و إضافتها في واجهة المستخدم ستتعلمها بالتفصيل في درس لاحق.

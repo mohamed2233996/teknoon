@@ -1,0 +1,397 @@
+---
+title: "إدارة الخدمات في لينكس"
+source: "https://harmash.com/tutorials/linux/service-managment"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:29:21.300Z"
+---
+
+## مفهوم الخدمات في لينكس
+
+الخدمة ( Service ) هي عملية ( Process ) أو مجموعة من العمليات تعمل في الخلفية بهدف توفير وظيفة محددة لنظام التشغيل أو التطبيقات. بمعنى أنها تعمل بشكل تلقائي دون الحاجة إلى تفاعل مستمر من المستخدم.
+
+عند تشغيل نظام لينكس، فإنه بشكل تلقائي يقوم بتشغيل كل الخدمات التي يحتاجها لكي يعمل بسلاسلة. مثل خدمات تشغيل الهاردوير، خدمات الإتصال التي تسمح لك بتصفح النت، خدمات الطباعة التي تسمح لك بطباعة المستندات و غيرها.
+
+الخدمات الضرورية لتشغيل النظام و التي تبدأ بالعمل في الخلفية من لحظة إقلاعه يقال لها ديمونات ( Daemons ).
+
+## ما هو `systemd` في لينكس
+
+قديماً كان نظام لينكس يعتمد على نظام إدارة الخدمات `SysVinit` من أجل تشغيل و إيقاف الخدمات في النظام.
+
+توزيعات لينكس الحديثة تعمتد على نظام إدارة الخدمات `systemd` الذي يعتبر أكثر كفاءة و قوة حيث أنه يوفر ميزات إضافية عنه و منها:
+
+*   إدارة المقباس ( Sockets ) التي تستخدم لإنشاء اتصالات بين العمليات على نفس الجهاز أو بين أجهزة مختلفة عبر الشبكة.
+*   التحكم بالأجهزة ( Devices ) المتصلة بالنظام.
+*   التحكم بنقاط الإرتباط ( Mounting Points ) التي يتم إنشاءها عند شبك وحدات تخزين خارجية بالجهاز.
+*   التحكم بمساحات التبادل ( SWAP Areas ) و غيرها.
+
+فيما يلي ستتعلم كيفية إدارة الخدمات بشكل كامل باستخدام الأمر `systemctl` الذي يعمل على جميع توزيعات لينكس الحديثة التي تعتمد نظام إدارة الخدمات `systemd`.
+
+## عرض الخدمات الموجودة في لينكس
+
+يمكنك استخدام الأمر `systemctl` لعرض جميع خدمات النظام مع عرض حالتها.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl  
+UNIT                                                              LOAD   ACTIVE SUB       DESCRIPTION  
+proc-sys-fs-binfmt\_misc.automount                                 loaded active waiting   Arbitrary Executable File Formats File System Automount Point  
+sys-devices-LNXSYSTM:00-LNXSYBUS:00-MSFT0101:00-tpm-tpm0.device   loaded active plugged   /sys/devices/LNXSYSTM:00/LNXSYBUS:00/MSFT0101:00/tpm/tpm0  
+akmods.service                                                    loaded active exited    Builds and install new kmods from akmod packages  
+vboxballoonctrl-service.service                                   loaded active exited    vboxballoonctrl-service.service  
+● vboxdrv.service                                                 loaded failed failed    VirtualBox Linux kernel module  
+vboxweb-service.service                                           loaded active exited    vboxweb-service.service  
+boot-efi.mount                                                    loaded active mounted   /boot/efi  
+systemd-initctl.socket                                            loaded active listening Journal Audit Socket  
+  
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.  
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.  
+        SUB    → The low-level unit activation state, values depend on unit type.  
+  
+189 loaded units listed. Pass --all to see loaded but inactive units, too.  
+To show all installed unit files use 'systemctl list-unit-files'.
+
+للتنقل لأعلى و أسفل في النتيجة التي ظهرت لك، يمكنك استخدام الأسهم، و للخروج من النتيجة أنقر على Ctrl + C.
+
+عندما قمنا بتجربة هذا الأمر ظهر لنا أنه يوجد 189 خدمة، مع الإشارة إلى أننا عرضنا فقط بعضاً منها.  
+بالطبع قد يظهر لك أقل أو أكثر من ذلك على حسب الخدمات المثبتة في جهازك.
+
+فيما يلي معنى الأعمدة التي تظهر في النتيجة.
+
+العمود
+
+معناه
+
+`UNIT`
+
+إسم الملف الذي يمثل الخدمة الموجودة في النظام.
+
+`LOAD`
+
+يشير إلى حالة تحضير الخدمة و التي يمكن أن تكون:
+
+*   `loaded` تعني تم تحميل ملف الخدمة بنجاح في `systemd`.
+*   `error` تعني حصل خطأ أثناء تحميل ملف الخدمة في `systemd`.
+*   `not-found` تعني أن `systemd` لم يجد الملف الذي يحتوي الخدمة.
+*   `bad-setting` تعني أن الإعدادات في ملف الخدمة فيها خطأ.
+*   `masked` تعني أن الخدمة مخفية، مما يعني أنه تم منع تشغيلها أو تفعليها.
+
+`ACTIVE`
+
+يشير إلى حالة عمل الخدمة و التي يمكن أن تكون:
+
+*   `active` تعني نشطة، أي قيد التشغيل حالياً، أو تم تحميلها (لنقاط التحميل)، أو موصولة (للأجهزة)، إلخ..
+*   `inactive` تعني غير نشطة، قد يعني هذا أنه تم إيقافها، أو لم يتم تشغيلها أبداً، أو فشلت في التنشيط.
+*   `activating` تعني قيد التنشيط، أي في طور البدء أو التنشيط.
+*   `deactivating` تعني قيد التنشيط، أي في طور البدء أو التنشيط.
+*   `failed` تعني فشلت، حصل خطأ أثناء بدء التشغيل أو وقت التشغيل.  
+    في هذه الحالة سيكون عليك التحقق من سجلات الخدمة لمزيد من التفاصيل حول الخطأ الذي حصل.
+
+`SUB`
+
+يشير إلى حالة تحضير الخدمة بشكل أكثر تفصيلاً، و لكن قيمها تختلف بحسب نوع الخدمة كما يلي:
+
+*   الخدمات التي نوعها `.service` يمكن أن تكون حالتها قيد التشغيل `running`، خرجت `exited`، فشلت `failed`، في الإنتظار `waiting`، متوقفة `dead`.
+*   الخدمات التي نوعها `.mount` يمكن أن تكون حالتها محملة `mounted`، غير محملة `unmounted`، قيد التحميل `mounting`، فشلت `failed`.
+*   الخدمات التي نوعها `.device` يمكن أن تكون حالتها موصولة `plugged`، غير موصولة `unplugged`، قيد التنشيط `activating`، في الإنتظار `waiting`.
+*   الخدمات التي نوعها `.socket` يمكن أن تكون حالتها تستمع `listening`، تقبل `accepting`، مغلقة `closed`، فشلت `failed`.
+*   الخدمات التي نوعها `.timer` يمكن أن تكون حالتها نشطة `active`، غير نشطة `inactive`، في الإنتظار `waiting`.
+*   الخدمات التي نوعها `.swap` يمكن أن تكون حالتها نشطة `active`، غير نشطة `inactive`.
+*   الخدمات التي نوعها `.target` يمكن أن تكون حالتها نشطة `active`، غير نشطة `inactive`.
+
+`DESCRIPTION`
+
+وصف مبسّط لما تقوم به الخدمة.
+
+  
+
+### عرض الخدمات التي فشلت في العمل
+
+يمكنك استخدام الأمر `systemctl --failed` لعرض الخدمات التي فشلت في العمل فقط.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl --failed  
+UNIT               LOAD   ACTIVE SUB    DESCRIPTION  
+● vboxdrv.service  loaded failed failed VirtualBox Linux kernel module  
+  
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.  
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.  
+        SUB    → The low-level unit activation state, values depend on unit type.  
+  
+1 loaded units listed. Pass --all to see loaded but inactive units, too.  
+To show all installed unit files use 'systemctl list-unit-files'.
+
+## مفهوم إدارة خدمات الأهداف
+
+بشكل عام، نظام لينكس يمكنه تقديم الخدمات التالية:
+
+*   `graphical.target` \_ خدمة استعمال النظام بواجهة سطح المكتب.
+*   `multi-user.target` \_ خدمة استعمال النظام لمجموعة من المستخدمين من خلال سطر الأوامر و بدون واجهة سطح المكتب. هذه الخدمة الإفتراضية في حال كان يتم استعمال النظام كخادم.
+*   `rescue.target` \_ خدمة إصلاح النظام و هي بمثابة بئية عمل مصغرة لهذا الغرض.
+*   `emergency.target` \_ خدمة مصغرة أخرى للحالات الطارئة.
+*   `poweroff.target` \_ خدمة إغلاق النظام.
+*   `reboot.target` \_ خدمة إعادة تشغيل النظام.
+
+  
+
+### عرض خدمة النظام الإفتراضية
+
+يمكنك استخدام الأمر `systemctl get-default` لعرض الخدمة الإفتراضية التي يقدمها النظام كما يلي.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl get-default  
+multi-user.target
+
+  
+
+### تعيين خدمة النظام الإفتراضية
+
+يمكنك استخدام الأمر `systemctl set-default` في حال أردت تحديد الخدمة الإفتراضية التي سيقدمها النظام عند إقلاعه. فمثلاً في حال قمت بتثبيت واجهة مستخدم للنظام سواء GNOME أو KDE أو غيرها فإنه يمكنك جعل النظام يعمل بواجهة المستخدم عند تشغيله.
+
+فيما يلي إفترضنا أن نظام التشغيل عليه واجهة مستخدم و لكنه حالياً يعمل فقط من خلال سطر الأوامر. لجعل النظام يعمل بواجهة المستخدم عند إقلاعه بشكل إفتراضي يمكنك كتابة الأمر التالي.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl set-default graphical.target
+
+تعيين الخدمة `poweroff.target` أو الخدمة `reboot.target` كخدمة إفتراضية في النظام يجعله يفشل في الإقلاع حيث أن الأولى ستجعل النظام يغلق بمجرد تشغيله و الثانية ستجعله يعيد تشغيل نفسه بلا توقف!
+
+## إدارة خدمات لينكس أثناء استعماله
+
+في الأمثلة التالية سنفترض أنه يوجد خدمة في النظام إسمها `harmash.service` و نريد التحكم بها.
+
+  
+
+### تشغيل خدمة محددة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl start` لتشغيل الخدمة.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl start harmash.service
+
+  
+
+### إيقاف خدمة محددة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl stop` لإيقاف الخدمة.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl stop harmash.service
+
+  
+
+### إعادة تشغيل خدمة محددة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl restart` لإعادة تشغيل الخدمة.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl restart harmash.service
+
+  
+
+### إعادة ضبط و تشغيل خدمة محددة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl reload` لإعادة تشغيل الخدمة مع استعمال القيم الإفتراضية الموجودة فيها.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl reload harmash.service
+
+  
+
+### عرض حالة خدمة محددة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl status` لعرض حالة الخدمة.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl status harmash.service
+
+## إدارة خدمات لينكس التي تعمل بشكل تلقائي
+
+في الأمثلة التالية سنفترض أنه يوجد خدمة في النظام إسمها `harmash.service` و نريد التحكم بها.
+
+  
+
+### تشغيل الخدمة بشكل تلقائي
+
+في المثال التالي قمنا باستخدام الأمر `systemctl enable` لجعل الخدمة تشتغل بشكل تلقائي أثناء تشغيل النظام.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl enable harmash.service
+
+  
+
+### إيقاف التشغيل التلقائي للخدمة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl disable` لجعل الخدمة لا تشتغل من تلقاء نفسها أثناء تشغيل النظام.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl disable harmash.service
+
+  
+
+### معرفة ما إن كانت الخدمة مفعلّة بشكل تلقائي
+
+في المثال التالي قمنا باستخدام الأمر `systemctl is-enabled` لمعرفة ما إذا كانت الخدمة تشتغل بشكل تلقائي أثناء تشغيل النظام.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl is-enabled harmash.service  
+disabled
+
+جوابه كان `disabled` مما يعني أنها لا تعمل بشكل تلقائي عند إقلاع النظام. لو كانت تعمل بشكل تلقائي لكان جوابه `enabled`.
+
+  
+
+### معرفة ما إن كانت الخدمة مفعّلة حالياً
+
+في المثال التالي قمنا باستخدام الأمر `systemctl is-active` لمعرفة ما إذا كانت الخدمة في الوقت الحالي قيد العمل.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl is-active harmash.service  
+inactive
+
+جوابه كان `inactive` مما يعني أنها لا تعمل حالياً، لو كانت تعمل حالياً لكان جوابه `active`.
+
+## تقنيع الخدمات في لينكس
+
+في بعض الحالات قد يحتاج مدير النظام إلى تعطيل خدمة ما بسبب اكتشاف مشكلة تقنية أو أمنية فيها، أو لأنها تسبب تعارض مع خدمات أخرى، أو لوجود خدمة بديلة أفضل منها، أو ببساطة لعدم حاجته لها.
+
+تقنيع الخدمة ( Service Masking ) هو أفضل طريقة لحمايتها من أي تشغيل مرغوب فيه، مما يعني عدم إمكانية تشغيلها بشكل مباشر أو من خلال أي خدمة أخرى.
+
+  
+
+في الأمثلة التالية سنفترض أنه يوجد خدمة في النظام إسمها `harmash.service` و نريد التحكم بها.
+
+  
+
+### تقنيع الخدمة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl mask` لإضافة قناع للخدمة.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl mask harmash.service
+
+  
+
+### فهم أمان التقنيع
+
+في المثال التالي حاولنا تشغيل الخدمة التي قمنا بتقنيعها قبل قليل باستخدام الأمر `systemctl start` و لكن لاحظ كيف أنّ النظام رفض تشغيلها.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl start harmash.service  
+Failed to start harmash.target: Unit harmash.target is masked
+
+في الواقع، ما فعله لينكس لإخفاء الخدمة هو إضافة رابط رمزي ( Symbolic Link ) في الملف المخصص للعثور عليها مع جعله يقود إلى المسار `/dev/null` مما يجعل عملية العثور عليها و تشغيلها بالطريقة التقليدية غير ممكنة.
+
+  
+
+### إزالة القناع عن الخدمة
+
+في المثال التالي قمنا باستخدام الأمر `systemctl unmask` لإزالة القناع عن الخدمة.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl unmask harmash.service
+
+بعد إزالة القناع عن الخدمة أصبح بإمكاننا إعادة تشغيلها بواسطة الأمر `systemctl start` في أي وقت.
+
+  
+
+### الفرق بين التعطيل و التقنيع
+
+*   الخدمة المعطلة أو الموقوفة يمكن إعادة تشغيلها بشكل مباشر باستخدام الأمر `systemctl start`.
+*   الخدمة المقنعة يجب إزالة القناع عنها أولاً باستخدام الأمر `systemctl unmask` و من ثم يمكن إعادة تشغيلها باستخدام الأمر `systemctl start`.
+
+## تحديث نظام إدارة الخدمات
+
+في حال إجراء أي تعديل على ملفات الخدمات، إضافة خدمات جديدة، أو حذف خدمات كانت موجودة، تقنيع خدمة ما أو إزالة التقنيع عنها فإنه يجب إعلام نظام إدارة الخدمات `systemd` بأن عليه إعادة قراءة ملفات الخدمات لكي يتم تطبيق آخر التحديثات التي تم إجراءها.
+
+في المثال التالي قمنا باستخدام الأمر `systemctl daemon-reload` لتحديث جميع الخدمات التي يديرها `systemd` في النظام.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl daemon-reload
+
+لا تحتاج تحديث `systemd` في حال قمت فقط بتشغيل، تعطيل، تفعيل، أو إلغاء تفعيل الخدمات لأنه يراقب هذه الأمور و يحدثها بنفسه بشكل تلقائي.
+
+## مراقبة أداء الخدمات في لينكس
+
+يمكنك استعمال الأمر `systemctl status` لمراقبة حالة أي خدمة في النظام و معرفة ما إن كانت تعمل بشكل صحيح أم لا.
+
+في المثال التالي قمنا بمراقبة حالة خدمة ظهر لنا سابقاً أنها تعمل بلا مشاكل.
+
+#### Linux Terminal
+
+root@fedora:~$ systemctl status boot-efi.mount  
+● boot-efi.mount - /boot/efi  
+     Loaded: loaded (/etc/fstab; generated)  
+     Active: active (mounted) since Sat 2025-04-05 08:24:45 EEST; 2h 1min ago  
+      Where: /boot/efi  
+       What: /dev/sda1  
+       Docs: man:fstab(5)  
+             man:systemd-fstab-generator(8)  
+      Tasks: 0 (limit: 18925)  
+     Memory: 24.0K (peak: 556.0K)  
+        CPU: 3ms  
+     CGroup: /system.slice/boot-efi.mount  
+  
+Apr 05 08:24:45 xxx systemd\[1\]: Mounting boot-efi.mount - /boot/efi...  
+Apr 05 08:24:45 xxx systemd\[1\]: Mounted boot-efi.mount - /boot/efi.
+
+  
+
+في المثال التالي قمنا بمراقبة حالة خدمة ظهر لنا سابقاً أنها فشلت في العمل.
+
+#### Linux Terminal
+
+root@fedora:~$ ystemctl status vboxdrv.service  
+× vboxdrv.service - VirtualBox Linux kernel module  
+     Loaded: loaded (/usr/lib/virtualbox/vboxdrv.sh; enabled; preset: disabled)  
+    Drop-In: /usr/lib/systemd/system/service.d  
+             └─10-timeout-abort.conf  
+     Active: failed (Result: exit-code) since Sat 2025-04-05 08:25:45 EEST; 2h 13min ago  
+        CPU: 1min 9.935s  
+  
+Apr 05 08:25:45 xxx vboxdrv.sh\[989\]:     sudo mkdir -p /var/lib/shim-signed/mok  
+Apr 05 08:25:45 xxx vboxdrv.sh\[989\]:     sudo openssl req -nodes -new -x509 -newkey rsa:2048 -outform DER -addext "extendedKeyUsage=codeSigning" -keyout /var/lib/shim-signed/mok/MOK.priv -out /var/lib/shim-signed/mok/MOK.der  
+Apr 05 08:25:45 xxx vboxdrv.sh\[989\]:     sudo mokutil --import /var/lib/shim-signed/mok/MOK.der  
+Apr 05 08:25:45 xxx vboxdrv.sh\[989\]:     sudo reboot  
+Apr 05 08:25:45 xxx vboxdrv.sh\[989\]: Restart "rcvboxdrv setup" after system is rebooted  
+Apr 05 08:25:45 xxx vboxdrv.sh\[989\]: .  
+Apr 05 08:25:45 xxx systemd\[1\]: vboxdrv.service: Control process exited, code=exited, status=1/FAILURE  
+Apr 05 08:25:45 xxx systemd\[1\]: vboxdrv.service: Failed with result 'exit-code'.  
+Apr 05 08:25:45 xxx systemd\[1\]: Failed to start vboxdrv.service - VirtualBox Linux kernel module.  
+Apr 05 08:25:45 xxx systemd\[1\]: vboxdrv.service: Consumed 1min 9.935s CPU time.
+
+## معالجة مشاكل الخدمات في لينكس
+
+يمكنك استعمال الأمر `journalctl -u` للحصول على رسائل الأخطاء التي حصلت في أي خدمة مما سيساعدك على إيجاد حلول.
+
+في المثال التالي قمنا بعرض رسائل الخطأ التي حصلت في خدمة ظهر لنا سابقاً أنها لم تعمل.
+
+#### Linux Terminal
+
+root@fedora:~$ journalctl -u vboxdrv.service  
+Mar 18 12:32:08 xxx systemd\[1\]: Starting vboxdrv.service - VirtualBox Linux kernel module...  
+Mar 18 12:32:09 xxx vboxdrv.sh\[960\]: vboxdrv.sh: Starting VirtualBox services.  
+Mar 18 12:32:09 xxx vboxdrv.sh\[960\]: vboxdrv.sh: You must sign these kernel modules before using VirtualBox:  
+Mar 18 12:32:09 xxx vboxdrv.sh\[960\]: vboxdrv vboxnetflt vboxnetadp  
+Mar 18 12:32:09 xxx vboxdrv.sh\[960\]: See the documentation for your Linux distribution..  
+Mar 18 12:32:09 xxx vboxdrv.sh\[1219\]: You must sign these kernel modules before using VirtualBox:  
+                                        vboxdrv vboxnetflt vboxnetadp  
+                                        See the documentation for your Linux distribution..
+
+للتنقل لأعلى و أسفل في النتيجة التي ظهرت لك، يمكنك استخدام الأسهم، و للخروج من النتيجة أنقر على Ctrl + C.
+
+لمعالجة المشكلة التي جعلت الخدمة `vboxdrv.service` تفشل في العمل، يمكننا نسخ رسالة الخطأ التي تظهر باللون الأزرق كما هي و لصقها في أي موقع ذكاء صناعي ليعطينا حل لها 🙂

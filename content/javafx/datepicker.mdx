@@ -1,0 +1,192 @@
+---
+title: "JavaFXالكلاس DatePicker"
+source: "https://harmash.com/tutorials/javafx/datepicker"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:36.446Z"
+---
+
+## مقدمة
+
+الكلاس `DatePicker` يستخدم للحصول على `ComboBox` خاص لإختيار التاريخ ( Date Chooser ) بشكل جميل جداً و سهل للغاية. حيث تجد أنه يتيح لك إدخال التاريخ بنفسك أو إختياره من القائمة التي تظهر عند النقر على أيقونة التاريخ.  
+إفتراضياً, يتم عرض التاريخ في الـ `DatePicker` بلغة حاسوب المستخدم في حال لم تقم بتحديد لغة التطبيق بنفسك.  
+و طبعاً يمكنك تحديد لغة التطبيق و عرض التاريخ باللغة التي تريدها بالإضافة إلى أنك تستطيع إظهار التاريخ الهجري هذا شرحناه بتفصيل في الأمثلة.
+
+  
+
+### بناء الكلاس `DatePicker`
+
+public class DatePicker
+extends ComboBoxBase<LocalDate>
+
+  
+  
+
+الآن, إذا قمت بإنشاء كائن من الكلاس `DatePicker` و أضفته في النافذة فإنه سيظهر كالتالي.
+
+![javafx DatePicker date field](/content-images/javafx/datepicker/1784305234057-72x5dh.PNG)
+
+إذاً كما تلاحظ يمكنك أن تدخل التاريخ في مربع النص بشكل مباشر أو النقر على أيقونة التاريخ و التي ستظهر نافذة مخصصة لإختيار التاريخ كالتالي.
+
+![javafx DatePicker date chooser](/content-images/javafx/datepicker/1784305234411-sdt1so.PNG)
+
+## كونستركتورات الكلاس `DatePicker`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `DatePicker`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public DatePicker()` ينشئ كائن من الكلاس `DatePicker` يمثل `ComboBox` مخصص لإختيار التاريخ.
+
+2
+
+`public DatePicker(LocalDate localDate)` ينشئ كائن من الكلاس `DatePicker` يمثل `ComboBox` مخصص لإختيار التاريخ, مع تحديد التاريخ الذي سيظهر موجوداً فيه بشكل إفتراضي.  
+مكان الباراميتر `localDate` نضع كائن من الكلاس `LocalDate` يمثل التاريخ الذي سيكون ظاهراً بشكل إفتراضي.
+
+## دوال الكلاس `DatePicker`
+
+الجدول التالي يحتوي على دوال الكلاس `DatePicker` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `ComboBox` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+2
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `ComboBox` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+3
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `ComboBox` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `ComboBox` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `ComboBox` بالـ Pixel.
+
+4
+
+`public final void setDisable(boolean value)` تستخدم لجعل كائن الـ `ComboBox` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+5
+
+`public final LocalDate getValue()` ترجع القيمة المختارة في كائن الـ `DatePicker` الذي قام باستدعائها ككائن من الكلاس `LocalDate`.
+
+6
+
+`public void setValue(LocalDate value)` تستخدم لتحديد التاريخ الذي نريده أن يظهر مختاراً في كائن الـ `DatePicker` الذي باستدعائها.  
+مكان البارميتر `value` نضع كائن من الكلاس `LocalDate` يمثل التاريخ الذي سيتم إختياره.
+
+7
+
+`public final void setConverter(StringConverter<LocalDate> value)` تستخدم لتحديد طريقة ظهور التاريخ ( Date Format ) الذي سيختاره المستخدم في كائن الـ `DatePicker` الذي قام باستدعائها.  
+ملاحظة: يجب أن تفعل لها Override لتحدد كيف سيتم عرض التاريخ.  
+لا تقلق وضعنا مثال شامل عن هذا الأمر.
+
+8
+
+`public final void setPromptText(String value)` تستخدم لعرض نص إرشادي في كائن الـ `DatePicker` الذي باستدعائها في حال كان فارغاً و لم يقم المستخدم بعد بوضع الفأرة بداخله.  
+مكان البارميتر `value` نمرر النص الذي نريد أن يتم عرضه في كائن الـ `DatePicker` في حال كان فارغاً و لم يقم المستخدم بعد بوضع الفأرة بداخله.
+
+9
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `DatePicker` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `DatePicker` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `DatePicker` و إضافته في النافذة.
+
+![طريقة إضافة DatePicker في javafx](/content-images/javafx/datepicker/1784305234877-7glns8.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة وضع تاريخ إفتراضي للـ `DatePicker`.
+
+![طريقة وضع تاريخ إفتراضي لل DatePicker في javafx](/content-images/javafx/datepicker/1784305234986-wyb9on.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة إظهار الـ `DatePicker` باللغة العربية و بأي لغة أخرى.
+
+![طريقة إظهار ال DatePicker باللغة العربية في javafx](/content-images/javafx/datepicker/1784305235487-iw5h9m.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-3)
+
+  
+  
+
+### المثال الرابع
+
+إفتراضياً, الـ `DatePicker` يستخدم الفورمات `MM/dd/yyyy` لذلك تلاحظ أنه يعرض التاريخ كالتالي: السنة/اليوم/الشهر
+
+المثال التالي يعلمك طريقة تغيير شكل ( فورمات ) التاريخ الذي يظهر بداخل مربع النص الخاص بالـ `DatePicker`.  
+فعلياً, سننشئ الفورمات التالية `d-M-Y` و نطبقها على الـ `DatePicker` لعرض التاريخ الذي يختاره المستخدم كالتالي: السنة-الشهر-اليوم
+
+![تغيير طريقة ظهور التاريخ في ال DatePicker في javafx](/content-images/javafx/datepicker/1784305235652-kyiy3u.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة تحديد التواريخ التي يمكن للمستخدم إختيارها في الـ `DatePicker`.
+
+![طريقة تحديد التواريخ التي يمكن للمستخدم إختيارها في الـ DatePicker في javafx](/content-images/javafx/datepicker/1784305235777-zl18ws.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-5)
+
+  
+  
+
+### المثال السادس
+
+المثال التالي يعلمك طريقة إظهار `Tooltip` عند تمرير الفأرة فوق الأيام في الـ `DatePicker`.  
+في الـ `Tooltip` سنعرض الفرق بين التاريخ الحالي و التاريخ الذي يتم تمرير الفأرة فوقه.
+
+![طريقة إظهار Tooltip في ال DatePicker في javafx](/content-images/javafx/datepicker/1784305235919-tslulu.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-6)
+
+  
+  
+
+### المثال السابع
+
+المثال التالي يعلمك طريقة إظهار التقويم الهجري في الـ `DatePicker`.
+
+![طريقة إظهار التقويم الهجري في ال DatePicker في javafx](/content-images/javafx/datepicker/1784305236314-vsffsy.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-7)
+
+  
+  
+
+### المثال الثامن
+
+المثال التالي يعلمك طريقة عرض قيمة الـ `DatePicker` في `Label` عند النقر على `Button`.
+
+![طريقة عرض قيمة ال DatePicker في Label عند النقر على Button في javafx](/content-images/javafx/datepicker/1784305236423-ml05i6.gif)
+
+[شاهد المثال](/tutorials/javafx/datepicker/example-8)

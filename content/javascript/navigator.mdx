@@ -1,0 +1,140 @@
+---
+title: "جافاسكربتمعلومات المتصفح"
+source: "https://harmash.com/tutorials/javascript/navigator"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:14:22.693Z"
+---
+
+## كيف تحصل على معلومات المتصفح
+
+الكائن `navigator` أو `window.navigator` يحتوي على خصائص يمكن من خلالها معرفة معلومات خاصة بالمتصفح نفسه كإصداره، لغته، نظام التشغيل الذي يعمل عليه، هل هو متصل بالنت أم لا و غيرها من المعلومات.
+
+يوجد العديد من المعلومات التي يمكن الحصول عليها بواسطة الكائن `navigator` و لكنها ليست مدعومة في جميع المتصفحات. في هذا الدرس سنركز على الخصائص المتاحة في جميع المتصفحات.
+
+## معرفة إصدار المتصفح
+
+يمكنك استخدام الخاصية `navigator.appVersion` للحصول على كل المعلومات المتعلقة بإصدار المتصفح.
+
+في المثال التالي قمنا بعرض إصدار المتصفح.
+
+#### مثال
+
+// version في متغير إسمه version يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var version = document.getElementById('version');
+
+// version هنا قمنا بعرض إسم إصدار المتصفح في العنصر الذي يمثله المتغير
+version.innerHTML = 'Browser version: ' + navigator.appVersion;
+
+[جرب الكود](/tryit?file=/tutorials/javascript/navigator/navigator.appversion)
+
+## معرفة نظام تشغيل المستخدم
+
+يمكنك استخدام الخاصية `navigator.platform` للحصول على إسم نظام التشغيل الذي يعمل عليه المتصفح.
+
+في المثال التالي قمنا بعرض إسم نظام التشغيل الخاص بالمستخدم.
+
+#### مثال
+
+// platform في متغير إسمه platform يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var platform = document.getElementById('platform');
+
+// platform هنا قمنا بعرض إسم نظام التشغيل الخاص بالمستخدم في العنصر الذي يمثله المتغير
+platform.innerHTML = 'Operating system: ' + navigator.platform;
+
+[جرب الكود](/tryit?file=/tutorials/javascript/navigator/navigator.platform)
+
+## معرفة لغة متصفح المستخدم
+
+يمكنك استخدام الخاصية `navigator.language` للحصول على لغة المتصفح.
+
+في المثال التالي قمنا بعرض لغة المتصفح.
+
+#### مثال
+
+// language في متغير إسمه language يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var language = document.getElementById('language');
+
+// language هنا قمنا بعرض لغة المتصفح في العنصر الذي يمثله المتغير
+language.innerHTML = 'Browser language: ' + navigator.language;
+
+[جرب الكود](/tryit?file=/tutorials/javascript/navigator/navigator.language)
+
+## معرفة ما إن كان المستخدم يسمح بالكوكيز أم لا
+
+يمكنك استخدام الخاصية `navigator.cookieEnabled` لمعرفة ما إن كان المستخدم يسمح بتخزين الكوكيز في المتصفح أم لا.  
+قيمتها تكون `true` إذا كان المتصفح يسمح بتخزين الكوكيز، و `false` إن لم يكن كذلك.
+
+في المثال التالي قمنا بعرض ما إن كان المتصفح يسمح بتخزين الكوكيز أم لا.
+
+#### مثال
+
+// cookieStatus في متغير إسمه cookieStatus يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var cookieStatus = document.getElementById('cookieStatus');
+
+// cookieStatus هنا قمنا بعرض ما إن كان المتصفح يسمح بتخزين الكوكيز أم لا في العنصر الذي يمثله المتغير
+cookieStatus.innerHTML = 'Are cookies allowed: ' + navigator.cookieEnabled;
+
+[جرب الكود](/tryit?file=/tutorials/javascript/navigator/navigator.cookieenabled)
+
+## معرفة ما إن كان يوجد إتصال بالنت أم لا
+
+يمكنك استخدام الخاصية `navigator.onLine` لمعرفة ما إن كان المتصفح متصل بالنت أم لا.  
+قيمتها تكون `true` إذا كان المتصفح متصل بالنت، و `false` إن لم يكن كذلك.
+
+في المثال التالي قمنا بعرض ما إن كان المتصفح متصل بالنت أم لا.
+
+#### مثال
+
+// internetStatus في متغير إسمه internetStatus يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var internetStatus = document.getElementById('internetStatus');
+
+// internetStatus هنا قمنا بعرض ما إن كان المتصفح متصل بالنت أم لا في العنصر الذي يمثله المتغير
+internetStatus.innerHTML = 'Is browser connected to the internet: ' + navigator.onLine;
+
+[جرب الكود](/tryit?file=/tutorials/javascript/navigator/navigator.online)
+
+## مراقبة حالة النت في الجهاز
+
+يمكنك استخدام الحدث `'online'` لمعرفة متى يصبح المتصفح متصل بالنت، و يمكنك استخدام الحدث `'offline'` لمعرفة متى يصبح المتصفح غير متصل بالنت.
+
+في المثال التالي قمنا ببناء دالة إسمها `updateConnectionStatus()` تقوم بطباعة ما إن كان المتصفح متصل بالنت أم لا.
+
+بعدها قمنا باستدعاء هذه الدالة في ثلاث حالات كما يلي:
+
+*   عندما تفتح الصفحة بالكامل بواسطة الحدث `'load'`.
+*   عندما يصبح المتصفح على اتصال بالنت بواسطة الحدث `'online'`.
+*   عندما يصبح المتصفح غير متصل بالنت بواسطة الحدث `'offline'`.
+
+**ملاحظة:** عند تجربة المثال التالي، قم بقطع النت عن الجهاز و من ثم إعادته لتلاحظ كيف ستتغير الرسالة التي تشير إلى حالة النت.
+
+#### مثال
+
+// يمكن استخدامها لطباعة حالة الإتصال بالنت updateConnectionStatus هنا قمنا بتعريف دالة إسمها
+function updateConnectionStatus() {
+    // لأننا سنعرض حالة النت فيه internetStatus يساوي id هنا قمنا بتخزين العنصر الذي يملك
+    var internetStatus = document.getElementById('internetStatus');
+
+    // لإعلام المستخدم internetStatus حين يكون المتصفح متصل بالنت سيتم تحديث نص العنصر
+    // حتى يظهر باللون الأخضر online أنه متصل بالنت مع جعل العنصر يستخدم الكلاس 
+    if (navigator.onLine) {
+        internetStatus.innerHTML = 'You are online.';
+        internetStatus.className = 'online';
+    }
+    // لإعلام المستخدم internetStatus حين يكون المتصفح متصل بالنت سيتم تحديث نص العنصر
+    // حتى يظهر باللون الأحمر offline أنه غير متصل بالنت مع جعل العنصر يستخدم الكلاس 
+    else {
+        internetStatus.innerHTML = 'You are offline.';
+        internetStatus.className = 'offline';
+    }
+}
+
+// لطباعة حالة النت عندما تفتح الصفحة load هنا قمنا بإضافة الحدث
+window.addEventListener('load', updateConnectionStatus);
+
+// لمراقبة متى يكون جهاز المستخدم متصل بالنت online هنا قمنا بإضافة الحدث
+window.addEventListener('online', updateConnectionStatus);
+
+// لمراقبة متى يكون جهاز المستخدم غير متصل بالنت offline هنا قمنا بإضافة الحدث
+window.addEventListener('offline', updateConnectionStatus);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/navigator/online-and-offline-events)

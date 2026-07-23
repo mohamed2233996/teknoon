@@ -1,0 +1,142 @@
+---
+title: "جافاسكربتالوصول لعناصر الصفحة"
+source: "https://harmash.com/tutorials/javascript/dom-selectors"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:52.125Z"
+---
+
+## محددات العناصر
+
+الكائن `document` الذي تبنيه جافاسكربت لصفحات الويب التي يتم استعراضها بواسطة المتصفح يوفر العديد من الدوال التي يمكن استخدامها للوصول لأي عنصر موجود في الصفحة سواء من خلال أسماء الوسوم أو من خلال أسماء الخصائص التي تملكها.
+
+في هذا الدرس ستتعلم كيفية الوصول لعناصر الصفحة بواسطة الدوال التالية:
+
+*   `document.getElementById()`
+*   `document.getElementsByClassName()`
+*   `document.getElementsByTagName()`
+*   `document.querySelector()`
+*   `document.querySelectorAll()`
+
+  
+
+هذه الدوال تعطيك كائنات تمثل العناصر الحقيقية الموجودة في الصفحة مما يعني أن أي تعديل تجريه على الكائنات فإنه يتم تطبيقه على العناصر نفسها.
+
+## الوصول للعنصر من خلال id خاص به
+
+إذا كان العنصر يملك id ما فيمكنك استخدام الدالة `document.getElementById()` للوصول إليه من خلاله.  
+بين أقواس الدالة يجب تمرير id العنصر كنص.
+
+في المثال التالي قمنا بإنشاء كائن يمثل العنصر الذي يملك id يساوي `demo` و من بعدها قمنا بتغيير محتواه.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element هنا قمنا بتغيير محتوى العنصر الذي يمثله المتغير
+element.innerHTML = 'My content is changed!';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-selectors/getelementbyid)
+
+في حال وجود أكثر من عنصر في الصفحة عندهم نفس الـid فإن الدالة سترجع أول عنصر يملكه فقط.
+
+## الوصول للعنصر من خلال class يملكه
+
+إذا كان لديك عنصر أو أكثر يملكون class ما فيمكنك استخدام الدالة `document.getElementsByClassName()` للوصول إليهم جميعاً من خلاله.  
+بين أقواس الدالة يجب تمرير class كنص.
+
+هذه الدالة ترجع مصفوفة ( Array ) فيها كل العناصر التي يتم إيجادها.
+
+في المثال التالي قمنا بإنشاء مصفوفة كائنات تمثل العناصر التي تملك class يساوي `demo` و من بعدها قمنا بتغيير محتواهم.
+
+#### مثال
+
+// elements في مصفوفة إسمه demo يساوي class هنا قمنا بتخزين جميع العناصر التي تملك
+var elements = document.getElementsByClassName('demo');
+
+// elements هنا قمنا بتغيير محتوى أول و ثاني عنصر موجودين في المصفوفة
+elements\[0\].innerHTML = 'My content is changed!';
+elements\[1\].innerHTML = 'My content is changed too!';
+
+// elements و المخزنة في المصفوفة demo يساوي class هنا قمنا بإضافة فقرة في آخر الصفحة عرضنا فيها إجمالي عدد العناصر التي تملك
+document.write('<p>' + elements.length + ' element(s) found have the class "demo".'</p>' ');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-selectors/getelementsbyclassname)
+
+## الوصول للعنصر من خلال إسم الوسم
+
+إذا كان لديك عنصر أو أكثر من نفس النوع يمكنك استخدام الدالة `document.getElementsByTagName()` للوصول إليهم جميعاً من خلاله.  
+بين أقواس الدالة يجب تمرير إسم الوسم كنص.
+
+هذه الدالة ترجع مصفوفة ( Array ) فيها كل العناصر التي يتم إيجادها.
+
+في المثال التالي قمنا بإنشاء مصفوفة كائنات تمثل العناصر التي نوعها `<p>` و من بعدها قمنا بتغيير محتواهم.
+
+#### مثال
+
+// elements في مصفوفة إسمه <p> هنا قمنا بتخزين جميع العناصر التي نوعها
+var elements = document.getElementsByTagName('p');
+
+// elements هنا قمنا بتغيير محتوى أول و ثاني عنصر موجودين في المصفوفة
+elements\[0\].innerHTML = 'My content is changed!';
+elements\[1\].innerHTML = 'My content is changed too!';
+
+// elements و المخزنة في المصفوفة <p> هنا قمنا بإضافة فقرة في آخر الصفحة عرضنا فيها إجمالي عدد العناصر التي نوعها
+document.write(elements.length + ' p tag(s) found.');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-selectors/getelementsbytagname)
+
+## الوصول للعنصر بأسلوب CSS
+
+إذا أردت الوصول للعناصر بنفس الطريقة التي يمكنك فعلها في CSS فيمكنك استخدام إحدى هاتين الدالتين:
+
+*   `document.querySelector()` تستخدم للحصول على أول عنصر يتم إيجاده.
+*   `document.querySelectorAll()` تستخدم للحصول على جميع العناصر التي يتم إيجادها و ترجعهم كمصفوفة.
+
+بغض النظر عن الدالة التي تستخدمها منهما فإنه يجب تمرير المحدد ( Selector ) لها كنص.
+
+في المثال التالي قمنا بإنشاء كائن يمثل أول وسم `<p>` يملك class يساوي `demo` يتم إيجاده و من بعدها قمنا بتغيير محتواه.
+
+#### المثال الأول
+
+// element في متغير إسمه demo يساوي class و يملك <p> هنا قمنا بتخزين أول عنصر نوعه
+var element = document.querySelector('p.demo');
+
+// element هنا قمنا بتغيير محتوى العنصر الذي يمثله المتغير
+element.innerHTML = 'My content is changed!';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-selectors/queryselector)
+
+في المثال التالي قمنا بإنشاء مصفوفة كائنات تمثل الوسوم التي نوعها `<p>` و تملك class يساوي `demo` و من بعدها قمنا بتغيير محتواهم.
+
+#### المثال الثاني
+
+// elements في مصفوفة إسمها demo يساوي class و تملك <p> هنا قمنا بتخزين جميع العناصر التي نوعها
+var elements = document.querySelectorAll('p.demo');
+
+// elements هنا قمنا بتغيير محتوى أول و ثاني عنصر موجودين في المصفوفة
+elements\[0\].innerHTML = 'My content is changed!';
+elements\[1\].innerHTML = 'My content is changed too!';
+
+// elements و المخزنة في المصفوفة demo يساوي class و تملك <p> هنا قمنا بإضافة فقرة في آخر الصفحة عرضنا فيها إجمالي عدد العناصر التي نوعها
+document.write(elements.length + ' paragraph(s) found with class equal demo.');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-selectors/queryselectorall)
+
+## المرور على العناصر بواسطة حلقة
+
+في حال أردت إجراء على عدة عناصر في الصفحة، فيمكنك تخزينهم في مصفوفة و من ثم المرور عليهم وحداً تلو الآخر باستخدام حلقة.
+
+في المثال التالي قمنا بإنشاء مصفوفة كائنات تمثل الوسوم التي نوعها `<h2>` و من ثم قمنا بتعديل النص الموجود فيها بحيث أضفنا ترقيم في أولها.
+
+#### مثال
+
+// headers في مصفوفة إسمها <h2> هنا قمنا بتخزين جميع العناصر التي نوعها
+var headers = document.querySelectorAll('h2');
+
+// headers هنا قمنا بإنشاء حلقة تمر على جميع العناصر الموجودة في المصفوفة
+for(let i=0; i<headers.length; i++) {
+    headers\[i\].innerHTML = (i + 1) + ') ' + headers\[i\].innerHTML;
+}
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-selectors/loop-through-selected-elements)

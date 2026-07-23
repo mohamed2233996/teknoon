@@ -1,0 +1,124 @@
+---
+title: "Reactالتصميم بأسلوب SASS"
+source: "https://harmash.com/tutorials/react/sass"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:21.256Z"
+---
+
+## مفهوم SASS
+
+SASS هو أسلوب أكثر مرونة و تنظيم في كتابة CSS حيث يتيح لك استخدام المتغيرات ( Variables ) و تعريف المحددات بداخل بعضها البعض ( Nested Rules ) مما يوفر عليك الكثير من الوقت و الجهد و يجعل كود التصميم أبسط و أوضح.
+
+إفتراضياً، المشاريع في React مهيئة فقط لاستخدام CSS و لكنك تستطيع إضافة مترجم ( Compiler ) تلقائي لملفات SASS في المشروع و عندها بشكل تلقائي أثناء بناء المشروع سيقوم Nodejs بتحويلها لكود CSS عادي.
+
+في هذا الدرس لن نقوم بشرح أسلوب SASS بشكل مفصّل بل سنعلمك فقط كيفية استعماله في React.
+
+## تحضير مشروع للتطبيق العملي
+
+إفعل الخطوات التالية تباعاً حتى تنشئ مشروع جديد و تطبق فيه الأمثلة كما فعلنا بالضبط:
+
+1.  قم بإنشاء مشروع جديد إسمه `demo-app`.
+2.  بداخل المجلد `src` تجد ملف إسمه `App.js` قم بحذف كل الكود الإفتراضي الموجود فيه.
+3.  بداخل المجلد `src` تجد ملف إسمه `App.css` قم بحذفه كما هو.
+
+في هذا المشروع قمنا بحذف الملف `App.css` لأننا سنقوم لاحقاً بإنشاء ملف بديل له يتيح لنا كتابة كود CSS بأسلوب SASS.
+
+## إستخدام SASS في React
+
+في حال قمت بإنشاء المشروع أساساً باستخدام الأمر `create-react-app` سيكون عليك إضافة مترجم SASS في المشروع و يمكنك فعل ذلك من خلال تنفيذ الأمر التالي.
+
+npm i sass
+
+الآن أصبح بإمكانك استخدام CSS و SASS في المشروع.  
+ملف التصميم الذي تريد فيه كتابة كود CSS بأسلوب SASS يجب أن يكون إمتداده `.scss` حتى يعمل.
+
+  
+
+في المثال التالي قمنا بإنشاء ملف إسمه `App.scss` و فيه قمنا بتجربة كتابة كود CSS بأسلوب SASS.  
+بعدها قمنا بتضمين الملف `App.scss` في المكوّن `App.js`.
+
+#### مثال
+
+/src/App.scss
+
+// هنا قمنا بتعريف متغيرات يمكن استخدامها بشكل مباشر
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$font-color: #fff;
+$btn-border-radius: 5px;
+
+// هنا قمنا بتعريف محدد يمكن دمجه مع محددات أخرى
+@mixin center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// هنا قمنا بإضافة خصائص عامة لجميع العناصر
+\* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// هنا استخدمنا قيم بعض المتغيرات التي قمنا بتعريفها سابقاً
+body {
+    font-family: Arial, sans-serif;
+    background-color: $secondary-color;
+    color: $font-color;
+}
+
+// center-flex هنا قمنا بتعريف المحددات بشكل متداخل مع تضمين خصائص المحدد
+.app {
+    height: 100vh;
+    @include center-flex;
+    flex-direction: column;
+    text\-align: center;
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+// هنا قمنا بتعريف المحددات بشكل متداخل
+.btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: $btn-border-radius;
+    transition: all .3s ease-in;
+
+    &.primary {
+        background-color: $primary-color;
+        color: $font-color;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+}
+
+/src/App.js
+
+// App.scss هنا قمنا بتضمين ملف التصميم
+import './App.scss';
+
+// مع جعله يمكن الوصول له من خارج هذا الملف و <App> هنا قمنا بتعريف المكون
+// SCSS التي قمنا بتعريفها أساساً بأسلوب CSS لاحظ أننا استخدمنا فيه أسماء كلاسات
+export default function App() {
+    return (
+        <div className\="app"\>
+            <h1\>Welcome to Our Website</h1\>
+            <p\>This is a simple page styled using SCSS.</p\>
+            <button className\="btn primary"\>Get Started</button\>
+        </div\>
+    );
+}
+
+[جرب الكود](/trywebapp?file=/tutorials/react/sass/example)

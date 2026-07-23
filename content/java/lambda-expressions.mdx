@@ -1,0 +1,102 @@
+---
+title: "Javaأسلوب Lambda في جافا"
+source: "https://harmash.com/tutorials/java/lambda-expressions"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:32.441Z"
+---
+
+## مفهوم الـ Lambda Expressions في جافا
+
+الـ Lambda Expressions هي إحدى أهم الميزات التي تم توفيرها إبتداءاً من الإصدار 8 في جافا.  
+بشكل عام, الـ Lambda Expressions هي مجرد أسلوب جديد يمكن استخدامه لتقليل حجم الكود عندما تفعل Override للدوال.
+
+  
+
+عندما تستخدم برنامج Netbeans أثناء كتابة كود جافا فإنه بشكل تلقائي يقترح عليك استخدام أسلوب Lambda Expressions كلما كان ذلك ممكناً.
+
+## الشكل العام للـ Lambda Expressions في جافا
+
+يمكن تعريف الـ Lambda Expressions بعدة طرق كما سترى الآن.
+
+  
+
+في حال كنت ستمرر للدالة قيمة واحدة و ستضع فيها أمراً واحداً, سيكون شكل الكود.
+
+Argument -> Statement
+
+  
+
+في حال كنت ستمرر للدالة قيمة واحدة و ستضع فيها أكثر من أمر, سيكون شكل الكود.
+
+Argument -> {
+    Statements
+}
+
+  
+
+في حال كنت ستمرر للدالة أكثر من قيمة و ستضع فيها أمراً واحداً, سيكون شكل الكود.
+
+(Arguments) -> Statement
+
+  
+
+في حال كنت ستمرر للدالة أكثر من قيمة و ستضع فيها أكثر من أمر, سيكون شكل الكود.
+
+(Arguments) -> {
+    Statements
+}
+
+## أمثلة شاملة حول أسلوب الـ Lambda Expressions في جافا
+
+  
+
+### مجموعة الأمثلة الأولى
+
+الأمثلة التالية تعلمك طريقة تعريف دالة نوعها `void` لا تملك أي باراميتر بأسلوب Lambda Expressions.
+
+[شاهد الأمثلة](/tutorials/java/lambda-expressions/example-1)
+
+  
+  
+
+### مجموعة الأمثلة الثانية
+
+الأمثلة التالية تعلمك طريقة تعريف دالة ليس نوعها `void` ( أي ترجع قيمة ) لا تملك أي باراميتر بأسلوب Lambda Expressions.
+
+[شاهد الأمثلة](/tutorials/java/lambda-expressions/example-2)
+
+  
+  
+
+### مجموعة الأمثلة الثالثة
+
+الأمثلة التالية تعلمك طريقة تعريف دالة نوعها `void` و تملك بارامتير واحد بأسلوب Lambda Expressions.
+
+[شاهد الأمثلة](/tutorials/java/lambda-expressions/example-3)
+
+  
+  
+
+### مجموعة الأمثلة الرابعة
+
+الأمثلة التالية تعلمك طريقة تعريف دالة ليس نوعها `void` ( أي ترجع قيمة ) و تملك بارامتير واحد بأسلوب Lambda Expressions.
+
+[شاهد الأمثلة](/tutorials/java/lambda-expressions/example-4)
+
+  
+  
+
+### مجموعة الأمثلة الخامسة
+
+الأمثلة التالية تعلمك طريقة تعريف دالة تأخذ أكثر من بارامتير بأسلوب Lambda Expressions.
+
+[شاهد الأمثلة](/tutorials/java/lambda-expressions/example-5)
+
+  
+  
+
+### مجموعة الأمثلة السادسة
+
+الأمثلة التالية تعلمك طريقة إستخدام الدالة `forEach()` بأسلوب Lambda Expressions للوصول إلى عناصر أي كلاس من الكلاسات التي تطبق الإنترفيس `Collection`.
+
+[شاهد الأمثلة](/tutorials/java/lambda-expressions/example-6)

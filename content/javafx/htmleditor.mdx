@@ -1,0 +1,116 @@
+---
+title: "JavaFXالكلاس HTMLEditor"
+source: "https://harmash.com/tutorials/javafx/htmleditor"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:46.510Z"
+---
+
+## مقدمة
+
+الكلاس `HTMLEditor` يستخدم لجعل المستخدم قادر على كتابة النصوص, الرسائل, المقالات إلخ.. بشكل مرتب و جميل حيث يوفر له وظائف الكتابة المتوفرة في برنامج الأوفيس و التي يستخدمها المدونون أيضاً لإعداد مقالاتهم و لإرسال الرسائل لعملائهم عبر البريد الإلكتروني.
+
+بمجرد أن تنشئ كائن من الكلاس `HTMLEditor` و تضيفه في النافذة, ستحصل على الواجهة التالية.
+
+![javafx html editor](/content-images/javafx/htmleditor/1784305243815-xajwjm.PNG)
+
+  
+
+### معلومة تقنية
+
+كائن الـ `HTMLEditor` هو في الواقع عبارة عن محرر ويب ( HTML Editor ) مبني بلغات الويب.  
+لهذا السبب لا يمكنك رؤية النص الذي تم كتابته بداخله بنفس التصميم إلا في حال شاهدته من متصفح عادي أو من التطبيق بالإعتماد على الـ `WebView`.
+
+  
+
+### بناء الكلاس `HTMLEditor`
+
+public class HTMLEditor
+extends Control
+
+## كونستركتورات الكلاس `HTMLEditor`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `HTMLEditor`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public HTMLEditor()` ينشئ كائن من الكلاس `HTMLEditor` يمثل واجهة جاهزة لكتابة النصوص بشكل مرتب و جميل.
+
+## دوال الكلاس `HTMLEditor`
+
+الجدول التالي يحتوي على دوال الكلاس `HTMLEditor` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `HTMLEditor` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+2
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `HTMLEditor` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+3
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `HTMLEditor` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `HTMLEditor` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `HTMLEditor` بالـ Pixel.
+
+4
+
+`public String getHtmlText()` تستخدم للحصول على نص و كود الـ HTML المدخل في كائن الـ `HTMLEditor` الذي قام بإستدعائها كنص.
+
+5
+
+`public void setHtmlText(String htmlText)` تستخدم لوضع نص مدمج بكود HTML كمحتوى جاهز في كائن الـ `HTMLEditor` الذي قام بإستدعائها.  
+مكان الباراميتر `htmlText` نضع النص الجديد المدمج مع كود HTML.  
+  
+ملاحظة: عليك إتباع أسلوب لغة HTML إن كنت ستدخل المحتوى بيدك في كائن الـ `HTMLEditor` و بالتالي يجب أن تمرر النص الذي أعددته أنت في المكان الذي أشرنا إليه و إلا سيكون المستخدم غير قابل على تعديل النص الذي وضعته أنت. و لا تقلق من هذا الأمر لأنك في العادة إن إضطررت لفعل هذا في التطبيقات التي تنشئها بنفسك ستقوم فقط بنسخ كود الـ HTML و وضعه كما هو. أي لن تضطر أبداً لكتابته بشكل يدوي.  
+  
+الشكل الأساسي لكود الـ HTML يجب أن يكون كالتالي:  
+`"<html><head></head><body contenteditable=\"true\"> هنا تضع ما تريد </body></html>"`
+
+6
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `HTMLEditor` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `HTMLEditor` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `HTMLEditor` و إضافته في النافذة.
+
+![طريقة إضافة HTMLEditor في javafx](/content-images/javafx/htmleditor/1784305243906-6i253h.PNG)
+
+[شاهد المثال](/tutorials/javafx/htmleditor/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة عرض النص المدخل في `HTMLEditor` في `WebView` لترى كيف سيراه أي مستخدم ترسله له.  
+بالإضافة لطريقة رؤية النص و كود الـ HTML الذي كتبه الـ `HTMLEditor` عنك بداخل `TextArea`.
+
+![طريقة عرض نص ال HTMLEditor بداخل WebView و بداخل TextArea في javafx](/content-images/javafx/htmleditor/1784305244923-3vmbnm.gif)
+
+[شاهد المثال](/tutorials/javafx/htmleditor/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة طباعة النص المدخل في `HTMLEditor` أو حفظه بصيغة pdf بالإعتماد على الـ `WebView`.
+
+![طريقة طباعة النص المدخل في HTMLEditor في javafx](/content-images/javafx/htmleditor/1784305246499-j0sj4c.gif)
+
+[شاهد المثال](/tutorials/javafx/htmleditor/example-3)

@@ -1,0 +1,145 @@
+---
+title: "Swingالكلاس JFileChooser"
+source: "https://harmash.com/tutorials/swing/jfilechooser"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:59.193Z"
+---
+
+## مقدمة
+
+الكلاس `JFileChooser` يسمى File Chooser و يستخدم للحصول على نافذة جاهزة مخصصة لإختيار الملفات (File Chooser Dialog).
+
+إفتراضياً الـ File Chooser يتيح للمستخدم إختيار أي نوع من الملفات الموجودة مهما كان إمتدادها.  
+في حال أردت إجبار المستخدم على إختيار أنواع محددة من الملفات, يمكنك تحديد إمتداد الملفات التي تريد جعله قادراً على رؤيتها بداخل File Chooser.
+
+لا تقلق ستفهم كل شيء لاحقاً من الأمثلة.
+
+  
+
+### بناؤه
+
+public class JFileChooser
+extends JComponent
+implements Accessible
+
+## كونستركتورات الكلاس `JFileChooser`
+
+الجدول التالي يحتوي أهم الكونستركتورات الموجودة في الكلاس `JFileChooser`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JFileChooser()` ينشئ كائن من الكلاس `JFileChooser` يمثل File Chooser Dialog يتيح للمستخدم إختيار أي نوع من الملفات.  
+في حال كان المستخدم يستخدم نظام Windows أو Linux فإن المجلد الإفتراضي الذي سيكون مفتوحاً فيه هو المجلد My Documents.
+
+2
+
+`public JFileChooser(String currentDirectoryPath)` ينشئ كائن من الكلاس `JFileChooser` يمثل File Chooser Dialog يتيح للمستخدم إختيار أي نوع من الملفات مع تحديد المجلد الإفتراضي الذي سيكون مفتوحاً فيه.  
+مكان الباراميتر `currentDirectoryPath` نضع نص يمثل مسار المجلد الذي سيكون مفتوحاً عندما يتم إظهاره.  
+أو نضع القيمة `null` لجعله يفتح المجلد الإفتراض للمستخدم في النظام.
+
+3
+
+`public JFileChooser(File currentDirectory)` ينشئ كائن من الكلاس `JFileChooser` يمثل File Chooser Dialog يتيح للمستخدم إختيار أي نوع من الملفات مع تحديد المجلد الإفتراضي الذي سيكون مفتوحاً فيه.  
+مكان الباراميتر `currentDirectory` نضع كائن من الكلاس `File` يمثل مسار المجلد الذي سيكون مفتوحاً عندما يتم إظهاره.  
+أو نضع القيمة `null` لجعله يفتح المجلد الإفتراض للمستخدم في النظام.
+
+## دوال الكلاس `JFileChooser`
+
+الجدول التالي يحتوي على أهم الدوال الموجودة في الكلاس `JFileChooser`.
+
+الدالة مع تعريفها
+
+1
+
+`public int showDialog(Component parent, String approveButtonText)` تظهر FIle Chooser Dialog يحتوي على زرين. الزر الأول هو Cancel و الزر الثاني أنت تحدد النص الذي سيظهر عليه.  
+  
+
+*   مكان الباراميتر `component` نضع الـ Frame التي نريده أن يظهر بداخلها. أو نضع `null` لجعله يظهر في وسط شاشة المستخدم.
+*   مكان الباراميتر `approveButtonText` نضع النص الذي سيظهر فوق الزر الثاني.
+
+  
+عند إختفاء الـ File Chooser Dialog فإنه يرجع إحدى القيم التالية:  
+
+*   قيمة الثابت `JFileChooser.CANCEL_OPTION` في حال قام المستخدم بالنقر على الزر Cancel.
+*   قيمة الثابت `JFileChooser.APPROVE_OPTION` في حال قام المستخدم بالنقر على الزر الثاني.
+*   قيمة الثابت `JFileChooser.ERROR_OPTION` في حال حدث خطأ ما.
+
+2
+
+`public int showOpenDialog(Component parent)` تظهر FIle Chooser Dialog يحتوي على زر Cancel و زر Open File.  
+بمعنى آخر, تظهر نافذة منبثقة أمام المستخدم تطلب منه تحديد الملف الذي يريد فتحه.  
+مكان الباراميتر `component` نضع الـ Frame التي نريده أن يظهر بداخلها. أو نضع `null` لجعله يظهر في وسط شاشة المستخدم.  
+  
+عند إختفاء الـ File Chooser Dialog فإنه يرجع إحدى القيم التالية:  
+
+*   قيمة الثابت `JFileChooser.CANCEL_OPTION` في حال قام المستخدم بالنقر على الزر Cancel.
+*   قيمة الثابت `JFileChooser.APPROVE_OPTION` في حال قام المستخدم بالنقر على الزر الثاني.
+*   قيمة الثابت `JFileChooser.ERROR_OPTION` في حال حدث خطأ ما.
+
+3
+
+`public int showSaveDialog(Component parent)` تظهر FIle Chooser Dialog يحتوي على زر Cancel و زر Save File.  
+بمعنى آخر, تظهر نافذة منبثقة أمام المستخدم تطلب منه تحديد المكان الذي يريد حفظ الملف فيه.  
+مكان الباراميتر `component` نضع الـ Frame التي نريده أن يظهر بداخلها. أو نضع `null` لجعله يظهر في وسط شاشة المستخدم.  
+  
+عند إختفاء الـ File Chooser Dialog فإنه يرجع إحدى القيم التالية:  
+
+*   قيمة الثابت `JFileChooser.CANCEL_OPTION` في حال قام المستخدم بالنقر على الزر Cancel.
+*   قيمة الثابت `JFileChooser.APPROVE_OPTION` في حال قام المستخدم بالنقر على الزر الثاني.
+*   قيمة الثابت `JFileChooser.ERROR_OPTION` في حال حدث خطأ ما.
+
+4
+
+`public void setFileSelectionMode(int mode)` تحدد ما الذي يستطيع المستخدم إختياره ( ملفات, مجلدات, ملفات و مجلدات ), علماً أنه إفتراضياً يستطيع فقط إختيار ملفات.  
+  
+مكان الباراميتر `mode` نضع إحدى ثواتب الكلاس `JFileChooser` المخصصة لتحديد ما الذي يستطيع المستخدم إختياره:  
+
+*   `JFileChooser.FILES_ONLY` يجعل المستخدم قادر فقط على إختيار ملفات ( ملاحظة: هذا الخيار الإفتراضي ).
+*   `JFileChooser.DIRECTORIES_ONLY` يجعل المستخدم قادر فقط على إختيار مجلدات.
+*   `JFileChooser.FILES_AND_DIRECTORIES` يجعل المستخدم قادر فقط على إختيار ملفات و مجلدات.
+
+  
+ترمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Selection Mode بواسطة الثوابت المخصصة لذلك.
+
+5
+
+`public void setFileFilter(FileFilter filter)` تحدد إمتداد الملفات ( Files Extension ) التي يستطيع المستخدم إختيارها.  
+مكان الباراميتر `FileFilter` نضع كائن من الكلاس `FileNameExtensionFilter` و الذي بدوره يرث من الكلاس `FileFilter`.  
+الكلاس `FileNameExtensionFilter` يسمح لنا بتحديد إمتداد الملفات التي يمكن للمسخدم إختيارها.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إظهار File Chooser Dialog و معرفة إذا تم النقر على الزر Open أم لا.
+
+![طريقة إظهار نافذة منبثقة لإختيار ملف jfilechooser في جافا](/content-images/swing/jfilechooser/1784305378191-3a4jzd.PNG)
+
+[شاهد المثال](/tutorials/swing/jfilechooser/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إظهار File Chooser Dialog لقراءة محتوى أي ملف.  
+هنا سيقوم المستخدم بإختيار أي ملف من جهازه بواسطة File Chooser Dialog, بعدها سنعرض له محتوى الملف الذي إختاره في Text Area.
+
+![طريقة جعل المستخدم يفتح ملف بواسطة jfilechooser في جافا](/content-images/swing/jfilechooser/1784305378739-6m06nh.PNG)
+
+[شاهد المثال](/tutorials/swing/jfilechooser/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تحديد أنواع الملفات التي يمكن للمستخدم رؤيتها و إختيارها في الـ File Chooser Dialog.
+
+![طريقة تحديد أنواع الملفات التي يمكن للمستخدم رؤيتها و إختيارها في ال jfilechooser في جافا](/content-images/swing/jfilechooser/1784305379178-8n1mo1.PNG)
+
+[شاهد المثال](/tutorials/swing/jfilechooser/example-3)

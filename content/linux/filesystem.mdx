@@ -1,0 +1,686 @@
+---
+title: "نظام الملفات في لينكس"
+source: "https://harmash.com/tutorials/linux/filesystem"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:28:59.336Z"
+---
+
+## مفهوم نظام الملفات في لينكس
+
+نظام الملفات في لينكس ( Linux Filesytem ) هو الأسلوب المعتمد فيه لتخزين البيانات على القرص الصلب بشكل منظم و منطقي بحيث تكون ملفات تشغيل قطع الهاردوير، ملفات البرامج و الأدوات، ملفات المستخدمين و غيرها في أماكن محددة.
+
+  
+
+### بنية نظام لينكس
+
+المجلد الرئيسي ( Root Directory ) في لينكس و الذي يحتوي على جميع مجلداته و ملفاته الداخلية يشار إليه بالرمز `/` كما يلي.
+
+![الملفات الرئيسية في نظام لينكس](/content-images/linux/filesystem/1784305739311-ojxhqn.png)
+
+في هذا الدرس ستتعرف على المجلدات الرئيسية في نظام لينكس لتكون على دراية بما يحتويه كل منها و ما هو دوره، و في دروس لاحقة ستتعلم كيف تتعامل معها بواسطة سطر الأوامر ( Command Line ).
+
+## شرح نظام الملفات في لينكس
+
+فيما يلي سنتعرف على دور المجلدات الرئيسية في نظام لينكس.
+
+  
+
+### 1- المجلد `/bin`
+
+هذا المجلد يعتبر بمثابة البوابة الرئيسية للتعامل مع نظام لينكس، فهو يحتوي على مجموعة من الأدوات و الأوامر الأساسية لإدارة النظام كإنشاء ملفات و مجلدات جديدة، عرض محتواها، حذفها، إنشاء نسخ منها، نقلها من مكان لآخر، إعادة تسميتها، تحديد صلاحيات الوصول إليها و غيرها.
+
+تتميز الأوامر الموجودة في هذا المجلد بكونها متاحة لجميع المستخدمين من أي مكان في النظام، و ذلك لأن مسار هذا المجلد موجود بشكل افتراضي في متغيرات النظام PATH. هذا يعني أنه يمكنك تنفيذ أي أمر موجود فيه ببساطة عن طريق كتابة اسمه في سطر الأوامر.
+
+فيما يلي بعض الأوامر الموجودة في هذا المجلد:
+
+*   `ls` \_ لعرض قائمة الملفات والمجلدات في الدليل الحالي.
+*   `cat` \_ لعرض محتويات الملفات النصية.
+*   `cp` \_ لنسخ الملفات والمجلدات.
+*   `mv` \_ لنقل أو إعادة تسمية الملفات والمجلدات.
+*   `rm` \_ لحذف الملفات والمجلدات.
+*   `mkdir` \_ لإنشاء مجلد جديد.
+*   `chmod` \_ لتغيير صلاحيات الوصول للملفات و المجلدات.
+
+  
+
+### 2- المجلد `/sbin`
+
+يحتوي هذا المجلد على الأوامر الضرورية لإدارة و صيانة النظام كأوامر إقلاع و تشغيل النظام، تقسيم القرص الصلب، إنشاء الشبكات و إدارتها، إدارة الأقراص و غيرها.
+
+أوامر هذا المجلد مخصصة للمستخدم المسؤول فيه ( Root User ) و للمستخدمين الذين يتمتعون بصلاحيات عالية.
+
+فيما يلي بعض الأوامر الموجودة في هذا المجلد:
+
+*   `fdisk` \_ لتقسيم القرص الصلب ( Hard Drive ).
+*   `mkfs` \_ لإنشاء نظام ملفات جديد.
+*   `swapon` \_ لتنشيط مساحة التبادل ( Swap ) في القرص الصلب.
+*   `ifconfig` \_ لإدارة و إعداد الشبكة.
+*   `halt` \_ لإيقاف النظام.
+*   `reboot` \_ لإعادة تشغيل النظام.
+
+  
+
+الإختلاف بين المجلدين `/bin` و `/sbin` هو ما يلي:
+
+*   المجلد `/bin` يمكن الوصول إليه من قبل جميع المستخدمين فهو يحتوي على الأوامر التي يحتاجها الجميع.
+*   المجلد `/sbin` يمكن الوصول إليه من قبل المستخدمين المسؤولين فقط فهو يحتوي على الأوامر الخاصة بإدارة النظام.
+
+  
+
+### 3- المجلد `/etc`
+
+يعتبر هذا المجلد بمثابة مكان مركزي لتخزين جميع الإعدادات التي تحتاجها البرامج و النظام نفسه للعمل بشكل صحيح و تخصيصه وفقاً لاحتياجات المستخدم. فهو يحتوي مجموعة من الملفات النصية و التي من خلالها يمكن التحكم بإعدادات النظام المختلفة. هذه الإعدادات قد تتعلق بالشبكة و الأجهزة المتصلة بها مثل الطابعة، خدمات النظام و موعد عملها، اللغة، التاريخ و الوقت، مستخدمي النظام و صلاحياتهم و غيرها.
+
+في هذا المجلد نجد مجموعة من المجلدات الفرعية و التي بدورها تحتوي على الملفات التي يمكن التعديل عليها:
+
+*   `/etc/passwd` \_ يحتوي على معلومات حول المستخدمين.
+*   `/etc/shadow` \_ يحتوي على كلمات مرور المستخدمين المشفرة.
+*   `/etc/hosts` \_ يحتوي على قائمة تربط أسماء المضيفين ( Hosts ) بعناوين IP الخاصة بهم.
+*   `/etc/networks` \_ يحتوي على قائمة بالشبكات المعروفة.
+*   `/etc/resolv.conf` \_ يحتوي على إعدادات DNS الذي يعتمده الجهاز لإيجاد IP الموقع التي يصل بها.
+*   `/etc/fstab` \_ يحتوي على معلومات حول أنظمة الملفات المستخدمة في الجهاز و المتصلة به.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/etc
+├── alternatives/
+│   └── (various symbolic links for alternative commands)
+├── apt/
+│   ├── apt.conf
+│   ├── sources.list
+│   └── (other configuration files for APT)
+├── bash.bashrc
+├── bind/
+│   └── (configuration files for BIND DNS server)
+├── cron.d/
+│   └── (cron job definitions for specific packages)
+├── cron.daily/
+│   └── (scripts run daily via cron)
+├── cron.hourly/
+│   └── (scripts run hourly via cron)
+├── cron.monthly/
+│   └── (scripts run monthly via cron)
+├── cron.weekly/
+│   └── (scripts run weekly via cron)
+├── default/
+│   └── (default settings for various services)
+├── fstab
+├── hostname
+├── hosts
+├── init.d/
+│   └── (init scripts for services, used by SysVinit)
+├── logrotate.conf
+├── network/
+│   ├── interfaces
+│   └── (network configuration files)
+├── passwd
+├── resolv.conf
+├── shadow
+├── sudoers
+├── systemd/
+│   └── (configuration files and service units for systemd)
+├── sysctl.conf
+├── tmpfiles.d/
+│   └── (configuration files for temporary file management)
+└── ssh/
+    ├── sshd\_config
+    └── (configuration files for SSH server)
+
+  
+
+### 4- المجلد `/dev`
+
+يعمل هذا المجلد كسلة وصل ما بين نظام التشغيل و الأجهزة المختلفة المتصلة به سواء كانت هذه الأجهزة داخلية مثل القرص الصلب ( Hard Drive ) أو القرص المضغوط ( DVD ROM )، أو خارجية مثل الطابعة ( Printer ) أو الماوس ( Mouse ).
+
+يمثل كل جهاز متصل بالكمبيوتر بملف خاص داخل هذا المجلد مما يجعل نظام التشغيل يرى جميع الأجهزة كملفات يمكن قراءتها أو الكتابة فيها أو تنفيذ العمليات عليها.
+
+على حسب الأجهزة المتصلة بالحاسوب فإنك قد في هذا المجلد مجموعة من المجلدات الفرعية و التي بدورها تحتوي على ملفات تمثلها كما يلي:
+
+*   `/dev/sda` \_ عادة ما يمثل القرص الصلب الأول الذي يوجد عليه نظام التشغيل نفسه.
+*   `/dev/cdrom` \_ يمثل محرك الأقراص المضغوطة المتصل بالجهاز.
+*   `/dev/sdb1` \_ يمثل الفلاش ميموري ( Flash Memory ) الأولى التي تكون موصولة بالجهاز.
+*   `/dev/tty1` \_ يمثل تطبيق موجه الأوامر الأول ( Terminal ) الذي يتم استخدامه لإدخال أوامر.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/dev
+├── block/
+│   ├── loop0          # Loopback devices (e.g., for mounting disk images)
+│   ├── loop1
+│   ├── sda            # First SCSI or SATA disk (e.g., hard drive or SSD)
+│   ├── sda1           # First partition on the first disk
+│   ├── sda2           # Second partition on the first disk
+│   ├── sdb            # Second SCSI or SATA disk
+│   └── (other block devices)
+│
+├── char/
+│   ├── 0              # /dev/zero: Provides null bytes
+│   ├── 1              # /dev/console: System console
+│   ├── 2              # /dev/null: Discards all data written to it
+│   ├── 3              # /dev/ptmx: Pseudo-terminal master multiplexer
+│   ├── 4              # /dev/tty: Terminal device
+│   ├── 5              # /dev/tty0: First virtual terminal
+│   ├── 10             # /dev/random: Provides random bytes
+│   └── (other character devices)
+│
+├── dvd
+│   └── (DVD/CD-ROM devices)
+│
+├── fb0
+│   └── (Framebuffer device for graphics)
+│
+├── full
+│   └── (Provides a file that is always full)
+│
+├── initctl
+│   └── (Communication with the init system)
+│
+├── lvm
+│   └── (LVM device mapper files)
+│
+├── mqueue
+│   └── (POSIX message queues)
+│
+├── ptmx
+│   └── (Pseudo-terminal master multiplexer)
+│
+├── shm
+│   └── (Temporary filesystem for shared memory)
+│
+├── tty
+│   ├── ttyS0           # Serial port device
+│   ├── ttyS1
+│   └── (other tty devices)
+│
+├── urandom
+│   └── (Provides cryptographically secure random numbers)
+│
+└── usb
+    └── (USB devices, often mounted under this subdirectory)
+
+  
+
+### 5- المجلد `/home`
+
+يُعتبر هذا المجلد بمثابة مكان مخصص للحفاظ على البيانات الشخصية و الإعدادات الفردية للمستخدمين. كل مستخدم في لينكس يملك مجلد خاص به بداخله و عادةً ما يكون المجلد بإسم المستخدم نفسه.
+
+عادةً ما يتم تجهيز مجلدات إفتراضية أيضاً في المجلد الخاص بكل مستخدم لكي يضع ملفاته بها مثل `Desktop` و `Downloads` و `Pictures` و `Videos` إلخ.. و بالطبع يستطيع المستخدم حذف هذه المجلدات أو إضافة مجلدات أخرى ضمن المجلد الخاص به.
+
+في حال كان النظام عليه مستخدم إسمه `Mhamad` و مستخدم إسمه `Hala` فإن كل واحد منهما سيملك مجلد خاص به كما يلي.
+
+/home/
+│
+├── mhamad/
+│   ├── Desktop/
+│   ├── Documents/
+│   ├── Downloads/
+│   └── Projects/
+│
+└── hala/
+    ├── Desktop/
+    ├── Videos/
+    ├── Pictures/
+    └── Music/
+
+عندما يقوم المستخدم بتسجيل دخوله في نظام لينكس بواسطة سطر الأوامر فإنه إفتراضياً يتم وضعه إفتراضياً في المجلد الخاص به.
+
+  
+
+### 6- المجلد `/usr`
+
+يعتبر هذا المجلد بمثابة المستودع الرئيسي لمعظم البرامج و التطبيقات التي يتم تثبيتها على النظام من قبل المستخدم.
+
+يحتوي هذا المجلد على مجموعة من الملفات و المجلدات الفرعية التي يتم تنظيمها بشكل هرمي لتسهيل الوصول إليها و إدارتها:
+
+*   `/usr/bin` \_ يحتوي على أوامر المستخدمين.
+*   `/usr/local` \_ يستخدم لتثبيت البرامج التي يتم تنزيلها وتجميعها يدويًا.
+*   `/usr/share` \_ يحتوي على ملفات البيانات المشتركة بين جميع المستخدمين، مثل الصور و الوثائق.
+*   `/usr/lib` \_ يحتوي على المكتبات التي تستخدمها البرامج.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/usr
+├── bin/
+│   ├── (user command binaries, e.g., /usr/bin/bash)
+│   ├── (system utilities, e.g., /usr/bin/grep)
+│   └── (additional executable programs)
+│
+├── lib/
+│   ├── (libraries for /usr/bin and /usr/sbin binaries)
+│   ├── x86\_64-linux-gnu/  # Architecture-specific libraries
+│   └── (shared libraries)
+│
+├── lib64/
+│   ├── (64-bit libraries for /usr/bin and /usr/sbin binaries)
+│   └── (architecture-specific libraries)
+│
+├── local/
+│   ├── bin/                # Local user command binaries
+│   ├── lib/                # Local libraries
+│   ├── sbin/               # Local system binaries
+│   └── share/              # Local shared data
+│
+├── sbin/
+│   ├── (system binaries, e.g., /usr/sbin/sshd)
+│   └── (administrative commands)
+│
+├── share/
+│   ├── (shared data for applications, e.g., /usr/share/doc)
+│   ├── man/                # Manual pages
+│   ├── info/               # GNU info documentation
+│   ├── icons/              # Application icons
+│   └── (localizations, documentation, etc.)
+│
+├── src/
+│   └── (source code, if provided by the distribution)
+│
+└── include/
+    └── (header files for development)
+
+  
+
+لا تخلط بين المجلد الأساسي `/bin` و المجلد `/usr/bin` فعلى الرغم من أنهما يحملان نفس الإسم و لكنهما مختلفان فالمجلد الأساسي فيه أوامر مخصصة للتعامل مع النظام نفسه، بينما الآخر يحتوي على الأوامر التابعة للأدوات و التطبيقات التي يثبّتها المستخدم.
+
+  
+
+### 7- المجلد `/tmp`
+
+هو مجلد مخصص لتخزين الملفات المؤقتة التي تُستخدم عادةً من قبل النظام و التطبيقات. يُعتبر هذا المجلد مكاناً لتخزين البيانات التي تحتاج إلى الوصول السريع و التي لا تُعتبر دائمة أو ضرورية على المدى الطويل. على سبيل المثال، يمكن لتطبيقات معالجة النصوص أو برامج التصفح إنشاء ملفات مؤقتة هنا لتحسين الأداء أو لتخزين بيانات مؤقتة أثناء التشغيل. كما أن نظام التشغيل يقوم بتخزين الملفات المؤقتة أثناء الصيانة و التحديث، مثل ملفات التثبيت أو البيانات التي يتم التعامل معها خلال بدء التشغيل أو الإغلاق.
+
+عادةً ما يتم التخلص من الملفات المؤقتة بشكل تلقائي عند إغلاق البرامج التي قامت هي بإنشائها أو عند إعادة تشغيل النظام.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/tmp/
+│
+├── temp\_file1
+├── temp\_file2
+├── app\_cache/
+│   ├── cache1
+│   └── cache2
+└── session\_data/
+    ├── session1
+    └── session2
+
+  
+
+### 8- المجلد `/var`
+
+هذا المجلد لتخزين البيانات التي تتغير باستمرار على النظام كسجلات النظام و التطبيقات ( Logs)، أي النشاطات و العمليات التي حدثت في النظام.
+
+البيانات في هذا الجلد تخزّن بشكل مرتب بداخل ملفات نصية و بداخل مجلدات فرعية كما يلي:
+
+*   `/var/log` \_ يحتوي على ملفات السجلات الخاصة بالنظام و التطبيقات. تُستخدم هذه الملفات لتسجيل الأحداث و الأخطاء و التحذيرات، مما يساعد في تتبع أداء النظام و تشخيص المشكلات.
+*   `/var/tmp` \_ يستخدم لتخزين الملفات المؤقتة التي تحتاج إلى أن تبقى حتى لو تم إعادة تشغيل النظام. إذاً فهو يختلف عن `/tmp` في أنه مخصص للملفات المؤقتة التي تحتاج إلى الحفاظ عليها لفترة أطول.
+*   `/var/spool` \_ يحتوي على الملفات التي تنتظر المعالجة من قبل التطبيقات، مثل ملفات الطباعة التي تنتظر أن يتم طباعتها أو رسائل البريد الإلكتروني التي ينتظر أن يتم إرسالها.
+*   `/var/cache` \_ يُستخدم لتخزين بيانات مؤقتة تقوم التطبيقات بتخزينها لتحسين الأداء، مثل بيانات التصفح المؤقتة أو ملفات الكاش الخاصة بالبرامج.
+*   `/var/lib` \_ يحتوي على بيانات متغيرة تُستخدم من قبل التطبيقات و الخدمات. يمكن أن يشمل قواعد بيانات، بيانات حالة، أو ملفات تعريف خاصة بالتطبيقات.
+*   `/var/mail` أو `/var/mail` \_ يحتوي على البريد الإلكتروني الوارد للمستخدمين.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/var
+├── cache/
+│   ├── apt/                  # APT cache for Debian-based systems
+│   ├── yum/                  # YUM cache for Red Hat-based systems
+│   └── (other application caches)
+│
+├── lib/
+│   ├── dpkg/                 # dpkg-related files for Debian-based systems
+│   ├── systemd/              # Systemd state files and data
+│   └── (other application libraries)
+│
+├── log/
+│   ├── syslog                 # System log files
+│   ├── auth.log               # Authentication-related log files
+│   ├── kern.log               # Kernel log files
+│   ├── messages               # General system messages
+│   ├── (application-specific logs)
+│   └── (log files for other services)
+│
+├── mail/
+│   └── user/                  # User mailboxes (if local mail system is used)
+│
+├── spool/
+│   ├── cron/                  # Cron job spool files
+│   ├── mail/                  # Spool for mail queues
+│   └── (other spooled files)
+│
+├── tmp/
+│   ├── (temporary files with persistence across reboots)
+│
+└── www/
+    ├── html/                  # Default web server document root
+    └── (other web server files)
+
+  
+
+### 9- المجلد `/boot`
+
+هو مجلد مخصص لتخزين الملفات الضرورية لإقلاع النظام. يحتوي هذا المجلد على جميع الملفات الأساسية التي يحتاجها نظام التشغيل ليبدأ عمله، بما في ذلك نواة النظام ( Kernel )، ملفات التمهيد ( Boot Loaders ) مثل GRUB و LILO و التي تتضمن بدورها ملفات الإعدادات، و قوائم التمهيد، و أحياناً البرامج التنفيذية التي تتحكم في عملية تحميل النظام. و تجدر الإشارة إلى أنه قد يحتوي على ملفات ضرورية أخرى مثل الملفات المساعدة لتحديث النواة، أو ملفات الذاكرة المؤقتة المستخدمة في عملية التمهيد.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/boot/
+│
+├── vmlinuz-5.15.0-70-generic
+├── initrd.img-5.15.0-70-generic
+├── grub/
+│   ├── grub.cfg
+│   ├── fonts/
+│   ├── i386-pc/
+│   └── themes/
+└── System.map-5.15.0-70-generic
+
+  
+
+### 10- المجلد `/root`
+
+يحتوي هذا المجلد على الملفات، الأدوات، الإعدادات و المعلومات الشخصية للمستخدم الذي يملك أعلى صلاحيات في النظام و الذي يسمى المستخدم الجذر أو الرووت ( Root User ).
+
+المستخدم رووت يمكنه الوصول لجميع مجلدات و ملفات النظام بما فيها مجلد الجزر الرئيسي في النظام `/` و يستطيع أيضاً الولوج لمجلدات المستخدمين الآخرين الشخصية و التي تكون موجودة في المجلد `/home`.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/root
+├── bin/
+│   └── (root's personal executables and scripts)
+│
+├── .bash\_history
+│   └── (command history for the root user)
+│
+├── .bashrc
+│   └── (root's personal Bash shell configuration)
+│
+├── .profile
+│   └── (root's personal shell initialization file)
+│
+├── .ssh/
+│   ├── authorized\_keys    # SSH public keys allowed for root login
+│   ├── config             # SSH client configuration
+│   ├── id\_rsa             # Root’s private SSH key (if generated)
+│   ├── id\_rsa.pub         # Root’s public SSH key (if generated)
+│   └── (other SSH-related files)
+│
+├── .vimrc
+│   └── (configuration file for Vim editor)
+│
+└── (other personal files and directories specific to the root user)
+
+  
+
+### 11- المجلد `/lib`
+
+يعتبر هذا المجلد جزء من بنية نظام الملفات فهو يحتوي على مكتبات النظام الأساسية التي تستخدمها برامج النظام و البرامج التطبيقية. هذه المكتبات تُعتبر ضرورية لتشغيل النظام و توفير الوظائف الأساسية لتشغيل البرامج.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/lib
+├── x86\_64-linux-gnu/
+│   ├── libc.so.6              # GNU C Library
+│   ├── libm.so.6              # Math Library
+│   ├── libpthread.so.0        # POSIX Threads Library
+│   ├── libdl.so.2             # Dynamic Linking Library
+│   ├── libutil.so.1           # Utility Library
+│   ├── libnss\_files.so.2      # Name Service Switch Files Library
+│   ├── libnss\_dns.so.2        # DNS Resolver Library
+│   └── (other 64-bit libraries)
+│
+├── i386/                      # Libraries for 32-bit architecture (if applicable)
+│   ├── libc.so.6              # GNU C Library
+│   ├── libm.so.6              # Math Library
+│   ├── libpthread.so.0        # POSIX Threads Library
+│   └── (other 32-bit libraries)
+│
+├── lib32/                     # 32-bit libraries on 64-bit systems
+│   ├── libc.so.6              # GNU C Library (32-bit)
+│   └── (other 32-bit libraries)
+│
+├── lib64/                     # 64-bit libraries (if separate from /lib)
+│   ├── libc.so.6              # GNU C Library (64-bit)
+│   └── (other 64-bit libraries)
+│
+└── (symlinks to architecture-specific libraries or other common libraries)
+
+  
+
+### 12- المجلد `/opt`
+
+في هذا المجلد يتم تخزين البرامج التي يقوم مستخدم النظام بتثبيتها بنفسه. إذاً أي برنامج يقوم المستخدم بإضافته في النظام فإنه يتم إنشاء مجلد خاص له (بنفس إسمه) في هذا المجلد، و من بعدها يتم وضع ملفات و مجلدات البرنامج بداخله. هكذا تكون جميع التطبيقات منظمة و منفصلة عن بعضها البعض حيث من السهل الوصول إليها، تحديثها أو إزالتها بحسب حاجة المستخدم.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/opt
+├── example-software/
+│   ├── bin/
+│   │   └── (executable binaries for the software)
+│   ├── lib/
+│   │   └── (libraries used by the software)
+│   ├── etc/
+│   │   └── (configuration files for the software)
+│   ├── share/
+│   │   ├── doc/
+│   │   │   └── (documentation related to the software)
+│   │   ├── man/
+│   │   │   └── (manual pages for the software)
+│   │   ├── icons/
+│   │   │   └── (icons used by the software)
+│   │   └── (other shared data)
+│   └── (other subdirectories specific to the software)
+│
+├── another-software/
+│   ├── bin/
+│   ├── lib/
+│   ├── etc/
+│   ├── share/
+│   │   └── (similar structure to example-software)
+│   └── (other subdirectories)
+│
+└── (additional optional software packages)
+
+  
+
+### 13- المجلد `mnt`
+
+يُستخدم هذا المجلد كمكان مخصص لتوصيل ( Mount ) أنظمة الملفات أو الأجهزة الخارجية، مثل القرص الصلب الخارجي ( External Hard Drive )، الفلاش ميموري ( Flash Memory )، أو أي نظام ملفات آخر ليس من النظام نفسه بهدف نقل المعلومات أو إجراء الصيانة.
+
+بعد إتمام عملية التوصيل يمكنك قراءة محتوى الملفات، التعديل عليها أو حذفها.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/mnt
+├── usb-drive/
+│   ├── Documents/
+│   ├── Music/
+│   └── Pictures/
+│
+├── backup/
+│   ├── backup1/
+│   ├── backup2/
+│   └── (other backup directories or files)
+│
+├── temp-mount/
+│   ├── some-file.txt
+│   └── (other temporary files)
+│
+└── (other mount points)
+
+  
+
+### 14- المجلد `media`
+
+يستخدم في التوزيعات الحديثة من لينكس بهدف توصيل أنظمة الملفات أو الأجهزة الخارجية بشكل تلقائي من قبل نظام التشغيل.
+
+الإختلاف بين المجلد `/media` و المجلد `/mnt` هو ما يلي:
+
+*   المجلد `/media` يستخدمه نظام التشغيل لإجراء عملية التوصيل بشكل تلقائي.
+*   المجلد `/mnt` يتم استخدام لإجراء عملية التوصيل بشكل يدوي.
+
+  
+
+### 15- المجلد `/srv`
+
+يُستخدم هذا المجلد بشكل أساسي لتخزين البيانات المرتبطة بالخدمات التي يقدمها النظام مثل خوادم الويب، خوادم الملفات، البريد الإلكتروني، قواعد البيانات و غيرها من الخدمات الأخرى.
+
+قد يحتوي على هذا المجلد على مجلدات فرعية على حسب نوع الخدمة التي يقدمها:
+
+*   في حال كان النظام يقدم خدمة إستضافة مواقع ويب فإن بيانات هذه الخدمة توضع في المجلد `/srv/www`.
+*   في حال كان النظام يقدم خدمة إرسال البريد الإلكتروني فإن رسائل البريد توضع في المجلد `/srv/mail`.
+*   في حال كان النظام يقدم خدمة إدارة قواعد البيانات فإن قواعد البيانات توضع في المجلد `/database`.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/srv
+├── ftp/
+│   ├── uploads/
+│   │   ├── file1.txt
+│   │   ├── file2.zip
+│   │   └── (other uploaded files)
+│   ├── downloads/
+│   │   ├── report.pdf
+│   │   └── (other downloadable files)
+│   └── (other FTP service data)
+│
+├── www/
+│   ├── html/
+│   │   ├── index.html
+│   │   ├── about.html
+│   │   ├── contact.html
+│   │   └── (other HTML files)
+│   ├── images/
+│   │   ├── logo.png
+│   │   ├── banner.jpg
+│   │   └── (other images)
+│   ├── css/
+│   │   ├── style.css
+│   │   └── (other CSS files)
+│   └── (other web service data)
+│
+├── database/
+│   ├── mysql/
+│   │   └── (MySQL database files)
+│   ├── postgresql/
+│   │   └── (PostgreSQL database files)
+│   └── (other database service data)
+│
+├── git/
+│   ├── repositories/
+│   │   ├── project1.git/
+│   │   ├── project2.git/
+│   │   └── (other Git repositories)
+│   └── (other Git service data)
+│
+└── (other services and their data)
+
+  
+
+### 16- المجلد `/sys`
+
+عبارة عن مجلد وهمي يتم إنشاؤه من قبل البرنامج `sysfs` الموجود في النواة ( Kernel ). يوفر واجهة هرمية ما بين النواة و الهاردوير مما يتيح رؤية حالة الهاردوير التي تعمل حالياً على النظام، عرض المعلومات الخاصة بها و التعديل على إعدادتها.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/sys
+├── block/
+│   ├── sda/
+│   │   ├── dev
+│   │   ├── size
+│   │   ├── stat
+│   │   └── (other attributes of the device)
+│   └── (other block devices)
+│
+├── bus/
+│   ├── pci/
+│   │   ├── devices/
+│   │   │   ├── 0000:00:00.0/
+│   │   │   └── (PCI devices)
+│   │   └── (other PCI bus attributes)
+│   ├── usb/
+│   │   ├── devices/
+│   │   ├── controllers/
+│   │   └── (USB-related attributes)
+│   └── (other buses)
+│
+├── class/
+│   ├── net/
+│   │   ├── eth0/
+│   │   ├── wlan0/
+│   │   └── (network device attributes)
+│   ├── sound/
+│   └── (other device classes)
+│
+├── devices/
+│   ├── platform/
+│   │   ├── acpi/
+│   │   └── (platform-specific devices)
+│   ├── pci/
+│   └── (other devices)
+│
+├── kernel/
+│   ├── config/
+│   ├── boot/
+│   └── (kernel configuration and boot attributes)
+│
+└── system/
+    ├── power/
+    │   ├── state
+    │   └── (power management attributes)
+    └── (other system-related attributes)
+
+  
+
+### 17- المجلد `/proc`
+
+عبارة عن مجلد وهمي يوفر واجهة هرمية ما بين النواة ( Kernel ) و نظام التشغيل مما يتيح رؤية حالة النظام في الوقت الحالي. توفر لك ملفات هذا المجلد معلومات حول أداء عمل النظام، الذاكرة، المعالج بالإضافة إلى العمليات النشطة على النظام. يُفيد هذا المجلد المبرمجين و المسؤولين عن النظام إذ بإمكانهم تتبع حالة النظام، مراقبة و تشخيص المشكلات التي تحدث و معالجتها بدون الحاجة للإستعانة بأدوات إضافية.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/proc
+├── 1/
+│   ├── cwd/
+│   ├── cmdline
+│   ├── environ
+│   ├── fd/
+│   ├── maps
+│   └── (other files related to process 1)
+│
+├── cpuinfo
+├── meminfo
+├── mounts
+├── version
+├── uptime
+├── filesystems
+└── (other files and directories)
+
+  
+
+### 18- المجلد `/run`
+
+يتم في هذا المجلد تخزين البيانات المؤقتة التي يحتاجها النظام أثناء تشغيله، و جميع المعلومات التي سيحتاجها أثناء عملية التشغيل كحالة النظام، حالة الشبكة، حالة الأجهزة المتصلة و غيرها. و في النهية يتم مسح هذه المعلومات تلقائياً عن إغلاق النظام.
+
+يحتوي هذا المجلد أيضاً على ملفات قفل العمليات ( PID Files ) فلكل خدمة رقم معرّف ( ID ) خاص بها يتحقق منه النظام عند طلب تشغيل هذه العملية، فإذا وجد الملف و بداخله رقم العملية هذا يعني أنها قيد العمل و لن يقوم بتشغيلها مرة أخرى.
+
+في حال اطلعت على محتوى هذا المجلد فستجده مشابه لما يلي.
+
+/run
+├── lock/
+│   ├── subsys/
+│   └── (lock files for various subsystems and applications)
+│
+├── network/
+│   └── (network-related runtime information)
+│
+├── mount/
+│   └── (mount information for various filesystems)
+│
+├── tmp/
+│   └── (temporary files used by services and applications)
+│
+├── systemd/
+│   └── (systemd-related runtime files)
+│
+└── (other runtime directories and files)
+
+  
+
+لا تخلط بين المجلد الأساسي `/tmp` و المجلد `/run` فعلى الرغم من أن الإثنين يحويان ملفات مؤقتة و لكن عمل كل واحد منهما مختلف عن الآخر.

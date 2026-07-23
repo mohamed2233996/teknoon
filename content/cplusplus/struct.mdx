@@ -1,0 +1,255 @@
+---
+title: "C++النوع struct"
+source: "https://harmash.com/tutorials/cplusplus/struct"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:17:18.647Z"
+---
+
+## الكلمة `struct` في C++
+
+في الدروس السابقة, كنا نتعامل دائماً مع أنواع بيانات بسيطة فمثلاً كنا نقوم بتعريف متغير نوعه `int` و هذا المتغير كنا نضع فيه قيمة واحدة فقط.  
+الأنواع البسيطة مفيدة جداً و سنتعامل معها دائماً و لكن في حالات معينة لا بد لنا من تعريف أنواع جديدة.
+
+كمثال بسيط, إذا كنا ننوي إرسال معلومات مجموعة من المنتجات و كل منتج يملك المعلومات التالية: إسم المنتج, تاريخ إنتاجه, سعره و مكوناته.  
+هنا سيكون خيار ممتاز أن ننشئ نوع جديد يمثل المنتج, أي نوع فيه المعلومات الأساسية التي لا بد أن يمتلكها أي منتج.  
+و عندها أي منتج جديد نريد تعريفه, نجعله نسخة منه.
+
+الكلمة `struct` تستخدم لتعريف نوع جديد و هذا النوع يمكنه أن يحتوي على مجموعة من القيم من أي نوع كانت بشكل مرتب و سهل التعامل معها.  
+على الأغلب, ستجد النوع الجديد الذي يتم تعريفه بواسطة الكلمة `struct` يستخدم لهذا الغرض فقط.  
+و لكن عليك معرفة أنه يمكنه أن يحتوي على أي شيء آخر, مثل دوال خاصة به و حتى `struct` آخر و سترى ذلك لاحقاً في الأمثلة.
+
+  
+
+### مصطلحات تقنية
+
+أي نوع جديد تعرّفه بواسطة الكلمة `struct` يقال له Structure.  
+أي نسخة تنشئها من النوع الجديد الذي قمت بتعريفه يقال لها كائن ( Object ) منه.
+
+## تعريف `struct` جديد في C++
+
+إذا كنت ستقوم بتعريف النوع الجديد بواسطة الكلمة `struct` فيجب أن تتبع الأسلوب التالي.
+
+struct struct\_name {  
+    member\_definition;  
+    member\_definition;  
+    member\_definition;  
+    ..  
+} object\_names;
+
+*   struct\_name:   مكانها نضع الإسم الذي سنعطيه للنوع الجديد.
+*   member\_definition:   هنا يمكنك تمرير إسم و نوع أي شيء تنوي جعل النوع الجديد يملكه.
+*   object\_names:   إذا أردت إنشاء كائن (نسخة) من النوع الجديد مباشرةً عند تعريفه, فأي إسم تضعه هنا سيتم إعتباره كائن منه.
+
+الآن عليك معرفة أنه يمكنك تعريف `struct` في أي مكان تريده, فمثلاً يمكنك تعريفه في ملف خاص, خارج الدالة `main()` و حتى بداخلها إن أردت.
+
+  
+
+في المثال التالي, قمنا بتعريف نوع جديد إسمه `Book` يمثل المعلومات التي يمكن أن يتضمنها أي كتاب كعنوانه, إسم المؤلف, سعره و عدد صفحاته.
+
+#### مثال
+
+struct Book {
+    string title;
+    string author;
+    double price;
+    int numberOfPages;
+};
+
+## إنشاء كائن من `struct` في C++
+
+هناك عدة طرق يمكن اتباعها لإنشاء كائنات من `struct` و يمكنك اتباع أي طريقة تريد منها.
+
+  
+
+في المثال التالي قمنا بإنشاء `struct` إسمه `Book` و من ثم إنشاء كائن منه.
+
+#### المثال الأول
+
+// يحتوي على 4 متغيرات Book إسمه struct هنا قمنا بتعريف
+struct Book {
+    string title;
+    string author;
+    double price;
+    int numberOfPages;
+};
+
+// book إسمه Book هنا قمنا بإنشاء كائن من
+struct Book book;
+
+  
+
+في المثال التالي قمنا بإنشاء `struct` إسمه `Book` و إنشاء كائن منه بشكل مباشر.  
+إذاً, هذا المثال هو نفس المثال الأول بالضبط و لكن الكود مكتوب فيه بشكل مختصر فقط.
+
+#### المثال الثاني
+
+// book يحتوي على 4 متغيرات. و من ثم قمنا بإنشاء كائن منه إسمه Book إسمه struct هنا قمنا بتعريف
+struct Book {
+    string title;
+    string author;
+    double price;
+    int numberOfPages;
+} book;
+
+  
+
+في المثال التالي قمنا بإنشاء `struct` إسمه `Book` و من ثم إنشاء ثلاث كائنات منه.
+
+#### المثال الثالث
+
+// يحتوي على 4 متغيرات Book إسمه struct هنا قمنا بتعريف
+struct Book {
+    string title;
+    string author;
+    double price;
+    int numberOfPages;
+};
+
+// book3 و الثالث إسمه book2 الثاني إسمه ,book1 الأول إسمه ,Book هنا بإنشاء ثلاث كائنات من
+struct Book book1;
+struct Book book2;
+struct Book book3;
+
+  
+
+في المثال التالي قمنا بإنشاء `struct` إسمه `Book` و من ثم إنشاء ثلاث كائنات منه.  
+إذاً, هذا المثال هو نفس المثال الثالث بالضبط و لكن الكود مكتوب فيه بشكل مختصر فقط.
+
+#### المثال الرابع
+
+// يحتوي على 4 متغيرات Book إسمه struct هنا قمنا بتعريف
+struct Book {
+    string title;
+    string author;
+    double price;
+    int numberOfPages;
+};
+
+// book3 و الثالث إسمه book2 الثاني إسمه ,book1 الأول إسمه ,Book هنا بإنشاء ثلاث كائنات من
+struct Book book1, book2, book3;
+
+## الوصول للأشياء الموجودة بداخل كائن من `struct` في C++
+
+للوصول لقيم المتغيرات الموجودة فيه, نستخدم العامل `.` أي النقطة العادية.
+
+  
+
+### مصطلحات تقنية
+
+العامل `.` يقال له Member Operator لأنه يسمح لنا بالوصول لأي شيء ( Member ) موجود في الكائن.
+
+  
+
+في المثال التالي, قمنا بتعريف `struct` إسمه `Book` يمثل المعلومات التي يمكن أن يتضمنها أي كتاب كعنوانه, إسم المؤلف, سعره و عدد صفحاته.  
+بعدها قمنا بإنشاء كائنين منه و من ثم إعطاء كل واحد قيم خاصة به.
+
+#### مثال
+
+main.cpp
+
+#include <iostream>
+
+using namespace std;
+
+// يحتوي على 4 متغيرات Book إسمه struct هنا قمنا بتعريف
+struct Book {
+    string title;
+    string author;
+    double price;
+    int numberOfPages;
+};
+
+int main()
+{
+    // book2 و الثاني إسمه book1 الأول إسمه ,Book هنا قمنا بتعريف كائنين من
+    struct Book book1;
+    struct Book book2;
+
+    // book1 هنا قمنا بإعطاء قيم لمتغيرات الكائن
+    book1.title = "C++ for beginners";
+    book1.author = "Mhamad Harmush";
+    book1.price = 9.99;
+    book1.numberOfPages = 420;
+
+    // book2 هنا قمنا بإعطاء قيم لمتغيرات الكائن
+    book2.title = "Network 1";
+    book2.author = "Nadine Masri";
+    book2.price = 22.49;
+    book2.numberOfPages = 310;
+
+    // book1 هنا قمنا بعرض قيم الكائن
+    cout << "Book 1 ----------- \\n";
+    cout << "Title: " << book1.title << "\\n";
+    cout << "Author: " << book1.author << "\\n";
+    cout << "Price: " << book1.price << "$\\n";
+    cout << "Number of pages: " << book1.numberOfPages << "\\n\\n";
+
+    // book2 هنا قمنا بعرض قيم الكائن
+    cout << "Book 2 ----------- \\n";
+    cout << "Title: " << book2.title << "\\n";
+    cout << "Author: " << book2.author << "\\n";
+    cout << "Price: " << book2.price << "$\\n";
+    cout << "Number of pages: " << book2.numberOfPages;
+
+    return 0;
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Book 1 -----------
+Title: C++ for beginners
+Author: Mhamad Harmush
+Price: 9.99$
+Number of pages: 420
+
+Book 2 -----------
+Title: Network 1
+Author: Nadine Masri
+Price: 22.49$
+Number of pages: 310
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+هنا وضعنا مثال حول كيفية تعريف دالة تأخذ باراميتر نوعه `struct` بالإضافة إلى كيفية إستدعاءها.
+
+[شاهد المثال](/tutorials/cplusplus/struct/pass-strucut-as-argument)
+
+  
+  
+
+### المثال الثاني
+
+هنا وضعنا مثال حول كيفية تعريف دالة بداخل `struct` بالإضافة إلى كيفية إستدعاءها منه.
+
+[شاهد المثال](/tutorials/cplusplus/struct/define-function-inside-a-struct)
+
+  
+  
+
+### المثال الثالث
+
+هنا وضعنا مثال حول كيفية تعريف دالة تأخذ باراميتر نوعه مؤشر لـ `struct` بالإضافة إلى كيفية إستدعاءها.
+
+[شاهد المثال](/tutorials/cplusplus/struct/pointer-to-struct)
+
+  
+  
+
+### المثال الرابع
+
+هنا وضعنا مثال حول كيفية وضع إسم مختصر للنوع `struct` بالإعتماد على الكلمة `typedef`.
+
+[شاهد المثال](/tutorials/cplusplus/struct/typedef-struct)
+
+  
+  
+
+### المثال الخامس
+
+هنا وضعنا مثال حول كيفية وضع إسم مختصر للنوع `struct` بالإعتماد على الكلمة `using`.
+
+[شاهد المثال](/tutorials/cplusplus/struct/using-struct)

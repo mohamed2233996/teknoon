@@ -1,0 +1,150 @@
+---
+title: "Swingالكلاس JComboBox"
+source: "https://harmash.com/tutorials/swing/jcombobox"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:29.796Z"
+---
+
+## مقدمة
+
+الكلاس `JComboBox` يستخدم لإضافة قائمة منسدلة (Combo Box) في واجهة المستخدم.
+
+هذه القائمة تظهر فقط الخيار الذي قام المستخدم بإختياره منها.
+
+  
+
+### بناؤه
+
+public class JComboBox<E>
+extends JComponent
+implements ItemSelectable,DataListener, ActionListener, Accessible 
+
+## كونستركتورات الكلاس `JComboBox`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JComboBox`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JComboBox()` ينشئ كائن من الكلاس `JComboBox` يمثل Combo Box فارغة, أي لا تحتوي أي عنصر.  
+لإضافة خيارات فيها نستخدم الدالة `addItem()`.
+
+2
+
+`public JComboBox(Object[] Items)` ينشئ كائن من الكلاس `JComboBox` يمثل Combo Box فيها خيارات جاهزة.  
+مكان الباراميتر `items` نمرر مصفوفة من أي نوع.  
+عناصر هذه المصفوفة هي التي ستظهر كخيارات في القائمة.
+
+3
+
+`public JComboBox(Vector<E> items)` ينشئ كائن من الكلاس `JComboBox` يمثل Combo Box فيها خيارات جاهزة.  
+مكان الباراميتر `items` نمرر كائن من الكلاس `Vector`.  
+عناصر الكائن `Vector` هي التي ستظهر كخيارات في القائمة.
+
+## دوال الكلاس `JComboBox`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JComboBox`.
+
+الدالة مع تعريفها
+
+1
+
+`public void addActionListener(ActionListener al)` تستخدم لتنفيذ أوامر معينة عند النقر على كائن الـ `JComboBox` الذي قام بإستدعائها.  
+مكان الباراميتر `al` نضع كائن من الكلاس `ActionListener` و نفعل بداخله Override لدالة إسمها `actionPerformed(ActionEvent ae)`.
+
+2
+
+`public void addItem(Object item)` تستخدم لإضافة عنصر جديد في كائن الـ `JComboBox` الذي قام بإستدعائها.  
+العنصر الذي يتم إضافته يوضع في آخرها.  
+مكان الباراميتر `item` نمرر لها كائن من أي نوع.
+
+3
+
+`public void insertItemAt(Object item, int index)` تستخدم لإضافة عنصر جديد في مكان محدد في كائن الـ `JComboBox` الذي قام بإستدعائها.  
+مكان الباراميتر `item` نمرر لها كائن من أي نوع.  
+مكان الباراميتر index نمرر رقم Index يحدد المكان الذي سيتم إضافة العنصر فيه.
+
+4
+
+`public void removeItem(Object item)` تستخدم لحذف عنصر موجود في كائن الـ `JComboBox` الذي قام بإستدعائها.  
+مكان الباراميتر `item` نمرر كائن يمثل العنصر الذي سيتم حذفه.
+
+5
+
+`public void removeItemِAt(int index)` تستخدم لحذف عنصر موجود في كائن الـ `JComboBox` الذي قام بإستدعائها.  
+مكان الباراميتر index نمرر رقم index العنصر الذي سيتم حذفه.
+
+6
+
+`public void removeAllItems()` تستخدم لحذف لحذف جميع عناصر كائن الـ `JComboBox` الذي قام بإستدعائها.
+
+7
+
+`public void setMaximumRowCount(int count)` تستخدم لتحديد عدد العناصر الأقصى التي يمكن أن تظهر في كائن الـ `JComboBox` الذي قام بإستدعائها دفعة واحدة.  
+مكان الباراميتر `count` نضع رقم يمثل عدد العناصر الأقصى التي يمكن أن تظهر في كائن الـ `JComboBox` عند النقر عليه.  
+كما أنها تضيف Scroll Bar عند الحاجة حتى تستطيع رؤية جميع العناصر الموجودة.
+
+8
+
+`public int getItemCount()` ترجع عدد العناصر الموجودة في كائن الـ `JComboBox` الذي قام بإستدعائها.
+
+9
+
+`public Object getSelectedItem()` ترجع العناصر الذي قام المستخدم باختياره في كائن الـ `JComboBox` الذي قام بإستدعائها.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JComboBox` لا يحتوي على أي عناصر و إضافته في النافذة.
+
+![طريقة إضافة JComboBox في ال JFrame](/content-images/swing/jcombobox/1784305349406-w4w9wh.PNG)
+
+[شاهد المثال](/tutorials/swing/jcombobox/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JComboBox` يحتوي على عناصر.
+
+![طريقة إضافة عناصر في ال JComboBox](/content-images/swing/jcombobox/1784305349503-z69lhw.PNG)
+
+[شاهد المثال](/tutorials/swing/jcombobox/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط كائن الـ `JComboBox`.
+
+![طريقة إضافة عناصر في ال JComboBox](/content-images/swing/jcombobox/1784305349599-a62iyo.PNG)
+
+[شاهد المثال](/tutorials/swing/jcombobox/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة معرفة العنصر الذي قام المستخدم باختياره من ضمن العناصر الموجودة في كائن الـ `JComboBox`.
+
+![طريقة إضافة عناصر في ال JComboBox](/content-images/swing/jcombobox/1784305349691-775ppy.PNG)
+
+[شاهد المثال](/tutorials/swing/jcombobox/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة جعل المستخدم يقوم بإضافة أو حذف عناصر في كائن الـ `JComboBox`. بالإضافة إلى إظهار عدد جميع العناصر الموجودة فيه.
+
+![طريقة إضافة عناصر في ال JComboBox](/content-images/swing/jcombobox/1784305349783-qduts6.PNG)
+
+[شاهد المثال](/tutorials/swing/jcombobox/example-5)

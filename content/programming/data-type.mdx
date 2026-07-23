@@ -1,0 +1,141 @@
+---
+title: "أنواع البيانات في البرمجة"
+source: "https://harmash.com/tutorials/programming/data-type"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:07:45.501Z"
+---
+
+## أهم أنواع البيانات
+
+أي نوع من البيانات نتعامل معها برمجياً لها نوع محدد و نوعها هو ما يحدد لنا ما الذي يمكننا فعله معها فمثلاً البيانات الرقمية يمكن إجراء عمليات حسابية عليها أما البيانات النصية فيمكن التعديل على أحرفها و عرضها بالشكل الذي نريده.
+
+فيما يلي أهم أنواع البيانات الموجودة في البرمجة و التي يمكنك التعامل معها في محرر الكود.
+
+النوع
+
+معناه
+
+`number`
+
+يعني أن القيمة عبارة عن عدد.  
+  
+مثال: `var a = 9;`  
+هنا قيمة المتغير `a` يعتبر نوعها `number`.
+
+`string`
+
+يعني أن القيمة عبارة عن نص.  
+  
+مثال: `var web = "Harmash";`  
+هنا قيمة المتغير `web` يعتبر نوعها `string`.
+
+`boolean`
+
+يعني أن القيمة منطقية.  
+هنا القيمة تكون إما `true` و إما `false`.  
+هذا النوع يستخدم لوضع شروط في الكود.  
+  
+مثال: `var valid = true;`  
+هنا قيمة المتغير `valid` يعتبر نوعها `boolean`.
+
+## طباعة نوع البيانات
+
+في محرر الكود يمكنك استخدام الأمر `typeof()` لمعرفة نوع البيانات.  
+ببساطة تقوم بتمرير القيمة التي تريد معرفة نوعها له و هو يعطيك نوعها.  
+من بعدها يمكنك طباعتها بواسطة الأمر `write()`.
+
+  
+
+في المثال التالي قمنا بطباعة نوع القيمة `55`.  
+النتيجة ستكون الكلمة `number` لأنها عبارة عن رقم.
+
+#### المثال الأول
+
+write(typeof(55));
+
+النتيجة
+
+number
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/data-type/type-of-number-value) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/data-type/type-of-number-value)
+
+  
+
+في المثال التالي قمنا بطباعة نوع القيمة `"Harmash"`.  
+النتيجة ستكون الكلمة `string` لأنها عبارة عن نص.
+
+#### المثال الثاني
+
+write(typeof("Harmash"));
+
+النتيجة
+
+string
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/data-type/type-of-string-value) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/data-type/type-of-string-value)
+
+  
+
+في المثال التالي قمنا بطباعة نوع القيمة `true`.  
+النتيجة ستكون الكلمة `boolean` لأنها عبارة عن قيمة منطقية.
+
+#### المثال الثالث
+
+write(typeof(true));
+
+النتيجة
+
+boolean
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/data-type/type-of-boolean-value) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/data-type/type-of-boolean-value)
+
+  
+
+لمعرفة نوع القيمة الموجودة في متغير، قم بوضع إسم المتغير في الأمر `typeof()`.
+
+#### المثال الرابع
+
+var x = 123;
+write(typeof(x));
+
+النتيجة
+
+number
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/data-type/type-of-variable) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/data-type/type-of-variable)
+
+## أمثلة و ملاحظات مهمة
+
+بالنسبة للبيانات العددية التي من النوع `number`، في حال كان العدد يحتوي على فاصلة عشرية، فالفاصلة العشرية نضعها كنقطة عادية و ليس كفاصلة.  
+**مثال:** واحد فاصلة خمسة نكتبها `1.5` و ليس `1,5` و سيظهر لك خطأ إن فعلت ذلك.
+
+  
+
+في المثال التالي قمنا بتعريف متغير إسمه `x` قيمته `1.5`.  
+بعدها قمنا بطباعة إسم المتغير، نوع قيمته، و قيمته الفعلية.
+
+#### المثال الأول
+
+var x = 1.5;
+write("x is a " + typeof(x) + " with value = " + x);
+
+النتيجة
+
+x is a number with value = 1.5
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/data-type/ex-1) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/data-type/ex-1)
+
+  
+
+المثال التالي هو نفسه المثال السابق و لكننا وضعنا `1,5` بدلاً من `1.5` في المتغير `x` الأمر الذي سيؤدي لظهور خطأ عند التشغيل.
+
+#### المثال الثاني
+
+var x = 1,5;
+write("x is a " + typeof(x) + " with value = " + x);
+
+النتيجة
+
+Syntax Error!
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/data-type/ex-2)

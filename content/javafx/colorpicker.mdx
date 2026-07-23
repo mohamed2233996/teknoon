@@ -1,0 +1,131 @@
+---
+title: "JavaFXالكلاس ColorPicker"
+source: "https://harmash.com/tutorials/javafx/colorpicker"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:32.335Z"
+---
+
+## مقدمة
+
+الكلاس `ColorPicker` يستخدم للحصول على `ComboBox` خاص لإختيار الألوان ( Color Chooser ), حيث تجد أنه بمجرد النقر على الزر سيظهر أمامك عدة خيارات تتيح لك إختيار أي لون تريد بكل سهولة.
+
+  
+
+### بناء الكلاس `ColorPicker`
+
+public class ColorPicker
+extends ComboBoxBase<Color>
+
+  
+  
+
+الآن, إذا قمت بإنشاء كائن من الكلاس `ColorPicker` و أضفته في النافذة فإنه سيظهر كـ `ComboBox` فيه مربع صغير لونه أبيض و بجانبه كلمة `White` و التي يعني **أبيض** باللغة الإنجليزية.
+
+![javafx ColorPicker](/content-images/javafx/colorpicker/1784305231581-ievty1.PNG)
+
+بمجرد أن تنقر على الـ `ColorPicker` سيظهر تحته قائمة خاصة لإختيار الألوان ( Palette ).
+
+![javafx ColorPicker](/content-images/javafx/colorpicker/1784305231709-in4e6e.PNG)
+
+في حال لم تعجبك الألوان التي في الـ Palette يمكنك النقر على الزر Custom Color... لإظهار نافذة مخصصة لإختيار درجة اللون ( Custom Color Dialog Window ).
+
+![](/content-images/javafx/colorpicker/1784305231914-vflbg8.PNG)
+
+بعد إختيار اللون الذي تريده من هذه النافذة, عندك ثلاث خيارات:
+
+*   النقر على الزر Use لإختيار اللون.
+*   النقر على الزر Save في حال أردت حفظ اللون مع الألوان الموجودة في الـ Palette.
+*   النقر على الزر Cancel لإغلاق النافذة.
+
+## كونستركتورات الكلاس `ColorPicker`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `ColorPicker`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public ColorPicker()` ينشئ كائن من الكلاس `ColorPicker` يمثل `ComboBox` مخصص لإختيار الألوان.  
+و هنا يكون اللون الأبيض مختار بشكل إفتراضي.
+
+2
+
+`public ColorPicker(Color color)` ينشئ كائن من الكلاس `ColorPicker` يمثل `ComboBox` مخصص لإختيار الألوان, مع تحديد اللون الذي سيظهر مختاراً فيه بشكل إفتراضي.  
+مكان الباراميتر `color` نضع كائن من الكلاس `Color` يمثل اللون الذي سيكون مختاراً بشكل إفتراضي.
+
+## دوال الكلاس `ColorPicker`
+
+الجدول التالي يحتوي على دوال الكلاس `ColorPicker` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `ComboBox` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+2
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `ComboBox` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+3
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `ComboBox` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `ComboBox` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `ComboBox` بالـ Pixel.
+
+4
+
+`public final void setDisable(boolean value)` تستخدم لجعل كائن الـ `ComboBox` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+5
+
+`public final Color getValue()` ترجع كائن من الكلاس `Color` يحتوي على قيمة اللون المختار في كائن الـ `ColorPicker` الذي قام باستدعائها.
+
+6
+
+`public void setValue(Color color)` تستخدم لتحديد اللون الحالي في كائن الـ `ColorPicker` الذي باستدعائها.  
+مكان البارميتر `color` نضع كائن من الكلاس `Color` يمثل اللون الذي سيتم إختياره.
+
+7
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `ColorPicker` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `ColorPicker` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `ColorPicker` و إضافته في النافذة.
+
+![طريقة إضافة ColorPicker في javafx](/content-images/javafx/colorpicker/1784305232038-molr8z.PNG)
+
+[شاهد المثال](/tutorials/javafx/colorpicker/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير تصميم الـ `ColorPicker`.
+
+![طريقة تغيير تصميم ال ColorPicker في javafx](/content-images/javafx/colorpicker/1784305232178-i0rqxb.PNG)
+
+[شاهد المثال](/tutorials/javafx/colorpicker/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة الحصول على قيمة اللون الذي قام المستخدم باختياره في الـ `ColorPicker` و وضعها كخلفية للنافذة.
+
+![طريقة الحصول على اللون الذي إختاره المستخدم من ال ColorPicker و وضعه كخلفية للنافذة في javafx](/content-images/javafx/colorpicker/1784305232317-1wnqlh.gif)
+
+[شاهد المثال](/tutorials/javafx/colorpicker/example-3)

@@ -1,0 +1,235 @@
+---
+title: "CSSالقوائم المنسدلة"
+source: "https://harmash.com/tutorials/css/dropdowns"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:22.651Z"
+---
+
+## مفهوم القوائم المنسدلة
+
+القائمة المنسدلة ( Dropdown Menu ) عبارة عن قائمة مخفية تظهر عند تمرير الماوس فوق شيء موضوع في الصفحة. فمثلاً قد تكون القائمة المنسدلة تظهر عند النقر على نص، زر، صورة، أو تكون قائمة الموقع الرئيسية تتضمن قوائم داخلية منسدلة.
+
+Dropdown Menu
+
+[Link 1](javascript:void\(0\)) [Link 2](javascript:void\(0\)) [Link 3](javascript:void\(0\))
+
+![](/content-images/css/dropdowns/1784304742235-7a1k3z.jpg)
+
+![](/content-images/css/dropdowns/1784304742601-rfedry.jpg) A beautiful bird.
+
+في هذا الدرس ستتعلم كيف تصمم قائمة منسدلة فيها مجموعة روابط، قائمة منسدلة فيها صورة، بالإضافة إلى تصميم قوائم منسدلة متداخلة.
+
+## أساسيات بناء القائمة المنسدلة
+
+لبناء قائمة منسدلة نحتاج عنصر يكون بمثابة حاوية لها و للعنصر الذي يظهرها حين تم تمرير الماوس فوقه و نعطيه الخاصية `position: relative;` لكي نستطيع تحديد مكان ظهور القائمة عند تمرير الماوس فوق العنصر.
+
+القائمة نعطيها الخاصية `position: absolute;` فقط لكي تظهر تحت العنصر مباشرةً.
+
+لجعل القائمة بالأساس مخفية نعطيها الخاصية `display: none;` و لجعلها تظهر عندما يكون الماوس فوق الحاوية الأساسية نعطيها الخاصية `display: block;` و هكذا حين يكون الماوس فوق العنصر المسؤول عن إظهار القائمة و حين يكون فوق عناصر القائمة نفسها أيضاً فإن القائمة ستظل ظاهرة.
+
+  
+
+في المثال التالي قمنا ببناء قائمة منسدلة تظهر تحت العنصر عندما يتم تمرير الماوس عليه.
+
+#### مثال
+
+<style\>
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    background-color: #0d6efd;
+    color: white;
+    padding: 12px 18px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/\* جعلنا القائمة بالأساس مخفية \*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/\* عند تمرير الماوس فوق أي جزء في القائمة سيتم إظهارها \*/
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-btn {
+    background-color: #0b5ed7;
+}
+</style\>
+
+<div class\="dropdown"\>
+    <button class\="dropdown-btn"\>Dropdown</button\>
+    <div class\="dropdown-content"\>
+        <a href\="#"\>Link 1</a\>
+        <a href\="#"\>Link 2</a\>
+        <a href\="#"\>Link 3</a\>
+    </div\>
+</div\>
+
+[جرب الكود](/tryit?file=/tutorials/css/dropdowns/dropdown-button)
+
+## تحديد جهة ظهور القائمة المنسدلة
+
+لتحديد مكان ظهور محتوى القائمة يمكننا استخدام الخصائص `top`، `right`، `left`، `bottom`.
+
+في المثال التالي قمنا بجعل محتوى القائمة المنسدلة يظهر في الأسفل من الجهة اليمنى.
+
+#### مثال
+
+.dropdown-content {
+    right: 0;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/dropdowns/dropdown-right)
+
+## تحديد نوع المحتوى القائمة المنسدلة
+
+يمكنك جعل القائمة المنسدلة تحتوي ما تريده، فمثلاً يمكنك جعلها تحتوي صورة، نص عادي، جدول إلخ..
+
+في المثال التالي قمنا ببناء قائمة منسدلة تعرض الصورة الأساسية الموضوعة فيا بشكل أكبر مع إظهار وصف للصورة أيضاً أسفل منها.
+
+#### المثال الأول
+
+<div class\="dropdown"\>
+    <img class\="dropdown-img" src\="bird.jpg"/>
+    <div class\="dropdown-content"\>
+        <img src\="bird.jpg"/>
+        <p\>A beautiful bird.</p\>
+    </div\>
+</div\>
+
+[جرب الكود](/tryit?file=/tutorials/css/dropdowns/dropdown-image)
+
+  
+
+في المثال التالي قمنا ببناء قائمة منسدلة بداخل القائمة الرئيسية.
+
+#### المثال الثاني
+
+<ul\>
+    <li\><a href\="#"\>Home</a\></li\>
+    <li\><a href\="#"\>News</a\></li\>
+    <li class\="dropdown"\>
+        <a href\="javascript:void(0)" class\="drop-btn"\>Submenu</a\>
+        <div class\="dropdown-content"\>
+            <a href\="#"\>Link 3</a\>
+            <a href\="#"\>Link 4</a\>
+            <a href\="#"\>Link 5</a\>
+        </div\>
+    </li\>
+</ul\>
+
+[جرب الكود](/tryit?file=/tutorials/css/dropdowns/navbar-with-dropdown-menu)
+
+`<a href="javascript:void(0)">` تجعل المتصفح يرى الرابط كأنه نص عادي و هكذا لن يتم تحديث الصفحة عند النقر عليه.
+
+  
+
+في المثال التالي قمنا ببناء قوائم منسدلة متداخلة ( Nested Menus ) بداخل القائمة الرئيسية.  
+هذا النوع من القوائم قد يكون صعب الفهم بشكل كامل عليك في هذه اللحظة و هذا شيء طبيعي لأنها بطبيعتها معقدة و لكن لا تقلق مع الوقت ستجدها سهلة.
+
+#### المثال الثالث
+
+<style\>
+nav {
+    background-color: #333;
+    font-family: arial;
+    font-size: 14px;
+}
+
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+
+nav ul li {
+    display: inline-block;
+    background-color: #333;
+}
+
+nav a {
+    display: block;
+    padding: 0 15px;
+    color: white;
+    line-height: 45px;
+    text-decoration: none;
+}
+
+nav a:hover { 
+    background-color: cadetblue; 
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 45px;     
+}
+
+nav ul li:hover > ul {
+    display: inherit;
+}
+
+nav ul li:hover > a {
+    background-color: cadetblue; 
+}
+
+nav ul ul li {
+    width: 150px;
+    float: none;
+    display: list-item;
+    position: relative;
+    border: 1px solid #555;
+}
+
+nav ul ul ul li {
+    position: relative;
+    top: -45px; 
+    left: 150px;
+}
+</style\>
+
+<nav\>
+    <ul\>
+        <li\><a href\="javascript:void(0)"\>Menu ▾</a\>
+            <ul\>
+                <li\><a href\="#"\>Link 1</a\></li\>
+                <li\><a href\="#"\>Link 2</a\></li\>
+                <li\><a "javascript:void(0)">Sub Menu ▸</a\>
+                    <ul\>
+                        <li\><a href\="#"\>Link 1</a\></li\>
+                        <li\><a href\="#"\>Link 2</a\></li\>
+                    </ul\>
+                </li\>
+            </ul\>
+        </li\>
+        <li\><a href\="#"\>Link 1</a\></li\>
+        <li\><a href\="#"\>Link 2</a\></li\>
+        <li\><a href\="#"\>Link 3</a\></li\>
+    </ul\>
+</nav\>
+
+[جرب الكود](/tryit?file=/tutorials/css/dropdowns/navbar-with-nested-dropdown-menus)

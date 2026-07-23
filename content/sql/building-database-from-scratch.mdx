@@ -1,0 +1,1252 @@
+---
+title: "SQLطريقة تصميم قاعدة بيانات من الصفر"
+source: "https://harmash.com/tutorials/sql/building-database-from-scratch"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:10:14.212Z"
+---
+
+## معرفة المعلومات الأساسية التي يجب تخزينها في المشروع
+
+عندما يطلب منك العميل تصميم قاعدة بيانات لأي مشروع و لنفرض أنه يريد قاعدة بيانات لمدونة، عليك معرفة ما الذي يريده من هذه المدونة بالضبط حتى تعرف كيف تبني قاعدة البيانات الخاصة بها و في حال وجدت أنه لا يعرف كل المعلومات التي يجب تخزينها - و هذا شيء طبيعي جداً - يمكنك أن تقترح عليه أفكار مرت معك سابقاً لتساعده في تحديد ما يريده بالضبط.
+
+فمثلاً قد تجد العميل يقول لك: "أريد فقط مدونة لأنشر بها مقالات كل فترة".  
+هذه المعلومة لا تكفي حتى تبني قاعدة البيانات بالشكل الذي يتخيله العميل، لهذا من الطبيعي أن تبدأ بسؤاله بشكل أدق عن الذي يريد أن تحتويه المدونة من مميزات حتى تعرف كيف ستبني له قاعدة بيانات المدونة و إليك بعض الأسئلة التي قد تطرحها عليه لتعرف كيف ستبنيها:
+
+*   هل ستكون الشخص الوحيد الذي يمكنه كتابة المقالات؟
+*   هل تريد أن تكون مسؤول عن تعيين المدونيين و الموافقة على المقالات التي سينشروها؟
+*   هل تريد جعل زوار المدونة قادرين على وضع تعليقات على المقالات؟
+*   هل تريد إجبار الزوار على تسجيل الدخول حتى يتمكنوا من وضع التعليقات؟
+*   هل تريد تريد جعل الشخص المسجل في الموقع يصله رسالة على بريده الإلكتروني عندما تنشر مقالات جديدة؟
+*   هل سيكون المستخدم قادر على وضع صورة شخصية؟
+*   هل سيكون المستخدم قادر على وضع نبذة تعريفية عن نفسه؟
+*   ما هي الطرق التي تريد اعتمادها لجعل المستخدم يسترجع حسابه في حال نسي كلمة مروره؟
+*   هل سيكون المستخدم قادر على تسجيل الدخول بواسطة حسابه في فيسبوك أو تويتر؟
+
+بشكل عام، عليك معرفة كل الأفكار التي سيتضمنها المشروع قبل البدء ببناء قاعدة البيانات الخاصة به. لذا حاول أن تعرف من العميل كل الأشياء التي يريدها في مشروعه.
+
+## مرحلة تحديد كيفية تخزين المعلومات في قاعدة البيانات
+
+بعد أن تعرف من العميل كل تفاصيل مشروعه، يصبح عملك الآن هو معرفة كيف ستبني قاعدة البيانات الخاصة بهذا المشروع حتى تخزّن المعلومات التي سيدخلها أي شخص يستخدم المدونة بشكل صحيح و مرتب.
+
+لنفترض أن العميل أراد حفظ المعلومات التالية في المدونة:
+
+*   معلومات كل مستخدم (إسمه، إسم المستخدم الخاص به، كلمة مروره، بريده الإلكتروني، تاريخ ميلاده، رقم هاتفه,، جنسه، صورته، إسم بلده، دوره في المدونة، تعليقاته).
+*   معلومات كل مقال (عنوانه، محتواه، تصنيفه، إسم الكاتب، تاريخ نشره، هل يسمح بوضع تعليقات عليه أم لا).
+
+أهم شيء عليك الإنتباه له هو أنه المعلومات التي قمنا بتدوينها على سطرين فقط لا تعني أبداً أنه يجب توزيع هذه المعلومات على جدولين فقط. الآن يجب معرفة ما هي البيانات التي يمكن أن نجزءها لعدة أعمدة و أنواعها و ما هي البيانات التي قد تتكرر في كل سطر حتى نتجنب وضع قيم مكررة أو حقول فارغة.
+
+  
+
+### 1- إسم الشخص
+
+إسم الشخص يتألف في العادة من إسم الشخص و إسم عائلته.  
+لذا إسم الشخص سيتم وضعه في عامودين كالتالي:
+
+*   العمود الأول إسمه `first_name` و نوعه `VARCHAR`.
+*   العمود الأول إسمه `last_name` و نوعه `VARCHAR`.
+
+في حال أراد العميل تخزين إسم الأب أيضاً، يمكن إضافة عمود ثالث إسمه `father_name` و نوعه `VARCHAR`.
+
+  
+
+### 2- إسم المستخدم
+
+إسم المستخدم `username` الخاص بكل شخص يجب أن يكون نوعه `VARCHAR` و `UNIQUE` لأنه لا يجب وجود أكثر من شخص عندهم نفس إسم المستخدم.
+
+  
+
+### 3- كلمة المرور
+
+كلمة المرور أو كلمة السر `password` الخاصة بكل شخص يمكن حفظها بعدة أشكال مع الإشارة إلى أننا دائماً نحفظها بشكل مشفر حتى لا يتمكن أي أحد من معرفتها في حال تم اختراق الخادم الذي عليه قاعدة البيانات.
+
+على حسب نوع التشفير الذي تختاره في مشروعك تقوم بتحديد خصائص العمود الذي ستحفظ فيه كلمات المرور المشفرة. إذا افترضنا أننا سنعتمد على تشفير إسمه MD5 فهنا سيكون عدد أحرف كل كلمة مرور مشفرة هو 32 حرف بالضبط مهما كان حجم كلمة المرور الأصلية. لذلك سنقوم بجعل نوع العمود `CHAR` و تحديد أنه يتألف من `32` حرف بالضبط لأن حقوله دائماً ستحتوي على هذا العدد من الأحرف.
+
+  
+
+### 4- تاريخ ميلاد الشخص
+
+تاريخ ميلاد الشخص `birthdate` يجب أن يكون نوعه `DATE`.
+
+  
+
+### 5- رقم هاتف الشخص
+
+رقم هاتف الشخص `phone` يجب جعله `VARCHAR` لأنه من الممكن أن يتضمن رموز مثل `+961711731343` و قد يتضمن اصفاراً من الناحية اليسرى مثل `00961711731343`.
+
+لو جلعنا نوع العمود `INT` فإن ذلك سيؤدي لمشكلتين بالنسبة لأرقام الهاتف و هي أنه ممنوع أن يحتوي على الرمز `+` و ممنوع أيضاً أن يحتوي أصفار من الناحية اليسرى.
+
+  
+
+### 6- جنس الشخص
+
+جنس الشخص يمكنك أن تفعله بطريقتين على حسب حاجتك:
+
+يمكنك تسمية العمود الخاص بجنس الشخص `is_male` و تجعل نوعه `BOOLEAN` و عندها إذا كان المستخدم ذكر تخزن القيمة `True` و إذا كان المستخدم أنثى تخزن القيمة `False`.
+
+الطريقة الثانية هي بأن تنشئ جدول خاص إسمه `genders` لتخزن فيه أنواع الجنس و عندها لاختيار نوع الجنس تختار رقم `id` الجنس فقط.
+
+سنعتمد هذه الطريقة لجعلك تعتاد على التعامل مع عدد أكبر من الجداول و لأنها تتيح لنا إضافة المزيد من الخصائص، فمثلاً يمكننا جعل الجدول `genders` يحتوي على إسم الجنس باللغة العربية و باللغة الإنجليزية.
+
+  
+
+### 7- صورة الشخص
+
+صور جميع المستخدمين يفضل دائماً إنشاء جدول خاص لها و يمكنك تسميته `photos`.  
+في هذا الجدول يمكنك تحديد الكثير من المعلومات، مثل المكان الذي سيتم فيه حفظ الصورة (أي رابط الوصول لها)، حجمها، نوعها إلخ..
+
+الجدول `photos` يجب أن يتضمن عمود خاص لوضع `id` الشخص الذي هو صاحب هذه الصورة حتى تربطها به.
+
+  
+
+### 8- بلد الشخص
+
+بلد الشخص قد يتكرر بشكل كبير, لذا لتجنب تكرار إسم البلد سنقوم بإنشاء جدول إسمه `countries` و فيه نضع أسماء البلدان، و عندها لتحديد بلد أي مستخدم نضع رقم `id` البلد.
+
+  
+
+### 9- دور الشخص
+
+دور الشخص في المدونة سيتكرر حتماً و بشكل كبير، لذا جميع الأدوار التي ممكن إعطاءها للمستخدمين سنضع أسماءها في جدول خاص إسمه `roles` و عندها لتحديد دور أي مستخدم نضع رقم `id` الدور الذي سنعطيه له.
+
+  
+
+### 10- تعليقات الشخص
+
+تعليقات الأشخاص تتطلب معاملة خاصة لإدارتها لأنه يمكن للمستخدم أن يضع أكثر من تعليق على نفس المقال و يمكن له أن يضع تعليق يكون بمثابة رد على تعليق مستخدم آخر. لذا الحل الأفضل و الأمثل لحفظ التعليقات هو إنشاء جدول خاص إسمه `comments` و هذا الجدول نجعله قادر على ربط التعليقات نفسها ببعضها بأسلوب Self Join حتى نتمكن من جعل التعليقات تابعة لبعضها و إظهارها كردود.
+
+  
+
+### 12- عنوان المقال
+
+عنوان المقال `title` يجب أن يكون نوعه `VARCHAR`.
+
+  
+
+### 13- محتوى المقال
+
+محتوى المقال `content` يجب أن يكون نوعه `VARCHAR` كبير جداً أو أي نوع نصي يمكن أن يقبل أكبر عدد ممكن من الأحرف.
+
+  
+
+### 13- تصنيف المقال
+
+تصنيف المقال قد يتكرر بشكل كبير، لذا لتجنب تكرار إسم التصنيف سنقوم بإنشاء جدول إسمه `categories` و فيه نضع أسماء التصنيفات، و عندها لتحديد تصنيف أي مقال نضع رقم `id` الصنف الذي يعتبر المقال تابع له.
+
+  
+
+### 14- تاريخ نشر المقال
+
+تاريخ النشر `publishing_date` يجب أن يكون نوعه `DATE`.
+
+  
+
+### 15- إمكانية التعليق أم لا
+
+يمكنك تسمية العمود الخاص بالسماح بوضع تعليقات أم لا `are_comments_enabled` و تجعل نوعه `BOOLEAN` و عندها إذا كان يسمح بوضع تعليقات تخزن فيه القيمة `True` و إذا كان لا يسمح تخزن في القيمة `False`.
+
+## مرحلة تصميم و إنشاء قاعدة البيانات
+
+الشكل العام للجداول التي سننشئها و التي سنربطها ببعضها سيكون كالتالي.
+
+![مرحلة تصميم و إنشاء قاعدة البيانات](/content-images/sql/building-database-from-scratch/1784304614112-7w9dqo.PNG)
+
+  
+
+الآن سنقوم بكتابة الأوامر التي ستنشئ لنا الجداول بالإضافة إلى تعيين المفاتيح الرئيسية و الأجنبية.  
+**ملاحظة:** المفاتيح الأجنبية ( Foreign Keys )، الفهارس ( Indexes ) و القيود ( Constraints ) قمنا بتعريفها بعد إنشاء جميع الجداول.
+
+#### مثال
+
+\-- سيتم حذفها blog في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS blog;
+
+\-- blog هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE blog;
+
+\-- و بالتالي أي شيء ننشئه سيتم إنشاؤه فيها blog هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE blog;
+
+\-- يتألف من عامودين genders هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE genders (
+    id INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    title VARCHAR(20)
+);
+
+\-- يتألف من عامودين roles هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE roles (
+    id INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    title VARCHAR(20)
+);
+
+\-- يتألف من عامودين categories هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE categories (
+    id INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    title VARCHAR(255)
+);
+
+\-- يتألف من 6 أعمدة photos هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE photos (
+    id INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    url VARCHAR(255),
+    physical\_path VARCHAR(255),
+    size\_KB INT,
+    user\_id INT
+);
+
+\-- يتألف من 9 أعمدة users هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE users (
+    id INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    username VARCHAR(50),
+    password CHAR(32),
+    email VARCHAR(255),
+    first\_name VARCHAR(100),
+    last\_name VARCHAR(100),
+    birthdate DATE,
+    phone VARCHAR(20),
+    gender\_id INT,
+    role\_id INT
+);
+
+\-- يتألف من 8 أعمدة posts هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE posts (
+    id INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    url VARCHAR(500),
+    title VARCHAR(255),
+    content VARCHAR(10000), 
+    publishing\_date DATE,
+    are\_comments\_enabled BOOLEAN,
+    user\_id INT,
+    category\_id INT
+);
+
+\-- يتألف من 6 أعمدة comments هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE comments (
+    id INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    content VARCHAR(2000),
+    publishing\_date DATE,
+    parent\_comment\_id INT,
+    user\_id INT,
+    post\_id INT
+);
+
+\-- genders و users هو بمثابة مفتاح أجنبي بين الجدولين gender\_id للإشارة إلى أن العمود fk\_users\_genders هنا قمنا بوضع قيد إسمه
+ALTER TABLE users
+ADD CONSTRAINT fk\_users\_genders
+FOREIGN KEY (gender\_id) REFERENCES genders(id);
+
+\-- roles و users هو بمثابة مفتاح أجنبي بين الجدولين role\_id للإشارة إلى أن العمود fk\_users\_roles هنا قمنا بوضع قيد إسمه
+ALTER TABLE users
+ADD CONSTRAINT fk\_users\_roles
+FOREIGN KEY (role\_id) REFERENCES roles(id);
+
+\-- users و photos هو بمثابة مفتاح أجنبي بين الجدولين user\_id للإشارة إلى أن العمود fk\_photos\_users هنا قمنا بوضع قيد إسمه
+ALTER TABLE photos
+ADD CONSTRAINT fk\_photos\_users
+FOREIGN KEY (user\_id) REFERENCES users(id);
+
+\-- users و posts هو بمثابة مفتاح أجنبي بين الجدولين user\_id للإشارة إلى أن العمود fk\_posts\_users هنا قمنا بوضع قيد إسمه
+ALTER TABLE posts
+ADD CONSTRAINT fk\_posts\_users
+FOREIGN KEY (user\_id) REFERENCES users(id);
+
+\-- categories و posts هو بمثابة مفتاح أجنبي بين الجدولين category\_id للإشارة إلى أن العمود fk\_posts\_categories هنا قمنا بوضع قيد إسمه
+ALTER TABLE posts
+ADD CONSTRAINT fk\_posts\_categories
+FOREIGN KEY (category\_id) REFERENCES categories(id);
+
+\-- users و comments هو بمثابة مفتاح أجنبي بين الجدولين user\_id للإشارة إلى أن العمود fk\_comments\_users هنا قمنا بوضع قيد إسمه
+ALTER TABLE comments
+ADD CONSTRAINT fk\_comments\_users
+FOREIGN KEY (user\_id) REFERENCES users(id);
+
+\-- posts و comments هو بمثابة مفتاح أجنبي بين الجدولين post\_id للإشارة إلى أن العمود fk\_comments\_posts هنا قمنا بوضع قيد إسمه
+ALTER TABLE comments
+ADD CONSTRAINT fk\_comments\_posts
+FOREIGN KEY (post\_id) REFERENCES posts(id);
+
+\-- comments الموجود معه في الجدول id هو بمثابة مفتاح أجنبي بالنسبة للعمود parent\_comment\_id للإشارة إلى أن العمود fk\_comments\_comments هنا قمنا بوضع قيد إسمه
+ALTER TABLE comments
+ADD CONSTRAINT fk\_comments\_comments
+FOREIGN KEY (parent\_comment\_id) REFERENCES comments(id);
+
+\-- يجب أن تكون موحدة users الموجود في الجدول username للإشارة إلى أن قيم العمود uidx\_users\_username هنا قمنا بوضع قيد إسمه
+CREATE UNIQUE INDEX uidx\_users\_username
+ON users (username);
+
+\-- يجب أن تكون موحدة users الموجود في الجدول email للإشارة إلى أن قيم العمود uidx\_users\_email هنا قمنا بوضع قيد إسمه
+CREATE UNIQUE INDEX uidx\_users\_email
+ON users (email); 
+
+\-- يجب أن تكون موحدة photos الموجود في الجدول url للإشارة إلى أن قيم العمود uidx\_photos\_url هنا قمنا بوضع قيد إسمه
+CREATE UNIQUE INDEX uidx\_photos\_url
+ON photos (url); 
+
+\-- يجب أن تكون موحدة photos الموجود في الجدول physical\_path للإشارة إلى أن قيم العمود uidx\_photos\_physical\_path هنا قمنا بوضع قيد إسمه
+CREATE UNIQUE INDEX uidx\_photos\_physical\_path
+ON photos (physical\_path); 
+
+\-- يجب أن تكون موحدة posts الموجود في الجدول url للإشارة إلى أن قيم العمود uidx\_posts\_url هنا قمنا بوضع قيد إسمه
+CREATE UNIQUE INDEX uidx\_posts\_url
+ON posts (url); 
+
+بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم إنشاء قاعدة البيانات `blog` و إنشاء الجداول بداخلها.  
+قم بالنقر على إسم قاعدة البيانات `blog` من القائمة اليسرى حتى تبدأ بالتعامل معها و تطبيق ما ستتعلمه في هذا الدرس.
+
+## مرحلة إدخال البيانات في قاعدة البيانات
+
+عند إدخال البيانات يجب أن تتعامل معها بشكل منطقي و أن تبدأ بإدخال البيانات الأساسية التي يجب وجودها حتى تتمكن من إدخال البيانات الأخرى التي تعتمد عليها، و إليك ما نقصده:
+
+بالنسبة لإدخال معلومات مستخدم جديد، فإن أي مستخدم سيتم إضافته يجب أن يختار رقم الجنس `gender_id` من الجدول `genders` و رقم الدور `role_id` من الجدول `roles` لذلك يجب إدخال معلومات هذين الجدولين قبل محاولة إدخال معلومات أي مستخدم.
+
+بالنسبة للمقالات، فإن أي مقال نضيفه يجب أن يكون مرتبط برقم `id` مستخدم محدد من الجدول `users` (كاتب المقال) و رقم `id` تصنيفه من الجدول `categories` (التصنيف الذي ينتمي إليه المقال). لذلك وجود المستخدم و تصنيفات المقال أساسي حتى تتمكن من إضافة مقال جديد مرتبط بهم.
+
+بالنسبة للتعليقات، فإن أي تعليق نضيفه يجب أن يكون مرتبط برقم `id` مستخدم محدد من الجدول `users` (صاحب التعليق) و رقم `id` مقال محدد من الجدول `posts` (المقال الذي يوضع التعليق عليه). لذلك وجود المستخدم و المقال أساسي حتى تتمكن من إضافة تعليق جديد مرتبط بهم.
+
+بالنسبة للصور، بما أن أي صورة تضيفها يجب أن تكون مرتبطة برقم `id` مستخدم محدد من الجدول `users` (صاحب الصورة) فهذا يعني أنه يجب إضافة المستخدم قبل إضافة صورة له و هكذا.
+
+  
+
+### خلاصة
+
+*   يجب إدخال معلومات الجداول `genders` و `roles` و `categories` في البداية لأن الجداول الأخرى تعتمد عليهم.
+*   بعدها يجب إدخال معلومات الجدول `users` لأنه يصبح بإمكانك إضافة مستخدمين.
+*   بعدها يمكنك إذا شئت إدخال معلومات الجدول `photos` لأنه يصبح بإمكانك إضافة صور للمستخدمين.
+*   بعدها يمكنك إذا شئت إدخال مقالات في الجدول `posts` لأنه يصبح بإمكانك إضافة مقال.
+*   بعدها يمكنك إذا شئت إدخال تعليقات في الجدول `comments` لأنه يصبح بإمكانك إضافة تعليقات.
+
+  
+
+الآن سنقوم بكتابة الأوامر التي ستنشئ لنا الجداول بالإضافة إلى تعيين المفاتيح الرئيسية و الأجنبية و ملئ الجداول ببعض القيم.
+
+#### مثال
+
+\-- و بالتالي أي شيء ننشئه سيتم إنشاؤه فيها blog هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE blog;
+
+\-- genders هنا قمنا بإضافة سطرين في الجدول
+INSERT INTO genders VALUES (null, 'Male');
+INSERT INTO genders VALUES (null, 'Female');
+
+\-- roles هنا قمنا بإضافة 4 أسطر في الجدول
+INSERT INTO roles VALUES (null, 'Administrator');
+INSERT INTO roles VALUES (null, 'Editor');
+INSERT INTO roles VALUES (null, 'Writer');
+INSERT INTO roles VALUES (null, 'Subscriber');
+
+\-- categories هنا قمنا بإضافة 5 أسطر في الجدول
+INSERT INTO categories VALUES (null, 'Programming');
+INSERT INTO categories VALUES (null, 'Operating Systems');
+INSERT INTO categories VALUES (null, 'Networking');
+INSERT INTO categories VALUES (null, 'Electronics');
+INSERT INTO categories VALUES (null, 'Artificial Intelligence');
+
+\-- users هنا قمنا بإضافة 10 أسطر في الجدول
+\-- 'pass1234' ملاحظة: كلمة مرور جميع المستخدمين وضعناها 
+INSERT INTO users VALUES (null, 'mhamad', 'pass1234', 'mhamad@example.com', 'Mhamad', 'Harmush', '1994-05-12', '+96101708089', 1, 1);
+INSERT INTO users VALUES (null, 'ahmad', 'pass1234', 'ahmad@exmaple.com', 'Ahmad', 'Masri', '1998-08-18', '+962358645235', 1, 2);
+INSERT INTO users VALUES (null, 'hala', 'pass1234', 'hala@exmaple.com', 'Hala', 'Hassan', '1998-01-16', '+96370348927', 2, 4);
+INSERT INTO users VALUES (null, 'rola', 'pass1234', 'rola@exmaple.com', 'Rola', 'Senjekdar', '2000-01-01', '+96325684752', 2, 4);
+INSERT INTO users VALUES (null, 'ziad', 'pass1234', 'ziad@exmaple.com', 'Ziad', 'Asmar', '1992-05-2', '+966087046489', 1, 3);
+INSERT INTO users VALUES (null, 'mostafa', 'pass1234', 'mostafa@exmaple.com', 'Mostafa', 'Kamel', '1988-02-12', '+97305654975', 1, 2);
+INSERT INTO users VALUES (null, 'saly', 'pass1234', 'saly@exmaple.com', 'Saly', 'Saadi', '2001-11-17', '+94856215578', 2, 3);
+INSERT INTO users VALUES (null, 'shahad', 'pass1234', 'shahad@exmaple.com', 'Shahad', 'Alanzy', '1995-08-08', '+985865862569', 2, 4);
+INSERT INTO users VALUES (null, 'hazem', 'pass1234', 'hazem@exmaple.com', 'Hazem', 'Hassoun', '1997-06-17', '+964258258855', 1, 4);
+INSERT INTO users VALUES (null, 'rana', 'pass1234', 'rana@exmaple.com', 'Rana', 'Karim', '1989-11-01', '+98215482365', 2, 4);
+
+\-- photos هنا قمنا بإضافة 6 أسطر في الجدول
+INSERT INTO photos VALUES (null, 'https://harmash.com/uploaded/photos/6546842.PNG', 'uploaded/photos/6546842.PNG', 1027, 1);
+INSERT INTO photos VALUES (null, 'https://harmash.com/uploaded/photos/5324654.PNG', 'uploaded/photos/5324654.PNG', 2088, 2);
+INSERT INTO photos VALUES (null, 'https://harmash.com/uploaded/photos/5249824.PNG', 'uploaded/photos/5249824.PNG', 1512, 4);
+INSERT INTO photos VALUES (null, 'https://harmash.com/uploaded/photos/4578515.PNG', 'uploaded/photos/4578515.PNG', 1065, 5);
+INSERT INTO photos VALUES (null, 'https://harmash.com/uploaded/photos/8789354.PNG', 'uploaded/photos/8789354.PNG', 2005, 8);
+INSERT INTO photos VALUES (null, 'https://harmash.com/uploaded/photos/5878942.PNG', 'uploaded/photos/5878942.PNG', 1687, 9);
+
+\-- posts هنا قمنا بإضافة سطرين في الجدول
+INSERT INTO posts VALUES (null, 'https://harmash.com/java/java-overview', 'Java Overview', 'Java is a popular programming language, created in 1995. It is owned by Oracle, and more than 3 billion devices run Java.', '2020-03-01', true, 5, 1);
+INSERT INTO posts VALUES (null, 'https://harmash.com/linux/linux-file-system', 'Linux File System', 'The Filesystem Hierarchy Standard (FHS) defines the structure of file systems on Linux and other UNIX-like Operating Systemss. However, Linux file systems also contain some directories that aren’t yet defined by the standard.', '2020-03-03', true, 1, 2);
+
+\-- comments هنا قمنا بإضافة 4 أسطر في الجدول
+INSERT INTO comments VALUES (null, 'Great introduction!', '2020-03-01', null, 3, 1);
+INSERT INTO comments VALUES (null, 'Wow, this is very helpful.', '2020-03-02', null, 4, 1);
+INSERT INTO comments VALUES (null, 'Where to find users password in Linux?', '2020-03-03', null, 9, 2);
+INSERT INTO comments VALUES (null, 'Execute the following code: cat /etc/passwd', '2020-03-04', 3, 1, 2);
+
+  
+
+بعد تنفيذ الإستعلام السابق سيتم تعبئة القيم في الجداول كما يلي.
+
+  
+
+### الجدول `genders`
+
+id
+
+title
+
+1
+
+Male
+
+2
+
+Female
+
+  
+  
+
+### الجدول `roles`
+
+id
+
+title
+
+1
+
+Administrator
+
+2
+
+Editor
+
+3
+
+Writer
+
+4
+
+Subscriber
+
+  
+  
+
+### الجدول `categories`
+
+id
+
+title
+
+1
+
+Programming
+
+2
+
+Operating Systems
+
+3
+
+Networking
+
+4
+
+Electronics
+
+5
+
+Artificial Intelligence
+
+  
+  
+
+### الجدول `users`
+
+id
+
+username
+
+password
+
+email
+
+first\_name
+
+last\_name
+
+birthdate
+
+phone
+
+gender\_id
+
+role\_id
+
+1
+
+mhamad
+
+pass1234
+
+mhamad@example.com
+
+Mhamad
+
+Harmush
+
+1994-05-12
+
++96101708089
+
+1
+
+1
+
+2
+
+ahmad
+
+pass1234
+
+ahmad@exmaple.com
+
+Ahmad
+
+Masri
+
+1998-08-18
+
++962358645235
+
+1
+
+2
+
+3
+
+hala
+
+pass1234
+
+hala@exmaple.com
+
+Hala
+
+Hassan
+
+1998-01-16
+
++96370348927
+
+2
+
+4
+
+4
+
+rola
+
+pass1234
+
+rola@exmaple.com
+
+Rola
+
+Senjekdar
+
+2000-01-01
+
++96325684752
+
+2
+
+4
+
+5
+
+ziad
+
+pass1234
+
+ziad@exmaple.com
+
+Ziad
+
+Asmar
+
+1992-05-2
+
++966087046489
+
+1
+
+3
+
+6
+
+mostafa
+
+pass1234
+
+mostafa@exmaple.com
+
+Mostafa
+
+Kamel
+
+1988-02-12
+
++97305654975
+
+1
+
+2
+
+7
+
+saly
+
+pass1234
+
+saly@exmaple.com
+
+Saly
+
+Saadi
+
+2001-11-17
+
++94856215578
+
+2
+
+3
+
+8
+
+shahad
+
+pass1234
+
+shahad@exmaple.com
+
+Shahad
+
+Alanzy
+
+1995-08-08
+
++985865862569
+
+2
+
+4
+
+9
+
+hazem
+
+pass1234
+
+hazem@exmaple.com
+
+Hazem
+
+Hassoun
+
+1997-06-17
+
++964258258855
+
+1
+
+4
+
+10
+
+rana
+
+pass1234
+
+rana@exmaple.com
+
+Rana
+
+Karim
+
+1989-11-01
+
++98215482365
+
+2
+
+4
+
+  
+
+كلمة السر `pass1234` لو كنا سنشفرها بخوارزمية MD5 لكنت رأيتها في قاعدة البيانات محفوظة هكذا `b4af804009cb036a4ccdc33431ef9ac9`.
+
+في هذا الدرس لم نركز إطلاقاً على التشفير لأن هذا موضوع آخر ليس له علاقة بمبادئ قواعد البيانات بل هو أمر مرتبط بشكل أساسي بالبرمجة و الشبكات.
+
+  
+  
+
+### الجدول `photos`
+
+id
+
+url
+
+physical\_path
+
+size\_KB
+
+user\_id
+
+1
+
+https://harmash.com/uploaded/photos/6546842.PNG
+
+uploaded/photos/6546842.PNG
+
+1027
+
+1
+
+2
+
+https://harmash.com/uploaded/photos/5324654.PNG
+
+uploaded/photos/5324654.PNG
+
+2088
+
+2
+
+3
+
+https://harmash.com/uploaded/photos/5249824.PNG
+
+uploaded/photos/5249824.PNG
+
+1512
+
+4
+
+4
+
+https://harmash.com/uploaded/photos/4578515.PNG
+
+uploaded/photos/4578515.PNG
+
+1065
+
+5
+
+5
+
+https://harmash.com/uploaded/photos/8789354.PNG
+
+uploaded/photos/8789354.PNG
+
+2005
+
+8
+
+6
+
+https://harmash.com/uploaded/photos/5878942.PNG
+
+uploaded/photos/5878942.PNG
+
+1687
+
+9
+
+  
+  
+
+### الجدول `posts`
+
+id
+
+url
+
+title
+
+content
+
+publishing\_date
+
+are\_comments\_enabled
+
+user\_id
+
+category\_id
+
+1
+
+https://harmash.com/java/java-overview
+
+Java Overview
+
+Java is a popular programming language, created in...
+
+2020-03-01
+
+true
+
+5
+
+1
+
+2
+
+https://harmash.com/linux/linux-file-system
+
+Linux File System
+
+The Filesystem Hierarchy Standard (FHS) defines th...
+
+2020-03-03
+
+true
+
+1
+
+2
+
+  
+  
+
+### الجدول `comments`
+
+id
+
+content
+
+publishing\_date
+
+parent\_comment\_id
+
+user\_id
+
+post\_id
+
+1
+
+Great introduction!
+
+2020-03-01
+
+NULL
+
+3
+
+1
+
+2
+
+Wow, this is very helpful.
+
+2020-03-02
+
+NULL
+
+4
+
+1
+
+3
+
+Where to find users passwords in Linux?
+
+2020-03-03
+
+NULL
+
+9
+
+2
+
+4
+
+Execute the following code: cat /etc/passwd
+
+2020-03-04
+
+3
+
+1
+
+2
+
+## أمثلة شاملة حول استرجاع البيانات
+
+الإستعلام التالي يقوم بعرض `email` الشخص الذي يعتبر مدير المدونة ( Administrator ).
+
+#### المثال الأول
+
+إذا كنت تعرف أن المدير هو الشخص الذي يملك `role_id` يساوي `1` يمكنك مباشرةً كتابة التالي.
+
+SELECT email
+FROM users
+WHERE role\_id \= 1;
+
+إذا أردت الإعتماد على كلمة Administrator لمعرفة الشخص الذي يعتبر المدير, يجب أن تكتب التالي.
+
+SELECT email
+FROM users
+JOIN roles
+ON users.role\_id \= roles.id
+WHERE roles.title \= 'Administrator'
+
+النتيجة
+
+email
+
+mhamad@example.com
+
+  
+
+الإستعلام التالي يقوم بعرض إسم مستخدم ( `username` ) كل شخص عنده مقال واحد على الأقل مع عرض عنوان ( `title` ) كل مقال.
+
+لتقليل حجم الكود قمنا بوضع الحرف `u` كإسم مختصر للجدول `users`، و الحرف `p` كإسم مختصر للجدول `posts`.  
+جعلنا نوع الربط `JOIN` للإشارة إلى أننا نريد عرض الأشخاص الذين عندهم مقالات فقط.
+
+#### المثال الثاني
+
+SELECT u.username, p.title AS post\_title
+FROM users u
+JOIN posts p
+ON p.user\_id \= u.id
+
+النتيجة
+
+username
+
+post\_title
+
+ziad
+
+Java Overview
+
+mhamad
+
+Linux File System
+
+  
+
+الإستعلام التالي يقوم بإحصاء و عرض عدد الأشخاص ( `users` ) على حسب أدوارهم ( `roles` ), أي المعلومات التالية:
+
+*   كم شخص عبارة عن Administrator.
+*   كم شخص عبارة عن Editor.
+*   كم شخص عبارة عن Writer.
+*   كم شخص عبارة عن Subscriber.
+
+لتقليل حجم الكود قمنا بوضع الحرف `r` كإسم مختصر للجدول `roles`، و الحرف `u` كإسم مختصر للجدول `users`.  
+لحساب عدد المستخدمين إستخدمنا الدالة `COUNT()`.  
+وضعنا إسم الجدول `roles` من الناحية اليسرى و جعلنا نوع الربط `LEFT JOIN` للإشارة إلى أننا نريد عرض كل الأدوار حتى و لو لم يكن هناك أي شخص له دور محدد منها.  
+بما أن الإحصاء سيرتكز على إحصاء عدد الأدوار نسبةً لدور كل مستخدم، قمنا بتجميع الأدوار نسبة لعناوين ( `title` ) الأدوار.
+
+#### المثال الثالث
+
+SELECT r.title AS roles, COUNT(u.role\_id) AS users
+FROM roles r LEFT JOIN users u
+ON u.role\_id \= r.id
+GROUP BY r.title;
+
+النتيجة
+
+roles
+
+users
+
+Administrator
+
+1
+
+Editor
+
+2
+
+Writer
+
+2
+
+Subscriber
+
+5
+
+  
+
+الإستعلام التالي يقوم بعرض إسم كل شخص (إسمه و إسم عائلته) في عمود واحد بالإضافة إلى جنسه و دوره في المدونة مع ترتيب النتيجة النهائية نسبةً لأدوار الأشخاص.
+
+المعلومات التي نريدها موجودة في ثلاث جداول هي `users` و `genders` و `roles`، لذا سنقوم بوضع أسماء مختصرة لتصغير حجم كود الإستعلام.
+
+*   الجدول `users` وضعنا الحرف `u` كإسم مختصر له.
+*   الجدول `genders` وضعنا الحرف `g` كإسم مختصر له.
+*   الجدول `roles` وضعنا الحرف `r` كإسم مختصر له.
+
+لدمج إسم الشخص مع إسم عائلته في عمود واحد سنستخدم الدالة `CONCAT()`.  
+للحصول على مسمى جنس المستخدم في المدونة يجب أن نربط الحقل `gender_id` الموجود في الجدول `u` مع الحقل `id` الموجود في الجدول `g`.  
+للحصول على مسمى دور المستخدم في المدونة يجب أن نربط الحقل `role_id` الموجود في الجدول `u` مع الحقل `id` الموجود في الجدول `r`.
+
+#### المثال الرابع
+
+SELECT
+    CONCAT(u.first\_name, ' ', u.last\_name) AS name,
+    g.title AS gender,
+    r.title AS role
+FROM
+    users u
+JOIN
+    genders g ON u.gender\_id \= g.id
+JOIN
+    roles r ON u.role\_id \= r.id
+ORDER BY
+    role;
+
+النتيجة
+
+name
+
+gender
+
+role
+
+Mhamad Harmush
+
+Male
+
+Administrator
+
+Mostafa Kamel
+
+Male
+
+Editor
+
+Ahmad Masri
+
+Male
+
+Editor
+
+Hazem Hassoun
+
+Male
+
+Subscriber
+
+Rana Karim
+
+Female
+
+Subscriber
+
+Shahad Alanzy
+
+Female
+
+Subscriber
+
+Rola Senjekdar
+
+Female
+
+Subscriber
+
+Hala Hassan
+
+Female
+
+Subscriber
+
+Saly Saadi
+
+Female
+
+Writer
+
+Ziad Asmar
+
+Male
+
+Writer
+
+  
+
+الإستعلام التالي يقوم بوضع إسم كل مستخدم ( `username` ) في الجدول `users` بالإضافة إلى رابط صورته ( `url` ) الموضوع في الجدول `photos`.  
+في حال كان الشخص لا يملك صورة في الجدول `photos` سيتم عرض جملة `No Photo` في النتيجة النهائية.
+
+لتقليل حجم الكود, قمنا بوضع الحرف `u` كإسم مختصر للجدول `users`, و الحرف `p` كإسم مختصر للجدول `photos`.  
+لتبديل أي قيمة `Null` في العمود `photo` بالجملة `No Photo` إستخدمنا الدالة `IFNULL()`.  
+وضعنا إسم الجدول `users` من الناحية اليسرى و جعلنا نوع الربط `LEFT JOIN` للإشارة إلى أننا نريد عرض كل أسماء المستخدمين حتى و لو لم يكن هناك أي صورة لهم في الجدول `photos`.
+
+#### الإستعلام
+
+SELECT u.username, IFNULL(p.url, 'No Photo') AS photo
+FROM users u
+LEFT JOIN photos p
+ON p.user\_id \= u.id;
+
+المثال الخامس
+
+username
+
+photo
+
+mhamad
+
+https://harmash.com/uploaded/photos/6546842.PNG
+
+ahmad
+
+https://harmash.com/uploaded/photos/5324654.PNG
+
+hala
+
+No Photo
+
+rola
+
+https://harmash.com/uploaded/photos/5249824.PNG
+
+ziad
+
+https://harmash.com/uploaded/photos/4578515.PNG
+
+mostafa
+
+No Photo
+
+saly
+
+No Photo
+
+shahad
+
+https://harmash.com/uploaded/photos/8789354.PNG
+
+hazem
+
+https://harmash.com/uploaded/photos/5878942.PNG
+
+rana
+
+No Photo
+
+  
+
+الإستعلام التالي يقوم بعرض إسم مستخدم كل شخص كتب تعليق, بالإضافة إلى التعليق الذي وضعه, و عنوان المقال الذي علق عليه.
+
+المعلومات التي نريدها موجودة في ثلاث جداول هي `comments` و `users` و `posts`، لذا سنقوم بوضع أسماء مختصرة لتصغير حجم كود الإستعلام.
+
+*   الجدول `comments` وضعنا الحرف `c` كإسم مختصر له.
+*   الجدول `users` وضعنا الحرف `u` كإسم مختصر له.
+*   الجدول `posts` وضعنا الحرف `p` كإسم مختصر له.
+
+للحصول على إسم المستخدم الذي وضع التعليق يجب أن نربط الحقل `user_id` الموجود في الجدول `c` مع الحقل `id` الموجود في الجدول `u`.  
+للحصول على عنوان المقال الذي تم وضع التعليق عليه يجب أن نربط الحقل `post_id` الموجود في الجدول `c` مع الحقل `id` الموجود في الجدول `p`.
+
+#### المثال السادس
+
+SELECT u.username, c.content AS comment, p.title AS on\_post
+FROM comments c
+JOIN users u ON c.user\_id \= u.id
+JOIN posts p ON c.post\_id \= p.id;
+
+النتيجة
+
+username
+
+comment
+
+on\_post
+
+hala
+
+Great introduction!
+
+Java Overview
+
+rola
+
+Wow, this is very helpful.
+
+Java Overview
+
+hazem
+
+How to Users in Linux?
+
+Linux File System
+
+mhamad
+
+Execute the following code: cat /etc/passwd
+
+Linux File System
+
+  
+
+الإستعلام التالي يقوم بإحصاء و عرض عدد المقالات ( `posts` ) الموجودة في كل فئة ( `categories` )، أي المعلومات التالية:
+
+*   عدد المقالات التابعة لفئة Programming.
+*   عدد المقالات التابعة لفئة Operating Systems.
+*   عدد المقالات التابعة لفئة Networking.
+*   عدد المقالات التابعة لفئة Electronics.
+*   عدد المقالات التابعة لفئة Artificial Intelligence.
+
+لتقليل حجم الكود قمنا بوضع الحرف `p` كإسم مختصر للجدول `posts`، و الحرف `c` كإسم مختصر للجدول `categories`.  
+لحساب عدد المقالات، إستخدمنا الدالة `COUNT()`.  
+وضعنا إسم الجدول `categories` من الناحية اليسرى و جعلنا نوع الربط `LEFT JOIN` للإشارة إلى أننا نريد عرض كل الفئات حتى و لو لم يكن هناك أي مقال تابع لها.  
+بما أن الإحصاء سيرتكز على إحصاء عدد المقالات نسبةً للفئة كل مقال، قمنا بتجميع المقالات نسبة لعناوين ( `title` ) الفئات.
+
+#### المثال السابع
+
+SELECT c.title AS categories, COUNT(p.category\_id) AS posts
+FROM categories c LEFT JOIN posts p
+ON p.category\_id \= c.id
+GROUP BY c.title;
+
+النتيجة
+
+categories
+
+posts
+
+Programming
+
+1
+
+Operating Systems
+
+1
+
+Networking
+
+0
+
+Electronics
+
+0
+
+Artificial Intelligence
+
+0
+
+  
+
+الإستعلام التالي يقوم بعرض الردود الموضوعة على التعليقات.  
+أي هنا نقوم بعرض محتوى ( `content` ) كل تعليق موضوع بمثابة رد على تعليق آخر بالإضافة إلى التعليق الذي وضع عليه الرد فقط و ليس جميع التعليقات.
+
+بما أن التعليقات و الردود عبارة عن تعليقات عادية موضوعة في الجدول `comments` مع فارق واحد هو أن التعليق يعتبر بمثابة رد في حال كان عنده `parent_comment_id` يشير لتعليق آخر موجود في الجدول نفسه يجب أن نحول الجدول إلى جدولين و نربطهم بأسلوب Self Join لنتمكن من عرض التعليق و الرد الموضوع عليه.
+
+أول نسخة من الجدول `comments` قمنا بتسميتها `c1` و هي التي سنحضر منها التعليق، و النسخة الثانية منه قمنا بتسميتها `c2` و هي التي سنحضر منها الرد على التعليق.
+
+#### المثال الثامن
+
+SELECT c1.content AS comment, c2.content AS reply
+FROM comments c1
+JOIN comments c2
+ON c2.parent\_comment\_id \= c1.id;
+
+النتيجة
+
+comment
+
+reply
+
+Where to find users password in Linux?
+
+Execute the following code: cat /etc/passwd

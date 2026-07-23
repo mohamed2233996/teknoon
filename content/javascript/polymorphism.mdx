@@ -1,0 +1,162 @@
+---
+title: "جافاسكربتتعدد الأشكال"
+source: "https://harmash.com/tutorials/javascript/polymorphism"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:48.725Z"
+---
+
+## مفهوم تعدد الأشكال
+
+تعدد الأشكال أو بوليمورفيزم ( Polymorphism ) هو مجرد أسلوب في كتابة الكود يقصد منه بناء دالة تنفذ أوامر مختلفة على حسب الكائن الذي نمرره لها عند إستدعائها.  
+تعدد الأشكال يكون مرتبط بشكل أساسي بالوراثة حيث تكون الدالة مبنية على أساس الكلاس الأب، و عند إستدعائها نمرر لها كائن من إحدى الكلاسات التي ترث منه.
+
+## تطبيق مبدأ تعدد الأشكال
+
+في المثال التالي قمنا بتعريف كلاس إسمه `Shape` ليحتوي على الأشياء التي يجب أن يمتلكها أي شكل هندسي. لذلك فإن أي كلاس سننشئه ليمثل شكل هندسي يجب أن نجعله يرث منه. في هذا الكلاس قمنا بوضع دالة واحدة إسمها `printArea()` و مهمتها طباعة مساحة الشكل الهندسي أياً كان نوعه.
+
+بعدها قمنا بتعريف كلاس إسمه `Square` يمثل شكل المربع، و كلاس إسمه `Rectangle` يمثل شكل المستطيل. كلاهما جعلناهما يرثان من الكلاس `Shape` و يعيدان تعريف الدالة `printArea()` لكي تطبع مساحة كلٍ منهما كما ينبغي.
+
+![Javascript Polymorphism - تعدد الأشكال في جافاسكربت](/content-images/javascript/polymorphism/1784304828710-c7tg0f.PNG)
+
+بعدها قمنا بإنشاء دالة إسمها `printShapeArea()` تقوم بطباعة مساحة الشكل الهندسي أياً كان نوعه حيث أنها تقوم باستداعاء الدالة `printArea()` منه.
+
+في النهاية قمنا بإنشاء كائن من الكلاس `Square` و كائن من الكلاس `Rectangle` و تمرير كل كائن منهما للدالة `printShapeArea()`.
+
+#### مثال
+
+// ليحتوي على الأشياء التي يجب أن يملكها أي كلاس يمثل شكل هندسي Shape هنا قمنا بإنشاء كلاس إسمه
+class Shape {
+
+    // الهدف منها أن تطبع مساحة الشكل الهندسي printArea هنا قمنا بإضافة دالة إسمها
+    printArea() {
+        document.write('No shape is specified! <br>');
+    }
+}
+
+// لأنه سيمثل مربع Shape يرث من الكلاس Square هنا قمنا بإنشاء كلاس إسمه
+class Square extends Shape {
+
+    // هنا قمنا بإضافة كونستركتور و فيه يتم إنشاء خاصية جديدة
+    constructor(side) {
+        super();
+        this.side = side;
+    }
+
+    // حتى تطبع المساحة بما يتناسب مع الكلاس printArea() هنا قمنا بإعادة تعريف الدالة
+    printArea() {
+        document.write('Square area = ' + (this.side \* this.side) +  '<br>');
+    }
+}
+
+// لأنه سيمثل مستطيل Shape يرث من الكلاس Rectangle هنا قمنا بإنشاء كلاس إسمه
+class Rectangle extends Shape {
+
+    // هنا قمنا بإضافة كونستركتور و فيه يتم إنشاء خاصيتين جديدتين
+    constructor(length, width) {
+        super();
+        this.length = length;
+        this.width = width;
+    }
+
+    // حتى تطبع المساحة بما يتناسب مع الكلاس printArea() هنا قمنا بإعادة تعريف الدالة
+    printArea() {
+        document.write('Rectangle area = ' + (this.length \* this.width) +  '<br>');
+    }
+}
+
+// Shape عند استدعاءها نمرر لها كائن يرث من الكلاس printCountryInfo هنا قمنا بتعريف دالة إسمها
+function printShapeArea(shape)
+{
+    // shape من الكائن الذي نمرره لها في الباراميتر printArea() هنا سيتم استدعاء الدالة
+    shape.printArea();
+}
+
+// Rectangle و كائن من الكلاس Square هنا قمنا بإنشاء كائن من الكلاس
+let square = new Square(3);
+let rectangle = new Rectangle(3, 4);
+
+// لها rectangle و square و تمرير الكائنين printShapeArea() هنا قمنا باستدعاء الدالة
+printShapeArea(square);
+printShapeArea(rectangle);
+
+نتيجة التشغيل:
+
+Square area = 9  
+Rectangle area = 12
+
+[جرب الكود](/tryit?file=/tutorials/javascript/polymorphism/polymorphism-demo)
+
+## تطبيق مبدأ تعدد الأشكال مع المصفوفات
+
+في المثال التالي قمنا بإعادة المثال السابق و لكننا هذه المرة قمنا بوضع الكائنين `square` و `rectangle` في مصفوفة إسمها `shapes`.
+
+بعدها قمنا بإنشاء حلقة تمر على الكائنات التي وضعناها في المصفوفة `shapes` واحداً تلو الآخر، و في كل مرة تستدعي الدالة `printShapeArea()` و تمرر لها كائن منهم.
+
+#### مثال
+
+// ليحتوي على الأشياء التي يجب أن يملكها أي كلاس يمثل شكل هندسي Shape هنا قمنا بإنشاء كلاس إسمه
+class Shape {
+
+    // الهدف منها أن تطبع مساحة الشكل الهندسي printArea هنا قمنا بإضافة دالة إسمها
+    printArea() {
+        document.write('No shape is specified! <br>');
+    }
+}
+
+// لأنه سيمثل مربع Shape يرث من الكلاس Square هنا قمنا بإنشاء كلاس إسمه
+class Square extends Shape {
+
+    // هنا قمنا بإضافة كونستركتور و فيه يتم إنشاء خاصية جديدة
+    constructor(side) {
+        super();
+        this.side = side;
+    }
+
+    // حتى تطبع المساحة بما يتناسب مع الكلاس printArea() هنا قمنا بإعادة تعريف الدالة
+    printArea() {
+        document.write('Square area = ' + (this.side \* this.side) +  '<br>');
+    }
+}
+
+// لأنه سيمثل مستطيل Shape يرث من الكلاس Rectangle هنا قمنا بإنشاء كلاس إسمه
+class Rectangle extends Shape {
+
+    // هنا قمنا بإضافة كونستركتور و فيه يتم إنشاء خاصيتين جديدتين
+    constructor(length, width) {
+        super();
+        this.length = length;
+        this.width = width;
+    }
+
+    // حتى تطبع المساحة بما يتناسب مع الكلاس printArea() هنا قمنا بإعادة تعريف الدالة
+    printArea() {
+        document.write('Rectangle area = ' + (this.length \* this.width) +  '<br>');
+    }
+}
+
+// Shape عند استدعاءها نمرر لها كائن يرث من الكلاس printCountryInfo هنا قمنا بتعريف دالة إسمها
+function printShapeArea(shape)
+{
+    // shape من الكائن الذي نمرره لها في الباراميتر printArea() هنا سيتم استدعاء الدالة
+    shape.printArea();
+}
+
+// Rectangle و كائن من الكلاس Square هنا قمنا بإنشاء كائن من الكلاس
+let square = new Square(3);
+let rectangle = new Rectangle(3, 4);
+
+// shapes في مصفوفة إسمها rectangle و square هنا قمنا بوضع الكائنين
+let shapes = \[square, rectangle\];
+
+// shape و في كل مرة تضع عنصر جديد في المتغير shapes هنا قمنا بإنشاء حلقة تمر على جميع عناصر المصفوفة
+for(let shape of shapes) {
+    // لها shape و تمرير الكائن الموجود في printShapeArea() هنا سيتم اسدعاء الدالة
+    printShapeArea(shape);
+}
+
+نتيجة التشغيل:
+
+Square area = 9  
+Rectangle area = 12
+
+[جرب الكود](/tryit?file=/tutorials/javascript/polymorphism/polymorphic-array)

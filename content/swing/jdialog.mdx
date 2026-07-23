@@ -1,0 +1,72 @@
+---
+title: "Swingالكلاس JDialog"
+source: "https://harmash.com/tutorials/swing/jdialog"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:54.425Z"
+---
+
+## مقدمة
+
+الكلاس `JDialog` يستخدم لإضافة نافذة مخصصة (Custom Dialog).  
+ميزة هذه النافذة أنك تستطيع وضع أي شيء بداخلها.
+
+  
+
+### بناؤه
+
+public class JDialog
+extends Dialog
+implements WindowConstants, Accessible, RootPaneContainer
+
+## كونستركتورات الكلاس `JDialog`
+
+الجدول التالي يحتوي على أهم الكونستركتورات الموجودة في الكلاس `JDialog`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JDialog()` ينشئ كائن من الكلاس `JDialog` يمثل Dialog ليس له عنوان و بدون تحديد الـ Frame التي سيظهر بداخلها.
+
+2
+
+`public JDialog(Frame owner)` ينشئ كائن من الكلاس `JDialog` يمثل Dialog ليس له عنوان و يظهر بداخل Frame محددة.  
+مكان الباراميتر `owner` نضع الـ Frame التي نريده أن يظهر بداخلها.
+
+3
+
+`public JDialog(Frame owner, String title)` ينشئ كائن من الكلاس `JDialog` يمثل Dialog له عنوان و يظهر بداخل Frame محددة.  
+  
+
+*   مكان الباراميتر `owner` نضع الـ Frame التي نريده أن يظهر بداخلها.
+*   مكان الباراميتر `title` نضع نص يمثل عنوان الـ Dialog الذي سيظهر.
+
+4
+
+`public JDialog(Frame owner, boolean modal)` ينشئ كائن من الكلاس `JDialog` يمثل Dialog ليس له عنوان و يظهر بداخل Frame محددة.  
+هنا يمكنك تحديد إذا كنت تريد جعل المستخدم قادر على التعامل مع الـ Frame و الـ Dialog في نفس الوقت.  
+  
+
+*   مكان الباراميتر `owner` نضع الـ Frame التي نريده أن تظهر بداخلها.
+*   مكان الباراميتر `modal` نضع `false` في حال أردنا جعل المستخدم قادر على التعامل مع الـ Frame و الـ Dialog في نفس الوقت.  
+        و نضع `true` لجعله قادر على التعامل مع الـ Dialog فقط عندما يكون ظاهراً.
+
+5
+
+`public JDialog(Frame owner, String title, boolean modal)` ينشئ كائن من الكلاس `JDialog` يمثل Dialog له عنوان و يظهر بداخل Frame محددة.  
+هنا يمكنك تحديد إذا كنت تريد جعل المستخدم قادر على التعامل مع الـ Frame و الـ Dialog في نفس الوقت.  
+  
+
+*   مكان الباراميتر `owner` نضع الـ Frame التي نريده أن تظهر بداخلها.
+*   مكان الباراميتر `title` نضع نص يمثل عنوان الـ Dialog الذي سيظهر.
+*   مكان الباراميتر `modal` نضع `false` في حال أردنا جعل المستخدم قادر على التعامل مع الـ Frame و الـ Dialog في نفس الوقت.  
+        و نضع `true` لجعله قادر على التعامل مع الـ Dialog فقط عندما يكون ظاهراً.
+
+## مثال شامل
+
+المثال التالي يعلمك طريقة إنشاء كلاس خاص يمثل Dialog له محتوى بسيط.  
+سنقوم بإظهار الـ Dialog عند النقر على زر Open Dialog في الـ Frame.
+
+![طريقة إنشاء JDialog و جعله يظهر عند النقر على زر في جافا](/content-images/swing/jdialog/1784305374409-khcdb1.PNG)
+
+[شاهد المثال](/tutorials/swing/jdialog/example-1)

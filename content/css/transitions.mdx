@@ -1,0 +1,267 @@
+---
+title: "CSSالتأثيرات الإنتقالية"
+source: "https://harmash.com/tutorials/css/transitions"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:59.322Z"
+---
+
+## مفهوم التأثيرات الإنتقالية
+
+إفتراضياً، عند تغيير قيم خصائص العنصر فإنه يتم تطبيق القيم الجديدة بشكل مباشر عليه و بذات اللحظة بدون إظهار أي مؤثرات بصرّية و هذا الأمر يجعل تفاعل المستخدم مع الصفحة ضعيف و ممل جداً.
+
+التأثيرات الإنتقالية ( Transitions ) فكرتها ببساطة جعل تحديث القيم يتم بشكل تدريجي و خلال مدة تحددها أنت على حسب حاجتك.
+
+مرّر إصبعك أو مؤشر الماوس على العناصر التالية و لاحظ كيف أن حالتها ستتغير بشكل سلسل جداً.
+
+Change color
+
+Rotate 360deg
+
+Move Up
+
+Resize
+
+Rounded Borders
+
+في هذا الدرس ستتعرف على الخصائص التالية التي يمكن استخدامها لجعل تحديث القيم يتم بصورة سلسلة و جذابة:
+
+`transition` `transition-delay` `transition-duration` `transition-property` `transition-timing-function`
+
+## أساسيات التأثيرات الإنتقالية
+
+لإنشاء تأثير انتقالي، يجب عليك تحديد شيئين رئيسيين و هما:
+
+*   الخاصية التي تريد إضافة تأثير إنتقالي لها.
+*   المدة التي سيحدث خلالها التأثير الإنتقالي.
+
+في المثال التالي قمنا بجعل عرض العنصر يصبح 300 بكسل بشكل تدريجي و خلال ثانية واحدة عندما يتم تمرير الماوس فوقه.
+
+#### مثال
+
+.btn {
+    width: 200px;
+    transition-property: width;
+    transition-duration: 1s;
+}
+
+.btn:hover {
+    width: 300px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/transitions/basics)
+
+## تغيير قيمة عدة خصائص أثناء الإنتقال
+
+في حال أردت تغيير قيمة أكثر من خاصية أثناء الإنتقال، لديك خيارين:
+
+*   ذكر إسم كل خاصية تريد تغيير قيمتها مع وضع فاصلة بينهم.
+*   كتابة الكلمة `all` لتطبيق تأثير الإنتقال على جميع خصائص العنصر التي يتم تغيير قيمتها.
+
+  
+
+في المثال التالي قمنا بجعل عرض العنصر و لون خلفيته يتغيران خلال ثانية واحدة عندما يتم تمرير الماوس فوقه.
+
+#### المثال الأول
+
+.btn {
+    width: 200px;
+    background-color: dodgerblue;
+    transition-property: width, background-color;
+    transition-duration: 1s;
+}
+
+.btn:hover {
+    width: 300px;
+    background-color: blueviolet;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/transitions/transition-property-multiple-values)
+
+  
+
+في المثال التالي قمنا باستخدام الكلمة `all` لتطبيق تأثير الإنتقال على جميع خصائص العنصر التي يتم تغيير قيمتها.
+
+#### المثال الثاني
+
+.btn {
+    width: 200px;
+    background-color: dodgerblue;
+    transition-property: all;
+    transition-duration: 1s;
+}
+
+.btn:hover {
+    width: 300px;
+    background-color: blueviolet;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/transitions/transition-property-all)
+
+## وضع فارق زمني بين القيم التي سيتم تغييرها
+
+في حال أردت تغيير قيمة أكثر من خاصية أثناء الإنتقال و تريد تحديد المدة التي سيتم خلالها تغيير قيمة كل خاصية منهم على حدا، قم بوضع المدة التي سيتم خلالها تغيير قيمة كل خاصية منهم في الخاصية `transition-duration` مع وضع فاصلة بين كل مدتين بذات الترتيب الذي وضعت فيه أسماء الخصائص كقيمة في الخاصية `transition-property`.
+
+في المثال التالي قمنا بجعل تأثير عرض العنصر يتم خلال ثانية واحدة و تأثير تغيير لون خلفيته يتغير خلال ثلاث ثواني عندما يتم تمرير الماوس فوق العنصر.
+
+#### مثال
+
+.btn {
+    width: 200px;
+    background-color: dodgerblue;
+    transition-property: width, background-color;
+    transition-duration: 1s, 3s;
+}
+
+.btn:hover {
+    width: 300px;
+    background-color: blueviolet;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/transitions/transition-duration-multiple-values)
+
+## تأخير التأثير الإنتقالي
+
+في حال أردت جعل التأثير يبدأ بعد مضي مدة محددة، يمكنك استخدام الخاصية `transition-delay` و تمرير المدة لها كقيمة.
+
+في المثال التالي قمنا بجعل التأثير الذي يحدث عند تمرير الماوس فوق العنصر يبدأ بعد الوقوف عليه بثانية.
+
+#### مثال
+
+.btn {
+    width: 200px;
+    background-color: dodgerblue;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-delay: .5s;
+}
+
+.btn:hover {
+    width: 300px;
+    background-color: blueviolet;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/transitions/transition-delay)
+
+## تحديد منحنى سرعة الإنتقال
+
+يمكنك استخدام الخاصية `transition-timing-function` لتحديد كيف ستكون سرعة تنفيذ التأثير.
+
+فيما يلي القيم التي يمكنك وضعها لها كقيمة حتى تحدد كيف ستكون سرعة التنفيذ.
+
+القيمة
+
+إستخدامها
+
+`ease`
+
+تجعل التأثير يبدأ بسرعة، ثم ببطئ، ثم يتوقف بسرعة، و هذه القيمة الإفتراضية.
+
+`linear`
+
+تجعل سرعة التأثير هي نفسها من البداية و حتى النهاية.
+
+`ease-in`
+
+تجعل سرعة التأثير بطيئة في البداية فقط.
+
+`ease-out`
+
+تجعل سرعة التأثير بطيئة في النهاية فقط.
+
+`ease-in-out`
+
+تجعل سرعة التأثير بطيئة في البداية و النهاية و متوازنة فيما بينهما.
+
+فيما يلي دوال يمكنك وضعها لها كقيمة حتى تحدد كيف ستكون سرعة التنفيذ.
+
+الدالة
+
+إستخدامها
+
+`cubic-bezier(x1, y1, x2, y2)`
+
+دالة تستخدم لرسم منحنى سرعة التأثير بشكل يدوي، هنا كل عددين تعطيهما لها يمثلان نقطة على منحنى السرعة. القيم التي يمكن إعطاءها بين 0 و 1 حصراً.
+
+`steps(n, <jumpterm>)`
+
+دالة تستخدم لرسم مخطط لتوقف التأثير بشكل يدوي. القيمة الأولى التي تعطيها لها عبارة عن عدد نقاط التوقف، و القيمة الثانية عبارة عن قيمة جاهزة يمكن استخدامها لتحديد كيف سيتم تجاوز نقاط التوقف.
+
+يفضّل استخدام القيم الجاهزة لتحديد سرعة التنفيذ بدلاً من الدوال لأنها أكثر سهولة و أقل تعقيد.
+
+  
+
+في المثال التالي قمنا بعرض عدة دوائر، التأثير الخاص بها يجعلها تنتقل إلى الجهة المقابلة خلال ثانية وحدة.  
+حتى تلاحظ كيف يتسارع و يتباطئ منحنى التأثير، جعلنا جميع الدوائر تتحرك في وقت واحد و ذلك بمجرد تمرير الماوس على الإطار (العنصر الأب) الذي يحتويهم.
+
+#### مثال
+
+.container:hover .circle {
+    left: calc(100% - 50px);
+}
+
+.linear {
+    background: #ED796D;
+    transition-timing-function: linear;
+}
+
+.ease {
+    background: #ED976D;
+    transition-timing-function: ease;
+}
+
+.ease-in {
+    background: #2ECC71;
+    transition-timing-function: ease-in;
+}
+
+.ease-out {
+    background: #3498DB;
+    transition-timing-function: ease-out;
+}
+
+.ease-in-out {
+    background: #1ABC9C;
+    transition-timing-function: ease-in-out;
+}
+
+.cubic-bezier {
+    background: #0A8EA0;
+    transition-timing-function: cubic-bezier(0.1, 0.5, 1, 0.1);
+}
+
+.steps-start {
+    background: #777;
+    transition-timing-function: steps(5, start);
+}
+
+.steps-end {
+    background: #777;
+    transition-timing-function: steps(5, end);
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/transitions/transition-timing-function)
+
+## إضافة التأثيرات الإنتقالية بشكل مختصر
+
+يمكنك تحديد جميع خصائص التأثيرات الإنتقالية للعنصر باستخدام الخاصية `transition` مع الإشارة إلى أنه يمكنك إعطاءها القيم كيفما شئت بدون ترتيب محدد.
+
+عند استخدام هذه الخاصية فأنت مجبر على تحديد الخاصية التي تريد إضافة تأثير إنتقالي لها أو استخدام القيمة `all` كما سبق و ذكرنا، بالإضافة إلى تحديد المدة التي سيحدث خلالها التأثير الإنتقالي.
+
+في حال كنت تنوي تأخير تنفيذ التأثير فإن المدة الثانية التي تضعها لها كقيمة يتم إعتبارها مدة التأخير في التنفيذ.
+
+  
+
+في المثال التالي، قمنا بإضافة تأثير إنتقالي لمربع الإدخال. عند النقر بداخله سيتم تكبير حجمه خلال 0.3 ثانية.
+
+#### مثال
+
+input\[name="search"\] {
+    width: 100px;
+    transition: width ease-in-out .3s;
+}
+
+input\[name="search"\]:focus {
+    width: 250px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/transitions/transition)

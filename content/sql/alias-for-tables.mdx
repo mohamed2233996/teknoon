@@ -1,0 +1,407 @@
+---
+title: "SQLوضع أسماء مختصرة للجداول"
+source: "https://harmash.com/tutorials/sql/alias-for-tables"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:49.689Z"
+---
+
+## الكلمة `AS` مع الجداول
+
+في هذا الدرس ستتعلم طريقة وضع أسماء مختصرة للجداول حين تجلب المعلومات من أكثر من جدول في نفس الوقت حتى لا تضطر إلى كتابة إسم الجدول كما هو كلما أردت الإشارة إلى عمود موجود فيه.
+
+  
+
+### طريقة استخدامها
+
+SELECT alias\_name.column1, alias\_name.column2, ...
+FROM table\_name AS alias\_name;
+
+إذاً لوضع إسم مختصر للجدول نضع `AS` بعد إسم الجدول و من ثم ندخل الإسم المختصر له.
+
+بعد وضع إسم مختصر للجدول، تصبح قادر على استخدام الإسم المختصر للوصول لأعمدته.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` تحتوي على الجداول التالية:
+
+*   الجدول الأول إسمه `countries` و هو مخصص لحفظ معلومات البلدان.
+*   الجدول الثاني إسمه `users` و هو مخصص لحفظ معلومات المستخدمين و التي من ضمنها بلد كل مستخدم.
+
+#### مثال
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من عامودين countries هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE countries (
+    id     INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    name   VARCHAR(100),
+    UNIQUE (name)
+);
+
+\-- هنا قمنا بإضافة 5 أسطر في الجدول, أي أضفنا معلومات 5 بلدان
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO countries VALUES (null, "KSA");
+INSERT INTO countries VALUES (null, "Oman");
+INSERT INTO countries VALUES (null, "Egypt");
+INSERT INTO countries VALUES (null, "Kuwait");
+INSERT INTO countries VALUES (null, "Bahrain");
+
+\-- يتألف من 5 أعمدة users هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE users (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    username   VARCHAR(30),
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(50),
+    country\_id INT,
+    UNIQUE (username)
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 مستخدمين
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO users VALUES (null, "rami", "Rami", "Masri", 1);
+INSERT INTO users VALUES (null, "ahmad", "Ahmad", "Naji", 2);
+INSERT INTO users VALUES (null, "hanan", "Hanan", "Mostafa", 5);
+INSERT INTO users VALUES (null, "saly", "Saly", "Harmush", null);
+INSERT INTO users VALUES (null, "samir", "Samir", "Saleh", 3);
+INSERT INTO users VALUES (null, "hamad", "Hamad", "Akel", 2);
+INSERT INTO users VALUES (null, "abdullah", "Abdullah", "Helmi", 1);
+INSERT INTO users VALUES (null, "rashed", "Rashed", "Masri", 5);
+INSERT INTO users VALUES (null, "majed", "Majed", "Alali", null);
+INSERT INTO users VALUES (null, "rayan", "Rayan", "Kasabi", null);
+
+فيما يلي البيانات التي قمنا بإضافتها في الجدول `countries`.
+
+countries
+
+id
+
+name
+
+1
+
+KSA
+
+2
+
+Oman
+
+3
+
+Egypt
+
+4
+
+Kuwait
+
+5
+
+Bahrain
+
+  
+
+فيما يلي البيانات التي قمنا بإضافتها في الجدول `users`.
+
+users
+
+id
+
+username
+
+first\_name
+
+last\_name
+
+country\_id
+
+1
+
+rami
+
+Rami
+
+Masri
+
+1
+
+2
+
+ahmad
+
+Ahmad
+
+Naji
+
+2
+
+3
+
+hanan
+
+Hanan
+
+Mostafa
+
+5
+
+4
+
+saly
+
+Saly
+
+Harmush
+
+NULL
+
+5
+
+samir
+
+Samir
+
+Saleh
+
+3
+
+6
+
+hamad
+
+Hamad
+
+Akel
+
+2
+
+7
+
+abdullah
+
+Abdullah
+
+Helmi
+
+1
+
+8
+
+rashed
+
+Rashed
+
+Masri
+
+5
+
+9
+
+majed
+
+Majed
+
+Alali
+
+NULL
+
+10
+
+rayan
+
+Rayan
+
+Kasabi
+
+NULL
+
+  
+
+إذا وضعنا الجدولين بجانب بعض سنلاحظ كيف ربطنا قيم الجدول `users` بقيم الجدول `countries` من خلال رقم التعرفة `id` الخاص بكل بلد.
+
+![العلاقة بين الجدولين users و countries](/content-images/sql/alias-for-tables/1784304589661-p7x3le.PNG)
+
+## متى نحتاج وضع أسماء مختصرة؟
+
+وضع أسماء مختصرة للجداول التي يتم إحضار قيم منها هو أمر إختياري و لكنه مفيد لأنه يمكن من خلاله تقليل حجم كود الإستعلام.
+
+إذا كنا سنحضر البيانات من جدول واحد فقط، لا يوجد أي فائدة من وضع إسم مختصر للجدول مع أن ذلك ممكن.
+
+  
+
+### متى يكون ذكر أسماء الجداول إجباري؟
+
+يكون ذكر أسماء الجداول أو استخدام الأسماء المختصرة لها أمر إجباري في حال كانت الجداول الموضوعة في نفس الإستعلام تحتوي على أعمدة تملك نفس الإسم. في هذه الحالة أسماء الجداول أو الأسماء المختصرة لها تمكن مفسر الإستعلامات من التفرقة بينها.
+
+في حال كان الجدول نفسه يحتوي على أعمدة قيمها مترابطة ببعضها البعض، عندها ستضطر لاستدعاء الجدول نفسه مرتين في ذات الإستعلام و تكون مجبر على وضع إسم مختصر للجدول حتى تتمكن من جلب البيانات بشكل مترابط.
+
+ربط بيانات الجدول نفسه ببعضها ( Self Join ) لم نتطرق له سابقاً لأنك يجب أن تعرف كيف تضع إسم مختصر للجدول حتى تتمكن من فعل ذلك. في الدرس التالي ستتعلم كيف يتم ربط بيانات الجدول نفسه ببعضها بالتفصيل.
+
+## أمثلة على وضع أسماء مختصرة للجداول
+
+في المثال التالي قمنا بعرض بيانات موجودة في جدول واحد بأساليب مختلفة.
+
+#### المثال الأول
+
+شكل الإستعلام بدون وضع أسماء مختصرة للجداول.
+
+SELECT first\_name, last\_name
+FROM users;
+
+شكل الإستعلام مع ذكر إسم الجدول الذي نتعامل مع أعمدته.
+
+SELECT users.first\_name, users.last\_name
+FROM users;
+
+شكل الإستعلام إذا وضعنا الحرف `u` كإسم مختصر للجدول `users`.
+
+SELECT u.first\_name, u.last\_name
+FROM users AS u;
+
+النتيجة
+
+first\_name
+
+last\_name
+
+Rami
+
+Masri
+
+Ahmad
+
+Naji
+
+Hanan
+
+Mostafa
+
+Saly
+
+Harmush
+
+Samir
+
+Saleh
+
+Hamad
+
+Akel
+
+Abdullah
+
+Helmi
+
+Rashed
+
+Masri
+
+Majed
+
+Alali
+
+Rayan
+
+Kasabi
+
+  
+
+في المثال التالي سنقوم بعرض بيانات موجودة في الأصل في جدولين هما `users` و `countries`.  
+كلا الجدولين فيهما عمود إسمه `id` و الذي يعتبر بمثابة العمود المفتاح في كل جدول.
+
+هنا يجب ذكر إسم الجدول أو الإسم المختصر له قبل ذكر إسم العمود `id` هو أمر إجباري حتى يكون مفسر الإستعلام قادر على التفرقة بين العمود الموجود في الجدول `users` و العمود الموجود في الجدول `countries`.
+
+الآن في حال أردنا عرض رقم التعرفة `id` و إسم المستخدم `username` لكل مستخدم موجود في الجدول `users` مع إسم بلده المذكور في الجدول `countries`، يمكننا ربط الجدولين بطريقة `LEFT JOIN` و هنا ستلاحظ أن حجم الكود سيصبح أقل إذا وضعنا أسماء مختصرة للجداول.
+
+#### المثال الثاني
+
+شكل الإستعلام مع ذكر إسم كل جدول نتعامل مع أعمدته.
+
+SELECT users.id, users.username, countries.name AS country
+FROM users LEFT JOIN countries
+ON users.country\_id \= countries.id;
+
+شكل الإستعلام إذا وضعنا الحرف `u` كإسم مختصر للجدول `users` و الحرف `c` كإسم مختصر للجدول `countries`.
+
+SELECT u.id, u.username, c.name AS country
+FROM users AS u LEFT JOIN countries AS c
+ON u.country\_id \= c.id;
+
+النتيجة
+
+id
+
+username
+
+country
+
+1
+
+rami
+
+KSA
+
+2
+
+ahmad
+
+Oman
+
+3
+
+hanan
+
+Bahrain
+
+4
+
+saly
+
+NULL
+
+5
+
+samir
+
+Egypt
+
+6
+
+hamad
+
+Oman
+
+7
+
+abdullah
+
+KSA
+
+8
+
+rashed
+
+Bahrain
+
+9
+
+majed
+
+NULL
+
+10
+
+rayan
+
+NULL

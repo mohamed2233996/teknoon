@@ -1,0 +1,43 @@
+---
+title: "تحديات برمجيةتراكيب البيانات - التحدي الأول"
+source: "https://harmash.com/tutorials/algorithms-and-data-structure/data-structure-test-1"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:25:03.379Z"
+---
+
+### فكرة المشروع
+
+لنفترض أننا نريد إنشاء برنامج الهدف منه تخزين مجموعة كتب و من ثم عرضها بشكل مرتب.  
+البيانات التي نريد تخزينها هي التالية:
+
+*   **المؤلفين:** بيانات كل مؤلف ستتضمن (رقم تعرفة, الإسم الكامل, الهاتف, البريد الإلكتروني).
+*   **الكتب:** بيانات كل كتاب ستتضمن (رقم تعرفة, العنوان, تاريخ النشر, رقم الإصدار, مؤلف الكتاب).
+
+ملاحظة: رقم التعرفة لكل من المؤلفين و الكتب يجب أن يتم إعطاؤه لهم بشكل تلقائي.
+
+  
+
+### الشكل العام لأقسام المشروع
+
+![](/content-images/algorithms-and-data-structure/data-structure-test-1/1784305503371-6sdxn7.PNG)
+
+  
+
+### شرح أقسام المشروع
+
+`Author` يمثل أي مؤلف يتم إنشاؤه.  
+`Book` يمثل أي كتاب يتم إنشاؤه.  
+`Library` سيحتوي على كل المؤلفين و الكتب و الدوال التي تسمح بإضافة و حذف مؤلف و كتب.  
+`add_author()`: مهمتها إضافة مؤلف جديد.  
+`remove_author()`: مهمتها حذف مؤلف من خلال `id` المؤلف الذي نمرره لها عند استدعائها.  
+`print_author()`: مهمتها عرض كل معلومات المؤلف من خلال `id` المؤلف الذي نمرره لها عند استدعائها.  
+`print_author_books()`: مهمتها عرض إسم المؤلف و أسماء كتبه من خلال `id` المؤلف الذي نمرره لها عند استدعائها.  
+`add_book()`: مهمتها إضافة كتاب جديد.  
+`remove_book()`: مهمتها حذف كتاب من خلال `id` الكتاب الذي نمرره لها عند استدعائها.  
+`print_book()`: مهمتها عرض كل معلومات الكتاب و إسم مؤلفه من خلال `id` الكتاب الذي نمرره لها عند استدعائها.
+
+قم بتحويل الرسم إلى كود. ثم قم بإنشاء مجموعة كتب و مؤلفين. و قم بتجربة جميع الدوال في البرنامج.
+
+  
+
+[الحل بلغة بايثون](/tutorials/algorithms-and-data-structure/data-structure-test-1/solution-using-python) [الحل بلغة جافا](/tutorials/algorithms-and-data-structure/data-structure-test-1/solution-using-java) [الحل بلغة #C](/tutorials/algorithms-and-data-structure/data-structure-test-1/solution-using-csharp) [الحل بلغة ++C](/tutorials/algorithms-and-data-structure/data-structure-test-1/solution-using-cpp)

@@ -1,0 +1,561 @@
+---
+title: "جافاسكربتالأحداث"
+source: "https://harmash.com/tutorials/javascript/dom-events"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:14:02.087Z"
+---
+
+## مفهوم الأحداث
+
+الأحداث ( Events ) هي أشياء نتوقع حدوثها في صفحة الويب و عند حدوثها نستطيع تنفيذ أوامر معينة.  
+إذاً من خلال الأحداث يمكنك رصد أي تفاعل يجريه المستخدم مع الصفحة.
+
+الأشياء التي يمكنك ترقّب حدوثها في المتصفح كثيرة جداً فمثلاً يمكنك معرفة متى يقوم المستخدم بتحريك الماوس، متى ينقر على الأزرار، متى يكتب شيء ما في الحقول، متى ينزل في الصفحة لمشاهدة المحتوى الموجود فيها، متى يكبّر أو يصغّر نافذة المتصفح و غيرها من الأمور التي يمكنك رصدها.
+
+## الأحداث الأكثر استخداماً
+
+هناك عدد كبير جداً من الأحداث التي يمكنك استخدامها في عالم الويب و لكننا سنتطرق للأحداث الأكثر استخداماً و التي يجب عليك معرفتها.
+
+الحدث
+
+استخدامه
+
+`click`
+
+يتم إطلاق هذا الحدث عندما يتم النقر على العنصر سواء بواسطة الماوس أو الكيبورد.
+
+`keyup`
+
+يتم إطلاق هذا الحدث بعد أن يتم إدخال حرف من الكيبورد و رفع الإصبع عن الزر.
+
+`keydown`
+
+يتم إطلاق هذا الحدث أثناء النقر على حرف من الكيبورد و قبل أن يتم رفع الإصبع عن الزر.
+
+`keypress`
+
+يتم إطلاق هذا الحدث بشكل مستمر إذا تم النقر على حرف من الكيبورد و تم إبقاء الإصبع على الزر.
+
+`mousemove`
+
+يتم إطلاق هذا الحدث عند تحريك مؤشر الماوس فوق العنصر.
+
+`mouseover`
+
+يتم إطلاق هذا الحدث بعد أن يتم تمرير مؤشر الماوس فوق العنصر.
+
+`mouseout`
+
+يتم إطلاق هذا الحدث بعد أن يصبح مؤشر الماوس خارج حدود العنصر.
+
+`change`
+
+يتم إطلاق هذا الحدث عندما يتم تغيير قيمة العنصر.
+
+`focus`
+
+يتم إطلاق هذا الحدث عندما يكون مربّع التركيز الذي يشير إلى العنصر الحالي موجود عند العنصر.
+
+`blur`
+
+يتم إطلاق هذا الحدث عندما يكون مربع التركيز الذي يشير إلى العنصر الحالي غير موجود عند العنصر.
+
+`submit`
+
+يتم إطلاق هذا الحدث عندما يتم إرسال بيانات النموذج إلى السيرفر.
+
+`load`
+
+يتم إطلاق هذا الحدث عندما يتم تحميل جميع ملفات التصميم، السكربتات، الخطوط, الصور إلخ.. التابعة للصفحة.
+
+`resize`
+
+يتم إطلاق هذا الحدث عندما يتم تغيير حجم المتصفح من أطرافه بواسطة الماوس.
+
+  
+
+في حال ذكر أسماء الأحداث كخصائص فإنها نبدأها بكلمة `'on'` فنقول `'onclick'`، `'onchange'`، `'onkeyup'` و هكذا.
+
+## إضافة حدث للعنصر
+
+هناك ثلاث طرق يمكن إتباعها لجعل العنصر يتعامل مع الحدث الذي قد يقع و هي:
+
+*   إضافة الحدث كخاصية بشكل مباشر في الوسم (Inline Event Handler) و هذا هو الخيار الأسهل و لكنه ليس الأفضل.
+*   إضافة الحدث كخاصية للعنصر بواسطة جافاسكربت (Event Handler Property) و لكن هذا الخيار ليس الأقوى.
+*   إضافة الحدث كمستمع بواسطة جافاسكربت (Event Listener) و هذا الخيار الأفضل و الأكثر مرونة.
+
+  
+
+حتى تلاحظ الفرق بين الأساليب الثلاثة في إضافة الأحداث، سنقوم بكتابة المثال نفسه بطرق مختلفة. سنضيف الحدث `click` للوسم `<button>` لجعله ينفذ دالة إسمها `showAlert()` كلما تم النقر عليه. هذه الدالة تقوم بإظهار نافذة تنبيه منثبقة في كل مرة ننقر فيها على الزر.
+
+  
+
+### 1- أسلوب Inline Event Handler
+
+في المثال التالي أضفنا الحدث `onclick` بشكل مباشر في الوسم `<button>` بهدف تنفيذ دالة إسمها `showAlert()` كلما تم النقر عليه.
+
+#### مثال
+
+<!-- الموجودة في السكربت showAlert() عند النقر على هذا الزر سيتم تنفيذ الدالة -->
+<button onclick\="showAlert()"\>Click Me</button\>
+
+<script\>
+    // تقوم بإظهار نافذة منثبقة عندما يتم تنفيذها showAlert هنا قمنا بتعريف دالة إسمها
+    function showAlert() {
+        alert('The click event is fired!');
+    }
+</script\>
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/inline-event-handler)
+
+  
+
+### 2- أسلوب Event Handler Property
+
+في المثال التالي مررنا الدالة التي نريد تنفيذها في حال حصول الحدث `click` كخاصية للعنصر الذي يملك `id` يساوي `'myBtn'`.
+
+#### مثال
+
+<!-- حتى نستطيع الوصول إليه لاحقاً id هنا قمنا بإعطاء الزر -->
+<button id\="myBtn"\>Click Me</button\>
+
+<script\>
+    // myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+    let myBtn = document.querySelector('#myBtn');
+
+    // myBtn في العنصر الذي يمثله click هنا قمنا بإضافة الدالة التي نريدها أن تتنفذ في حال حصول الحدث 
+    myBtn.onclick = function() {
+        alert('The click event is fired!');
+    };
+</script\>
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/event-handler-property)
+
+  
+
+### 3- أسلوب Event Listener
+
+في المثال التالي قمنا بإضافة الحدث `'click'` و الدالة التي نريد تنفيذها في حال حصوله من خلال استدعاء الدالة `addEventListener()` من العنصر الذي يملك `id` يساوي `'myBtn'`.
+
+#### مثال
+
+<!-- حتى نستطيع الوصول إليه لاحقاً id هنا قمنا بإعطاء الزر -->
+<button id\="myBtn"\>Click Me</button\>
+
+<script\>
+    // myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+    let myBtn = document.querySelector('#myBtn');
+
+    // myBtn و الدالة التي سيتم تنفيذها في حال حصول الحدث في العنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+    myBtn.addEventListener('click', function() {
+        alert('The click event is fired!');
+    });
+</script\>
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/event-listener)
+
+## أشكال دالة تنفيذ الحدث
+
+الدالة التي يتم تنفيذها عند وقوع الحدث يمكن أن تكون دالة عادية لا إسم لها، دالة سهمية، أو إسم فقط يشير إلى الدالة التي ستتنفذ. كما أنه يمكن إضافة باراميتر فيها مما يجعلنا قادرين على الوصول إلى معلومات متعلقة بالحدث نفسه.
+
+  
+
+### تمرير دالة بدون إسم
+
+في المثال التالي قمنا بتمرير دالة لا إسم لها ليتم تنفيذها عند وقوع الحدث `click`.
+
+#### مثال
+
+// myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+let myBtn = document.querySelector('#myBtn');
+
+// myBtn للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+// مع تمرير دالة جديدة بدون إسم ليتم تنفيذها عند حصول الحدث 
+myBtn.addEventListener('click', function() {
+    alert('The click event is fired!');
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/refer-to-a-new-function)
+
+  
+
+### تمرير دالة سهمية
+
+في المثال التالي قمنا بتمرير دالة سهمية ليتم تنفيذها عند وقوع الحدث `click`.
+
+#### مثال
+
+// myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+let myBtn = document.querySelector('#myBtn');
+
+// myBtn للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+// مع تمرير دالة سهمية جديدة ليتم تنفيذها عند حصول الحدث 
+myBtn.addEventListener('click', () => {
+    alert('The click event is fired!');
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/refer-to-an-arrow-function)
+
+  
+
+### تمرير إسم الدالة فقط
+
+في المثال التالي قمنا بتعريف الدالة التي نريد تنفيذها عند حصول الحدث و من ثم قمنا بتمرير إسمها فقط ليتم تنفيذها عند وقوع الحدث `click`.
+
+#### مثال
+
+// عند استدعاءها تقوم بعرض نافذة تنبيه منبثقة showAlert هنا قمنا بتعريف دالة إسمها
+function showAlert() {
+    alert('The click event is fired!');
+}
+
+// myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+let myBtn = document.querySelector('#myBtn');
+
+// myBtn للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+// مع تمرير إسم الدالة التي سيتم تنفيذها عند حصول الحدث     
+myBtn.addEventListener('click', showAlert);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/refer-to-an-existing-function)
+
+## الحصول على معلومات الحدث
+
+في أوقات كثيرة قد تحتاج لمعرفة معلومات موجودة في الحدث الذي وقع و إليك بعض الأمثلة العملية:
+
+*   في أداة [تعلم الطباعة](/learn-typing) نراقب كل حرف يدخله المستخدم لمعرفة ما إن كان صحيحاً أم لا و أيضاً لعرض الحرف الذي أدخله له.
+*   في أداة [رسم الأشكال بواسطة CSS](/css-clip-path-maker) نراقب موقع كل نقطة يحركها المستخدم حتى نغيير إحداثيات الرسم في الكود.
+*   في دورة [اللغة الإنجليزية](/tutorials/english) نراقب أي كلمة أو جملة إنجليزية يتم النقر عليها حتى نقوم بقراءتها سمعياً و هكذا.
+
+الآن، للوصول إلى المعلومات المرتبطة بالحدث الذي وقع فإنه يجب إضافة باراميتر واحد في الدالة التي تنّفذ الحدث و هكذا يصبح بإمكانك الوصول إلى خصائص الحدث نفسه من خلال هذا الباراميتر.
+
+في المثال التالي قمنا بإضافة باراميتر في الدالة التي تنفذ الحدث حتى نستطيع الوصول لمعلومات الحدث نفسه، فمثلاً من خلال هذا الباراميتر نستطيع عرض نوع الحدث (Event Type).
+
+#### مثال
+
+// myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+let myBtn = document.querySelector('#myBtn');
+
+// myBtn للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+// event الدالة التي سيتم تنفيذها عند حصول الحدث أضفنا لها باراميتر إسمه    
+// حتى نستطيع من خلاله الوصول إلى معلومات الحدث نفسه مثل نوعه
+myBtn.addEventListener('click', (event) => {
+    alert('The type of event is: ' + event.type);
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/get-event-data)
+
+يمكنك وضع أي إسم تريد للباراميتر الذي يمثّل الحدث و لكن المتعارف عليه هو استخدام الإسم `event` أو الحرف `e` إن أردت اختصار الإسم.
+
+## حذف حدث من العنصر
+
+في حال كان العنصر يعرف فقط إسم الدالة التي سيقوم بتنفيذها عند وقوع الحدث فإنه يمكن استخدام الدالة `removeEventListener()` لإزالة الحدث من العنصر، أي لجعله و كأنه غير موضوع من الأساس فيه.
+
+في المثال التالي قمنا بتعريف دالة إسمه `showCount()` يتم تنفيذها عند وقوع الحدث `click` في الزر.  
+مهمة هذه الدالة حساب و طباعة كم مرة يقوم المستخدم بالنقر على الزر.  
+عندما يتم النقر ثلاث مرات على الزر فإنه سيتم إزالة الحدث `click` منه لجعله لا ينفذ الدالة `showCount()` من جديد.
+
+#### مثال
+
+// count عدد النقرات سنخزنه في المتغير
+let count = 0;
+
+// myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+let myBtn = document.querySelector('#myBtn');
+
+// result في متغير إسمه result يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+let result = document.querySelector('#result');
+
+// مهمتها طباعة عند النقرات على الزر showCount هنا قمنا بتعريف دالة إسمها
+function showCount() {
+    // count أولاً تقوم بإضافة واحد على عدد النقرات الذي نحتفظ فيه المتغير
+    count++;
+    // result و من ثم تقوم بعرض قيمته في الوسم الذي يمثله المتغير 
+    result.innerHTML = 'Total clicks = ' + count;
+    // من الزر click أكبر أو تساوي 3 فإنه سيتم إزالة الحدث count عندما تصبح قيمة
+    if (count >= 3) {
+        myBtn.removeEventListener('click', showCount);
+    }
+}
+
+// myBtn للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+// مع تمرير إسم الدالة التي سيتم تنفيذها عند حصول الحدث     
+myBtn.addEventListener('click', showCount);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/remove-event-from-element)
+
+## تعريف الحدث أكثر من مرة
+
+يمكن إضافة الحدث للعنصر بواسطة الدالة `addEventListener()` أكثر من مرة، مما يعني أنك قادر الإستماع للحدث من عدة أماكن في الكود.
+
+في المثال التالي قمنا بإضافة الحدث `click` مرتين للزر.
+
+#### مثال
+
+// myBtn في متغير إسمه myBtn يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+let myBtn = document.querySelector('#myBtn');
+
+// myBtn للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+myBtn.addEventListener('click', () => {
+    alert('First click event is fired!');
+});
+
+// من جديد myBtn للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+myBtn.addEventListener('click', () => {
+    alert('Second click event is fired!');
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/add-the-same-event-multiple-times)
+
+## الأحداث و المؤثرات البصرية
+
+في المثال التالي أضفنا الحدث `click` للوسم `<button>`.  
+هذه الدالة تقوم بإضافة/إزالة الكلاس `'dark-mode'` بشكل متناوب من الوسم `<body>` في كل مرة ننقر فيها على الزر.
+
+#### مثال
+
+<style\>
+    .dark-mode {
+        background: black;
+        color: darkgray;
+    }
+</style\>
+
+<button id\="toggleMode"\>Change Mode</button\>
+
+<script\>
+    // toggleMode في متغير إسمه toggleMode يساوي id هنا قمنا بتخزين العنصر الوسم الذي يملك
+    let toggleMode = document.querySelector('#toggleMode')
+
+    // toggleMode للعنصر الذي يمثله المتغير click هنا قمنا بإضافة الحدث
+    toggleMode.addEventListener('click', () => {
+        // body في متغير إسمه body هنا سيتم تخزين العنصر
+        let body = document.querySelector('body');
+    
+        // dark-mode يتناوب على استخدام الكلاس body هنا سيتم جعل العنصر الذي يمثله المتغير
+        body.classList.toggle('dark-mode');
+    });
+</script\>
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/events-and-effects)
+
+## أمثلة متنوعة على الأحداث
+
+  
+
+### مراقبة الأحرف التي يتم إدخالها
+
+في المثال التالي أضفنا الحدث `keyup` للوسم `<input>` بهدف معرفة ما هو آخر زر في الكيبورد قام المستخدم بالنقر عليه و رفع إصبعه عنه و ما هو رقم الترميز الخاص به.
+
+#### مثال
+
+// input في متغير إسمه input يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let input = document.querySelector('#input');
+
+// key في متغير إسمه key يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let key = document.querySelector('#key');
+        
+// keyCode في متغير إسمه keyCode يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let keyCode = document.querySelector('#keyCode');
+
+// input للعنصر الذي يمثله المتغير keyup هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه كلما قام المستخدم بالنقر على زر في الكيبورد و رفع إصبعه عنه
+input.addEventListener('keyup', (event) => {
+    // key إسم الزر الذي يتم النقر عليه سيتم عرضه في العنصر الذي يمثله المتغير
+    key.innerHTML = 'Last key: ' + event.key;
+    // keyCode رقم اليونيكود الخاص بالزر الذي تم النقر عليه سيتم عرضه في العنصر الذي يمثله المتغير
+    keyCode.innerHTML = 'Last keyCode: ' + event.keyCode;
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/keyup)
+
+  
+
+### مراقبة موقع الماوس
+
+في المثال التالي أضفنا الحدث `mouse` للوسم `<div>` بهدف معرفة إحداثيات مؤشر الماوس حين يتم تمريره فوقه.
+
+#### المثال الأول
+
+// myDiv في متغير إسمه myDiv يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let myDiv = document.querySelector('#myDiv');
+
+// myDiv للعنصر الذي يمثله المتغير mousemove هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه كلما قام المستخدم بتحريك الماوس فوقه
+myDiv.addEventListener('mousemove', (event) => {
+    // myDiv إحداثيات مؤشر الماوس سيتم عرضها في العنصر الذي يمثله المتغير
+    myDiv.innerHTML = 'Mouse pointer X: ' + event.clientX + '<br>';
+    myDiv.innerHTML += 'Mouse pointer Y: ' + event.clientY;
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/mousemove)
+
+في المثال التالي أضفنا الحدث `mouseover` و الحدث `mouseout` للوسم `<div>` بهدف معرفة ما إن كان مؤشر الماوس فوقه أم لا.
+
+#### المثال الثاني
+
+// myDiv في متغير إسمه myDiv يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let myDiv = document.querySelector('#myDiv');
+
+// myDiv للعنصر الذي يمثله المتغير mouseover هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه عندما يصبح الماوس فوق العنصر
+myDiv.addEventListener('mouseover', () => {
+    // سيتم عرض هذه الجملة فيه myDiv عندما يكون مؤشر الماوس فوق العنصر الذي يمثله المتغير
+    myDiv.innerHTML = 'Mouse pointer is over me.';
+});
+
+// myDiv للعنصر الذي يمثله المتغير mouseout هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه عندما يصبح الماوس فوق العنصر
+myDiv.addEventListener('mouseout', () => {
+    // سيتم عرض هذه الجملة فيه myDiv عندما يكون مؤشر الماوس خارج العنصر الذي يمثله المتغير
+    myDiv.innerHTML = 'Mouse pointer is not over me.';
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/mouseover-mouseout)
+
+  
+
+### مراقبة أي تغيير في القيمة
+
+في المثال التالي أضفنا الحدث `change` للوسم `<select>` بهدف مراقبة أي تغيير جديد في القيمة المختارة فيه حالياً.
+
+#### مثال
+
+// select في متغير إسمه select يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let select = document.querySelector('#select');
+        
+// status في متغير إسمه status يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let status = document.querySelector('#status');
+        
+// select للعنصر الذي يمثله المتغير change هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه كلما قام تم تغيير القيمة الحالية للعنصر
+select.addEventListener('change', () => {
+    // status الجديدة سيتم عرضها في العنصر select قيمة العنصر
+    status.innerHTML = 'Selected value = ' + select.value;
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/change)
+
+  
+
+### مراقبة العنصر الذي يقف عنده المستخدم
+
+في المثال التالي أضفنا الحدثين `focus` و `blur` للوسم `<input>` بهدف معرفة ما إن كان المستخدم يقف عنده أم لا.
+
+#### مثال
+
+// input في متغير إسمه input يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let input = document.querySelector('#input');
+
+// status في متغير إسمه status يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let status = document.querySelector('#status');
+
+// input للعنصر الذي يمثله المتغير focus هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه كلما قام وقف المستخدم عند العنصر
+input.addEventListener('focus', () => {
+    // سيتم تغييره status النص الموجود في العنصر
+    status.innerHTML = 'Input is on focus.';
+});
+
+// input للعنصر الذي يمثله المتغير blur هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه كلما قام وقف المستخدم عند العنصر
+input.addEventListener('blur', () => {
+    // سيتم تغييره status النص الموجود في العنصر
+    status.innerHTML = 'Input is on blur.';
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/focus-blur)
+
+  
+
+### مراقبة بيانات النموذج قبل إرسالها للسيرفر
+
+في المثال التالي أضفنا الحدث `submit` للوسم `<form>` بهدف التدقيق على بيانات النموذج قبل إرسالها للسيرفر.
+
+#### مثال
+
+// myForm في متغير إسمه myForm يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let form = document.querySelector('#myForm');
+
+// status في متغير إسمه status يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let status = document.querySelector('#status');
+
+// form للعنصر الذي يمثله المتغير submit هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه كلما قام وقف المستخدم عند العنصر
+form.addEventListener('submit', (event) => {
+    // إفتراضياً النموذج يقوم بإرسال البيانات الموجودة فيه إلى السيرفر
+    // ثم يقوم بتحديث الصفحة عندما يتم النقر على زر إرسال البيانات
+    // فإننا نمنع ذلك preventDefault() و لكن عند استدعاء الدالة
+    event.preventDefault();
+
+    // مع إزالة أي password و name هنا قمنا بتخزين محتوى الحقول
+    // مسافات فارغة من أطرافها في متغيرات ليكون التعامل معها أسهل
+    const name = document.querySelector("#name").value.trim();
+    const password = document.querySelector("#password").value.trim();
+
+    // هنا قمنا بالتحقق من محتوى الحقول لمعرفة ما إن كانت فارغة أم لا
+    if (name === '' || password === '') {
+        // لإعلام المستخدم بأنه يجب أن يدخل قيم فيها status إذا كان أحدها فارغ سيتم عرض نص في العنصر
+        status.innerHTML = 'Please fill in all fields.';
+        // باللون بالأحمر status بعدها سيتم تلوين نص العنصر 
+        status.style.color = 'red';
+        // نضعه لعدم تنفيذ الأوامر المتبقية في الحدث return الأمر
+        return;
+    }
+
+    // status إذا إنتهى التحقق من محتوى الحقول و لم يكن هناك مشكلة سيتم عرض قيمها في العنصر
+    status.innerHTML = '<h3>Submitted data<h3>';
+    status.innerHTML += 'Name: ' + name + '<br>';
+    status.innerHTML += 'Password: ' + password;
+
+    // باللون الأخضر status بعدها سيتم تلوين نص العنصر 
+    status.style.color = 'green';
+            
+    // في حال أردت الآن إرسال البيانات إلى السيرفر يمكنك إستدعاء الدالة التالية
+    // form.submit();
+
+    // هنا قمنا بحذف قيم الحقول التي تم إدخالها في النموذج و هذا أمر إختياري
+    form.reset();
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/submit)
+
+  
+
+### معرفة متى تم إكتمال تحميل الصفحة
+
+في المثال التالي أضفنا الحدث `load` للوسم `window` الذي يمثل الصفحة نفسها بهدف معرفة متى ينتهي المتصفح من تحميل محتواها.
+
+#### مثال
+
+// status في متغير إسمه status يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let status = document.querySelector('#status');
+        
+// الذي يمثل الصفحة نفسها window للكائن load هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه عندما يتم تحميل محتوى الصفحة بالكامل في جهاز المستخدم
+window.addEventListener('load', () => {
+    // status هنا سيتم إعلام المستخدم بذلك كنص في العنصر
+    status.innerHTML = 'The page is loaded completely.';
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/load)
+
+  
+
+### مراقبة أي تغيير يحصل في حجم الصفحة
+
+في المثال التالي أضفنا الحدث `resize` للوسم `window` الذي يمثل الصفحة نفسها بهدف معرفة كم هو حجم الصفحة الحالي كلما تم تغيير حجم المتصفح بواسطة الماوس.
+
+#### مثال
+
+// dimensions في متغير إسمه dimensions يساوي id هنا قمنا بتخزين العنصر الذي يملك
+let dimensions = document.querySelector('#dimensions');
+        
+// الذي يمثل الصفحة نفسها window للكائن resize هنا قمنا بإضافة الحدث
+// هذا الحدث يتم تنفيذه عندما تغيير حجم المتصفح نفسه بواسطة الماوس
+window.addEventListener('resize', () => {
+    // dimensions هنا سيتم إعلام المستخدم بقياسات الصفحة كنص في العنصر
+    dimensions.innerHTML = 'Width: ' + window.outerWidth + '<br>';
+    dimensions.innerHTML += 'Height: ' + window.outerHeight;
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-events/resize)

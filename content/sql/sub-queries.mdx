@@ -1,0 +1,344 @@
+---
+title: "SQLالإستعلامات المتداخلة"
+source: "https://harmash.com/tutorials/sql/sub-queries"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:10:06.687Z"
+---
+
+## مفهوم الإستعلامات المتدخلة
+
+الإستعلام العادي الذي لا يحتوي على أوامر متداخلة يقال له Query فقط.
+
+إذا كان الإستعلام يحتوي على إستعلام آخر فهنا الإستعلام الداخلي يقال له Sub Query أو Nested Query أو Inner Query.
+
+من الأمثلة الشائعة جداً على كتابة إستعلامات متداخلة هي كتابة أمر `SELECT` بداخله أمر `SELECT` بحيث يكون الأمر الخارجي بحاجة لنتيجة الأمر الداخلي و في النهاية النتيجة تكون عبارة عن جدول واحد.
+
+عادةً من نكتب الإستعلامات بشكل متداخل عند الحاجة لإجراء إحصاءات محددة أولاً و على أساسسها نقوم بجلب القيم، نعدلها، أو نحذفها.
+
+كتابة إستعلامات متداخلة يعتبر أصعب شيء قد تتعلمه في قواعد البيانات و قد تحتاج وقت حتى تعتاد عليه و تفهم كيف تفعله بنفسك. لذا حاول متابعة الدرس بهدوء و تركيز تام و شاهد الفيديوهات الموضوعة ضمن الأمثلة لأنها ستساعدك كثيراً في فهم الطريقة التي تم فيها كتابة الإستعلامات.
+
+في هذا الدرس لن تتعلم أوامر جديدة في SQL بل ستتعلم أسلوب التحليل الذي نتبعه لكتابة إستعلامات متداخلة خطوة خطوة.
+
+## أولوية تنفيذ الإستعلامات المتداخلة
+
+عند وضع الإستعلامات بداخل بعضها البعض، يتم تنفيذ الإستعلامات الداخلية و من ثم الإستعلامات الخارجية.
+
+كمثال بسيط، تخيل أن الإستعلام مكتوب على هذا النحو.
+
+SELECT \* FROM users
+    WHERE salary \= (SELECT MAX(salary) FROM users);
+
+هنا سيتم حساب ناتج الإستعلام الداخلي و يتم وضع جوابه مكانه.  
+فمثلاً في حال كان ناتج الإستعلام الداخلي هو `1500` فإن الإستعلام سيصبح كأنه كالتالي بالضبط.
+
+SELECT \* FROM users
+    WHERE salary \= 1500;
+
+الآن بعد أن أصبح الإستعلام لا يحتوي على أي أوامر متداخلة، سيتم إعطاءك الجواب النهائي.
+
+أي إستعلام داخلي يجب أن تضعه بين قوسين `( )` لأن أولية التنفيذ تقررها قاعدة البيانات نسبةً للأقواس. و بالطبع في حال كان يوجد أكثر من إستعلام داخلي، سيتم تنفيذ أعمق إستعلام بينهم في البداية رجوعاً للإستعلام الأساسي الذي ينتظر كل نتائج الإستعلام الموضوعة فيه حتى يتنفذ.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `scientists` يحتوي على بيانات 10 علماء.
+
+#### الإستعلام
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من 5 أعمدة scientists هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE scientists (
+    id        INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    name      VARCHAR(50),
+    salary    DECIMAL(7,2),
+    country   VARCHAR(50),
+    continent VARCHAR(50)
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 علماء
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO scientists VALUES (null, "Ahmad", 4200, "KSA", "Asia");
+INSERT INTO scientists VALUES (null, "Rami", 2750, "Egypt", "Africa");
+INSERT INTO scientists VALUES (null, "Said", 3900, "Lebanon", "Asia");
+INSERT INTO scientists VALUES (null, "Noura", 3150, "Algeria", "Africa");
+INSERT INTO scientists VALUES (null, "Amani", 2950, "Morocco", "Africa");
+INSERT INTO scientists VALUES (null, "Mhamad", 3700, "Lebanon", "Asia");
+INSERT INTO scientists VALUES (null, "Wissam", 3550, "Oman", "Asia");
+INSERT INTO scientists VALUES (null, "Mostafa", 4120, "Qatar", "Asia");
+INSERT INTO scientists VALUES (null, "Houssam", 6800, "Germany", "Europe");
+INSERT INTO scientists VALUES (null, "Jana", 7500, "Canada", "North America");
+
+في يلي البيانات التي قمنا بإضافتها في الجدول `scientists`.
+
+id
+
+name
+
+salary
+
+country
+
+continent
+
+1
+
+Ahmad
+
+4200.00
+
+KSA
+
+Asia
+
+2
+
+Rami
+
+2750.00
+
+Egypt
+
+Africa
+
+3
+
+Said
+
+3900.00
+
+Lebanon
+
+Asia
+
+4
+
+Noura
+
+3150.00
+
+Algeria
+
+Africa
+
+5
+
+Amani
+
+2950.00
+
+Morocco
+
+Africa
+
+6
+
+Mhamad
+
+3700.00
+
+Lebanon
+
+Asia
+
+7
+
+Wissam
+
+3550.00
+
+Oman
+
+Asia
+
+8
+
+Mostafa
+
+4120.00
+
+Qatar
+
+Asia
+
+9
+
+Houssam
+
+6800.00
+
+Germany
+
+Europe
+
+10
+
+Jana
+
+7500.00
+
+Canada
+
+North America
+
+## أمثلة شاملة على كتابة إستعلامات متداخلة
+
+الإستعلام التالي يعرض جميع معلومات الموظف الذي ينال أعلى أجر.  
+هنا يجب معرفة أكبر راتب يتم إعطاؤه للموظفين، و بعد معرفته يمكننا إحضار معلومات كل موظف يملك نفس هذا الراتب.
+
+#### المثال الأول
+
+SELECT \* FROM scientists                             \-- scientists هنا قمنا بعرض بيانات جميع الأسطر الموجودة في الجدول
+WHERE salary \= (SELECT MAX(salary) FROM scientists)  \-- (scientists موجود في الجدول salary أعلى) يساوي salary التي تملك
+
+النتيجة
+
+id
+
+name
+
+salary
+
+country
+
+continent
+
+10
+
+Jana
+
+7500.00
+
+Canada
+
+North America
+
+الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
+
+ متصفحك لا يدعم صيغة الفيديو!
+
+  
+
+الإستعلام التالي يعرض أسماء و رواتب العلماء الذين ينالون راتب لا يتجاوز متوسط الرواتب التي يتم إعطاءها للموظفين.  
+هنا يجب معرفة متوسط الرواتب التي يتم إعطاءها للموظفين، و بعد معرفته يمكننا إحضار أسماء و رواتب العلماء الذين يملكون راتب أقل منه.
+
+#### المثال الثاني
+
+SELECT name, salary FROM scientists                  \-- scientists هنا قمنا بعرض إسم و راتب كل عالم في الجدول
+WHERE salary < (SELECT AVG(salary) FROM scientists)  \-- (scientists موجود في الجدول salary متوسط كل) أقل من salary يملك
+
+النتيجة
+
+name
+
+salary
+
+Ahmad
+
+4200.00
+
+Rami
+
+2750.00
+
+Said
+
+3900.00
+
+Noura
+
+3150.00
+
+Amani
+
+2950.00
+
+Mhamad
+
+3700.00
+
+Wissam
+
+3550.00
+
+Mostafa
+
+4120.00
+
+الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
+
+ متصفحك لا يدعم صيغة الفيديو!
+
+  
+
+الإستعلام التالي يعرض إسم أكثر قارة تم إحضار علماء منها.  
+هنا يجب معرفة عدد العلماء الموجودين في كل قارة.  
+بعدها يجب معرفة أكبر عدد علماء تم إيجاده في قارة.  
+بعدها يجب طباعة إسم و عدد علماء كل قارة عدد علمائها يساوي عدد العلماء الأكبر الذي عرفناه.
+
+#### المثال الثالث
+
+الطريقة التالية تعمل مع جميع قواعد البيانات.
+
+SELECT continent, COUNT(id) AS total
+FROM scientists
+GROUP BY continent
+HAVING total \= (SELECT MAX(t.total) AS max\_count
+                FROM (SELECT continent, COUNT(id) AS total
+                      FROM scientists
+                      GROUP BY continent) AS t)
+
+النتيجة
+
+continent
+
+total
+
+Asia
+
+5
+
+الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
+
+ متصفحك لا يدعم صيغة الفيديو!
+
+إذا كنت تستخدم قواعد بيانات MySQL يمكنك كتابة الإستعلام نفسه كما يلي.
+
+SELECT continent, COUNT(id) AS total
+FROM scientists
+GROUP BY continent
+HAVING total \= (SELECT COUNT(id) AS max\_count
+                FROM scientists
+                GROUP BY continent
+                ORDER BY max\_count DESC
+                LIMIT 1);
+
+إذا كنت تستخدم قواعد بيانات SQL Server / Access يمكنك كتابة الإستعلام نفسه كما يلي.
+
+SELECT continent, COUNT(id) AS total
+FROM scientists
+GROUP BY continent
+HAVING total \= (SELECT TOP 1 COUNT(id) AS max\_count
+                FROM scientists
+                GROUP BY continent
+                ORDER BY max\_count DESC);
+
+إذا كنت تستخدم قواعد بيانات Oracle يمكنك كتابة الإستعلام نفسه كما يلي.
+
+SELECT continent, COUNT(id) AS total
+FROM scientists
+GROUP BY continent
+HAVING total \= (SELECT COUNT(id) AS max\_count
+                FROM scientists
+                WHERE ROWNUM <= 1
+                GROUP BY continent
+                ORDER BY max\_count DESC);

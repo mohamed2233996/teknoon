@@ -1,0 +1,593 @@
+---
+title: "SQLتجميع قيم الحقول المشتركة"
+source: "https://harmash.com/tutorials/sql/select-with-group-by"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:30.780Z"
+---
+
+## الجملة `GROUP BY`
+
+الجملة `GROUP BY` يمكن استخدامها مع [الدوال التجميعية](/tutorials/sql/aggregate-functions) لتجميع الأسطر التي فيها قيم مشتركة ضمن مجموعات و من ثم إجراء إحصاءات على كل مجموعة منها.
+
+فمثلاً لمعرفة عدد المستخدمين في كل بلد، يمكنك جلب جميع المستخدمين، ثم توزيع النتيجة إلى مجموعات على أساس البلدان، و بعدها بواسطة الدالة `COUNT()` يمكنك إحصاء عدد المستخدمين في كل بلد منهم.
+
+لتحديد العمود الذي سيتم على أساسه تجميع قيم عمود آخر, نحدد العمود الأساسي باستخدام الكلمة `GROUP BY`.  
+بعد تجميع القيم تصبح قادر على استخدام الدوال `COUNT()` - `MAX()` - `MIN()` - `SUM()` - `AVG()` معهم.
+
+  
+
+### طريقة استخدامها
+
+SELECT column\_name(s)
+FROM table\_name
+WHERE condition
+GROUP BY column\_name(s)
+ORDER BY column\_name(s); 
+
+بعد الكلمة `GROUP BY` نضع إسم كل عمود نريد أن يتم تجميع القيم بناءاً عليه.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `employees` يحتوي على بيانات 10 موظفين.
+
+#### الإستعلام
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من 5 أعمدة employees هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE employees (
+    id       INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    gender   VARCHAR(20),
+    country  VARCHAR(50),
+    salary   DECIMAL(7,2)
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 موظفين
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- مكان كل حقل لن نقوم بوضع قيمة فيه null بما أننا لم نحدد أسماء الأعمدة التي سنملأها لاحظ أننا مجبورين على وضع كلمة
+\-- الموضوعة في بداية كل أمر سيتم إستبدالها بترقيم تلقائي من قبل قاعدة البيانات null و لا تنسى أن الكلمة
+INSERT INTO employees VALUES (null, "rami", "male", "Lebanon", 700);
+INSERT INTO employees VALUES (null, "ahmad", "male", "Syria", 800);
+INSERT INTO employees VALUES (null, "hanan", "female", "KSA", 750);
+INSERT INTO employees VALUES (null, "saly", "female", "Lebanon", 650);
+INSERT INTO employees VALUES (null, "samir", "male", "Egypt", 600);
+INSERT INTO employees VALUES (null, "hamad", "male", "KSA", 700);
+INSERT INTO employees VALUES (null, "abdullah", "male", "KSA", 800);
+INSERT INTO employees VALUES (null, "rashed", "male", "Oman", 900);
+INSERT INTO employees VALUES (null, "majed", "male", "Yaman", 820);
+INSERT INTO employees VALUES (null, "malak", "female", "Morocco", 860);
+
+فيما يلي البيانات التي قمنا بإضافتها في الجدول `employees`.
+
+id
+
+user
+
+gender
+
+country
+
+salary
+
+1
+
+rami
+
+male
+
+Lebanon
+
+700.00
+
+2
+
+ahmad
+
+male
+
+Syria
+
+800.00
+
+3
+
+hanan
+
+female
+
+KSA
+
+750.00
+
+4
+
+saly
+
+female
+
+Lebanon
+
+650.00
+
+5
+
+samir
+
+male
+
+Egypt
+
+600.00
+
+6
+
+hamad
+
+male
+
+KSA
+
+700.00
+
+7
+
+abdullah
+
+male
+
+KSA
+
+800.00
+
+8
+
+rashed
+
+male
+
+Oman
+
+900.00
+
+9
+
+majed
+
+male
+
+Yaman
+
+820.00
+
+10
+
+malak
+
+female
+
+Morocco
+
+860.00
+
+## أمثلة حول تجميع قيم الأعمدة
+
+الإستعلام التالي يقوم بتجميع أسماء البلدان الموجودة في جدول الموظفين.
+
+لتجميع أسماء البلدان الموجودة في الحقل `country` استخدمنا الكلمة `GROUP BY` و وضعنا بعدها الحقل `country` للإشارة إلى أننا نريد تجميعهم نسبةً لأسماء البلدان المشتركة.
+
+#### المثال الأول
+
+SELECT country
+FROM employees
+GROUP BY country;
+
+في حال كنت تريد فقط الحصول على أسماء البلدان بدون إجراء أي إحصاء الأفضل كتابة الإستعلام على النحو التالي.
+
+SELECT DISTINCT country
+FROM employees;
+
+النتيجة
+
+country
+
+Egypt
+
+KSA
+
+Lebanon
+
+Morocco
+
+Oman
+
+Syria
+
+Yaman
+
+نلاحظ أنه عند تجميع أسماء البلدان لا يتم وضع إسم البلد أكثر من مرة في حال كان مكرراً في الجدول.
+
+في هذا المثال بالتحديد الأفضل و الأسهل إستخدام الكلمة `DISTINCT` بدلاً من استخدام `GROUP BY` و لكننا استخدمنا أسلوب `GROUP BY` بهدف تعليمك كيف تستخدمه خطوة خطوة لهذا وضعنا هذا المثال البسيط.
+
+  
+
+الإستعلام التالي يقوم بحساب كم موظف موجود في كل بلد مذكور في جدول الموظفين.
+
+ما فعلناه لإجراء هذا الإحصاء هو تجميع أسماء البلدان الموجودة في الحقل `country` بواسطة الكلمة `GROUP BY`.  
+بعدها قمنا باستخدام الدالة `COUNT()` لحساب عدد الموظفين الموجودين في كل مجموعة منهم، أي الموظفين الذين عندهم نفس قيمة الحقل `country`.
+
+#### المثال الثاني
+
+SELECT country, COUNT(id)   \-- country يوجد سيتم حساب عدده بعد أن يتم تجميع قيم الحقل id إحصاء كم
+FROM employees
+GROUP BY country;           \-- على أساسهم COUNT() سيتم تنفيذ الدالة country بعد أن يتم تجميع القيم الموجودة في العامود
+
+يمكنك إضافة أسماء للأعمدة كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT country AS 'country', COUNT(id) AS 'Number of Employees'
+FROM employees
+GROUP BY country;
+
+النتيجة
+
+Country
+
+Number of Employees
+
+Egypt
+
+1
+
+KSA
+
+3
+
+Lebanon
+
+2
+
+Morocco
+
+1
+
+Oman
+
+1
+
+Syria
+
+1
+
+Yaman
+
+1
+
+لاحظ أنه يوجد ثلاث موظفين من `KSA` و إثنين من `Lebanon` و باقي الدول يوجد واحد فيها.
+
+  
+
+الإستعلام التالي يقوم بحساب عدد الموظفين الذكور و الإناث الموجودين في الشركة.
+
+ما فعلناه لإجراء هذا الإحصاء هو تجميع جنس الموظفين الموجود في الحقل `gender` بواسطة الكلمة `GROUP BY`.  
+بعدها قمنا باستخدام الدالة `COUNT()` لحساب عدد الموظفين الموجودين في كل مجموعة منهم، أي عدد الموظفين الذين عندهم نفس قيمة الحقل `gender`.
+
+#### المثال الثالث
+
+SELECT gender, COUNT(id)   \-- gender يوجد في كل مجموعة, سيتم حسابه بعد تجميع قيم العمود id إحصاء كم
+FROM employees
+GROUP BY gender;           \-- على أساسهم COUNT() سيتم تنفيذ الدالة gender بعد أن يتم تجميع القيم الموجودة في العامود
+
+يمكنك إضافة أسماء للأعمدة كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT gender AS 'Gender', COUNT(id) AS 'Number of Employees'
+FROM employees
+GROUP BY gender;
+
+النتيجة
+
+Gender
+
+Number of Employees
+
+female
+
+3
+
+male
+
+7
+
+  
+
+الإستعلام التالي يقوم بحساب متوسط الرواتب الذي يتم دفعه للموظفين من كل بلد.
+
+ما فعلناه لإجراء هذا الإحصاء هو تجميع أسماء البلدان الموجودة في الحقل `country` بواسطة الكلمة `GROUP BY`.  
+بعدها قمنا باستخدام الدالة `AVG()` لحساب متوسط رواتب الموظفين الموجودين في كل مجموعة منهم، أي متوسط الموظفين الذين عندهم نفس قيمة الحقل `country`.
+
+#### المثال الرابع
+
+SELECT country, AVG(salary)   \-- country سيتم حسابه بعد أن يتم تجميع قيم الحقل salary متوسط الحقول
+FROM employees
+GROUP BY country;             \-- على أساسهم AVG() سيتم تنفيذ الدالة country بعد أن يتم تجميع القيم الموجودة في العامود
+
+يمكنك إضافة أسماء للأعمدة و تغيير طريقة ظهور متوسط الرواتب كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT
+    country AS 'country',
+    FORMAT(AVG(salary), 2) AS 'Average Salary'
+FROM
+    employees
+GROUP BY
+    country;
+
+النتيجة
+
+Country
+
+Average Salary
+
+Egypt
+
+600.00
+
+KSA
+
+750.00
+
+Lebanon
+
+675.00
+
+Morocco
+
+860.00
+
+Oman
+
+900.00
+
+Syria
+
+800.00
+
+Yaman
+
+820.00
+
+  
+
+الإستعلام التالي يقوم بحساب كم موظف موجود من كل بلد بالإضافة إلى مجموع الراتب الذي يتم إعطاؤه لهم.
+
+ما فعلناه لإجراء هذا الإحصاء هو تجميع أسماء البلدان الموجودة في الحقل `country` بواسطة الكلمة `GROUP BY`.  
+بعدها قمنا باستخدام الدالة `COUNT()` لحساب عدد الموظفين الموجودين في كل مجموعة و الدالة `SUM()` لحساب مجموع الرواتب التي يتم إعطاءها لكل مجموعة منهم، أي الموظفين الذين عندهم نفس قيمة الحقل `country` سيتم حساب عددهم مجموع مرتبهم بشكل خاص.
+
+#### المثال الخامس
+
+SELECT country, COUNT(id), SUM(salary)   \-- country يوجد في كل مجموعة, و كم هو مجموع الرواتب التي يتم دفعها لكل مجموعة سيتم حسابهم بعد تجميع قيم العمود id إحصاء كم
+FROM employees
+GROUP BY country;                        \-- على أساسهم SUM() و COUNT() سيتم تنفيذ الدالتين country بعد أن يتم تجميع القيم الموجودة في العامود
+
+يمكنك إضافة أسماء للأعمدة كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT
+    country AS 'country',
+    COUNT(id) AS 'Number of Employees',
+    SUM(salary) AS 'Total Salary',
+FROM
+    employees
+GROUP BY
+    country;
+
+النتيجة
+
+Country
+
+Number of Employees
+
+Total Salary
+
+Egypt
+
+1
+
+600.00
+
+KSA
+
+3
+
+2250.00
+
+Lebanon
+
+2
+
+1350.00
+
+Morocco
+
+1
+
+860.00
+
+Oman
+
+1
+
+900.00
+
+Syria
+
+1
+
+800.00
+
+Yaman
+
+1
+
+820.00
+
+  
+
+الإستعلام التالي يقوم بتجميع الموظفين مرتين قبل إجراء الإحصاء على النحو التالي:
+
+*   أول مرة يُجمّع الموظفين على حسب بلدانهم.
+*   ثاني مرة يُجمّع الموظفين المنتمين لنفس البلد على حسب جنسهم.
+
+بعدها يقوم بحساب عدد الموظفين في كل بلد و حسب جنسهم.
+
+ما فعلناه لإجراء هذا الإحصاء هو تجميع أسماء البلدان الموجودة في الحقل `country` و أسماء الأجناس المذكورة في الحقل `gender` بواسطة الكلمة `GROUP BY`. بعدها قمنا باستخدام الدالة `COUNT()` لحساب عدد الموظفين الموجودين في نفس البلد و الذين عندهم نفس الجنس، أي الموظفين الذين عندهم نفس قيمة الحقل `country` و نفس قيمة الحقل `gender` سيتم حساب عددهم بشكل خاص.
+
+#### المثال السادس
+
+SELECT country, gender, COUNT(id)   \-- gender و country يوجد في كل مجموعة سيتم حسابه بعد تجميع قيم العمودين id إحصاء كم
+FROM employees
+GROUP BY country, gender;           \-- على أساسهم COUNT() سيتم تنفيذ الدالة gender و من ثم في العمود country بعد أن يتم تجميع القيم الموجودة في العامود
+
+يمكنك إضافة أسماء للأعمدة كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT 
+    country AS 'Country',
+    gender AS 'Gender',
+    COUNT(id) AS 'Number of Employees'
+FROM
+    employees
+GROUP BY
+    country, gender;
+
+النتيجة
+
+Country
+
+Gender
+
+Number of Employees
+
+Egypt
+
+male
+
+1
+
+KSA
+
+female
+
+1
+
+KSA
+
+male
+
+2
+
+Lebanon
+
+female
+
+1
+
+Lebanon
+
+male
+
+1
+
+Morocco
+
+female
+
+1
+
+Oman
+
+male
+
+1
+
+Syria
+
+male
+
+1
+
+Yaman
+
+male
+
+1
+
+لاحظ أنه في حال كان يوجد بلد فيه موظفين ذكور و إناث فإن إسم البلد يظهر مرتين حتى يفصل لك عدد الذكور عن عدد الإناث.
+
+نتيجة المثال السابق نقرؤها كالتالي:
+
+*   هناك موظف واحد من `Egypt`
+*   هناك ثلاث موظفين من `KSA` إثنين ذكور و أنثى واحدة.
+*   هناك موظفَين من `Lebanon` و هما ذكر واحد و أنثى واحدة.
+*   هناك موظفة واحدة من `Morocco`
+*   هناك موظف واحد من `Oman`
+*   هناك موظف واحد من `Syria`
+*   هناك موظف واحد من `Yaman`
+
+  
+
+الإستعلام التالي يقوم بحساب عدد الموظفين الذكور فقط في كل بلد مذكور في الجدول.
+
+ما فعلناه لإجراء هذا الإحصاء تحديد أن قيمة `gender` يجب أن تكون `'male'` في أي سطر سيتم جلب إسم البلد منه.  
+بعدها قمنا بتجميع أسماء البلدان الموجودة في الحقل `country` بواسطة الكلمة `GROUP BY`.  
+في النهاية قمنا باستخدام الدالة `COUNT()` لحساب عدد الموظفين الموجودين في كل مجموعة, أي الموظفين الذين عندهم نفس قيمة الحقل `country` و عندهم `gender` يساوي `'male'`.
+
+#### المثال السابع
+
+SELECT country, COUNT(id)   \-- country يوجد سيتم حساب عدده بعد أن يتم تجميع قيم الحقل id إحصاء كم
+FROM employees
+WHERE gender \= 'male'       \-- 'male' يساوي gender سيتم وضعه في المجموعة يجب أن يكون السطر الذي تم جلبه منه عنده الحقل country أي
+GROUP BY country;           \-- على أساسهم COUNT() سيتم تنفيذ الدالة country بعد أن يتم تجميع القيم الموجودة في العامود
+
+يمكنك إضافة أسماء للأعمدة كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT country AS 'country', COUNT(id) AS 'Number of Male Employees'
+FROM employees
+WHERE gender \= 'male'
+GROUP BY country;
+
+النتيجة
+
+Country
+
+Number of Male Employees
+
+Egypt
+
+1
+
+KSA
+
+2
+
+Lebanon
+
+1
+
+Oman
+
+1
+
+Syria
+
+1
+
+Yaman
+
+1
+
+لاحظ أنه يوجد ثلاث موظفين من `KSA` و إثنين من `Lebanon` و باقي الدول يوجد واحد فيها.

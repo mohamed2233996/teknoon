@@ -1,0 +1,578 @@
+---
+title: "CSSالأنيميشين"
+source: "https://harmash.com/tutorials/css/animations"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:01.333Z"
+---
+
+## مفهوم الأنيميشين
+
+الأنيميشين ( Animations ) فكرتها جعل خصائص العنصر تتغير تدريجياً خلال مدة زمنية محددة و بشكل تلقائي الأمر الذي يجعلك قادر على عرض مؤثرات حركية رائعة في صفحات الويب.
+
+يمكنك إضافة أنيميشين أو مؤثرات البصرية لأي عنصر في الصفحة لإظهاره بشكل الذي تريده، فمثلاً يمكنك جعل لونه يتغير كل مدة معينة، جعله يتحرك أو يدور أو يتنطط، جعله يختفي و يظهر و غيرها من الأشياء التي يمكنك فعلها.
+
+في هذا الدرس ستتعرف على جميع الخصائص التالية و التي من خلالها يمكنك إضافة أنيميشين للعنصر و التحكم به:
+
+`@keyframes` `animation-name` `animation-duration` `animation-delay` `animation-iteration-count` `animation-direction` `animation-timing-function` `animation`
+
+## أساسيات الأنيميشين
+
+لإضافة أنيميشين للعنصر يجب عليك فعل خطوتين أساسيتين و هما:
+
+*   تعريف الأنيميشين، إسمه و ما هي القيم التي تتغير فيه.
+*   تطبيق الأنيميشين على العنصر و تحديد المدة التي سيحدث خلالها.
+
+في المثال التالي قمنا بتعريف أنيمشين إسمه `example` يقوم بتغير لون خلفية العنصر من الأحمر و إلى الأزرق.  
+بعدها قمنا بجعل عنصر يستعمل هذا الأنيميشين من خلال إسمه و قد جعلناه ينفذه خلال 3 ثواني.
+
+#### مثال
+
+@keyframes example {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: blue;
+    }
+}
+
+div {
+    background-color: red;
+    animation-name: example;
+    animation-duration: 3s;
+} 
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/keyframes-from-to-selectors)
+
+الخصائص التي يتم تغييرها في الأنيميشين من البداية إلى النهاية يتم حذفها عند انتهاء الأنيمشين، لذلك قمنا بجعل لون خلفية العنصر الذي سيطبق الأنيمشين أحمر، حتى يصبح لونه أحمر بعد أن يتوقف الأنيميشين.
+
+  
+
+### كود الأنيميشين
+
+*   بواسطة المحدد `@keyframes` يتم تعريف إسم و خصائص الأنيميشين.
+*   بداخل المحدد `from { }` نكتب ما هي القيم التي سيبدأ بها العنصر الذي يستعمل الأنيميشين.
+*   بداخل المحدد `to { }` نكتب ما هي القيم التي ستصبح في العنصر الذي يستعمل الأنيميشين حين يتنفذ بالكامل.
+*   الأنيميشين يتم تطبيقه على أي عنصر من خلال إضافة الخاصية `animation-name` و إعطاءها إسم الأنيميشين كقيمة.
+*   لكي يتنفذ الأنيميشين على العنصر يجب إضافة الخاصية `animation-duration` و إعطاءها قيمة تمثل المدة التي سيتم خلالها تنفيذ الأنيميشين.
+
+في حال لم يتم تحديد المدة التي سيتنفذ خلالها الأنيميشين فإنه لن يتنفذ إطلاقاً.
+
+## المحددات المئوية للأنيميشين
+
+بدلاً من استخدام محدد البداية `from { }` و النهاية فقط `to { }` يمكنك استخدام أرقام مئوية كمحددات الأمر الذي يجعلك قادر على تحديد متى سيتم تغيير قيم العناصر بدقة أكثر.
+
+في المثال التالي قمنا بتعريف أنيمشين إسمه `example` يقوم بتغير لون خلفية العنصر الذي يستعمله 4 مرات على النحو التالي:
+
+*   عند 0%، أي في البداية لونه يكون برتقالي.
+*   عند 33%، أي بعدها بقليل لونه يصبح أحمر.
+*   عند 66%، أي بعدها أيضاً لونه يصبح أزرق.
+*   عند 100%، أي في النهاية لونه يصبح أخضر.
+
+بعدها قمنا بجعل عنصر يستعمل هذا الأنيميشين من خلال إسمه و قد جعلناه ينفذه خلال 4 ثواني.
+
+#### مثال
+
+@keyframes example {
+    0% {
+        background-color: orange;
+    }
+    33% {
+        background-color: red;
+    }
+    66% {
+        background-color: blue;
+    }
+    100% {
+        background-color: green;
+    }
+}
+
+div {
+    background-color: green;
+    animation-name: example;
+    animation-duration: 4s;
+} 
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/keyframes-percentage-selectors)
+
+## تأخير موعد بدء الأنيميشين
+
+لجعل الأنيميشين يبدأ بعد مدة محددة يمكنك استخدام الخاصية `animation-delay` و إعطاءها المدة التي تريدها كقيمة.
+
+في حال كانت المدة أكبر من صفر، فهذا يعني أن الأنيميشين سينتظر هذه المدة حتى يبدأ.  
+أما إن كانت المدة أصغر من صفر، فهذا يعني أن الأنيميشين سيتجاوز المدة الأولى فيه و يكمل من بعدها.
+
+  
+
+في المثال التالي قمنا بجعل العنصر ينتظر يبدأ الأنيميشين بعد مرور ثانيتين.
+
+#### المثال الأول
+
+@keyframes example {
+    0% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+    50% {
+        background-color: blue;
+        left: calc(100% - 100px);
+        transform: rotateZ(360deg);
+    }
+    100% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+}
+
+div {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-delay: 2s;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-delay)
+
+  
+
+في المثال التالي قمنا بجعل العنصر يبدأ الأنيميشين و يتجاوز أول ثانيتين فيه.  
+**ملاحظة:** بما أن الأنيميشين يتألف من 4 ثواني، فإنه بعد تجاوز أول ثانيتين فيه سيبدأ من عند 50%.
+
+#### المثال الثاني
+
+@keyframes example {
+    0% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+    50% {
+        background-color: blue;
+        left: calc(100% - 100px);
+        transform: rotateZ(360deg);
+    }
+    100% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+}
+
+div {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-delay: -2s;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-delay-2)
+
+## تحديد كم مرة سيتكرر الأنيميشين
+
+لتحديد كم مرة سيعاد الأنيميشين يمكنك استخدام الخاصية `animation-iteration-count` و إعطاءها عدد يمثل كم مرة سيتم تكراره و كذلك يمكنك استخدام القيمة `infinite` لجعله يستمر في تكرار نفسه بدون توقف.
+
+  
+
+في المثال التالي قمنا بجعل العنصر يعيد الأنيميشين ثلاث مرات فقط.
+
+#### المثال الأول
+
+@keyframes example {
+    0% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+    50% {
+        background-color: blue;
+        left: calc(100% - 100px);
+        transform: rotateZ(360deg);
+    }
+    100% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+}
+
+div {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 3;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-iteration-count-number)
+
+  
+
+في المثال التالي قمنا بجعل العنصر يعيد الأنيميشين يُعاد إلا ما لا نهاية.
+
+#### المثال الثاني
+
+@keyframes example {
+    0% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+    50% {
+        background-color: blue;
+        left: calc(100% - 100px);
+        transform: rotateZ(360deg);
+    }
+    100% {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+}
+
+div {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-iteration-count-infinite)
+
+## تحديد إتجاه تشغيل الأنيميشين
+
+يمكنك استخدام الخاصية `animation-direction` لتحديد اتجاه تشغيل الأنيميشين، أي هل لتحديد ما إن كان سيبدأ من الأول إلى الآخر أو العكس.
+
+فيما يلي القيم التي يمكنك وضعها لها كقيمة حتى تحدد كيف سيكون اتجاه عمل الأنيمشين.
+
+القيمة
+
+إستخدامها
+
+`normal`
+
+لتشغيل الأنيميشين من البداية إلى النهاية، و هذه القيمة الإفتراضية.
+
+`reverse`
+
+لتشغيل الأنيميشين بشكل عكسي، أي رجوعاً من النهاية إلى البداية.
+
+`alternate`
+
+لتشغيل الأنيميشين من البداية إلى النهاية و من ثم العودة إلى البداية.
+
+`alternate-reverse`
+
+لتشغيل الأنيميشين بشكل عكسي من النهاية إلى البداية و من ثم العودة إلى النهاية.
+
+لاستخدام القيمة `alternate` أو `alternate-reverse` لا بد من أن يكون الأنيميشين بالأساس سيعمل أكثر من مرة.  
+إذاً لا بد من أي استخدام الخاصية `animation-iteration-count` و إعطاءها القيمة `2` على الأقل أو القيمة `infinite`.
+
+  
+
+في المثال التالي قمنا بجعل العنصر يستخدم أنيميشين يقوم بتغيير لون خلفيته من الأحمر إلى الأزرق.  
+بعدها قمنا بجعل الأنيميشين يبدأ بشكل عكسي من النهاية إلى البداية، لذلك لون خلفية العنصر سيبدأ بالأزرق و من ثم يصبح أحمر.
+
+#### المثال الأول
+
+@keyframes example {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: blue;
+    }
+}
+
+div {
+    background-color: red;
+    animation-name: example;
+    animation-duration: 3s;
+    animation-direction: reverse;
+} 
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-direction-reverse)
+
+  
+
+في المثال التالي قمنا بجعل العنصر يستخدم أنيميشين يقوم بتغيير لون خلفيته من الأحمر إلى الأزرق.  
+بعدها قمنا بجعل الأنيميشين يبدأ من البداية إلى النهاية و من ثم يرجع للبداية و جعلنا هذه العملية تتكرر بلا توقف.
+
+#### المثال الثاني
+
+@keyframes example {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: blue;
+    }
+}
+
+div {
+    background-color: red;
+    animation-name: example;
+    animation-duration: 3s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+} 
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-direction-alternate)
+
+## تحديد منحنى سرعة الأنيميشين
+
+يمكنك استخدام الخاصية `animation-timing-function` لتحديد كيف ستكون سرعة تنفيذ التأثير.
+
+فيما يلي القيم التي يمكنك وضعها لها كقيمة حتى تحدد كيف ستكون سرعة الأنيميشين.
+
+القيمة
+
+إستخدامها
+
+`ease`
+
+تجعل الأنيميشين يبدأ بسرعة، ثم ببطئ، ثم يتوقف بسرعة، و هذه القيمة الإفتراضية.
+
+`linear`
+
+تجعل سرعة الأنيميشين هي نفسها من البداية و حتى النهاية.
+
+`ease-in`
+
+تجعل سرعة الأنيميشين بطيئة في البداية فقط.
+
+`ease-out`
+
+تجعل سرعة الأنيميشين بطيئة في النهاية فقط.
+
+`ease-in-out`
+
+تجعل سرعة الأنيميشين بطيئة في البداية و النهاية و متوازنة فيما بينهما.
+
+فيما يلي دوال يمكنك وضعها لها كقيمة حتى تحدد كيف ستكون سرعة الأنيميشين.
+
+الدالة
+
+إستخدامها
+
+`cubic-bezier(x1, y1, x2, y2)`
+
+دالة تستخدم لرسم منحنى سرعة الأنيميشين بشكل يدوي، هنا كل عددين تعطيهما لها يمثلان نقطة على منحنى السرعة. القيم التي يمكن إعطاءها بين 0 و 1 حصراً.
+
+`steps(n, <jumpterm>)`
+
+دالة تستخدم لرسم مخطط لتوقف الأنيميشين بشكل يدوي. القيمة الأولى التي تعطيها لها عبارة عن عدد نقاط التوقف، و القيمة الثانية عبارة عن قيمة جاهزة يمكن استخدامها لتحديد كيف سيتم تجاوز نقاط التوقف.
+
+يفضّل استخدام القيم الجاهزة لتحديد سرعة الأنيميشين بدلاً من الدوال لأنها أكثر سهولة و أقل تعقيد.
+
+  
+
+في المثال التالي قمنا بعرض عدة دوائر، الأنيميشين الخاص بها يجعلها تنتقل إلى الجهة المقابلة خلال ثانيتين و بشكل متكرر.  
+حتى تلاحظ كيف يتسارع و يتباطئ منحنى السرعة، جعلنا جميع الدوائر تتحرك في وقت واحد.
+
+#### مثال
+
+@keyframes example {
+    from {
+        left: 100px;
+    }
+    to {
+        left: calc(100% - 50px);
+    }
+}
+
+.circle {
+    border-radius: 50%;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-name: example;
+    animation-duration: 2s;
+}
+
+.linear {
+    background: #ED796D;
+    transition-timing-function: linear;
+}
+
+.ease {
+    background: #ED976D;
+    transition-timing-function: ease;
+}
+
+.ease-in {
+    background: #2ECC71;
+    transition-timing-function: ease-in;
+}
+
+.ease-out {
+    background: #3498DB;
+    transition-timing-function: ease-out;
+}
+
+.ease-in-out {
+    background: #1ABC9C;
+    transition-timing-function: ease-in-out;
+}
+
+.cubic-bezier {
+    background: #0A8EA0;
+    transition-timing-function: cubic-bezier(0.1, 0.5, 1, 0.1);
+}
+
+.steps-start {
+    background: #777;
+    transition-timing-function: steps(5, start);
+}
+
+.steps-end {
+    background: #777;
+    transition-timing-function: steps(5, end);
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-timing-function)
+
+## إيقاف | تشغيل الأنيميشين
+
+يمكنك استخدام الخاصية `animation-play-state` للتحكم بحالة الأنيميشين، أي لجعله يتوقف أو يكمل التنفيذ.
+
+فيما يلي القيم التي يمكنك إعطاءها لها كقيمة للتحكم بحالة الأنيميشين.
+
+القيمة
+
+إستخدامها
+
+`paused`
+
+تجعل الأنيميشين يتوقف حيث وصل و لكنها لا توقفه بشكل نهائي.
+
+`running`
+
+تجعل الأنيميشين يشتغل أو يتابع من حيث وصل.
+
+  
+
+في المثال التالي قمنا بجعل الأنيميشين يتوقف عند تمرير الماوس فوق العنصر.
+
+#### مثال
+
+@keyframes example {
+    from {
+        background-color: red;
+        left: 0;
+        transform: rotateZ(0deg);
+    }
+    to {
+        background-color: blue;
+        left: calc(100% - 100px);
+        transform: rotateZ(360deg);
+    }
+}
+
+div {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+div:hover {
+    animation-play-state: paused;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-play-state)
+
+## إضافة أنيميشين بشكل مختصر
+
+يمكنك تحديد جميع خصائص الأنيميشين للعنصر باستخدام الخاصية `animation` مع الإشارة إلى أنه يمكنك إعطاءها القيم كيفما شئت بدون ترتيب محدد.
+
+في حال كنت تنوي تأخير تنفيذ الأنيميشين فإن المدة الثانية التي تضعها لها كقيمة يتم إعتبارها مدة التأخير في التنفيذ.
+
+  
+
+في المثال التالي، قمنا بجعل العنصر ينفذ الأنيميشين خلال ثانيتين و بشكل متكرر.
+
+#### المثال الأول
+
+@keyframes example {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: blue;
+    }
+}
+
+div {
+    animation: 2s ease-in-out infinite alternate example;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation)
+
+  
+
+في حال أردت إضافة أكثر من أنيميشين للعنصر، يمكنك ببساطة وضع فاصلة بين الخصائص التي تريد تنفيذه لكل أنيميشين على حدا.
+
+#### المثال الثاني
+
+@keyframes color-change {
+    from { background-color: red; }
+    to { background-color: blue; }
+}
+
+@keyframes slide-horizontal {
+    from { left: 0; }
+    to { left: calc(100% - 100px); }
+}
+
+div {
+    animation:
+        2s ease-in-out infinite alternate color-change,
+        2s linear infinite alternate slide-horizontal;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animation-multiple)
+
+## إضافة أنيميشين لصورة SVG
+
+يمكنك إضافة تحريكات رائعة لرسومات SVG و لكن عليك فعل الخطوات التالية ليكون ذلك ممكناً:
+
+*   وضع كود صورة الـSVG كما هو في الصفحة و ليس صورة إمتدادها `.svg`.
+*   العناصر التي ستتحكم فيها بداخل الرسم، يجب أن يكون لديها `class` أو `id` حتى تستطيع الوصول لها بشكل سهل.
+
+  
+
+في المثال التالي، قمنا بإضافة شعار هرمش في الصفحة على شكل كود SVG و من ثم أضفنا إثنين أنيميشين له على النحو التالي:
+
+*   الأنيميشين الأول إسمه `logo-slide` و هو يجعل الشعار بأكمله يتحرك يميناً و يساراً.
+*   الأنيميشين الثاني إسمه `sticker-rotate` و هو يجعل الحرف H الموضوع على الشعار يدور أثناء تحرّك الشعار.
+
+#### مثال
+
+@keyframes logo-slide {
+    from {
+        transform: translateX(-30px);
+    }
+    to {
+        transform: translateX(30px);
+    }
+}
+
+@keyframes sticker-rotate {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+svg {
+    animation: logo-slide 1.5s ease-in-out infinite alternate;
+    transform-origin: bottom;
+    max-width: 120px;
+}
+
+#sticker {
+    animation: sticker-rotate 1.5s ease-in-out infinite alternate;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/animations/animate-svg)

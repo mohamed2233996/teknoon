@@ -1,0 +1,241 @@
+---
+title: "SQL تخزين قيم موحدة في العمود"
+source: "https://harmash.com/tutorials/sql/unique"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:37.461Z"
+---
+
+## مفهوم القيم الموحدة
+
+في المشاريع الحقيقية، يستطيع المستخدم تسجيل دخوله بواسطة إسم المستخدم ( Username ) أو البريد الإلكتروني ( Email ) الخاص به.  
+في هذه الحالة يتم جعل القيم التي يمكن إدخالها في حقل إسم المستخدم و حقل البريد الإلكتروني موحدة ( Unique ) لضمان أن لا يكون هناك أكثر من مستخدم عندهم نفس إسم المستخدم أو البريد الإلكتروني.
+
+كمثال بسيط، في هرمش ممنوع استعمال [mhamad](/users/Mhamad) كإسم مستخدم جديد لأنه يوجد حساب يستعمله كإسم مستخدم، و إذا حاولت فعل ذلك فإنه سيظهر لك تنبيه يخبرك بأنه غير متاح كما يلي.
+
+![مفهوم القيم الموحدة](/content-images/sql/unique/1784304577444-j7yx2k.PNG)
+
+## القيد `UNIQUE`
+
+في حال أردت جعل العمود لا يقبل أن يتم تخزين نفس القيمة فيه أكثر من مرة يمكنك إضافة القيد `UNIQUE` إليه أثناء إنشاء الجدول أو في وقت لاحق.
+
+العمود الذي يتم تعريفه كمفتاح أساسي ( Primary Key ) يستعمل هذا القيد بشكل تلقائي و لهذا ممنوع أن يتم وضع قيم مكررة فيه.
+
+  
+
+### طريقة استخدامه
+
+طريقة استخدام هذا القيد تختلف من قاعدة بيانات لأخرى و لكنه يستعمل لنفس الغرض في جميع قواعد البيانات.
+
+في قواعد بيانات SQL Server و قواعد بيانات Oracle قواعد بيانات Access نستخدمه كما يلي.
+
+CREATE TABLE table\_name (
+    column\_name datatype UNIQUE
+);
+
+في قواعد بيانات MySQL و قواعد بيانات SQLite نستخدمه كما يلي.
+
+CREATE TABLE table\_name (
+    column\_name datatype,
+    UNIQUE (column\_name)
+);
+
+مكان الكلمة `column_name` نكتب إسم العمود الذي نريده أن لا يحتوي على قيم مكررة.
+
+في هذه الدورة سنعتمد أسلوب قواعد بيانات MySQL في إنشاء أعمدة قيمها موحدة.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash`.
+
+#### مثال
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+## إنشاء عمود لا يقبل قيم مكررة
+
+الإستعلام التالي ينشئ جدول إسمه `users` يتكون من 4 أعمدة:
+
+*   `id` و هو المتفاح الأساسي و فيه يتم إعطاء رقم تعرفة تلقائي لكل مستخدم.
+*   `username` و فيه يتم تخزين إسم المستخدم و الذي يجب أن تكون قيمته موحدة.
+*   `country` و فيه يتم تخزين إسم بلد المستخدم.
+
+**ملاحظة:** قمنا بإضافة الخاصية `UNIQUE` إلى العمود `username` لأننا لا نريد أن يكون هناك مستخدمين عندهم نفس إسم المستخدم.
+
+#### مثال
+
+\-- username بشكل مباشر للعمود UNIQUE مع إضافة القيد users هنا قمنا بإنشاء الجدول 
+CREATE TABLE users (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    username   VARCHAR(50),
+    country  VARCHAR(100),
+    UNIQUE(username)        \-- username للعمود UNIQUE هنا قمنا بإضافة القيد
+);
+
+يمكن أيضاً تعريف الجدول و من ثم تعديله لإضافة القيد على الحقل كما يلي.
+
+\-- هنا قمنا بإنشاء الجدول 
+CREATE TABLE users (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    username   VARCHAR(50),
+    country  VARCHAR(100)
+);
+
+\-- username على العمود UNIQUE هنا قما بتعديل الجدول و إضافة القيد
+ALTER TABLE users
+ADD CONSTRAINT uc\_users\_username UNIQUE (username);
+
+النتيجة
+
+0 row(s) affected
+
+النتيجة تعني أنه تم إنشاء الجدول و إضافة القيد فيه بنجاح.
+
+إذا قمت باستعراض بيانات الجدول `users` فإنه سيكون فارغاً كما يلي لأننا لم نقم بإضافة أي بيانات فيه بعد.
+
+id
+
+username
+
+country
+
+## تجربة إدخال قيم في عمود نوعه `UNIQUE`
+
+الإستعلام التالي يضيف 5 مستخدمين في الجدول `users`.  
+**ملاحظة:** لم نحاول إضافة نفس إسم المستخدم أكثر من مرة لأن هذا الأمر غير مسموح.
+
+#### المثال الأول
+
+INSERT INTO users VALUES (null, "rami", "Lebanon");
+INSERT INTO users VALUES (null, "ahmad", "Syria");
+INSERT INTO users VALUES (null, "hanan", "KSA");
+INSERT INTO users VALUES (null, "saly", "Lebanon");
+INSERT INTO users VALUES (null, "samir", "Egypt");
+
+النتيجة
+
+1 row(s) affected  
+1 row(s) affected  
+1 row(s) affected  
+1 row(s) affected  
+1 row(s) affected
+
+النتيجة تعني أنه تم إضافة 5 مستخدمين بنجاح.
+
+إذا قمت بعرض جميع البيانات الموجودة في الجدول `users` فإنها ستبدو كالتالي.
+
+id
+
+username
+
+country
+
+1
+
+rami
+
+Lebanon
+
+2
+
+ahmad
+
+Syria
+
+3
+
+hanan
+
+KSA
+
+4
+
+saly
+
+Lebanon
+
+5
+
+samir
+
+Egypt
+
+  
+
+الإستعلام التالي يحاول إضافة مستخدم جديد و إعطائه إسم مستخدم يملكه شخص آخر.
+
+#### المثال الثاني
+
+INSERT INTO users VALUES (null, "rami", "Oman");
+
+النتيجة
+
+Duplicate entry 'rami' for key 'username'
+
+معنى هذا الخطأ أنه يوجد في الأساس مستخدم عنده `username` يساوي `'rami'` لهذا لا يمكن إضافة المستخدم الجديد.
+
+  
+
+لإضافة المستخدم السابق، ستكون مجبر على تغيير إسم المستخدم سواء تغييره بالكامل أو التعديل عليه.
+
+ما فعلناه لحل مشكلة Duplicate entry هو تغيير قيمة الحقل `username` إلى `'rami2'` لأنه لا يوجد مستخدم آخر يملك نفس هذه القيمة.
+
+#### المثال الثاني
+
+INSERT INTO users VALUES (null, "rami2", "Oman");
+
+النتيجة
+
+1 row(s) affected
+
+النتيجة تعني أنه تم إضافة المستخدم بنجاح في الجدول.
+
+إذا قمت بعرض جميع البيانات الموجودة في الجدول `users` فإنها ستبدو كالتالي.
+
+id
+
+username
+
+country
+
+1
+
+rami
+
+Lebanon
+
+2
+
+ahmad
+
+Syria
+
+3
+
+hanan
+
+KSA
+
+4
+
+saly
+
+Lebanon
+
+5
+
+samir
+
+Egypt
+
+6
+
+rami2
+
+Oman

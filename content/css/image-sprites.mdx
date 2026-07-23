@@ -1,0 +1,110 @@
+---
+title: "CSSالصور المقتطعة"
+source: "https://harmash.com/tutorials/css/image-sprites"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:28.109Z"
+---
+
+## مفهوم الصور المقتطعة
+
+في حال كان موقعك يتضمن العديد من الصور الصغيرة التي يتم استخدامها كأيقونات، يمكنك تجميع كل هذه الصورة في صورة واحدة كبيرة و من ثم تقطيعها بواسطة CSS لعرض الجزء الخاص بكل صورة.
+
+فمثلاً الأيقونات التالية موضوعة كصورة واحدة و لكننا سنقتطع منها كل أيقونة نحتاجها منها عند الحاجة.
+
+![](/content-images/css/image-sprites/1784304748008-432irf.png)
+
+  
+
+هذا النوع من الصور يسمى Image Sprites و هو مهم جداً لتحسين أداء الموقع لأنه يخفف الطلبات ( Requests ) التي يتم إرسالها إلى الخادم ( Server ) الذي عليه الصور و بالتالي يقلل الضغط عنه لأنه بدلاً من أن يتم إرسال طلب إلى الخادم لتحميل كل صورة على حدا سيتم إرسال طلب واحد فقط.
+
+## طريقة عرض جزء من الصورة
+
+بشكل عام، لعرض جزء من الصورة نقوم بوضع الصورة كخلفية، و من ثم نحدد طولها و عرضها و إحداثياتها بالنسبة للصورة الأساسية.
+
+  
+
+في المثال التالي قمنا باقتطاع صورة المنزل الموجودة في الصورة الأساسية و عرضها.
+
+#### المثال الأول
+
+#home {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    background: url(icons.png) 0 0;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/image-sprites/sprites-basics)
+
+  
+
+في المثال التالي قمنا باقتطاع كل الصور الموجودة في الصورة الأساسية و عرضها بجانب عناصر القائمة.
+
+#### المثال الثاني
+
+.nav-list li a {
+    position: relative;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 76px;
+}
+
+.nav-list li a::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 12px;
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+    background-image: url(icons.png);
+}
+
+#home::before { 
+    background-position: 0 0;
+}
+
+#edit::before {
+    background-position: 48px 0;
+}
+
+#settings::before {
+    background-position: 96px 0;
+}
+
+#support::before {
+    background-position: 144px 0;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/image-sprites/sprites-nav)
+
+## طريقة تغيير الصورة المقتطعة عند تمرير الماوس
+
+في حال كنت تريد تغيير صورة الأيقونة المقتطعة من الصورة الأساسية عند تمرير الماوس بحيث يظهر أن الأيقونة نفسها حدث فيها تغيير ما، يمكنك تجهيز نسخة مطابقة من الأيقونات كما فعلنا. لاحظ أن الصورة نفسها أصبحت تحتوي على أيقونات متشابهة و لكن بدرجات ألوان مختلفة.
+
+![](/content-images/css/image-sprites/1784304748100-hdn0ue.png)
+
+  
+
+في المثال التالي جعلنا الأيقونات المقتطعة من الصورة الأساسية تتبدل عند تمرير الماوس فوقها بالأيقونات الغامقة الألوان.
+
+#### مثال
+
+#home:hover::before {
+    background-position: 0 48px;
+}
+            
+#edit:hover::before {
+    background-position: 48px 48px;
+}
+            
+#settings:hover::before {
+    background-position: 96px 48px;
+}
+            
+#support:hover::before {
+    background-position: 144px 48px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/image-sprites/sprites-hover)

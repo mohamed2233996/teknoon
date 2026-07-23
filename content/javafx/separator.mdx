@@ -1,0 +1,152 @@
+---
+title: "JavaFXالكلاس Separator"
+source: "https://harmash.com/tutorials/javafx/separator"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:29.833Z"
+---
+
+## مقدمة
+
+الكلاس `Separator` يستخدم لإضافة خط فاصل ( Separator ) بين الأشياء التي نضيفها في واجهة المستخدم.  
+هذا الخط يمكن إظهاره بشكل أفقي أو عامودي, و يمكن تعديل تصميمه و خصائص ظهوره بالشكل الذي تريده.
+
+إفتراضياً, عند إضافة `Separator` في واجهة المستخدم فإنه يظهر بشكل أفقي و لونه رمادي.
+
+  
+
+### بناء الكلاس `Separator`
+
+public class Separator
+extends Control
+
+## كونستركتورات الكلاس `Separator`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `Separator`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public Separator()` ينشئ كائن من الكلاس `Separator` يمثل خط أفقي.
+
+2
+
+`public Separator(Orientation orientation)` ينشئ كائن من الكلاس `Separator` يمثل خط مع تحديد ما إذا كان أفقي أو عامودي.  
+مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `Orientation` و التي تحدد طريقة ظهوره.  
+  
+الثوابت التي يسمح باستخدامها هي:  
+
+*   `Orientation.VERTICAL` يجعل الـ Separator يظهر عامودياً.
+*   `Orientation.HORIZONTAL` يجعل الـ Separator يظهر أفقياً.
+
+  
+إفتراضياً, الـ Separator يستخدم الثابت `Orientation.HORIZONTAL`.
+
+## دوال الكلاس `Separator`
+
+الجدول التالي يحتوي على دوال الكلاس `Separator` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setOrientation(Orientation orientation)` تستخدم لتحديد ما إذا كان كائن الـ `Separator` الذي قام بإستدعائها سيظهر بشكل أفقي أو عامودي.  
+مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `Orientation` و التي تحدد طريقة ظهوره.  
+  
+الثوابت التي يسمح باستخدامها هي:  
+
+*   `Orientation.VERTICAL` يجعل الـ Separator يظهر عامودياً.
+*   `Orientation.HORIZONTAL` يجعل الـ Separator يظهر أفقياً.
+
+2
+
+`public final void setRotate(double degree)` تستخدم لإدارة نص كائن الـ `Separator` الذي قام بإستدعائها.  
+مكان الباراميتر `degree` نضع رقم يمثل درجة الدوران.
+
+3
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `Separator` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+4
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `Separator` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+5
+
+`public void setPrefHeight(double prefHeight)` تستخدم لتحديد طول كائن الـ `Separator` الذي قام باستدعائها.  
+مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `Separator` بالـ Pixel.
+
+6
+
+`public void setPrefWidth(double prefWidth)` تستخدم لتحديد عرض كائن الـ `Separator` الذي قام باستدعائها.  
+مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `Separator` بالـ Pixel.
+
+7
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `Separator` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `Separator` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `Separator` بالـ Pixel.
+
+8
+
+`public final void setScaleX(double value)` تستخدم لتمطيط حجم كائن الـ `Separator` الذي قام باستدعائها بشكل أفقي.  
+مكان الباراميتر `value` نضع رقم يمثل كم مرة سيتم مضاعفة حجمه أفقياً.
+
+9
+
+`public final void setScaleY(double value)` تستخدم لتمطيط حجم كائن الـ `Separator` الذي قام باستدعائها بشكل عامودي.  
+مكان الباراميتر `value` نضع رقم يمثل كم مرة سيتم مضاعفة حجمه عامودياً.
+
+10
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `Separator` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `Separator` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `Separator` يظهر بشكل أفقي و إضافته في النافذة.
+
+![طريقة إضافة Separator أفقي في javafx](/content-images/javafx/separator/1784305229440-0p7ol6.PNG)
+
+[شاهد المثال](/tutorials/javafx/separator/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إنشاء `Separator` عامودي و إضافته في النافذة.
+
+![طريقة إنشاء Separator عامودي في javafx](/content-images/javafx/separator/1784305229589-4ue9t3.PNG)
+
+[شاهد المثال](/tutorials/javafx/separator/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تغيير حجم و لون الـ `Separator`.
+
+![طريقة تغيير حجم و لون الكائن Separator في javafx](/content-images/javafx/separator/1784305229709-kd3p50.PNG)
+
+[شاهد المثال](/tutorials/javafx/separator/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك كيف يمكن الإستفادة من الكلاس `Separator` لتحسين التصميم.
+
+![تحسين تصميم واجهة المستخدم باستخدام الكلاس Separator في javafx](/content-images/javafx/separator/1784305229816-vi40ml.PNG)
+
+[شاهد المثال](/tutorials/javafx/separator/example-4)

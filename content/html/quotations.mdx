@@ -1,0 +1,133 @@
+---
+title: "HTMLالإقتباسات"
+source: "https://harmash.com/tutorials/html/quotations"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:10:30.325Z"
+---
+
+## مفهوم الإقتباس
+
+النص المقتبس ( Quoted text ) يقصد به أن النص الموضوع في الصفحة تم نقله من مصدر آخر.
+
+عادةً ما يتم عرض النص المقتبس بشكل مختلف قليلاً عن باقي النص الموجود في الصفحة بهدف إعلام القارئ بأنه منقول من مصدر آخر و لحفظ حقوق المصدر الذي نقل الكلام منه.
+
+في هذا الدرس سنتعرف على الوسوم المخصصة لعرض إقتباسات في الصفحة.
+
+## عرض النص المقتبس بداخل بلوك
+
+إذا أردت العرض النص مقتبس على سطر منفرد مع عرض هامش حوله من كل الجهات، يمكنك وضع النص بداخل `<blockquote> </blockquote>`.
+
+  
+
+في المثال التالي قمنا بعرض إقتباس باستخدام `<blockquote>` بدون ذكر الموقع الذي جلبنا الإقتباس منه.
+
+#### المثال الأول
+
+<blockquote\>
+In 1980, physicist Tim Berners-Lee, a contractor at CERN, proposed and prototyped 
+ENQUIRE, a system for CERN researchers to use and share documents. In 1989, Berners-Lee 
+wrote a memo proposing an Internet-based hypertext system.
+</blockquote\>
+
+[جرب الكود](/tryit?file=/tutorials/html/quotations/blockquote)
+
+  
+
+إذا كان الإقتباس الموضوع في الصفحة منسوخ من موقع آخر، قم بذكر رابط الموقع الذي نسخت الإقتباس منه بداخل الخاصية `cite` التي يملكها الوسم `<blockquote>` لأن هذا الأمر سيجعل الموقع المقتبس منه ذو أهمية أكثر بالنسبة لمحركات البحث و بالتالي تكون تفيد الموقع الذي نسخت الإقتباس منه.
+
+  
+
+في المثال التالي قمنا بعرض إقتباس باستخدام `<blockquote>` مع ذكر الموقع الذي جلبنا الإقتباس منه.
+
+#### المثال الثاني
+
+<blockquote cite\="https://en.wikipedia.org/wiki/HTML"\>
+In 1980, physicist Tim Berners-Lee, a contractor at CERN, proposed and prototyped 
+ENQUIRE, a system for CERN researchers to use and share documents. In 1989, Berners-Lee 
+wrote a memo proposing an Internet-based hypertext system.
+</blockquote\>
+
+[جرب الكود](/tryit?file=/tutorials/html/quotations/blockquote-cite)
+
+## عرض النص المقتبس بين `" "`
+
+إذا أردت عرض النص المقتبس بين `" "` يمكنك وضعه بداخل `<q> </q>`.
+
+إستخدام الوسم `<q> </q>` بدلاً من كتابة `" "` بشكل مباشر يُعد خيار أفضل حيث أنه يمكن تخصيص طريقة عرض الوسم بواسطة CSS و عندها يمكن تطبيق التصميم الذي نريده على جميع النصوص المقتبسة الموضوعة في وسم من هذا النوع.
+
+  
+
+في المثال التالي قمنا بعرض النص المقتبس باستخدام `<q>` حتى يتم عرضه بين `" "`.
+
+#### المثال الأول
+
+<p\>My teacher said: <q\>HTML is not a programming language</q\></p\>
+
+[جرب الكود](/tryit?file=/tutorials/html/quotations/q)
+
+  
+
+في المثال التالي قمنا بتخصيص طريقة ظهور النص المقتبس باستخدام `<q>` بواسطة كود CSS حتى يظهر دائماً بلون أحمر.  
+**ملاحظة:** لا تشغل بالك بالكود المكتوب بلغة CSS لأنك ستفهمه بكل سهولة حين تتعلم CSS.
+
+#### المثال الثاني
+
+<!DOCTYPE html\>
+<html\>
+    <head\>
+        <!-- أحمر q يقوم بجعل لون النص الموضوع بداخل أي وسم CSS هذا كود -->
+        <style\>
+            q { color: red }  
+        </style\>
+    </head\>
+    <body\>
+        <!-- سيتم عرضه بين " " و باللون الأحمر <q> أي كلام موضوع بداخل الوسم -->
+        <p\>My teacher said: <q\>HTML is not a programming language</q\>
+        and he also said that <q\>It's very easy to learn</q\></p\>
+    </body\>
+</html\>
+
+[جرب الكود](/tryit?file=/tutorials/html/quotations/q-with-css)
+
+## وضع إسم مختصر بدل الإسم الكامل
+
+في البداية ما نقصده بإسم مختصر ( Abbreviation ) هو أنك على سبيل المثال تستطيع عرض كلمة واحدة مثل HTML و عند تمرير الفأرة فوقها يقوم المتصفح بإظهار الإسم الكامل Hyper Text Markup Language الذي هو اختصار لهذه الكلمة.
+
+الآن، إذا أردت وضع إسم مختصر فيمكنك وضعه بداخل `<abbr> </abbr>`.
+
+في المثال التالي قمنا بعرض إسم مختصر مع إظهار الجملة التي هو اختصار لها باستخدام `<abbr title="">`.
+
+#### مثال
+
+<p\><abbr title\="Hyper Text Markup Language"\>HTML</abbr\> is used to create web pages.</p\>
+
+[جرب الكود](/tryit?file=/tutorials/html/quotations/abbr)
+
+## عرض معلومات الوصول و التواصل
+
+إذا أردت عرض معلومات الوصول أو التواصل فيمكنك وضع النص بداخل `<address> </address>` و عندها سيعرضها المتصفح على سطر جديد و بشكل مائل.
+
+معلومات الوصول كأن يضع الشخص موقعه الجغرافي مثال: "مكتب سالم المصري, شارع الإصلاح، مبنى السلام، الطابق الثاني".
+
+معلومات التواصل كأن يضع الشخص رقم هاتفه، بريده الإلكتروني، صندوق البريد إلخ.. مثال: "هاتف: 061584984 - إيميل: info@harmash.com".
+
+في المثال التالي قمنا بعرض معلومات الوصول لمكان صاحب الموقع باستخدام `<address>`.
+
+#### مثال
+
+<address\>9645 Al-islah street, Tripoli, 1300 - Lebanon</address\>
+
+[جرب الكود](/tryit?file=/tutorials/html/quotations/address)
+
+## إبراز عنوان العمل
+
+في حال أردت إبراز عنوان الشيء المهم الذي يتم عرضه يمكنك وضعه بداخل `<cite> </cite>`.  
+عند وضع النص بداخل `<cite> </cite>` فإن المتصفح في العادة يعرضه بشكل مائل.
+
+في المثال التالي قمنا بإبراز عنوان الكتاب الذي تم ذكر الحديث منه باستخدام `<cite>`.
+
+#### مثال
+
+<p\><cite\>Riyadh-as-Saliheen</cite\> by Imam Al-Nawawi, volume 1, hadith number 134</p\>
+
+[جرب الكود](/tryit?file=/tutorials/html/quotations/cite)

@@ -1,0 +1,429 @@
+---
+title: "Reactالدالة useCallback()"
+source: "https://harmash.com/tutorials/react/usecallback"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:17.385Z"
+---
+
+## مقدمة للدالة `useCallback()` في React
+
+أي تحديث يتم في واجهة المستخدم يؤدي إلى إعادة رسم محتواها من جديد حتى تظهر التحديثات الجديدة فيها. في بعض الحالات قد يسبب هذا الأمر بطئ في الأداء حيث أن إعادة رسم واجهة المستخدم تعني إعادة تنفيذ الأوامر الموضوعة في المكونات من جديد و التي قد يتطلب تنفيذها بعض الوقت مما يؤدي إلى حصول بطئ أو تجميد مؤقت في واجهة المستخدم.
+
+في حال كان لا يوجد داعي لإعادة تنفيذ الأوامر التي يتطلب تنفيذها بعض الوقت في كل مرة يتم فيها رسم واجهة المستخدم فإنه يمكن وضع هذه الأوامر بداخل الدالة `useCallback()` لتحتفظ بنتيجتها بهدف إضافتها بشكل مباشر في واجهة المستخدم كلما تم إعادة رسم الواجهة.
+
+هذه الدالة هي من ضمن دوال [الهووكس](/tutorials/react/hooks) ( Hooks ) التي يمكن استخدامها في المكوّن المبني بأسلوب Function Component و استخدامها مشابه جداً لاستخدام الدالة `useMemo()`.
+
+  
+
+### طريقة تضمينها
+
+حتى تتمكن من استخدام الدالة `useCallback()` يجب تضمينها أولاً كما يلي.
+
+#### مثال
+
+import { useCallback } from "react";
+
+  
+
+### الشكل العام لاستخدامها
+
+عند استخدام هذه الدالة فإنه يتم ربطها بالشيء الذي سيتم مراقبة قيمته و بالدالة التي من خلالها سيتم تحديث قيمته.
+
+#### مثال
+
+const cachedFn = useCallback(fn, dependencies)
+
+*   `fn` \_ هي الدالة تحتوي على الأوامر التي قد يتطلب تنفيذها بعض الوقت و التي لا نريد إعادة تنفيذها كلما تم رسم واجهة المستخدم.
+*   `dependencies` \_ هو باراميتر إختياري مكانه يمكن تمرير مصفوفة بأسماء المتغيرات المراد إعادة تنفيذ الدالة إذا تغيرت قيمها.
+*   `cachedFn` \_ نتيجة تنفيذ الدالة `fn` سيتم تخزينها فيه مما يسمح لنا بمشاركة نتيجتها مع المكونات الداخلية.
+
+  
+
+ليس عليك التفكير باستخدام الدالة `useCallback()` لحظة بناء واجهة المستخدم، بل هذا الأمر تفعله لاحقاً حين تكون بحاجة لتحسين الأداء و يكون هناك إمكانية للإستفادة منها. و حقيقةً هذه من الدوال التي تستخدمها في حالات قليلة.
+
+## تحضير مشروع للتطبيق العملي
+
+إفعل الخطوات التالية تباعاً حتى تنشئ مشروع جديد و تطبق فيه الأمثلة كما فعلنا بالضبط:
+
+1.  قم بإنشاء مشروع جديد إسمه `demo-app`.
+2.  بداخل المجلد `src` تجد ملف إسمه `App.js` قم بحذف كل الكود الإفتراضي الموجود فيه.
+3.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `components` لأننا سنضع بداخله مكوّنات.
+4.  بداخل المجلد `components` قم بإنشاء ملف إسمه `PositiveNumber.js` لأنه سيمثل مكوّن خاص لتوليد أرقام عشوائية أكبر من صفر.
+5.  بداخل المجلد `components` قم بإنشاء ملف إسمه `NegativeNumber.js` لأنه سيمثل مكوّن خاص لتوليد أرقام عشوائية أصغر من صفر.
+
+في هذا المشروع قمنا بتجهيز مكوّنين هما `<PositiveNumber>` و `<NegativeNumber>` لأننا سنعلمك لاحقاً كيف تضيفهما في المكوّن `<App>` بشكل لا يتم فيه إعادة رسمهما طالما أن التحديث الحاصل في واجهة المستخدم لا علاقة لهما به.
+
+## كيفية تحسين الأداء في React
+
+فيما يلي سنقوم بتعديل المثال نفسه 3 مرات حتى تلاحظ اختلاف الأداء بعد كل تحسين يتم إجراؤه.
+
+عند تجربة الأمثلة التالية سيكون عليك فتح الكونسول لكي تلاحظ الإختلاف فيما بينها. حيث أنه لن يظهر أي إختلاف في واجهة المستخدم بسبب أننا المشروع خفيف و لكن الإختلاف يمكن ملاحظته من الجمل التي سيتم طباعتها في الكونسول و التي سيتم تنفيذها كلما تم إعادة رسم المكونات.
+
+  
+
+في المثال التالي، في المكوّن `<App>` قمنا بعرض ثلاث أزرار عند النقر عليها تقوم بتوليد أرقام عشوائية.
+
+*   الزر الأول موضوع بشكل مباشر في المكوّن `<App>` و عند النقر عليه يقوم بتوليد أرقام عشوائية عشرية.
+*   الزر الثاني موضوع في الأصل في المكوّن `<PositiveNumber>` و عند النقر عليه يقوم بتوليد أرقام عشوائية صحيحة أكبر من صفر.
+*   الزر الثالث موضوع في الأصل في المكوّن `<NegativeNumber>` و عند النقر عليه يقوم بتوليد أرقام عشوائية صحيحة أصغر من صفر.
+
+في جميع هذه المكونات استخدمنا الأمر `console.log()` لطباعة إسم المكوّن في الذاكرة كلما تم إعادة رسمه في واجهة المستخدم.
+
+**ملاحظة:** دوال توليد الأعداد جميعها وضعناها في المكوّن `<App>` و قد قمنا بتمريرها للمكونات `<PositiveNumber>` و `<PositiveNumber>` كخصائص عادية و ذلك تمهيداً لوقت لاحق حين نقوم بمشاركة نتائجها.
+
+#### المثال الأول
+
+/src/App.js
+
+// <Negative> و <Positive> بالإضافة إلى المكونين useState هنا قمنا بتضمين الدالة
+import { useState } from 'react';
+import Positive from './components/Positive';
+import Negative from './components/Negative';
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // هنا قمنا بتحديد ما سيتم طباعته في الكونسول كلما تم إعادة رسم المكوّن في واجهة المستخدم
+    console.log('App is rendered.');
+
+    // setDecimalNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها decimalNumber هنا قمنا بتعريف متغير إسمه
+    const \[decimalNumber, setDecimalNumber\] = useState(0);
+    // setPositiveNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها positiveNumber هنا قمنا بتعريف متغير إسمه
+    const \[positiveNumber, setPositiveNumber\] = useState(0);
+    // setNegativeNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها negativeNumber هنا قمنا بتعريف متغير إسمه
+    const \[negativeNumber, setNegativeNumber\] = useState(0);
+
+    // هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الأول
+    const generateDecimalNumber = () => {
+        setDecimalNumber(Math.random());
+    };
+
+    // هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الثاني
+    const generatePositiveNumber = () => {
+        setPositiveNumber(Math.round(Math.random() \* 1000));
+    };
+
+    // هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الثالث
+    const generateNegativeNumber = () => {
+        setNegativeNumber(- Math.round(Math.random() \* 1000));
+    };
+
+    // في الصفحة <App> هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            <div\>
+                <button onClick\={generateDecimalNumber}\>Generate Decimal</button\>
+                <p\>Decimal Number = {decimalNumber}</p\>
+            </div\>
+            <Positive value\={positiveNumber} action\={generatePositiveNumber} />
+            <Negative value\={negativeNumber} action\={generateNegativeNumber} />
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون <App> هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+/src/components/Positive.js
+
+// Positive هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Positive(props) {
+    console.log('Positive is rendered.');
+    return (
+        <>
+            <button onClick\={props.action}\>Generate Positive</button\>
+            <p\>Positive Number = {props.value}</p\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Positive هنا قمنا بجعل المكون
+export default Positive;
+
+/src/components/Negative.js
+
+// Negative هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Negative(props) {
+    console.log('Negative is rendered.');
+    return (
+        <>
+            <button onClick\={props.action}\>Generate Negative</button\>
+            <p\>Negative Number = {props.value}</p\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Negative هنا قمنا بجعل المكون
+export default Negative;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usecallback/without-usecallback)
+
+  
+
+### تحليل أداء الكود السابق
+
+عند النقر على أي زر فإنه سيتم رسم محتوى جميع المكونات و بالتالي سيظهر في الكونسول ما يلي:
+
+App is rendered.
+App is rendered.
+Positive is rendered.
+Positive is rendered.
+Negative is rendered.
+Negative is rendered.
+
+  
+  
+
+في المثال التالي، قمنا بإعادة المثال السابق مع إجراء التعديلات التالية:
+
+*   في المكوّن `<App>` قمنا بتضمين الدالة `useCallback()` و من ثم وضعنا قمنا بوضع الدالة `generatePositiveNumber()` و `generateNegativeNumber()` فيها.
+*   في المكوّن `<Positive>` قمنا بتضمين الدالة `memo()` و من ثم قمنا بتصدير المكون بداخلها لكي يتم حفظ حالته في الذاكرة.
+*   في المكوّن `<Negative>` قمنا بتضمين الدالة `memo()` و من ثم قمنا بتصدير المكون بداخلها لكي يتم حفظ حالته في الذاكرة.
+
+#### المثال الثاني
+
+/src/App.js
+
+// <Negative> و <Positive> بالإضافة إلى المكونين useCallback و useState هنا قمنا بتضمين الدالتين
+import { useState, useCallback } from 'react';
+import Positive from './components/Positive';
+import Negative from './components/Negative';
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // هنا قمنا بتحديد ما سيتم طباعته في الكونسول كلما تم إعادة رسم المكوّن في واجهة المستخدم
+    console.log('App is rendered.');
+
+    // setDecimalNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها decimalNumber هنا قمنا بتعريف متغير إسمه
+    const \[decimalNumber, setDecimalNumber\] = useState(0);
+    // setPositiveNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها positiveNumber هنا قمنا بتعريف متغير إسمه
+    const \[positiveNumber, setPositiveNumber\] = useState(0);
+    // setNegativeNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها negativeNumber هنا قمنا بتعريف متغير إسمه
+    const \[negativeNumber, setNegativeNumber\] = useState(0);
+
+    // هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الأول
+    const generateDecimalNumber = () => {
+        setDecimalNumber(Math.random());
+    };
+
+    // useCallback() هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الثاني و لاحظ أننا وضعناها بداخل الدالة
+    const generatePositiveNumber = useCallback(() => {
+        setPositiveNumber(Math.round(Math.random() \* 1000));
+    }, \[\]);
+
+    // useCallback() هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الثالث و لاحظ أننا وضعناها بداخل الدالة
+    const generateNegativeNumber = useCallback(() => {
+        setNegativeNumber(- Math.round(Math.random() \* 1000));
+    }, \[\]);
+
+    // في الصفحة <App> هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            <div\>
+                <button onClick\={generateDecimalNumber}\>Generate Decimal</button\>
+                <p\>Decimal Number = {decimalNumber}</p\>
+            </div\>
+            <Positive value\={positiveNumber} action\={generatePositiveNumber} />
+            <Negative value\={negativeNumber} action\={generateNegativeNumber} />
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون <App> هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+/src/components/Positive.js
+
+// memo() هنا قمنا بتضمين الدالة
+import { memo } from 'react';
+
+// Positive هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Positive(props) {
+    console.log('Positive is rendered.');
+    return (
+        <>
+            <button onClick\={props.action}\>Generate Positive</button\>
+            <p\>Positive Number = {props.value}</p\>
+        </>
+    );
+}
+
+// في الذاكرة و جعله يمكن الوصول إليه من خارج هذا الملف Positive هنا قمنا بحفظ المكون
+export default memo(Positive);
+
+/src/components/Negative.js
+
+// memo() هنا قمنا بتضمين الدالة
+import { memo } from 'react';
+
+// Negative هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Negative(props) {
+    console.log('Negative is rendered.');
+    return (
+        <>
+            <button onClick\={props.action}\>Generate Negative</button\>
+            <p\>Negative Number = {props.value}</p\>
+        </>
+    );
+}
+
+// في الذاكرة و جعله يمكن الوصول إليه من خارج هذا الملف Negative هنا قمنا بحفظ المكون
+export default memo(Negative);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usecallback/with-usecallback)
+
+  
+
+### تحليل أداء الكود السابق
+
+عند النقر على الزر الموجود في المكوّن `<App>` فإنه سيتم إعادة رسم محتواه فقط و بالتالي سيظهر في الكونسول ما يلي:
+
+App is rendered.
+App is rendered.
+
+عند النقر على الزر الموجود في المكوّن `<Positive>` فإنه سيتم إعادة رسم محتوى المكوّن الأب له و الذي هو `<App>` بالإضافة إلى محتواه نفسه و بالتالي سيظهر في الكونسول ما يلي:
+
+App is rendered.
+App is rendered.
+Positive is rendered.
+Positive is rendered.
+
+عند النقر على الزر الموجود في المكوّن `<Negative>` فإنه سيتم إعادة رسم محتوى المكوّن الأب له و الذي هو `<App>` بالإضافة إلى محتواه نفسه و بالتالي سيظهر في الكونسول ما يلي:
+
+App is rendered.
+App is rendered.
+Negative is rendered.
+Negative is rendered.
+
+الأداء هكذا أصبح ممتاز لأنه لم يعد يتم رسم المكونات ما لم يحصل تحديث فيها و يكون هناك حاجة لفعل ذلك.
+
+  
+  
+
+في المثال التالي، قمنا بإعادة المثال السابق مع إجراء التعديلات التالية:
+
+*   في المكوّن `<App>` حيث قمنا بتغيير طريقة توليد العدد العشوائي في الدالتين `generatePositiveNumber()` و `generateNegativeNumber()` فقد أضفنا عليها قيمة المتغير `decimalNumber`.
+*   بالإضافة لما سبق فقد قمنا بتمرير قيمة المتغير `decimalNumber` في مصفوفة الدالة `useCallback()` لأننا استخدمناه في أثناء إنشاء الأعداد العشوائية و بالتالي فإننا بذلك نريد أن يتم تحديث جميع المكونات التي تستخدمه عندما يحصل أي تحديث فيه قيمته.
+
+#### المثال الثالث
+
+/src/App.js
+
+// <Negative> و <Positive> بالإضافة إلى المكونين useCallback و useState هنا قمنا بتضمين الدالتين
+import { useState, useCallback } from 'react';
+import Positive from './components/Positive';
+import Negative from './components/Negative';
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // هنا قمنا بتحديد ما سيتم طباعته في الكونسول كلما تم إعادة رسم المكوّن في واجهة المستخدم
+    console.log('App is rendered.');
+
+    // setDecimalNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها decimalNumber هنا قمنا بتعريف متغير إسمه
+    const \[decimalNumber, setDecimalNumber\] = useState(0);
+    // setPositiveNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها positiveNumber هنا قمنا بتعريف متغير إسمه
+    const \[positiveNumber, setPositiveNumber\] = useState(0);
+    // setNegativeNumber() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها negativeNumber هنا قمنا بتعريف متغير إسمه
+    const \[negativeNumber, setNegativeNumber\] = useState(0);
+
+    // هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الأول
+    const generateDecimalNumber = () => {
+        setDecimalNumber(Math.random());
+    };
+
+    // و useCallback() هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الثاني و لاحظ أننا وضعناها بداخل الدالة
+    // لأنه يفترض تنفيذ الدالة في حال تغيرت قيمته useCallback() في مصفوفة الدالة decimalNumber أننا مررنا المتغير
+    const generatePositiveNumber = useCallback(() => {
+        setPositiveNumber(Math.round(decimalNumber + Math.random() \* 1000));
+    }, \[decimalNumber\]);
+
+    // و useCallback() هنا قمنا بتعريف الدالة التي سيتم تنفيذها عند النقر على الزر الثالث و لاحظ أننا وضعناها بداخل الدالة
+    // لأنه يفترض تنفيذ الدالة في حال تغيرت قيمته useCallback() في مصفوفة الدالة decimalNumber أننا مررنا المتغير
+    const generateNegativeNumber = useCallback(() => {
+        setNegativeNumber(- Math.round(decimalNumber + Math.random() \* 1000));
+    }, \[decimalNumber\]);
+
+    // في الصفحة <App> هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            <div\>
+                <button onClick\={generateDecimalNumber}\>Generate Decimal</button\>
+                <p\>Decimal Number = {decimalNumber}</p\>
+            </div\>
+            <Positive value\={positiveNumber} action\={generatePositiveNumber} />
+            <Negative value\={negativeNumber} action\={generateNegativeNumber} />
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون <App> هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+/src/components/Positive.js
+
+// memo() هنا قمنا بتضمين الدالة
+import { memo } from 'react';
+
+// Positive هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Positive(props) {
+    console.log('Positive is rendered.');
+    return (
+        <>
+            <button onClick\={props.action}\>Generate Positive</button\>
+            <p\>Positive Number = {props.value}</p\>
+        </>
+    );
+}
+
+// في الذاكرة و جعله يمكن الوصول إليه من خارج هذا الملف Positive هنا قمنا بحفظ المكون
+export default memo(Positive);
+
+/src/components/Negative.js
+
+// memo() هنا قمنا بتضمين الدالة
+import { memo } from 'react';
+
+// Negative هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Negative(props) {
+    console.log('Negative is rendered.');
+    return (
+        <>
+            <button onClick\={props.action}\>Generate Negative</button\>
+            <p\>Negative Number = {props.value}</p\>
+        </>
+    );
+}
+
+// في الذاكرة و جعله يمكن الوصول إليه من خارج هذا الملف Negative هنا قمنا بحفظ المكون
+export default memo(Negative);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usecallback/with-usecallback-and-pass-dependencies)
+
+  
+
+### تحليل أداء الكود السابق
+
+عند النقر على الزر الموجود في المكوّن `<App>` فإنه سيتم إعادة رسم محتواه و محتوى أي مكون داخلي فيه يستخدم يعتمد على قيمة المتغير `decimalNumber` الموجودة فيه و بالتالي سيظهر في الكونسول ما يلي:
+
+App is rendered.
+App is rendered.
+Positive is rendered.
+Positive is rendered.
+Negative is rendered.
+Negative is rendered.
+
+عند النقر على الزر الموجود في المكوّن `<Positive>` فإنه سيتم إعادة رسم محتوى المكوّن الأب له و الذي هو `<App>` بالإضافة إلى محتواه نفسه و بالتالي سيظهر في الكونسول ما يلي:
+
+App is rendered.
+App is rendered.
+Positive is rendered.
+Positive is rendered.
+
+عند النقر على الزر الموجود في المكوّن `<Negative>` فإنه سيتم إعادة رسم محتوى المكوّن الأب له و الذي هو `<App>` بالإضافة إلى محتواه نفسه و بالتالي سيظهر في الكونسول ما يلي:
+
+App is rendered.
+App is rendered.
+Negative is rendered.
+Negative is rendered.

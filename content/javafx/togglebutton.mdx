@@ -1,0 +1,173 @@
+---
+title: "JavaFXالكلاس ToggleButton"
+source: "https://harmash.com/tutorials/javafx/togglebutton"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:53.744Z"
+---
+
+## مقدمة
+
+الكلاس `ToggleButton` يستخدم لإضافة زر فيه حالتين " تشغيل - إيقاف " (Toggle Button) في واجهة المستخدم.  
+فكرة هذا الزر بشكل عام, هي أنه عند النقر عليه يظل ظاهراً أنه قد تم النقر عليه. و عند النقر عليه من جديد أنه لم يعد مختاراً.
+
+محتوى هذا الزر يمكن أن يكون: نص, أيقونة, نص و أيقونة بجانبه.
+
+يمكن وضع عدة `ToggleButton` و جعل المستخدم قادر على النقر عليهم كلهم إن أراد.  
+و يمكن أيضاً وضع عدة `ToggleButton` ضمن مجموعة واحدة فيصبح بإمكان المستخدم النقر على زر واحد في كل مرة.
+
+  
+
+### بناء الكلاس `ToggleButton`
+
+public class ToggleButton
+extends ButtonBase
+implements Toggle
+
+## كونستركتورات الكلاس `ToggleButton`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `ToggleButton`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public ToggleButton()` ينشئ كائن من الكلاس `ToggleButton` يمثل زر فارغ.
+
+2
+
+`public ToggleButton(String text)` ينشئ كائن من الكلاس `ToggleButton` يمثل زر عليه نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه على الزر.
+
+3
+
+`public ToggleButton(String text, Node graphic)` ينشئ كائن من الكلاس `ToggleButton` يمثل زر عليه نص و أيقونة معاً.  
+  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه على الزر.
+*   مكان الباراميتر `graphic` نمرر كائن من الكلاس `Node` يمثل الأيقونة التي سيتم وضعها على الزر.
+
+## دوال الكلاس `ToggleButton`
+
+الجدول التالي يحتوي على دوال الكلاس `ToggleButton` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `ToggleButton` الذي قام بإستدعائها كنص.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `ToggleButton` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public final void setTextFill(Paint value)` تستخدم لتحديد لون نص كائن الـ `ToggleButton` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من إحدى الكلاسات التي ترث من الكلاس `Paint` و التي يمكن إستخدامها لتحديد درجة اللون.
+
+4
+
+`public final void setBackground(Background value)` تستخدم لوضع لون أو صورة كخلفية لكائن الـ `ToggleButton` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس `Background` يشير إلى درجة اللون أو الصورة التي سيتم وضعها كخلفية.
+
+5
+
+`public final void setFont(Font newFont)` تستخدم لتحديد حجم و نوع خط كائن الـ `ToggleButton` الذي قام بإستدعائها.  
+مكان الباراميتر `newFont` نضع كائن من الكلاس `Font` يمثل خصائص الخط الجديد.
+
+6
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان الـ `ToggleButton` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+7
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان الـ `ToggleButton` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+8
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم الـ `ToggleButton` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `ToggleButton` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `ToggleButton` بالـ Pixel.
+
+9
+
+`public final void setContentDisplay(ContentDisplay value)` تستخدم لتحديد مكان ظهور الأيقونة التي تم إضافتها لكائن الـ `ToggleButton` الذي قام باستدعائها.  
+  
+مكان الباراميتر `value` نضع إحدى ثوابت الكلاس `ContentDisplay`:  
+
+*   الثابت `LEFT` يجعل الصورة تظهر يسار النص كما يظهر بشكل إفتراضي.
+*   الثابت `RIGHT` يجعل الصورة تظهر يمين النص.
+*   الثابت `TOP` يجعل الصورة تظهر تحت النص.
+*   الثابت `BOTTOM` يجعل الصورة تظهر فوق النص.
+*   الثابت `CENTER` يجعل النص يظهر على الصورة.
+*   الثابت `GRAPHIC_ONLY` يجعل الصورة فقط تظهر.
+*   الثابت `TEXT_ONLY` يجعل النص فقط يظهر.
+
+10
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `ToggleButton` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+11
+
+`public final void setOnAction(EventHandler<ActionEvent> e)` تستخدم لتنفيذ أوامر معينة عند النقر على كائن الـ `ToggleButton` الذي قام بإستدعائها.
+
+12
+
+`public final boolean isSelected()` تستخدم لمعرفة إذا تم إختيار كائن الـ `ToggleButton` الذي قام بإستدعائها, أي كان ظاهراً أنه منقور عليه أم لا.  
+ترجع `true` إذا كان يبدو أنه منقور عليه و ترجع `false` إذا كان لا يبدو كذلك.
+
+13
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `ToggleButton` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `ToggleButton` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `ToggleButton` و إضافته في النافذة.
+
+![طريقة إضافة ToggleButton في javafx](/content-images/javafx/togglebutton/1784305193432-nbt9xb.gif)
+
+[شاهد المثال](/tutorials/javafx/togglebutton/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط الـ `ToggleButton`.
+
+![طريقة تغيير حجم و لون خط الكائن ToggleButton في javafx](/content-images/javafx/togglebutton/1784305193529-g9zn80.gif)
+
+[شاهد المثال](/tutorials/javafx/togglebutton/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تغيير نص الـ `ToggleButton` عند النقر عليه.
+
+![طريقة تغيير نص الـ ToggleButton عند النقر عليه في javafx](/content-images/javafx/togglebutton/1784305193622-nyw27i.gif)
+
+[شاهد المثال](/tutorials/javafx/togglebutton/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة وضع أيقونة للـ `ToggleButton` و طريقة جعل `ToggleButton` واحد قابل للإختيار في وقت واحد.
+
+![طريقة وضع أيقونة للـ ToggleButton و طريقة جعل ToggleButton واحد قابل للإختيار في وقت واحد في javafx](/content-images/javafx/togglebutton/1784305193719-nwp675.gif)
+
+[شاهد المثال](/tutorials/javafx/togglebutton/example-4)

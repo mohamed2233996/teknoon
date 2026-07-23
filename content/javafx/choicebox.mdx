@@ -1,0 +1,162 @@
+---
+title: "JavaFXالكلاس ChoiceBox"
+source: "https://harmash.com/tutorials/javafx/choicebox"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:01.325Z"
+---
+
+## مقدمة
+
+الكلاس `ChoiceBox` يستخدم لإضافة قائمة منسدلة ( Choice Box ) في واجهة المستخدم.
+
+هذه القائمة تظهر فقط الخيار الذي قام المستخدم بإختياره منها.  
+ملاحظة: في حال لم تقم بتحديد أي عنصر سيظهر أنه مختاراً فيها بشكل إفتراضي فإنها ستظهر لك أنه لم يتم إختيار أي عنصر منها بعد.
+
+  
+
+### بناء الكلاس `ChoiceBox`
+
+@DefaultProperty(value="items")
+public class ChoiceBox<T>
+extends Control 
+
+  
+
+### معلومة تقنية
+
+كل كائن `ChoiceBox` تنشئه يتم ربطه بكائن من كلاس إسمه `ObservableList`.  
+كائن الـ `ObservableList` هو الذي تتخزن فيه الخيارات التي تظهر عند فتح الـ `ChoiceBox`.  
+إذاً عند النقر على الـ `ChoiceBox` فإنه يظهر العناصر المخزنة في كائن الـ `ObservableList` المرتبط به.
+
+لهذا السبب عندما تريد أن تتعامل مع محتوى الـ `ChoiceBox` عليك أن تتعامل مع الـ `ObservableList` الخاصة به.
+
+## كونستركتورات الكلاس `ChoiceBox`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `ChoiceBox`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public ChoiceBox()` ينشئ كائن من الكلاس `ChoiceBox` يمثل Choice Box فارغة, أي لا تحتوي أي عنصر.
+
+2
+
+`public ChoiceBox(ObservableList<E> items)` ينشئ كائن من الكلاس `ChoiceBox` يمثل Choice Box فيها خيارات جاهزة.  
+مكان الباراميتر `items` نمرر كائن من الكلاس `ObservableList`.  
+عناصر الكائن `ObservableList` هي التي ستظهر كخيارات في القائمة.
+
+## دوال الكلاس `ChoiceBox`
+
+الجدول التالي يحتوي على دوال الكلاس `ChoiceBox` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `ChoiceBox` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+2
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `ChoiceBox` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+3
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `ChoiceBox` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `ChoiceBox` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `ChoiceBox` بالـ Pixel.
+
+4
+
+`public final void setDisable(boolean value)` تستخدم لجعل كائن الـ `ChoiceBox` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+5
+
+`public final SingleSelectionModel<T> getSelectionModel()` ترجع كائن من الكلاس `SingleSelectionModel` يمثل الخيار الذي تم النقر عليه بداخل كائن الـ `ChoiceBox`.  
+من خلال الكائن الذي ترجعه هذه الدالة يمكنك معرفة الخيار المختار في كائن الـ `ChoiceBox`, معرفة رقم الـ index الخاص به, معرفة الخيار التالي بعده في كائن الـ `ChoiceBox`, معرفة أول و آخر عنصر في كائن الـ `ChoiceBox`, معرفة ما إذا كان كائن الـ `ChoiceBox` فارغ, تحديد خيار آخر غير الذي قام المستخدم باختياره إلخ..
+
+6
+
+`public final ObservableList<T> getItems()` ترجع كائن الـ `ObservableList` المرتبط بكائن الـ `ChoiceBox` الذي قام باستدعائها.  
+من خلال الكائن الذي ترجعه هذه الدالة يمكنك معرفة عدد الخيارات الموجودة في كائن الـ `ChoiceBox`, إضافة خيار أو أكثر فيه, حذف خيار أو أكثر منه, البحث فيه, فلترة الخيارات التي نريدها أن تظهر إلخ..
+
+7
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `ChoiceBox` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `ChoiceBox` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `ChoiceBox` و إضافته في النافذة.
+
+![طريقة إضافة ChoiceBox في javafx](/content-images/javafx/choicebox/1784305200278-5hpgmc.PNG)
+
+[شاهد المثال](/tutorials/javafx/choicebox/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `ChoiceBox` يحتوي على عناصر.  
+ملاحظة: هنا عند تشغيل البرنامج, كائن الـ `ChoiceBox` تظهر فارغة إلى أن يقوم المستخدم بالنقر على أي خيار موجود فيها.
+
+![طريقة إضافة عناصر في ال ChoiceBox في javafx](/content-images/javafx/choicebox/1784305200397-1h12ac.gif)
+
+[شاهد المثال](/tutorials/javafx/choicebox/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة جعل أول عنصر في كائن الـ `ChoiceBox` مختاراً بشكل إفتراضي.  
+ستتعلم أيضاً كيف تضيف خط فاصل بين العناصر.  
+ملاحظة: هنا عند تشغيل البرنامج, سيظهر في كائن الـ `ChoiceBox` أول خيار موجود فيها.
+
+![طريقة جعل أول عنصر في ال ChoiceBox مختاراً بشكل إفتراضي في javafx](/content-images/javafx/choicebox/1784305200496-672k2j.gif)
+
+[شاهد المثال](/tutorials/javafx/choicebox/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة معرفة العنصر الذي قام المستخدم باختياره من ضمن العناصر الموجودة في `ChoiceBox` عند النقر على `Button`.
+
+![طريقة معرفة العنصر الذي قام المستخدم باختياره من ضمن العناصر الموجودة في ChoiceBox عند النقر على زر في javafx](/content-images/javafx/choicebox/1784305201053-yr925j.gif)
+
+[شاهد المثال](/tutorials/javafx/choicebox/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة تنفيذ أوامر عند تغيير القيمة المختارة في كائن الـ `ChoiceBox`.
+
+![طريقة تنفيذ أوامر عند تغيير القيمة المختارة في الـ ChoiceBox](/content-images/javafx/choicebox/1784305201162-gpt7f4.gif)
+
+[شاهد المثال](/tutorials/javafx/choicebox/example-5)
+
+  
+  
+
+### المثال السادس
+
+المثال التالي يعلمك طريقة جعل المستخدم يقوم بإضافة أو حذف عناصر في كائن الـ `ChoiceBox`.  
+بالإضافة إلى إظهار عدد جميع العناصر الموجودة فيه.
+
+![طريقة جعل المستخدم يقوم بإضافة أو حذف عناصر في الـ ChoiceBox و إظهار عدد جميع العناصر الموجودة فيه في javafx](/content-images/javafx/choicebox/1784305201310-wqvja1.gif)
+
+[شاهد المثال](/tutorials/javafx/choicebox/example-6)

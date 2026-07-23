@@ -1,0 +1,190 @@
+---
+title: "Swingالكلاس JProgressBar"
+source: "https://harmash.com/tutorials/swing/jprogressbar"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:43.956Z"
+---
+
+## مقدمة
+
+الكلاس `JProgressBar` يستخدم لإضافة (Progess Bar) في واجهة المستخدم.
+
+  
+
+### بناؤه
+
+public class JProgressBar
+extends JComponent
+implements SwingConstants, Accessible
+
+## كونستركتورات الكلاس `JProgressBar`
+
+الجدول التالي يحتوي على أهم الكونستركتورات الموجودة في الكلاس `JProgressBar`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JProgressBar()` ينشئ كائن من الكلاس `JProgressBar` يمثل Progess Bar أفقي, حدوده ظاهرة و قميته مخفية.
+
+2
+
+`public JProgressBar(int orientation)` ينشئ كائن من الكلاس `JProgressBar` يمثل Progess Bar مع تحديد إتجاهه ( أفقي أو عامودي ), حدوده ظاهرة و قميته مخفية.  
+مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `SwingConstants` المخصصة لتحديد طريقة ظهور الـ Progess Bar.  
+  
+الثوابت التي يسمح باستخدامها هي:  
+
+*   `SwingConstants.VERTICAL` يجعل الـ Progess Bar يظهر عامودياً.
+*   `SwingConstants.HORIZONTAL` يجعل الـ Progess Bar يظهر أفقياً.
+
+  
+إفتراضياً, الـ Progess Bar يستخدم الثابت `JList.HORIZONTAL`.  
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.
+
+3
+
+`public JProgressBar(int orientation, int min, int max)` ينشئ كائن من الكلاس `JProgressBar` يمثل Progess Bar مع تحديد إتجاهه ( أفقي أو عامودي ), حدوده ظاهرة, قيمته مخفية بالإضافة إلى تحديد أصغر و أكبر قيمة فيه.  
+  
+
+*   مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `SwingConstants` المخصصة لتحديد طريقة ظهور الـ Progess Bar.
+*   مكان الباراميتر `min` نضع أصغر قيمة في الـ Progess Bar.
+*   مكان الباراميتر `max` نضع أكبر قيمة في الـ Progess Bar.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.
+
+## دوال الكلاس `JProgressBar`
+
+الجدول التالي يحتوي على أهم الدوال الموجودة في الكلاس `JProgressBar`.
+
+الدالة مع تعريفها
+
+1
+
+`public void setIndeterminate(boolean visibility)` في حال كنت لا تعرف كيف ستجعل قيمة الـ Progess Bar تزيد بشكل تلقائي.  
+يمكنك الإستفادة من هذه الدالة حيث أنها تجعل الـ Progess Bar يستمر بالتحرك بشكل يجعل المستخدم يعلم أن البرنامج يقوم بمهمة ما.  
+إذاً هذه الدالة تستخدم لتغيير الطريقة التي يمتلئ بها الـ Progess Bar.  
+مكان الباراميتر `visibility` نضع `true` إذا أردنا جعل الـ Progess Bar يستمر بالتحرك.  
+و نضع `false` إذا أردنا إرجاعه كما كان.
+
+2
+
+`public void setStringPainted(boolean visibility)` تستخدم لإخفاء أو إظهار نص الـ Progess Bar.  
+مكان الباراميتر `visibility` نضع `true` إذا أردنا إظهار نص الـ Progess Bar.  
+و نضع `false` إذا أردنا إخفائه.  
+  
+ملاحظة: إفتراضياً, نص الـ Progess Bar يكون مخفي.
+
+3
+
+`public void setMinimum(int minValue)` تستخدم لتحديد أصغر قيمة في الـ Progess Bar.  
+مكان الباراميتر `minValue` نضع أصغر قيمة في الـ Progess Bar.
+
+4
+
+`public void setMaximum(int maxValue)` تستخدم لتحديد أكبر قيمة في الـ Progess Bar.  
+مكان الباراميتر `maxValue` نضع أكبر قيمة في الـ Progess Bar.
+
+5
+
+`public void setValue(int value)` تستخدم لتحديد قيمة الـ Progess Bar.  
+مكان الباراميتر `value` نضع القيمة التي نريد إظهارها في الـ Progess Bar.  
+  
+ملاحظة: منطقياً, يجب أن تكون القيمة التي ستضعها بين أصغر و أكبر قيمة يمكن وضعها في الـ Progess Bar.
+
+6
+
+`public void setString(String text)` تستخدم لإظهار نص في الـ Progess Bar.  
+مكان الباراميتر `text` نضع النص الذي نريد إظهاره في الـ Progess Bar.  
+  
+ملاحظة: يجب إستدعاء الدالة `setStringPainted()` و إعطائها القيمة `true` حتى يظهر النص في الـ Progess Bar.
+
+7
+
+`public void setOrientation(int orientation)` تستخدم لتحديد إتجاه الـ Progess Bar.  
+مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `SwingConstants` المخصصة لتحديد طريقة ظهور الـ Progess Bar.  
+  
+الثوابت التي يسمح باستخدامها هي:  
+
+*   `SwingConstants.VERTICAL` يجعل الـ Progess Bar يظهر عامودياً.
+*   `SwingConstants.HORIZONTAL` يجعل الـ Progess Bar يظهر أفقياً.
+
+  
+ترمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.
+
+8
+
+`public void setBorderPainted(boolean visibility)` تستخدم لإخفاء أو إظهار حدود الـ Progess Bar الخارجية.  
+مكان الباراميتر `visibility` نضع `true` إذا أردنا إظهار حدود الـ Progess Bar الخارجية.  
+و نضع `false` إذا أردنا إخفائهم.  
+  
+ملاحظة: إفتراضياً, حدود الـ Progess Bar الخارجية تكون ظاهرة.
+
+9
+
+`public int getMinimum()` ترجع رقم نوعه `int` يمثل أصغر قيمة في الـ Progess Bar.
+
+10
+
+`public int getMaximum()` ترجع رقم نوعه `int` يمثل أكبر قيمة في الـ Progess Bar.
+
+11
+
+`public int getValue()` ترجع رقم نوعه `int` يمثل قيمة الـ Progess Bar الحالية, و التي ستكون بين أصغر و أكبر قيمة يمكن وجودها فيه.
+
+12
+
+`public double getPercentComplete()` ترجع رقم نوعه `double` يمثل النسبة المئوية لقيمة الـ Progess Bar الحالية.  
+  
+ملاحظة: الرقم الذي ترجعه يكون بين 0.0 و .1.0.  
+و طبعاً يمكنك ضرب هذا الرقم بـ 100 حتى تحصل على النسبة المئوية المتعارف عليها, أي لتحصل على رقم بين 0.0 و 100.
+
+13
+
+`public String getString()` ترجع النسبة المئوية الحالية أو النص الحالي الذي يظهر في الـ Progess Bar كنص عادي.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JProgressBar` و إضافته في النافذة.
+
+![طريقة إضافة JProgressBar في ال JFrame في جافا](/content-images/swing/jprogressbar/1784305363645-gdp589.PNG)
+
+[شاهد المثال](/tutorials/swing/jprogressbar/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إظهار نص في الـ Progess Bar و جعل قيمته تتحرك يميناً و يساراً.
+
+![طريقة إظهار نص في ال JProgressBar و جعل قيمته تتحرك يميناً و يساراً في جافا](/content-images/swing/jprogressbar/1784305363741-9lvswu.PNG)
+
+[شاهد المثال](/tutorials/swing/jprogressbar/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة زيادة قيمة الـ Progress Bar بواسطة Thread.
+
+![طريقة زيادة قيمة ال JProgressBar من خلال Thread في جافا](/content-images/swing/jprogressbar/1784305363834-3aoybs.PNG)
+
+[شاهد المثال](/tutorials/swing/jprogressbar/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة تغيير لون الـ Progress Bar على حسب قيمته.
+
+![طريقة تغيير لون ال JProgressBar على حسب قيمته في جافا](/content-images/swing/jprogressbar/1784305363939-8vj7k0.PNG)
+
+[شاهد المثال](/tutorials/swing/jprogressbar/example-4)

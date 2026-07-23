@@ -1,0 +1,377 @@
+---
+title: "SQLدمج الجداول في جدول واحد"
+source: "https://harmash.com/tutorials/sql/union"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:20.741Z"
+---
+
+## مفهوم دمج الجداول في جدول واحد
+
+سبق و تعلمنا أنه يمكن استخدام الأمر `SELECT` لجلب القيم من أي جدول، سواء أردنا جلبها كلها أو تحديد القيم التي نريد جلبها منها و في النهاية النتيجة النهائية سيتم إرجاعها لنا كجدول.
+
+في حال أردت تنفيذ أكثر من أمر `SELECT` في ذات الوقت و من ثم وضع نتيجتهم في جدول واحد يمكنك استخدام العامل `UNION` حتى تدمجهم مع بعض.
+
+العامل `UNION` يستخدم لدمج بيانات الأعمدة التي يتم جلبها بواسطة الأمر `SELECT` في جدول واحد.
+
+  
+
+### شروط دمج قيم الجداول
+
+يجب مراعاة الشروط التالية حتى يسمح لك بدمج قيم الجداول في جدول واحد:
+
+*   عدد أعمدة الجداول التي نريد دمجها يجب أن يكون متطابق، فمثلاً يكون الجدولين الذين نريد دمجهما يتألفان من 3 أعمدة.
+*   أعمدة الجداول التي سيتم دمجها يجب أن تكون من نفس النوع، فمثلاً لا يمكنك دمج عمود نوعه `INT` مع عمود نوعه `DATE`.
+*   يجب أن تراعي ترتيب الأعمدة التي تريد دمجها مع بعضها، أي يجب أن تجلبها بنفس الترتيب.
+
+  
+  
+
+### أنواع الدمج
+
+عند دمج قيم الجداول من الطبيعي أن يكون هناك أسطر قيمها مكررة خاصةً إن كانت الجداول تتضمن عدد كبير من الأسطر.  
+لهذا السبب قاعدة البيانات تتيح لك تحديد ما إن كنت تريد أن يحتوي الجدول الذي سينتج عند دمج قيم الجداول على قيم مكررة أم لا.
+
+*   إذا لم ترد وجود قيم مكررة، قم بدمج الجداول بواسطة العامل `UNION`.
+*   إذا كان لا يهمك ما إن كان يوجود قيم مكررة أم لا، قم بدمج الجداول بواسطة العامل `UNION ALL`.
+
+  
+
+### طرق دمج الجداول
+
+في حال كنت تريد دمج قيم الجداول مع عدم وضع قيم مكررة.
+
+SELECT column\_name(s) FROM table1     \-- هنا نحدد أسماء الأعمدة التي نريد جلبها بالترتيب من الجدول الأول
+UNION                                 \-- في جدول واحد مع عدم وضع قيم مكررة SELECT سيقوم بدمج نتيجة الأمرين UNION العامل
+SELECT column\_name(s) FROM table2;    \-- هنا نحدد أسماء الأعمدة التي نريد جلبها بالترتيب من الجدول الثاني
+
+في حال كنت تريد دمج قيم الجداول مع السماح بوجود قيم مكررة.
+
+SELECT column\_name(s) FROM table1     \-- هنا نحدد أسماء الأعمدة التي نريد جلبها بالترتيب من الجدول الأول
+UNION ALL                             \-- في جدول واحد مع السماح بوجود قيم مكررة SELECT سيقوم بدمج نتيجة الأمرين UNION ALL العامل
+SELECT column\_name(s) FROM table2;    \-- هنا نحدد أسماء الأعمدة التي نريد جلبها بالترتيب من الجدول الثاني
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `employees` يحتوي على بيانات 5 موظفين و جدول إسمه `customers` يحتوي على بيانات 5 عملاء.
+
+#### مثال
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من أربعة أعمدة employees هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE employees (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(50),
+    salary     DECIMAL(7,2)
+);
+
+\-- يتألف من خمسة أعمدة customers هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE customers (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(50),
+    email      VARCHAR(100)
+);
+
+\-- أي أضفنا معلومات 5 موظفين ,employees هنا قمنا بإضافة 5 أسطر في الجدول
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO employees VALUES (null, "Ahmad", "Alhazem", 800);
+INSERT INTO employees VALUES (null, "Rami", "Asaadi", 750);
+INSERT INTO employees VALUES (null, "Said", "Alnaja", 900);
+INSERT INTO employees VALUES (null, "Noura", "Jamali", 845);
+INSERT INTO employees VALUES (null, "Amani", "Sarrouf", 1000);
+
+\-- أي أضفنا معلومات 5 عملاء ,customers هنا قمنا بإضافة 5 أسطر في الجدول
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO customers VALUES (null, "Ahmad", "Alhazem", "ahmad@example.com");
+INSERT INTO customers VALUES (null, "Rami", "Asaadi", "rami@example.com");
+INSERT INTO customers VALUES (null, "Mostafa", "Shawki", "mostafa@example.com");
+INSERT INTO customers VALUES (null, "Jana", "Alkassem", "jana@example.com");
+INSERT INTO customers VALUES (null, "Houssam", "Zahrani", "houssam@example.com");
+
+بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم إنشاء قاعدة البيانات `harmash` و إنشاء الجدولين `employees` و `customers` بداخلها.  
+قم بالنقر على إسم قاعدة البيانات `harmash` من القائمة اليسرى حتى تبدأ بالتعامل معها و تطبيق ما ستتعلمه في هذا الدرس.
+
+  
+
+الجدول `employees` يتضمن معلومات 5 موظفين كما يلي.
+
+id
+
+first\_name
+
+last\_name
+
+salary
+
+1
+
+Ahmad
+
+Alhazem
+
+800.00
+
+2
+
+Rami
+
+Asaadi
+
+750.00
+
+3
+
+Said
+
+Alnaja
+
+900.00
+
+4
+
+Noura
+
+Jamali
+
+845.00
+
+5
+
+Amani
+
+Sarrouf
+
+1000.00
+
+  
+
+الجدول `customers` يتضمن معلومات 5 عملاء كما يلي.
+
+id
+
+first\_name
+
+last\_name
+
+email
+
+1
+
+Ahmad
+
+Alhazem
+
+ahmad@example
+
+2
+
+Rami
+
+Asaadi
+
+rami@example
+
+3
+
+Mostafa
+
+Shawki
+
+mostafa@example
+
+4
+
+Jana
+
+Alkassem
+
+jana@example
+
+5
+
+Houssam
+
+Zahrani
+
+houssam@example
+
+  
+
+لاحظ أن أول سطرين في الجدولين `employees` و `customers` عندهما نفس قيمة `id` و `first_name` و `last_name`.
+
+تعمدنا وضع القيم بهذا الشكل حتى تلاحظ الفرق عند دمج قيم الجدولين `employees` و `customers` عند استخدام العامل `UNION` و عند استخدام العامل `UNION ALL`.
+
+## مثال حول دمج بيانات الجداول باستخدام `UNION`
+
+الإستعلام التالي فكرته إحضار البيانات الموجودة في ثلاث أعمدة في الجدولين `employees` و `customers`، مع عدم إحضار قيم مكررة.
+
+هذا الإستعلام سيتنفذ على ثلاث مراحل كما يلي:
+
+1.  يجلب `id` و `first_name` و `last_name` كل موظف موجود في الجدول `employees`.
+2.  يجلب `id` و `first_name` و `last_name` كل عميل موجود في الجدول `customers`.
+3.  يدمج النتيجتين السابقتين في جدول واحد لا يحتوي على أي قيم مكررة.
+
+#### مثال
+
+SELECT id, first\_name, last\_name from customers   \-- قمنا بجلب قيم 3 أعمدة موجودة فيه customers الجدول
+UNION                                             \-- في جدول واحد مع عدم وضع قيم مكررة SELECT سيقوم بدمج نتيجة الأمرين UNION العامل
+SELECT id, first\_name, last\_name from employees   \-- قمنا بجلب قيم 3 أعمدة موجودة فيه employees الجدول
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+1
+
+Ahmad
+
+Alhazem
+
+2
+
+Rami
+
+Asaadi
+
+3
+
+Mostafa
+
+Shawki
+
+4
+
+Jana
+
+Alkassem
+
+5
+
+Houssam
+
+Zahrani
+
+3
+
+Said
+
+Alnaja
+
+4
+
+Noura
+
+Jamali
+
+5
+
+Amani
+
+Sarrouf
+
+لاحظ أن الجدول لا يحتوي على أسطر جميع حقولها فيها نفس القيم.
+
+## مثال حول دمج بيانات الجداول باستخدام `UNION ALL`
+
+الإستعلام التالي فكرته إحضار البيانات الموجودة في ثلاث أعمدة في الجدولين `employees` و `customers`، و لا يهم إن كانت النتيجة تحتوي على قيم مكررة.
+
+هذا الإستعلام سيتنفذ على ثلاث مراحل كما يلي:
+
+1.  يجلب `id` و `first_name` و `last_name` كل موظف موجود في الجدول `employees`.
+2.  يجلب `id` و `first_name` و `last_name` كل عميل موجود في الجدول `customers`.
+3.  يدمج النتيجتين السابقتين في جدول واحد.
+
+#### مثال
+
+SELECT id, first\_name, last\_name from customers   \-- قمنا بجلب قيم 3 أعمدة موجودة فيه customers الجدول
+UNION ALL                                         \-- في جدول واحد SELECT سيقوم بدمج نتيجة الأمرين UNION ALL العامل
+SELECT id, first\_name, last\_name from employees   \-- قمنا بجلب قيم 3 أعمدة موجودة فيه employees الجدول
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+1
+
+Ahmad
+
+Alhazem
+
+2
+
+Rami
+
+Asaadi
+
+3
+
+Mostafa
+
+Shawki
+
+4
+
+Jana
+
+Alkassem
+
+5
+
+Houssam
+
+Zahrani
+
+1
+
+Ahmad
+
+Alhazem
+
+2
+
+Rami
+
+Asaadi
+
+3
+
+Said
+
+Alnaja
+
+4
+
+Noura
+
+Jamali
+
+5
+
+Amani
+
+Sarrouf
+
+لاحظ أن الجدول يحتوي على أسطر حقولها فيها نفس القيم.

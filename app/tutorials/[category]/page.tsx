@@ -10,40 +10,30 @@ import { notFound } from "next/navigation";
 import { getCategories, getLessonsByCategory } from "@/lib/content";
 
 interface PageProps {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }
 
 export function generateStaticParams() {
   return getCategories().map((category) => ({ category }));
 }
 
-export default function CategoryPage({ params }: PageProps) {
-  const lessons = getLessonsByCategory(params.category);
+export default async function CategoryPage({ params }: PageProps) {
+  const { category } = await params;
+  const lessons = getLessonsByCategory(category);
 
   if (lessons.length === 0) {
     notFound();
   }
 
   return (
-    <main dir="rtl" style={{ maxWidth: 800, margin: "0 auto", padding: "2rem" }}>
-      <h1 style={{ fontSize: "1.8rem", marginBottom: "1.5rem" }}>
-        دروس {params.category}
-      </h1>
+   <main dir="rtl" className="category-page">
+      <p className="category-page__eyebrow">tutorials / {category}</p>
+      <h1 className="category-page__title">دروس {category}</h1>
 
-      <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+      <ul className="lesson-grid">
         {lessons.map((lesson) => (
           <li key={lesson.slug}>
-            <Link
-              href={`/tutorials/${params.category}/${lesson.slug}`}
-              style={{
-                display: "block",
-                padding: "1rem",
-                border: "1px solid #e5e5e5",
-                borderRadius: "8px",
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
+            <Link href={`/tutorials/${category}/${lesson.slug}`} className="lesson-card">
               {lesson.title}
             </Link>
           </li>

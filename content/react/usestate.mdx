@@ -1,0 +1,439 @@
+---
+title: "Reactالدالة useState()"
+source: "https://harmash.com/tutorials/react/usestate"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:07.378Z"
+---
+
+## مقدمة للدالة `useState()` في React
+
+تستخدم هذه الدالة لمراقبة أي تغيير يحصل في قيمة متغير، مصفوفة أو كائن موجود في المكوّن.
+
+هذه الدالة هي من ضمن دوال [الهووكس](/tutorials/react/hooks) ( Hooks ) التي يمكن استخدامها في المكوّن المبني بأسلوب Function Component.
+
+  
+
+### طريقة تضمينها
+
+حتى تتمكن من استخدام الدالة `useState()` يجب تضمينها أولاً كما يلي.
+
+#### مثال
+
+import { useState } from "react";
+
+  
+
+### الشكل العام لاستخدامها
+
+عند استخدام هذه الدالة فإنه يتم ربطها بالشيء الذي سيتم مراقبة قيمته و بالدالة التي من خلالها سيتم تحديث قيمته.
+
+#### مثال
+
+const \[state, setState\] = useState(initialState);
+
+*   `state` \_ إسم المتغير الذي سيتم مراقبة حالته.
+*   `setState` \_ إسم الدالة التي ستقوم بتحديث قيمة المتغير.
+*   `initialState` \_ القيمة الأولية التي سيتم إعطاءها للمتغير.
+
+## تحضير مشروع للتطبيق العملي
+
+إفعل الخطوات التالية تباعاً حتى تنشئ مشروع جديد و تطبق فيه الأمثلة كما فعلنا بالضبط:
+
+1.  قم بإنشاء مشروع جديد إسمه `demo-app`.
+2.  بداخل المجلد `src` تجد ملف إسمه `App.js` قم بحذف كل الكود الإفتراضي الموجود فيه.
+3.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `components` لأننا سنضع بداخله مكوّنات.
+4.  بداخل المجلد `components` قم بإنشاء ملف إسمه `MyComponent.js` لأنه سيمثل مكوّن.
+
+في هذا المشروع قمنا بتجهيز مكوّن واحد هو `<MyComponent>` لأننا سنقوم لاحقاً بعرض محتواه و تحديث قيم خصائصه بعد عرضها في المكون `<App>`.
+
+## تحديث حالة متغير في React
+
+في المثال التالي، في المكوّن `<MyComponent>` قمنا بتعريف متغير إسمه `counter` مع ربطه بدالة إسمها `setCounter()`.  
+في هذا المكوّن وضعنا أيضاً زر، كلما تم النقر عليه سيتم استدعاء دالة إسمها `increment()` و التي تقوم داخلياً باستدعاء الدالة `setCounter()` لكي تقوم بتحديث قيمته (أي حالته)، فعلياً سنضيف واحد عليها في كل مرة.
+
+بعدها قمنا بعرض المكوّن `<MyComponent>` في المكوّن `<App>` لتجربته.
+
+#### المثال الأول
+
+/src/components/MyComponent.js
+
+import { useState } from "react";
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+    // setCounter() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها counter هنا قمنا بتعريف متغير إسمه
+    const \[counter, setCounter\] = useState(0);
+    
+    // المربوطة به counter و جعلناها فقط تقوم بإضافة 1 على قيمة المتغير increment() هنا قمنا بتعريف الدالة
+    function increment() {
+        setCounter(value => value + 1);
+    }
+    
+    // و زر يتيح تحديثها counter و قد عرضنا فيه قيمة MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            <p\>Counter value is {counter}</p\>
+            <button onClick\={()\=> increment()}>Increase counter</button\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف MyComponent هنا قمنا بجعل المكون
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usestate/counter)
+
+  
+
+المثال التالي هو تطوير للمثال السابق حيث قمنا بإضافة زر جديد في المكوّن `<MyComponent>` عند تم النقر عليه يتم استدعاء دالة إسمها `decrement()` و التي تقوم داخلياً باستدعاء الدالة `setCounter()` لإنقاص قيمة المتغير `counter`.
+
+#### المثال الثاني
+
+/src/components/MyComponent.js
+
+import { useState } from "react";
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+    // setCounter() قيمته الأولية 0 و يمكن تحديث قيمته من خلال استدعاء دالة إسمها counter هنا قمنا بتعريف متغير إسمه
+    const \[counter, setCounter\] = useState(0);
+    
+    // المربوطة به counter و جعلناها فقط تقوم بإضافة 1 على قيمة المتغير increment() هنا قمنا بتعريف الدالة
+    function increment() {
+        setCounter(value => value + 1);
+    }
+    
+    // المربوطة به counter و جعلناها فقط تقوم بإنقاص 1 من قيمة المتغير decrement() هنا قمنا بتعريف الدالة
+    function decrement() {
+        setCounter(value => value - 1);
+    }
+    
+    // و قد عرضنا فيه MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    //  بالإضافة إلى زر يقوم بزيادة قيمته واحداً و زر يقوم بإنقاصها واحداً counter قيمة المتغير 
+    return (
+        <>
+            <button onClick\={()\=> decrement()}>-1</button\>
+            <span\>{counter}</span\>
+            <button onClick\={()\=> increment()}>+1</button\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف MyComponent هنا قمنا بجعل المكون
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usestate/increase-and-decrease-counter)
+
+## تحديث حالة مربع النص في React
+
+في المثال التالي، في المكوّن `<MyComponent>` قمنا بتعريف متغير إسمه `text` مع ربطه بدالة إسمها `setText()`.  
+في هذا المكوّن وضعنا أيضاً مربع نص، كلما تم تغيير قيمته سيتم استدعاء دالة إسمها `handleChange()` و التي تقوم داخلياً باستدعاء الدالة `setText()` لكي تقوم بوضع قيمة مربع النص الجديدة في المتغير `text`.
+
+بعدها قمنا بعرض المكوّن `<MyComponent>` في المكوّن `<App>` لتجربته.
+
+#### مثال
+
+/src/components/MyComponent.js
+
+import { useState } from "react";
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+    // setText() قيمته الأولية نص فارغ و يمكن تحديث قيمته من خلال استدعاء دالة إسمها text هنا قمنا بتعريف متغير إسمه
+    const \[text, setText\] = useState("");
+    
+    // المربوطة به text و جعلناها تقوم بوضع قيمة مربع النص الحالية في المتغير handleChange() هنا قمنا بتعريف الدالة
+    function handleChange(e) {
+        setText(value => e.target.value);
+    }
+    
+    // text و قد عرضنا فيه مربع النص و قيمة المتغير MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            <input onChange\={(e)\=> handleChange(e)} />
+            <p\>You typed: {text}</p\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف MyComponent هنا قمنا بجعل المكون
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usestate/handle-text-changes)
+
+## تحديث حالة خانة الإختيار في React
+
+في المثال التالي، في المكوّن `<MyComponent>` قمنا بتعريف متغير إسمه `liked` مع ربطه بدالة إسمها `setLiked()`.  
+في هذا المكوّن وضعنا أيضاً خانة إختيار ( Checkbox )، كلما تم تغيير قيمتها سيتم استدعاء دالة إسمها `handleChange()` و التي تقوم داخلياً باستدعاء الدالة `setLiked()` لكي تقوم بوضع قيمة خانة الإختيار الجديدة في المتغير `liked`.
+
+بعدها قمنا بعرض المكوّن `<MyComponent>` في المكوّن `<App>` لتجربته.
+
+#### مثال
+
+/src/components/MyComponent.js
+
+import { useState } from "react";
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+    // setLiked() و يمكن تحديث قيمته من خلال استدعاء دالة إسمها true قيمته الأولية text هنا قمنا بتعريف متغير إسمه
+    const \[liked, setLiked\] = useState(true);
+    
+    // المربوطة به liked و جعلناها تقوم بوضع قيمة خانة الإختيار الحالية في المتغير handleChange() هنا قمنا بتعريف الدالة
+    function handleChange(e) {
+        setLiked(e.target.checked);
+    }
+    
+    // liked و قد عرضنا فيه خانة إختيار و قيمة المتغير MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            <label\>
+                <input
+                    type\="checkbox" 
+                    checked\={liked}
+                    onChange\={(e)\=> handleChange(e)}
+                />
+                Learn React.
+            </label\>
+            <p\>Learn React is {liked ? 'checked': 'not checked'}.</p\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف MyComponent هنا قمنا بجعل المكون
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usestate/handle-checkbox-changes)
+
+## تحديث حالة كائن في React
+
+في المثال التالي، في المكوّن `<MyComponent>` قمنا بتعريف كائن إسمه `form` مع ربطه بدالة إسمها `setForm()`.  
+في هذا المكوّن وضعنا بعض الحقول، كلما تم تغيير قيمة أحدها سيتم استدعاء دالة إسمها `handleChange()` و التي تقوم داخلياً باستدعاء الدالة `setForm()` لكي تقوم بوضع القيم الجديدة لخصائص الكائن `form`.
+
+بعدها قمنا بعرض المكوّن `<MyComponent>` في المكوّن `<App>` لتجربته.
+
+#### مثال
+
+/src/components/MyComponent.js
+
+import { useState } from "react";
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+    // setForm() عبارة عن كائن و يمكن تحديث قيم خصائصه من خلال استدعاء دالة إسمها form هنا قمنا بتعريف متغير إسمه
+    const \[form, setForm\] = useState({
+        firstName: 'Mhamad',
+        lastName: 'Harmush',
+        email: 'mhamad.harmush@example.com'
+    });
+
+    // form الموجودة في الكائن firstName و مهمتها تحديث قيمة الخاصية setFirstName هنا قمنا بتعريف دالة إسمها
+    // الحالية و من ثم تقوم بإسناد القيمة الجديدة form فعلياً الدالة تقوم بإنشاء نسخة من جميع خصائص و قيم الكائن
+    // form الموجودة في الكائن firstName التي يتم إدخالها في الحقل الذي قام باستدعائها في الخاصية  
+    function setFirstName(e) {
+        setForm({
+            ...form, // form هنا قمنا بوضع نسخة من الخصائص و القيم السابقة الموجودة في الكائن
+            firstName: e.target.value // firstName هنا قمنا بتحديث قيمة الخاصية
+        });
+    }
+
+    // form الموجودة في الكائن lastName و مهمتها تحديث قيمة الخاصية setLastName هنا قمنا بتعريف دالة إسمها
+    // الحالية و من ثم تقوم بإسناد القيمة الجديدة form فعلياً الدالة تقوم بإنشاء نسخة من جميع خصائص و قيم الكائن
+    // form الموجودة في الكائن lastName التي يتم إدخالها في الحقل الذي قام باستدعائها في الخاصية  
+    function setLastName(e) {
+        setForm({
+            ...form, // form هنا قمنا بوضع نسخة من الخصائص و القيم السابقة الموجودة في الكائن
+            lastName: e.target.value // lastName هنا قمنا بتحديث قيمة الخاصية
+        });
+    }
+
+    // form الموجودة في الكائن email و مهمتها تحديث قيمة الخاصية setEmail هنا قمنا بتعريف دالة إسمها
+    // الحالية و من ثم تقوم بإسناد القيمة الجديدة form فعلياً الدالة تقوم بإنشاء نسخة من جميع خصائص و قيم الكائن
+    // form الموجودة في الكائن email التي يتم إدخالها في الحقل الذي قام باستدعائها في الخاصية  
+    function setEmail(e) {
+        setForm({
+            ...form, // form هنا قمنا بوضع نسخة من الخصائص و القيم السابقة الموجودة في الكائن
+            email: e.target.value // email هنا قمنا بتحديث قيمة الخاصية
+        });
+    }
+
+    // و قد عرضنا فيه 3 حقول بالإضافة إلى فقرة MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            <label\>
+                First Name
+                <input value\={form.firstName} onChange\={(e)\=> setFirstName(e)}/>
+            </label\>
+            <label\>
+                Last Name
+                <input value\={form.lastName} onChange\={(e)\=> setLastName(e)}/>
+            </label\>
+            <label\>
+                Email
+                <input value\={form.email} onChange\={(e)\=> setEmail(e)}/>
+            </label\>
+            <p\>
+                {form.firstName}{' '}
+                {form.lastName}{' '}
+                ({form.email})
+            </p\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف MyComponent هنا قمنا بجعل المكون
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usestate/handle-form-changes)
+
+## تحديث حالة مصفوفة كائنات في React
+
+في المثال التالي، جعلنا المكوّن `<MyComponent>` يتألف من 3 أقسام:
+
+*   حاوية تسمح بإضافة مستخدم جديد.
+*   قائمة تعرض جميع المستخدمين و تسمح بتعديل قيمهم.
+*   فقرة تعرض إجمالي عدد المستخدمين الحاليين.
+
+في البداية قمنا بتعريف مصفوفة إسمها `initialUsers` وضعنا فيها كائنات، كل كائن منهم يحتوي على معلومات مستخدم واحد.
+
+لأجل أن يملك كل مستخدم جديد يتم إضافته رقم تعرفة ( Id ) بشكل تلقائي، قمنا بتعريف متغير عام إسمه `nextId` و جعلنا قيمته تزداد واحداً مع كل مستخدم جديد يتم إضافته.
+
+لجعل بيانات المصفوفة قابلة للتعديل في واجهة المستخدم، قمنا بإنشاء مصفوفة إسمها `users` وضعنا فيه جميع عناصر المصفوفة `initialUsers` و ربطناها بدالة إسمها `setUsers()` ليكون بالإمكان تحديث قيمها من خلالها.
+
+أي مستخدم جديد سيتم إضافته، سيعتمد على متغير إسمه `newUsername` مربوط بدالة إسمها `setNewUsername()` ليكون بالإمكان تمرير قيمته بسهولة للدالة `setUsers()` و التي ستقوم بإضافتها لكائن (مستخدم) جديد في المصفوفة `users`.
+
+في النهاية قمنا بعرض المكوّن `<MyComponent>` في المكوّن `<App>` لتجربته.
+
+#### مثال
+
+/src/components/MyComponent.js
+
+import { useState } from "react";
+
+// تلقائي (id) هذا المتغير سنستخدمه لإعطاء أي مستخدم جديد يتم إضافته رقم تعرفة
+var nextId = 4;
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+
+    // عبارة عن مصفوفة من الكائنات initialUsers هنا قمنا بتعريف مصفوفة إسمها
+    // مع الإشارة إلى أن كل كائن منهم يحتوي على المعلومات الخاصة بمستخدم واحد
+    const initialUsers = \[
+        {id: 1, username: "Mhamad", isEditing: false},
+        {id: 2, username: "Hala", isEditing: false},
+        {id: 3, username: "Ayman", isEditing: false},
+    \];
+
+    // مما يعني initialUsers وضعنا فيه قيم المصفوفة users هنا قمنا بتعريف متغير إسمه
+    // setUsers أنه عبارة عن مصفوفة و يمكن تحديث قيمها من خلال استدعاء دالة إسمها 
+    const \[users, setUsers\] = useState(initialUsers);
+    
+    // قيمته الأولية نص فارغ newUsername هنا قمنا بتعريف متغير إسمه
+    // setNewUsername و يمكن تحديث قيمته من خلال استدعاء دالة إسمها 
+    // سنستخدم هذا المتغير بشكل مؤقت لتخزين إسم أي مستخدم جديد يتم إضافته 
+    const \[newUsername, setNewUsername\] = useState("");
+
+    // تستخدم لإضافة مستخدم جديد addNewUser هنا قمنا بتعريف دالة إسمها
+    // مع إعطائه users فعلياً الدالة تقوم بإنشاء كائن جديد و إضافته في المصفوفة
+    // nextId بشكل تلقائي نسبةً لآخر قيمة تم إضافتها في المتغير id قيمة للخاصية 
+    // newUsername بالإضافة إلى إسم المستخدم المُدخل في الحقل المربوط بالمتغير  
+    function addNewUser() {
+        // هنا وضعنا شرط لمنع إضافة المستخدم إن لم يتم إعطاؤه إسم أولي
+        if (newUsername.trim() == "") {
+            alert("Please enter a username for the new user.");
+            return;
+        }
+        // هنا قمنا بإضافة المستخدم مع إعطاؤه إسم المستخدم المُدخل في الحقل
+        setUsers(\[
+            ...users,
+            {id: nextId++, username: newUsername},
+        \]);
+        // هنا قمنا بحذف إسم المستخدم المُدخل في الحقل بعد أن قمنا بإضافته للكائن
+        setNewUsername("");
+    }
+
+    // تستخدم للسماح بتحديث معلومات مستخدم محدد editUser هنا قمنا بتعريف دالة إسمها
+    // users فعلياً الدالة تقوم بالمرور على جميع الكائنات الموجودة في المصفوفة
+    // هو الذي ستقف عنده و تحدث id الكائن الذي تجده يملك نفس قيمة البارميتر 
+    // من أجل أن يصبح بالإمكان تعديل قيمه true فيه إلى isEditing قيمة الخاصية 
+    function editUser(id) {
+        setUsers(
+            users.map((user) =>
+                user.id === id ? {...user, isEditing: true} : user
+            )
+        );
+    }
+
+    // تستخدم لإيقاف السماح بتحديث معلومات المستخدم stopEditUser هنا قمنا بتعريف دالة إسمها
+    // users فعلياً الدالة تقوم بالمرور على جميع الكائنات الموجودة في المصفوفة
+    // هو الذي ستقف عنده و تحدث id الكائن الذي تجده يملك نفس قيمة البارميتر 
+    // من أجل إخفاء حقل التعديل false فيه إلى isEditing جميع قيمه بالإضافة مع إعادة قيمة الخاصية 
+    function stopEditUser(id) {
+        setUsers(
+            users.map((user) =>
+                user.id === id ? {...user, isEditing: false} : user
+            )
+        );
+    }
+
+    // تستخدم لحذف مستخدم محدد deleteUser هنا قمنا بتعريف دالة إسمها
+    // users فعلياً الدالة تقوم بالمرور على جميع الكائنات الموجودة في المصفوفة
+    // هو الذي تقوم بحذفه منها id الكائن الذي تجده يملك نفس قيمة البارميتر 
+    function deleteUser(id) {
+        setUsers(users.filter((user) => user.id !== id));
+    }
+
+    // MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    return (
+        <>
+            {/\* هنا قمنا بعرض الحاوية التي تسمح بإضافة مستخدم جديد \*/}
+            <div className\="add-user-box"\>
+                <input placeholder\="Enter Username" value\={newUsername} onChange\={(e) => setNewUsername(e.target.value)} />
+                <button onClick\={() => addNewUser()}>Add New User</button\>
+            </div\>
+
+            {/\* هنا قمنا بعرض قائمة فيها جميع المستخدمين \*/}
+            <ul\>
+                {users.map((user) => (
+                    <li key\={user.id}\>
+
+                        {user.isEditing && (
+                            <>
+                                <input
+                                    value\={user.username}
+                                    onChange\={(e) =>
+                                        setUsers(
+                                            users.map((u) =>
+                                                u.id === user.id ?{...u, username: e.target.value} : u
+                                            )
+                                        )
+                                    }
+                                />
+                                <button onClick\={() => stopEditUser(user.id)}>Stop Editing</button\>
+                                <button onClick\={() => deleteUser(user.id)}>Delete</button\>
+                            </>
+                        )}
+
+                        {!user.isEditing && (
+                            <>
+                                <span\>{user.username}</span\>
+                                <button onClick\={() => editUser(user.id)}>Edit</button\>
+                            </>
+                        )}
+                    </li\>
+                ))}
+            </ul\>
+
+            {/\* هنا قمنا بعرض إجمالي عدد المستخدمين \*/}
+            <p\>Total Users: {users.length}</p\>
+        </>
+    );
+}
+
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usestate/handle-array-changes)
+
+  
+
+فهم كود المثال السابق أمر يتطلب وقت لأنه كبير و يشمل كل ما درسته سابقاً. لهذا حتى لو استغرقت يوم كامل في دراسته فهذا أمر طبيعي. و بالطبع قم بتجربته على حاسوبك و اقرأ التعليقات الموضوعة على الكود جيداً و تلاعب به كيفما شئت حتى تفهمه.

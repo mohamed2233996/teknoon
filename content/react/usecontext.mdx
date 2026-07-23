@@ -1,0 +1,258 @@
+---
+title: "Reactالدالة useContext()"
+source: "https://harmash.com/tutorials/react/usecontext"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:10.699Z"
+---
+
+## مشاركة القيم بين المكونات في React
+
+نستخدم الدالة `createContext()` لإنشاء مكوّن يمكن مشاركة قيمته مع أي مكوّن يتم وضعه بداخله.  
+بعدها، في أي مكوّن موجود بداخله نستطيع استخدام الدالة `useContext()` للحصول على قيمته.
+
+هذه الدالة هي من ضمن دوال [الهووكس](/tutorials/react/hooks) ( Hooks ) التي يمكن استخدامها في المكوّن المبني بأسلوب Function Component.
+
+  
+
+### طريقة تضمينهما
+
+حتى تتمكن من استخدام الدالة `createContext()` يجب تضمينها أولاً كما يلي.
+
+#### مثال
+
+import { createContext } from "react";
+
+حتى تتمكن من استخدام الدالة `useContext()` يجب تضمينها أولاً كما يلي.
+
+#### مثال
+
+import { useContext } from "react";
+
+  
+
+### الشكل العام لاستخدامهما
+
+عند استخدام الدالة `createContext()` لإنشاء مكوّن يمكن مشاركة قيمه مع أبنائه، فإنه يتم ربط القيمة التي سيتم مشاركتها من خلاله بالدالة `useState()` ليكون بالإمكان تحديثها لدى جميع أبنائه في حال تغيّرت.
+
+#### مثال
+
+// المكوّن الذي سيتم مشاركة قيمته يتم تعريفه خارج المكوّن الذي سيتم تضمينه فيه كما يلي
+export const SomeContext = createContext();
+    
+// <SomeContext> بعدها يتم تعريف المكوّن الذي سيقوم باستخدام المكوّن
+function Component() {
+    // ليكون بالإمكان تحديث قيمته لاحقاً عند الجميع State هنا يتم ربط المتغير الذي سيتم مشاركة قيمته بــ
+    const \[someState, setSomeState\] = useState();
+
+    // someState و تمرير قيمة المتغير <SomeContext> هنا يتم وضع المكوّن
+    // value التي سيتم مشاركتها مع أبنائه عن طريقة الخاصية
+    return (
+        <SomeContext.Provider value\={someState}\>
+            {/\*
+                هنا يتم وضع المكونات الداخلية التي يمكنها الوصول 
+                 useContext() عن طريق الدالة someState لقيمة    
+            \*/}
+        </SomeContext.Provider\>
+    );
+}
+
+عند استخدام الدالة `useContext()` فإنه بكل بساطة يتم تمرير إسم المكوّن الذي يحتوي على القيمة المشتركة لها فقط.
+
+#### مثال
+
+function ChildComponent() {
+    // value سيتم وضعها في المتغير <SomeContext> القيمة الموجودة في المكوّن
+    const value = useContext(SomeContext);
+
+    // كما يلي value و بعدها يمكنك عرض قيمة المتغير
+    return (
+        <div\>{ value }</div\>
+    );
+}
+
+لا تقلق إذا وجدت الشرح الآن مبهم قليلاً لأنك ستفهم ذلك لاحقاً من الأمثلة.
+
+## تحضير مشروع للتطبيق العملي
+
+إفعل الخطوات التالية تباعاً حتى تنشئ مشروع جديد و تطبق فيه الأمثلة كما فعلنا بالضبط:
+
+1.  قم بإنشاء مشروع جديد إسمه `demo-app`.
+2.  بداخل المجلد `src` تجد ملف إسمه `App.js` قم بحذف كل الكود الإفتراضي الموجود فيه.
+3.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `components` لأننا سنضع بداخله مكوّنات.
+4.  بداخل المجلد `components` قم بإنشاء ملف إسمه `Component1.js` لأنه سيمثل مكوّن.
+5.  بداخل المجلد `components` قم بإنشاء ملف إسمه `Component2.js` لأنه سيمثل مكوّن.
+6.  بداخل المجلد `components` قم بإنشاء ملف إسمه `Component3.js` لأنه سيمثل مكوّن.
+
+في هذا المشروع قمنا بتجهيز ثلاث مكونات لأننا سنقوم لاحقاً بمشاركة قيمة موجودة في المتغير `<App>` معهم جميعاً.
+
+## تمرير القيمة من مكوّن إلى آخر في React
+
+عند الحاجة لتمرير قيمة من مكوّن إلى آخر فإنه بالإمكان تمريرها له كخاصيّة و جعله يستقبلها بواسطة الكائن `props` كما سبق و رأينا. هذا الأمر سهل جداً في حال كنا بحاجة لتمرير القيمة من المكوّن الأب إلى المكوّن الإبن فقط و لكن في حال كان المكون الذي يملك القيمة سيمررها لمكوّن موجود بداخل عدة مكونات أخرى فإن اعتماد هذا الأسلوب يعتبر ضعيف جداً لأنك ستضطر إلى تمرير القيمة في كل المكونات المتداخلة حتى تصل إلى المكون المطلوب.
+
+سنوضح كيفية تمرير القيم من مكوّن إلى آخر بواسطة الكائن `props` و من ثم كيفية فعل هذا الأمر بطريقة أسهل و أفضل بواسطة الدالة `useContext()` المخصصة لمشاركة القيم بين المكونات.
+
+  
+
+في المثال التالي قمنا بوضع المكونات `<Component1>` و `<Component2>` و `<Component3>` في المكوّن `<App>` بشكل شجري كما يلي.
+
+App
+|\_ Component1
+    |\_ Component2
+        |\_ Component3
+
+بالإضافة إلى ذلك، في المكوّن `<App>` قمنا بتعريف متغير إسمه `mode` و قد مررنا قيمته تباعاً لجميع المكونات الموجودة فيه إلى أن أوصلناها للمكوّن `<Component3>`.
+
+#### مثال
+
+/src/components/App.js
+
+// Component1.js الموجود في الملف Component1 و المكوّن useState هنا قمنا قمنا بتضمين الهووك 
+import { useState } from "react";
+import Component1 from "./components/Component1";
+
+// App هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function App() {
+    // setMode() و يمكن تحديث قيمته من خلال استدعاء دالة إسمها 'light' قيمته الأولية mode هنا قمنا بتعريف متغير إسمه
+    const \[mode, setMode\] = useState('light');
+    
+    // Component1 بالإضافة إلى محتوى المكوّن mode هنا قمنا بعرض قيمة المتغير 
+    // Component1 كخاصية في المكوّن mode و لاحظ أننا قمنا بتمرير قيمة المتغير
+    return (
+        <>
+            <p\>In App we know that mode is set to {mode}</p\>
+            <Component1 mode\={mode} />
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+/src/components/Component1.js
+
+// Component2.js الموجود في الملف Component2 هنا قمنا بتضمين المكوّن 
+import Component2 from "./Component2";
+
+// فيه props مع وضع الباراميتر Component1 هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+// التي سنمررها فيه عند تضمينه mode حتى نستطيع الوصول لقيمة الخاصية 
+// بذات الطريقة Component2 و من ثم قمنا بتمريرها أيضاً كخاصية في المكوّن
+function Component1(props) {
+    return <Component2 mode\={props.mode} />;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Component1 هنا قمنا بجعل المكون
+export default Component1;
+
+/src/components/Component2.js
+
+// Component3.js الموجود في الملف Component3 هنا قمنا بتضمين المكوّن 
+import Component3 from "./Component3";
+
+// فيه props مع وضع الباراميتر Component2 هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+// التي سنمررها فيه عند تضمينه mode حتى نستطيع الوصول لقيمة الخاصية 
+// بذات الطريقة Component3 و من ثم قمنا بتمريرها أيضاً كخاصية في المكوّن
+function Component2(props) {
+    return <Component3 mode\={props.mode} />;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Component2 هنا قمنا بجعل المكون
+export default Component2;
+
+/src/components/Component3.js
+
+// فيه props مع وضع الباراميتر Component3 هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+// التي سنمررها فيه عند تضمينه mode حتى نستطيع الوصول لقيمة الخاصية 
+function Component3(props) {
+    return <p\>In Component3 we know that mode is set to {props.mode}</p\>;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Component3 هنا قمنا بجعل المكون
+export default Component3;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usecontext/passing-data-using-props)
+
+الغرض من المثال السابق كان فقط توضيح طريقة مشاركة القيمة بين عدة مكونات باستخدام أسلوب `props` و لكن بالطبع لا تستعمل هذا الأسلوب فهو ليس الأسلوب الأفضل لفعل ذلك.
+
+## الحصول على قيمة المكوّن الأعلى في React
+
+في المثال التالي قمنا باستخدام الدالة `createContext()` لإنشاء مكوّن إسمه `ModeContext` يسمح بمشاركة القيمة التي نمررها فيه مع المكونات التي نضعها بداخله.
+
+بعدها، في المكوّن `<Component3>` حصلنا على قيمة المكوّن `ModeContext` بكل سهولة باستخدام الدالة `useContext()`.
+
+#### مثال
+
+/src/components/App.js
+
+// Component1.js الموجود في الملف Component1 بالإضافة إلى المكوّن createContext و useState هنا قمنا قمنا بتضمين الهووك 
+import { useState, createContext } from "react";
+import Component1 from "./components/Component1";
+
+// يمكن مشاركة قيمته مع المكونات التي نضعها بداخله ModeContext هنا قمنا بإنشاء مكوّن إسمه
+export const ModeContext = createContext();
+
+// App هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function App() {
+    // setMode() و يمكن تحديث قيمته من خلال استدعاء دالة إسمها 'light' قيمته الأولية mode هنا قمنا بتعريف متغير إسمه
+    const \[mode, setMode\] = useState('light');
+    
+    // <ModeContext.Provider> كل المكونات التي سيتم فيها مشاركة القيمة معها وضعناها بداخل 
+    // value التي مررناها له في الخاصية mode القيمة التي سيتم مشاركتها فيما بينهم، هي قيمة المتغير 
+    // Component1 كخاصية في المكوّن mode و لاحظ أننا قمنا بتمرير قيمة المتغير
+    return (
+        <ModeContext.Provider value\={mode}\>
+            <p\>In App we know that mode is set to {mode}</p\>
+            <Component1/>
+        </ModeContext.Provider\>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+/src/components/Component1.js
+
+// Component2.js الموجود في الملف Component2 هنا قمنا قمنا بتضمين المكوّن 
+import Component2 from "./Component2";
+
+// Component2 و فيها عرضنا محتوى المكون Component1 هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Component1() {
+    return <Component2/>;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Component1 هنا قمنا بجعل المكون
+export default Component1;
+
+/src/components/Component2.js
+
+// Component3.js الموجود في الملف Component3 هنا قمنا قمنا بتضمين المكوّن 
+import Component3 from "./Component3";
+
+// Component3 و فيها عرضنا محتوى المكون Component2 هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Component2() {
+    return <Component3/>;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Component2 هنا قمنا بجعل المكون
+export default Component2;
+
+/src/components/Component3.js
+
+// App.js الموجود في الملف ModeContext بالإضافة إلى المكوّن useContext هنا قمنا قمنا بتضمين الهووك 
+import { useContext } from "react";
+import { ModeContext } from "../App";
+
+// Component3 هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function Component3() {
+    // mode في متغير إسمه ModeContext هنا قمنا بتخزين القيمة الموضوعة في المكوّن
+    const mode = useContext(ModeContext);
+    
+    // mode هنا قمنا بعرض قيمة المتغير
+    return <p\>In Component3 we know that mode is set to {mode}</p\>;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف Component3 هنا قمنا بجعل المكون
+export default Component3;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usecontext/passing-data-using-createcontext-and-usecontext)

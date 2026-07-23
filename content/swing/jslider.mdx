@@ -1,0 +1,155 @@
+---
+title: "Swingالكلاس JSlider"
+source: "https://harmash.com/tutorials/swing/jslider"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:37.149Z"
+---
+
+## مقدمة
+
+الكلاس `JSlider` يستخدم لإضافة Slider في واجهة المستخدم.
+
+  
+
+### بناؤه
+
+public class JSlider
+extends JComponent
+implements SwingConstants, Accessible
+
+## كونستركتورات الكلاس `JSlider`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JSlider`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JSlider()` ينشئ كائن من الكلاس `JSlider` يمثل Slider أفقي قيمته الأولية تساوي 50.  
+قيمته يمكن أن تتراوح بين 0 و 100.
+
+2
+
+`public JSlider(int orientation)` ينشئ كائن من الكلاس `JSlider` يمثل Slider مع تحديد إتجاهه ( أفقي أو عامودي ) و قيمته الأولية تساوي 50.  
+قيمته يمكن أن تتراوح بين 0 و 100.  
+  
+مكان الباراميتر `orientation` نضع إحدى الثوابت التالية:  
+
+*   `SwingConstants.VERTICAL`: يجعل الـ Slider يظهر عامودياً.
+*   `SwingConstants.HORIZONTAL`: يجعل الـ Slider يظهر أفقياً.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.
+
+3
+
+`public JSlider(int min, int max)` ينشئ كائن من الكلاس `JSlider` يمثل Slider أفقي مع تحديد أصغر و أكبر قيمة موجودة فيه.  
+  
+
+*   مكان الباراميتر `min` نضع أصغر قيمة ممكن وجودها في الـ Slider.
+*   مكان الباراميتر `max` نضع أكبر قيمة ممكن وجودها في الـ Slider.
+
+4
+
+`public JSlider(int orientation, int min, int max, int value)` ينشئ كائن من الكلاس `JSlider` يمثل Slider مع تحديد إتجاهه ( أفقي أو عامودي ), أصغر و أكبر قيمة موجودة فيه, و قيمته الأولية.  
+  
+
+*   مكان الباراميتر `orientation` نضع إحدى الثوابت المخصصة لتحديد إتجاه الـ Slider.
+*   مكان الباراميتر `min` نضع أصغر قيمة ممكن وجودها في الـ Slider.
+*   مكان الباراميتر `max` نضع أكبر قيمة ممكن وجودها في الـ Slider.
+*   مكان الباراميتر `value` نضع القيمة الأولية للـ Slider.
+
+## دوال الكلاس `JSlider`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JSlider`.
+
+الدالة مع تعريفها
+
+1
+
+`public int getValue()` ترجع قيمة كائن الـ `JSlider` الذي قام بإستدعائها.
+
+2
+
+`public void setValue(int value)` تستخدم لتحديد قيمة كائن الـ `JSlider` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة.  
+  
+ترمي الإستثناء IllegalArgumentException في حال كان نوع القيمة الموضوعة لا يلائم نوع الـ Model المستخدمة.
+
+3
+
+`public void setMinorTickSpacing(int n)` تستخدم لإظهار خطوط مثل خطوط المسطرة الصغيرة في كائن الـ `JSlider` الذي قام بإستدعائها و التي تساعد في معرفة قيمه.  
+مكان الباراميتر `N` نضع رقم يحدد المسافة بين كل خطين صغيرين.  
+  
+ملاحظة: يجب إستدعاء الدالة `setPaintTicks(true)` هكذا أيضاً حتى تظهر الخطوط.
+
+4
+
+`public void setMajorTickSpacing(int n)` تستخدم لإظهار خطوط مثل خطوط المسطرة الكبيرة في كائن الـ `JSlider` الذي قام بإستدعائها و التي تساعد في معرفة قيمه.  
+مكان الباراميتر `N` نضع رقم يحدد المسافة بين كل خطين كبيرين.  
+  
+ملاحظة: يجب إستدعاء الدالة `setPaintTicks(true)` هكذا أيضاً حتى تظهر الخطوط.
+
+5
+
+`public void setPaintTicks(boolean visiblity)` تستخدم لإظهار الخطوط الصغيرة و الكبيرة في كائن الـ `JSlider` الذي قام بإستدعائها.  
+مكان الباراميتر `visibility` نضع `true` لإظهار الخطوط, أو نضع `false` لإخفائهم.  
+  
+ملاحظة: يجب تحديد المسافات بين الخطوط لأنها على أساسهم تقوم برسم الخطوط تحت الـ Slider.
+
+6
+
+`public void setPaintLabels(boolean visiblity)` تستخدم لإظهار القيم عند الخطوط الكبيرة في كائن الـ `JSlider` الذي قام بإستدعائها.  
+مكان الباراميتر `visibility` نضع `true` لإظهار الخطوط الكبيرة, أو نضع `false` لإخفائهم.  
+  
+ملاحظة: يجب تحديد المسافات بين الخطوط الكبيرة لأنها على أساسهم تضع القيم عند الخطوط الكبيرة في الـ Slider.
+
+7
+
+`public void addChangeListener(ChangeListenerener)` تستخدم لتنفيذ أوامر معينة عند تغيير قيمة كائن الـ `JSlider` الذي قام بإستدعائها.  
+مكان الباراميتر `listener` نضع كائن من الكلاس `ChangeListener` و نفعل بداخله Override لدالة إسمها `stateChanged(StateEvent e)`.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JSlider` لخلق Slider و إضافته في النافذة.
+
+![طريقة إضافة JSlider في ال JFrame في جافا](/content-images/swing/jslider/1784305356186-n8rqe9.PNG)
+
+[شاهد المثال](/tutorials/swing/jslider/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إنشاء Slider أفقي مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط تحته.
+
+![طريقة عرض ال JSlider أفقياً مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط تحته في جافا](/content-images/swing/jslider/1784305356708-oopn3c.PNG)
+
+[شاهد المثال](/tutorials/swing/jslider/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة إنشاء Slider عامودي مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط بجانبه.
+
+![طريقة عرض ال JSlider عامودياً مع تحديد أصغر و أكبر قيمة فيه, بالإضافة إلى إظهار خطوط بجانبه في جافا](/content-images/swing/jslider/1784305356816-qdi6nn.PNG)
+
+[شاهد المثال](/tutorials/swing/jslider/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة تنفيذ أوامر في كل مرة يتم فيها تغيير قيمة الـ Slider.
+
+![طريقة تنفيذ أوامر في كل مرة يتم فيها تغيير قيمة ال JSlider في جافا](/content-images/swing/jslider/1784305357132-daltg7.PNG)
+
+[شاهد المثال](/tutorials/swing/jslider/example-4)

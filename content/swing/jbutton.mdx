@@ -1,0 +1,136 @@
+---
+title: "Swingالكلاس JButton"
+source: "https://harmash.com/tutorials/swing/jbutton"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:17.234Z"
+---
+
+## مقدمة
+
+الكلاس `JButton` يستخدم لإضافة زر (Button) في واجهة المستخدم.  
+محتوى هذا الزر يمكن أن يكون: نص, أيقونة, نص و أيقونة بجانبه.
+
+  
+
+### بناؤه
+
+public class JButton
+extends AbstractButton
+implements Accessible
+
+## كونستركتورات الكلاس `JButton`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JButton`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JButton()` ينشئ كائن من الكلاس `JButton` يمثل Button فارغ.
+
+2
+
+`public JButton(String text)` ينشئ كائن من الكلاس `JButton` يمثل Button فيها نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه بداخل الـ Button.
+
+3
+
+`public JButton(Icon image)` ينشئ كائن من الكلاس `JButton` يمثل Button فيها أيقونة.  
+مكان الباراميتر `Icon` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها في الـ Button.
+
+4
+
+`public JButton(String text, Icon image)` ينشئ كائن من الكلاس `JButton` يمثل Button فيها نص و أيقونة معاً.  
+  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه في الـ Button.
+*   مكان الباراميتر `Icon` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها في الـ Button.
+
+## دوال الكلاس `JButton`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JButton`.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `JButton` الذي قام بإستدعائها كـ `String`.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `JButton` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public Icon getIcon()` ترجع أيقونة كائن الـ `JButton` الذي قام بإستدعائها ككائن نوعه `Icon`.  
+ترجع `null` في حال كان لا يملك أيقونة.
+
+4
+
+`public void setIcon(Icon icon)` تستخدم لوضع أيقونة لكائن الـ `JButton` الذي قام بإستدعائها.  
+مكان الباراميتر `icon` نضع كائن من الإنترفيس `Icon` يمثل الأيقونة التي ستوضع إلى جانب نص كائن الـ `JButton`.
+
+5
+
+`public void setEnabled(boolean status)` تستخدم لجعل كائن الـ `JButton` الذي قام بإستدعائها قابل أو غير قابل للنقر.  
+مكان الباراميتر `status` نضع false إذا أردنا جعل كائن الـ `JButton` غير قابل للنقر.  
+و نضع `true` إذا أردنا جعل كائن الـ `JButton` قابل للنقر من جديد.  
+  
+ملاحظة: إفتراضياً, أي Button تضيفه يكون قابل للنقر حتى لو لم تقم باستدعاء هذه الدالة.
+
+6
+
+`public void setMnemonic(int mnemonic)` تستخدم لوضع خط تحت حرف معين في النص الموضوع في كائن الـ `JButton` الذي قام بإستدعائها.  
+مكان الباراميتر `mnemonic` نضع رقم الـ key code للحرف الذي نريد أن يتم وضع خط تحته.  
+مع العلم أنه يمكنك إستخدام الثوابت الموجوة في الكلاس `KeyEvent` في حال كنت لا تعرف رقم الـ key code للحرف الذي تريد وضع خط تحته.
+
+7
+
+`public void addActionListener(ActionListener al)` تستخدم لتنفيذ أوامر معينة عند النقر على كائن الـ `JButton` الذي قام بإستدعائها.  
+مكان الباراميتر `al` نضع كائن من الكلاس `ActionListener` و نفعل بداخله Override لدالة إسمها `actionPerformed(ActionEvent ae)`.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JButton` و إضافته في النافذة.
+
+![طريقة إضافة JButton في ال JFrame في جافا](/content-images/swing/jbutton/1784305336928-x9jcg3.PNG)
+
+[شاهد المثال](/tutorials/swing/jbutton/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط كائن الـ `JButton`.
+
+![تغيير لون و حجم و نوع خط ال JButton في جافا](/content-images/swing/jbutton/1784305337038-hzwvxt.PNG)
+
+[شاهد المثال](/tutorials/swing/jbutton/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة وضع صورة كخلفية للـ `JButton`.
+
+![وضع أيقونة على ال JButton في جافا](/content-images/swing/jbutton/1784305337131-1h7ew5.PNG)
+
+[شاهد المثال](/tutorials/swing/jbutton/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة تنفيذ أوامر عند النقر على الـ Button.
+
+![طريقة تنفيذ أوامر عند النقر على ال JButton في جافا](/content-images/swing/jbutton/1784305337222-8w6tvz.PNG)
+
+[شاهد المثال](/tutorials/swing/jbutton/example-4)

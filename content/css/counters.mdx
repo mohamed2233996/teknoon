@@ -1,0 +1,220 @@
+---
+title: "CSSالعدادات"
+source: "https://harmash.com/tutorials/css/counters"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:26.300Z"
+---
+
+## مفهوم العدادات
+
+نستخدم العدادات ( Counters ) للحصول على ترقيم تلقائي للعناصر، بمعنى أننا نستطيع استخدامها لإظهار أرقام بشكل تلقائي بجانب العناصر و أهم ما يميزها أنه يمكننا إظهار الأرقام باللغة و الشكل الذي نريده.
+
+Apple
+
+Banana
+
+Blueberry
+
+في هذا الدرس ستتعلم كيفية بناء عداد تلقائي للعناصر، تحديد نوع ترقيمه و إظهاره بشكل مناسب خطوة خطوة.
+
+## خصائص التعداد التلقائي
+
+لإظهار تعداد تلقائي نحتاج استخدام الخصائص التالية:
+
+*   `counter-reset` نضعها في العنصر الأب الذي سيتم إظهار العدادات بداخله و نستخدمها لإنشاء العدادات و إعطاءها قيمة أولية.
+*   `counter-increment` نضعها في العنصر الذي نريد إظهار التعداد فيه و نعطيها إسم العداد الذي نريد استخدامه كقيمة، و يمكن هنا تحديد كيف ستزيد أو ستنقص قيمة العداد.
+*   `content` نضعها في العنصر الذي نريد إظهار التعداد فيه للتحكم في محتوى العداد، و نستخدم الدالة `counter()` أو الدالة `counters()` لإظهار رقم التعداد الخاص بالعنصر على حسب موقعه في الصفحة.
+
+  
+
+الخاصية `counter-reset` يمكنك وضعها مع خصائص العنصر `body` أو في الوسم الأب للعناصر التي ستظهر لها التعداد.  
+أما الخاصيتين `counter-increment` و `content` فنستعملهما في بداية أو نهاية العنصر التي يتم تحديدها بواسطة المحدد `::before` أو المحدد `::after`
+
+  
+
+### إظهار تعداد
+
+في المثال التالي قمنا بإظهار تعداد تلقائي في بداية كل عنصر `<h2>` مع إظهار نقطة بعده.
+
+#### مثال
+
+body {
+    counter-reset: section;
+}
+
+h2::before {
+    counter-increment: section;
+    content: counter(section) ". ";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/counters-basics)
+
+  
+
+### دمج التعداد مع نص
+
+في المثال التالي قمنا بإظهار تعداد التلقائي في بداية كل عنصر `<h2>` مع عرض كلمة قبله و شرطة بعده.
+
+#### مثال
+
+body {
+    counter-reset: section;
+}
+
+h2::before {
+    counter-increment: section;
+    content: "Section " counter(section) " - ";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/counters-with-text)
+
+  
+
+### تحسين تصميم التعداد
+
+التعداد الذي يتم إظهاره في بداية أو نهاية العناصر يمكنك تعديل تصميمه كأي عنصر آخر موجد في الصفحة فمثلاً يمكنك تغيير لونه، لون خلفيته، ميلان حدوده إلخ..
+
+#### مثال
+
+body {
+    font-family: arial;
+    counter-reset: section;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 26px;
+}
+
+h2::before {
+    counter-increment: section;
+    content: counter(section);
+    color: white;
+    background: brown;
+    margin-right: 6px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/styled-counters)
+
+## بناء عدادات مترابطة
+
+القصد من العدادات المترابطة هو استخدام أكثر من عداد في ذات الوقت و عرض قيمة العدادات في وقت واحد للعنصر.
+
+في المثال التالي قمنا بإنشاء عدّاد تلقائي في الصفحة إسمه `section` سنظهره في بداية كل عنصر `<h2>` و عند كل عنصر `<h2>` قمنا بإنشاء عدّاد إسمه `subsection` لكي يتم استخدامه للعناصر الموضوعة بعده مباشرةً.
+
+#### مثال
+
+body {
+    counter-reset: section;
+}
+
+h2 {
+    counter-reset: subsection;
+}
+
+h2::before {
+    counter-increment: section;
+    content: counter(section) ". ";
+}
+            
+p::before {
+    counter-increment: subsection;
+    content: counter(section) "." counter(subsection) ". ";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/multiple-counters)
+
+## تحديد نوع التعداد و أسلوب العدد
+
+إفتراضياً، نوع التعداد هو `decimal` و قيمة العدّاد الأساسية هي صفر، و الدالة `counter()` تجعل قيمة العدّاد تزداد واحداً مع كل عنصر يتم عرضه.
+
+  
+
+### إظهار تعداد فردي
+
+في المثال التالي قمنا بإنشاء عداد إسمه `odd` و قيمته الأولية 1- و من ثم جعلنا قيمته تزداد بمقدار 2 في كل مرة لكي يظهر التعداد بشكل فردي ( Odd ).
+
+#### مثال
+
+body {
+    counter-reset: odd -1;
+}
+
+.odd-list li {
+    counter-increment: odd 2;
+}
+
+.odd-list li::marker {
+    counter(odd);
+    content: counter(odd) ". ";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/odd-counter)
+
+  
+
+### إظهار تعداد زوجي
+
+في المثال التالي قمنا بإنشاء عداد إسمه `even` و من ثم جعلنا قيمته تزداد بمقدار 2 في كل مرة لكي يظهر التعداد بشكل زوجي ( Even ).
+
+#### مثال
+
+body {
+    counter-reset: even;
+}
+
+.even-list li {
+    counter-increment: even 2;
+}
+
+.even-list li::marker {
+    counter(even);
+    content: counter(even) ". ";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/even-counter)
+
+  
+
+### تحديد نوع التعداد
+
+بعد وضع إسم العدّاد في الدالة `counter()` يمكن إضافة نوعية الترقيم الذي سيظهر سواء عشري، روماني، إنجليزي، هندي (أرقام عربية) إلخ..
+
+#### مثال
+
+body {
+    counter-reset: section;
+}
+            
+h2::before {
+    counter-increment: section;
+    content: counter(section, lower-alpha) ") ";
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/counter-type)
+
+## تعديل خصائص التعداد في القوائم
+
+وسوم `<li>` التي يتم وضعها في الصفحة بداخل وسم `<ol>` أو `<ul>` يظهر في أولها تعداد تلقائي على شكل أرقام، أو أحرف أو حتى رموز على حسب النوع الذي تحدده أنت.
+
+يمكنك استبدال أسلوب التعداد التلقائي في `<li>` بأسلوب آخر باستخدام المحدد `li::marker { }` و من ثم تعريف التعداد بالشكل الذي تريده.
+
+في المثال التالي استخدمنا المحدد `li::marker { }` لتعديل تصميم محدد الوسم `<li>` الإفتراضي.
+
+#### مثال
+
+ul li::marker {
+    color: red;
+}
+
+ol li::marker {
+    color: dodgerblue;
+    font-weight: bold;
+    font-family: tahoma;
+    font-size: 13px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/counters/markers)

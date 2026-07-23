@@ -1,0 +1,185 @@
+---
+title: "جافاسكربتالتنقل بين العناصر"
+source: "https://harmash.com/tutorials/javascript/dom-navigation"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:14:00.409Z"
+---
+
+## مفهوم التنقل بين العناصر
+
+التنقل بين عناصر الصفحة ( DOM Navigation ) يقصد به القدرة على الوصول المباشر إلى العناصر القريبة من العنصر الحالي.
+
+أي عنصر موجود في الصفحة يملك خصائص تجعله قادر على الوصول إلى العناصر الأخرى الموجودة بالقرب منه مما يعني أنك تستطيع الإنتقال إلى العناصر الموجودة بجانبه و التي تعتبر شقيقة له ( Siblings Elements )، النزول إلى العناصر الموجودة بداخله و التي تعتبر أبناء له ( Children Elements )، و حتى الصعود إلى العنصر الذي هو موجود فيه و الذي يعتبر بمثابة أب له ( Parent Element ).
+
+الصورة التالية توضح معنى العلاقات بين العناصر و التي من خلالها نستطيع التنقل فيما بينها.
+
+![DOM Navigation](/content-images/javascript/dom-navigation/1784304840080-qxz5qa.PNG)
+
+  
+
+أي وسم موجود في DOM يسمى عنصر ( Element ) أو عقدة ( Node ) و هذا معناها ما يلي:
+
+*   سواء قلت Parent Element أو Parent Node فالمقصود هو العنصر الأب.
+*   سواء قلت Child Element أو Child Node فالمقصود هو العنصر الإبن.
+*   سواء قلت Sibling Element أو Sibling Node فالمقصود هو العنصر الشقيق.
+
+## الوصول للعنصر الأب
+
+يمكنك استخدام الخاصية `parentNode` من أي عنصر للصعود إلى العنصر الأب له.  
+العنصر الأب الذي تصل له يمكنك تخزينه في متغير أو التعامل معه بشكل مباشر.
+
+في المثال التالي قمنا بإظهار حدود للعنصر الذي يُعتبر بمثابة أب للعنصر الذي يملك id يساوي `demo`.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالصعود للعنصر الأب للعنصر الذي يمثله المتغير
+element.parentNode.style.border = '2px solid red';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/parentnode)
+
+## الوصول للعنصر الشقيق التالي
+
+يمكنك استخدام الخاصية `nextElementSibling` من أي عنصر للوصول للعنصر التالي الموجود بعده مباشرةً و الذي يعتبر بمثابة شقيق له.  
+العنصر التالي الذي تصل له يمكنك تخزينه في متغير أو التعامل معه بشكل مباشر.
+
+في المثال التالي قمنا بإظهار حدود للعنصر التالي الموجود بعد العنصر الذي يملك id يساوي `demo`.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالإنتقال للعنصر التالي الموجود بعد العنصر الذي يمثله المتغير
+element.nextElementSibling.style.border = '2px solid red';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/nextelementsibling)
+
+## الوصول للعنصر الشقيق السابق
+
+يمكنك استخدام الخاصية `previousElementSibling` من أي عنصر للوصول للعنصر السابق الموجود قبله مباشرةً و الذي يعتبر بمثابة شقيق له.  
+العنصر السابق تصل له يمكنك تخزينه في متغير أو التعامل معه بشكل مباشر.
+
+في المثال التالي قمنا بإظهار حدود للعنصر السابق الموجود قبل العنصر الذي يملك id يساوي `demo`.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالإنتقال للعنصر السابق الموجود قبل العنصر الذي يمثله المتغير
+element.previousElementSibling.style.border = '2px solid red';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/previouselementsibling)
+
+## الوصول للعنصر الذي يعتبر الإبن الأول
+
+يمكنك استخدام الخاصية `firstChildElement` من أي عنصر للوصول لأول عنصر موجود فيه و الذي يعتبر بمثابة الإبن الأول له.  
+العنصر الذي تصل له يمكنك تخزينه في متغير أو التعامل معه بشكل مباشر.
+
+في المثال التالي قمنا بإظهار حدود لأول عنصر موجود في العنصر الذي يملك id يساوي `demo`.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالإنتقال للعنصر الذي يُعتبر الإبن الأول في العنصر الذي يمثله المتغير
+element.firstElementChild.style.border = '2px solid red';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/firstchildelement)
+
+## الوصول للعنصر الذي يعتبر الإبن الأخير
+
+يمكنك استخدام الخاصية `lastChildElement` من أي عنصر للوصول لآخر عنصر موجود فيه و الذي يعتبر بمثابة الإبن الأخير له.  
+العنصر الذي تصل له يمكنك تخزينه في متغير أو التعامل معه بشكل مباشر.
+
+في المثال التالي قمنا بإظهار حدود لأول عنصر موجود في العنصر الذي يملك id يساوي `demo`.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالإنتقال للعنصر الذي يُعتبر الإبن الأخير في العنصر الذي يمثله المتغير
+element.lastElementChild.style.border = '2px solid red';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/lastchildelement)
+
+## الوصول لجميع العناصر التي تعتبر أبناء للعنصر
+
+يمكنك استخدام الخاصية `children` من أي عنصر للوصول لجميع العناصر الموجودة فيه مباشرةً و التي تعتبر بمثابة أبناء له.  
+العناصر التي ترجع لك كمصفوفة يمكنك تخزينها في متغير أو التعامل معها بشكل مباشر.
+
+في المثال التالي قمنا بإظهار حدود لأول و ثالث عنصر موجود في العنصر الذي يملك id يساوي `demo`.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالإنتقال للعنصر الذي يُعتبر الإبن الأول في العنصر الذي يمثله المتغير
+element.children\[0\].style.border = '2px solid red';
+
+// و أظهرنا له حدود element هنا قمنا بالإنتقال للعنصر الذي يُعتبر الإبن الثالث في العنصر الذي يمثله المتغير
+element.children\[2\].style.border = '2px solid red';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/children)
+
+## الإنتقال بحرية بين عناصر DOM
+
+عندما تنطلق من عنصر محدد في الصفحة فإنك قادر على الإنتقال أكثر من مرة في ذات الوقت و إليك بضعة أمثلة.
+
+في المثال التالي قمنا بالإنتقال من العنصر الذي يملك id يساوي `demo` إلى العنصر الأب له و من ثم إلى العنصر الأب و من بعدها قمنا بإظهار حدود له.
+
+#### المثال الأول
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالصعود للعنصر الأب ثم العنصر الأب نسبةً للعنصر الذي يمثله المتغير
+element.parentNode.parentNode.style.border = '2px solid red';
+
+الصورة التالية توضح العنصر الذي وصلنا إليه.
+
+![Javascript DOM Access parentNode than parentNode](/content-images/javascript/dom-navigation/1784304840183-aqx9uz.PNG)
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/parentnode.parentnode)
+
+  
+
+في المثال التالي قمنا بالإنتقال من العنصر الذي يملك id يساوي `demo` إلى العنصر الأب له و من ثم إلى العنصر الذي يعتبر العنصر الأخير بالنسبة للأب و من بعدها قمنا بإظهار حدود له.
+
+#### المثال الثاني
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// فيه ثم أظهرنا له حدود <p> و بعدها نزلنا لآخر وسم <div> هنا صعدنا للوسم
+element.parentNode.lastElementChild.style.border = '2px solid red';
+
+الصورة التالية توضح العنصر الذي وصلنا إليه.
+
+![Javascript DOM Access parentNode than lastElementChild](/content-images/javascript/dom-navigation/1784304840285-2u8s17.PNG)
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/parentnode.lastelementchild)
+
+  
+
+في المثال التالي قمنا بالإنتقال من العنصر الذي يملك id يساوي `demo` إلى العنصر التالي بعده و من ثم العنصر الذي يليه أيضاً و من بعدها قمنا بإظهار حدود له.
+
+#### المثال الثالث
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// و أظهرنا له حدود element هنا قمنا بالإنتقال إلى العنصر التالي و من ثم الذي يليه نسبةً للعنصر الذي يمثله المتغير
+element.nextelementsibling.nextelementsibling.style.border = '2px solid red';
+
+الصورة التالية توضح العنصر الذي وصلنا إليه.
+
+![Javascript DOM Access nextElementSibling than nextElementSibling](/content-images/javascript/dom-navigation/1784304840395-oeyxlv.PNG)
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-navigation/nextelementsibling.nextelementsibling)

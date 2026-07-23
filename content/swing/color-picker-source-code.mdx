@@ -1,0 +1,129 @@
+---
+title: "Swingطريقة إنشاء برنامج لإختيار الألوان Color Picker بنظام RGB"
+source: "https://harmash.com/tutorials/swing/color-picker-source-code"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:46.006Z"
+---
+
+في هذا الدرس ستتعلم طريقة إنشاء برنامج لإختيار الألوان ( Color Picker ) بنظام RGB باستخدام إطار الـ Swing.
+
+![java swing color picker source code تحميل كود برنامج إختيار الألوان في جافا](/content-images/swing/color-picker-source-code/1784305425995-lc0vze.PNG)
+
+[⇓ تحميل البرنامج](/tutorials/swing/color-picker-source-code/java-swing-color-picker.jar) [⇓ تحميل المشروع كاملاً](/tutorials/swing/color-picker-source-code/9f2044ce-b717-4cfd-87df-0458d1a42dc8_java-swing-color-picker.zip)
+
+  
+
+#### كود البرنامج
+
+Main.java
+
+import java.awt.Color;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.SwingUtilities;
+ 
+// و بالتالي أصبح إنشاء كائن منه يمثل إنشاء نافذة JFrame يرث من الكلاس Main هنا جعلنا الكلاس
+public class Main extends JFrame {
+ 
+    // هنا قمنا بتعريف الأشياء التي سيتم وضعها في النافذة
+    JScrollBar redScroller;
+    JScrollBar greenScroller;
+    JScrollBar blueScroller;
+    JLabel redLabel;
+    JLabel greenLabel;
+    JLabel blueLabel;
+    JPanel selectedColorSquare;
+    JLabel selectedColorValue;
+ 
+    // فقط createAndShowGUI() سيقوم الكونستركتور بإستدعاء الدالة Main عند إنشاء كائن من الكلاس
+    public Main() {
+        createAndShowGUI();
+    }
+ 
+    // هنا نضع كود إنشاء النافذة و محتوياتها
+    private void createAndShowGUI() {
+ 
+        // هنا قمنا بإنشاء جميع الأشياء التي سنضيفها في النافذة
+        setTitle("Color Picker");
+        redLabel = new JLabel("Red");
+        greenLabel = new JLabel("Green");
+        blueLabel = new JLabel("Blue");
+        redScroller = new JScrollBar(JScrollBar.HORIZONTAL, 127, 1, 0, 256);
+        greenScroller = new JScrollBar(JScrollBar.HORIZONTAL, 127, 1, 0, 256);
+        blueScroller = new JScrollBar(JScrollBar.HORIZONTAL, 127, 1, 0, 256);
+        selectedColorSquare = new JPanel();
+        selectedColorValue = new JLabel("Color: 127, 127, 127", JLabel.CENTER);
+ 
+        // هنا قمنا بتحديد حجم و مكان كل شيء سيتم إضافته في النافذة
+        redLabel.setBounds(40, 40, 40, 25);
+        greenLabel.setBounds(40, 80, 40, 25);
+        blueLabel.setBounds(40, 120, 40, 25);
+        redScroller.setBounds(100, 40, 300, 25);
+        greenScroller.setBounds(100, 80, 300, 25);
+        blueScroller.setBounds(100, 120, 300, 25);
+        selectedColorSquare.setBounds(420, 40, 145, 80);
+        selectedColorValue.setBounds(420, 125, 145, 25);
+ 
+        // Panel و الـ Scroll Bars هنا قمنا بتغيير لون خلفية الـ
+        redScroller.setBackground(Color.red);
+        greenScroller.setBackground(Color.green);
+        blueScroller.setBackground(Color.blue);
+        selectedColorSquare.setBackground(new Color(127, 127, 127));
+ 
+        // هنا قمنا بإضافة جميع الأشياء التي قمنا بإنشائها في النافذة
+        add(redLabel);
+        add(greenLabel);
+        add(blueLabel);
+        add(redScroller);
+        add(greenScroller);
+        add(blueScroller);
+        add(selectedColorSquare);
+        add(selectedColorValue);
+ 
+        // أي كلما تم تحريكهم .Scroll Bar هنا نضع الأوامر التي نريد تنفيذها عند تغيير قيمة أي
+        AdjustmentListener al \= new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+ 
+                // c الثلاثة كقيم للكائن Scroll Bars سيتم وضع قيم الـ Scroll Bar في كل مرة يتم فيها تحريك
+                Color c \= new Color(redScroller.getValue(), greenScroller.getValue(), blueScroller.getValue());
+ 
+                // selectedColorSquare كخلفية للـ c بعدها سيتم وضع درجة اللون المخزنة في الكائن
+                selectedColorSquare.setBackground(c);
+ 
+                // selectedColorValue كنص للـ c بعدها سيتم وضع درجة اللون المخزنة في الكائن
+                selectedColorValue.setText("Color: " + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue());
+ 
+            }
+        };
+ 
+        // al سيتم تنفيذ الأوامر الموضوعة في الكائن Scroll Bar هنا قلنا أنه عند تحريك أي
+        redScroller.addAdjustmentListener(al);
+        greenScroller.addAdjustmentListener(al);
+        blueScroller.addAdjustmentListener(al);
+ 
+        // هنا قمنا بتحديد بعض خصائص النافذة و جعلناها مرئية
+        setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);
+        setSize(600, 210);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setLayout(null);
+        setVisible(true);
+ 
+    }
+ 
+    public static void main(String\[\] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // التي ستنشئ النافذة createAndShowGUI() و بالتالي سيتم إستدعاء الدالة Main هنا قمنا بإنشاء كائن من الكلاس
+                new Main();
+            }
+        });
+    }
+ 
+}

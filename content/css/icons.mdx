@@ -1,0 +1,154 @@
+---
+title: "CSSالأيقونات"
+source: "https://harmash.com/tutorials/css/icons"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:08.079Z"
+---
+
+## مفهوم الأيقونات
+
+الأيقونة ( Icon ) في عالم الويب هي رسمة أو صورة تعبّر عن شيء ما و هي تعطي شكل رائع للتصميم.
+
+في هذا الدرس ستتعرف على أنواع الأيقونات التي يمكنك استخدامها في صفحات الويب بالإضافة إلى استخدام أيقونات مجانية رائعة و تحديد أحجامها و ألوانها.
+
+## أنواع الأيقونات
+
+الأيقونة يمكن أن تكون أحد الأنواع التالية:
+
+*   صورة عادية كالصور التي نوعها PNG و التي يمكن أن تكون خلفيتها شفافة.
+*   صورة نوعها SVG.
+*   صورة مبنية بوسوم HTML و خصائص CSS.
+
+## إضافة صورة كأيقونة
+
+في المثال التالي قمنا بإضافة صورة عادية كأيقونة بواسطة الوسم `<img>`.
+
+#### المثال الأول
+
+<img src\="user.png"/>
+
+[جرب الكود](/tryit?file=/tutorials/css/icons/set-image-as-icon)
+
+  
+
+في المثال التالي قمنا بإضافة صورة عادية كخلفية لوسم `<span>` فارغ كأيقونة بواسطة الخاصية `background-image`.
+
+#### المثال الثاني
+
+<span class\="user-icon"/></span\>
+
+[جرب الكود](/tryit?file=/tutorials/css/icons/set-background-image-as-icon)
+
+## إستخدام أيقونات جوجل
+
+أيقونات جوجل رائعة بكل ما للكلمة من معنى فهي مجانية بشكل كامل و هي تتيح لك التلاعب بخصائص الأيقونات كلونها و حجمها و حتى تصميمها.
+
+  
+
+### طريقة تضمين أيقونات جوجل
+
+هناك طرق عديدة لتضمين أيقونات جوجل في صفحات الويب أسهلها وضع رابط ملف الـ CSS التالي الخاص بها في الوسم `<head>`.
+
+<link href\="https://fonts.googleapis.com/icon?family=Material+Icons" rel\="stylesheet"\>
+
+  
+
+### طريقة عرض أيقونات جوجل
+
+أسهل طريقة لفعل ذلك هي عن طريق استخدام وسم `<i>` يملك كلاسات تشير لإسم الأيقونة كالتالي.
+
+#### مثال
+
+<head\>
+    <link href\="https://fonts.googleapis.com/icon?family=Material+Icons" rel\="stylesheet"\>
+</head\>
+
+<body\>
+    <i class\="material-icons"\>home</i\>
+    <i class\="material-icons"\>person</i\>
+    <i class\="material-icons"\>favorite</i\>
+    <i class\="material-icons"\>menu</i\>
+    <i class\="material-icons"\>search</i\>
+</body\>
+
+[جرب الكود](/tryit?file=/tutorials/css/icons/material-icons)
+
+  
+
+### طريقة تحديد حجم و لون الأيقونات
+
+في المثال التالي قمنا بتحديد ألوان و أحجام الأيقونات بواسطة خصائص CSS.  
+فعلياً جعلنا حجمها جميعاً 30 بكسل.  
+ثم قمنا بتعريف كلاسات تمثّل ألوان و أضفنا كلاس منهم لكل أيقونة حتى يتم تلوينها.
+
+#### مثال
+
+.material-icons {
+    font-size: 30px;
+}
+
+.blue {color: blue;}
+.brown {color: brown;}
+.red {color: red;}
+.purple {color: purple;}
+
+[جرب الكود](/tryit?file=/tutorials/css/icons/material-icons-size-and-color)
+
+لمزيد من التفاصيل و الأيقونات التي يوفرها لك جوجل قم بزيارة [الموقع الرسمي](https://fonts.google.com/icons) الخاص به.
+
+## إستخدام أيقونات FontAwesome
+
+FontAwesome يُعتبر أشهر موقع يمكن الحصول منه على أيقونات مجانية حيث أن أيقوناته مميزة جداً لأنه يمكن التعامل معها و كأنها نص عادي يمكن تحديد حجمه و لونه بواسطة الخاصيتين `color` و `font-size`.
+
+  
+
+### طريقة تضمين أيقوناته
+
+هناك طرق عديدة لتضمين أيقونات FontAwesome في صفحات الويب أسهلها وضع رابط ملف الـ CSS الخاص بها من شبكة Cloudflare العالمية.
+
+فيما يلي رابط الإصدار 6.2.0 من ملف الأيقونات الذي يجب إضافته بداخل الوسم `<head>`.
+
+<link rel\="stylesheet" href\="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity\="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin\="anonymous" referrerpolicy\="no-referrer" />
+
+  
+
+### طريقة عرض أيقوناته
+
+أسهل طريقة لفعل ذلك هي عن طريق استخدام وسم `<i>` يملك كلاسات تشير لإسم الأيقونة كالتالي.
+
+#### مثال
+
+<head\>
+    <link rel\="stylesheet" href\="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity\="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin\="anonymous" referrerpolicy\="no-referrer" />
+</head\>
+
+<body\>
+    <i class\="fa-solid fa-user"\></i\>
+    <i class\="fa-solid fa-house"\></i\>
+    <i class\="fa-solid fa-heart"\></i\>
+    <i class\="fa-solid fa-bars"\></i\>
+    <i class\="fa-solid fa-magnifying-glass"\></i\>
+</body\>
+
+[جرب الكود](/tryit?file=/tutorials/css/icons/fontawesome)
+
+  
+
+### طريقة تحديد حجم و لون الأيقونات
+
+في المثال التالي قمنا بتحديد ألوان و أحجام الأيقونات بواسطة خصائص CSS.
+
+#### مثال
+
+.fa-solid {
+    font-size: 20px;
+}
+
+.fa-user {color: blue;}
+.fa-house {color: brown;}
+.fa-heart {color: red;}
+.fa-bars {color: purple;}
+
+[جرب الكود](/tryit?file=/tutorials/css/icons/fontawesome-size-and-color)
+
+لمزيد من التفاصيل و الأيقونات التي يوفرها لك Fontawesome قم بزيارة [موقعه الرسمي](https://fontawesome.com) و حدد رقم إصدار الأيقونات التي تريد استخدامها ثم حدد أنك تريد الأيقونات المجانية.

@@ -1,0 +1,494 @@
+---
+title: "SQLالبحث في الأعمدة النصية"
+source: "https://harmash.com/tutorials/sql/like"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:10:05.039Z"
+---
+
+## العامل `LIKE`
+
+العامل `LIKE` يتيح البحث في الحقول النصية باستخدام التعابير النمطية ( Regular Expressions ).
+
+  
+
+### طريقة استخدامه
+
+SELECT column1, column2, ...
+FROM table\_name
+WHERE column\_name LIKE pattern;
+
+*   مكان الكلمة `column_name` نضع إسم العمود المراد البحث فيه عن نص محدد.
+*   مكان الكلمة `pattern` نضع نص يقال له نمط البحث ( Search Pattern ) لأنه يحتوي على رموز تمثل الطريقة التي سيتم فيها البحث.
+
+## الأحرف و الرموز التي تستخدم في كتابة الأنماط
+
+الأحرف و الرموز التي نضعها في أي نمط يقال لها Wildcards.
+
+قد تختلف قليلاً الأحرف و الرموز التي نضعها في الأنماط من قاعدة بيانات لأخرى و لكن أغلبها متشابه.
+
+في الجدول التالي وضعنا الأحرف و الرموز التي تستخدم في كتابة الأنماط مع تحديد قواعد البيانات التي تستخدم فيها.
+
+الرمز و استخدامه
+
+`%`
+
+يستخدم في حال عدم الإكتراث ما إذا كان يوجد شيء أم لا.  
+بالنسبة لقواعد البيانات التي يمكن استخدامه فيها فهي MySQL / SQL Server / Oracle.  
+  
+مثال: `'Hello%'`  
+هذا النمط يقصد منه أننا نريد أن يكون الحقل النصي يبدأ بكلمة `Hello` و لا يهم إن كان يوجد شيء بعدها أم لا.
+
+`*`
+
+يستخدم في حال عدم الإكتراث ما إذا كان يوجد شيء أم لا.  
+بالنسبة لقواعد البيانات التي يمكن استخدامه فيها فهي Access.  
+  
+مثال: `'Hello*'`  
+هذا النمط يقصد منه أننا نريد أن يكون الحقل النصي يبدأ بكلمة `Hello` و لا يهم إن كان يوجد شيء بعدها أم لا.
+
+`_`
+
+يستخدم للإشارة إلى وجوب وجود أي حرف في المكان الذي يتم وضعه.  
+بالنسبة لقواعد البيانات التي يمكن استخدامه فيها فهي MySQL / SQL Server / Oracle.  
+  
+مثال: `'m_n'`  
+هذا النمط يقصد منه أننا نريد أن يكون الحقل النصي يبدأ بحرف `m` و يوجد حرفين بعده فقط مثل `men` - `man` - `msn`.
+
+`?`
+
+يستخدم للإشارة إلى وجوب وجود أي حرف في المكان الذي يتم وضعه.  
+بالنسبة لقواعد البيانات التي يمكن استخدامه فيها فهي Access.  
+  
+مثال: `'m?n'`  
+هذا النمط يقصد منه أننا نريد أن يكون الحقل النصي يبدأ بحرف `m` و يوجد حرفين بعده فقط مثل `men` - `man` - `msn`.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `users` يحتوي على بيانات 10 مستخدمين.
+
+#### الإستعلام
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من 4 أعمدة users هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE users (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(50),
+    country    VARCHAR(50)
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 مستخدمين
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO users VALUES (null, "Rami", "Masri", "Lebanon");
+INSERT INTO users VALUES (null, "Ahmad", "Naji", "Syria");
+INSERT INTO users VALUES (null, "Hanan", "Mostafa", "KSA");
+INSERT INTO users VALUES (null, "Saly", "Jawhar", "Lebanon");
+INSERT INTO users VALUES (null, "Mhamad", "Harmush", "Lebanon");
+INSERT INTO users VALUES (null, "Hamad", "Akel", "Syria");
+INSERT INTO users VALUES (null, "Abdullah", "Helmi", "Egypt");
+INSERT INTO users VALUES (null, "Rashed", "Masri", "Oman");
+INSERT INTO users VALUES (null, "Majed", "Alali", "Yaman");
+INSERT INTO users VALUES (null, "Rayan", "Kasabi", "KSA");
+
+فيما يلي البيانات التي قمنا بإضافتها في الجدول `users`.
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+1
+
+Rami
+
+Masri
+
+Lebanon
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+3
+
+Hanan
+
+Mostafa
+
+KSA
+
+4
+
+Saly
+
+Jawhar
+
+Lebanon
+
+5
+
+Mhamad
+
+Harmush
+
+Lebanon
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+7
+
+Abdullah
+
+Helmi
+
+Egypt
+
+8
+
+Rashed
+
+Masri
+
+Oman
+
+9
+
+Majed
+
+Alali
+
+Yaman
+
+10
+
+Rayan
+
+Kasabi
+
+KSA
+
+## أمثلة شاملة على كتابة الأنماط
+
+الإستعلام التالي يجلب جميع الأسطر التي فيها الحقل `first_name` يبدأ بحرف `A`.
+
+#### المثال الأول
+
+SELECT \* FROM users             \-- users هنا قمنا بعرض بيانات جميع الأسطر الموجودة في الجدول
+WHERE first\_name LIKE 'A%';     \-- A يبدأ بالحرف first\_name التي فيها الحقل
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+7
+
+Abdullah
+
+Helmi
+
+Egypt
+
+  
+
+### المثال الثاني
+
+الإستعلام التالي يجلب جميع الأسطر التي فيها الحقل `first_name` ينتهي الحرفين `ad`.
+
+#### الإستعلام
+
+SELECT \* FROM users             \-- users هنا قمنا بعرض بيانات جميع الأسطر الموجودة في الجدول
+WHERE first\_name LIKE '%ad';    \-- ad ينتهي بالحرفين first\_name التي فيها الحقل
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+5
+
+Mhamad
+
+Harmush
+
+Lebanon
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+  
+
+### المثال الثالث
+
+الإستعلام التالي يجلب جميع الأسطر التي فيها الحقل `first_name` يبدأ بحرف `M` و ينتهي بحرف `D`.
+
+#### الإستعلام
+
+SELECT \* FROM users              \-- users هنا قمنا بعرض بيانات جميع الأسطر الموجودة في الجدول
+WHERE first\_name LIKE 'M%D';     \-- D و ينتهي بالحرف M يبدأ بالحرف first\_name التي فيها الحقل
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+5
+
+Mhamad
+
+Harmush
+
+Lebanon
+
+9
+
+Majed
+
+Alali
+
+Yaman
+
+  
+
+الإستعلام التالي يجلب جميع الأسطر التي فيها الحقل `first_name` يتضمن الحرفين `am` و لا يهم إن كانا موجودين في البداية أو في الوسط أو في النهاية.
+
+#### المثال الرابع
+
+SELECT \* FROM users               \-- users هنا قمنا بعرض بيانات جميع الأسطر الموجودة في الجدول
+WHERE first\_name LIKE '%am%';     \-- و لا يهم إن كانا موجودين في البداية أو في الوسط أو في النهاية am يتضمن الحرفين first\_name التي فيها الحقل
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+1
+
+Rami
+
+Masri
+
+Lebanon
+
+5
+
+Mhamad
+
+Harmush
+
+Lebanon
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+  
+
+الإستعلام التالي يجلب جميع الأسطر التي فيها الحقل `first_name` يبدأ بحرف `A` أو `R`.
+
+#### المثال الخامس
+
+SELECT \* FROM users                                      \-- users هنا قمنا بعرض بيانات جميع الأسطر الموجودة في الجدول
+WHERE (first\_name LIKE 'A%' OR first\_name LIKE 'R%');    \-- R أو الحرف A يبدأ بالحرف first\_name التي فيها الحقل
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+1
+
+Rami
+
+Masri
+
+Lebanon
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+7
+
+Abdullah
+
+Helmi
+
+Egypt
+
+8
+
+Rashed
+
+Masri
+
+Oman
+
+10
+
+Rayan
+
+Kasabi
+
+KSA
+
+  
+
+الإستعلام التالي يجلب جميع الأسطر التي فيها الحقل `first_name` لا يبدأ بالحرف `A`.
+
+#### المثال السادس
+
+SELECT \* FROM users                \-- users هنا قمنا بعرض بيانات جميع الأسطر الموجودة في الجدول
+WHERE first\_name NOT LIKE 'A%';    \-- A لا يبدأ بالحرف first\_name التي فيها الحقل
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+1
+
+Rami
+
+Masri
+
+Lebanon
+
+3
+
+Hanan
+
+Mostafa
+
+KSA
+
+4
+
+Saly
+
+Jawhar
+
+Lebanon
+
+5
+
+Mhamad
+
+Harmush
+
+Lebanon
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+8
+
+Rashed
+
+Masri
+
+Oman
+
+9
+
+Majed
+
+Alali
+
+Yaman
+
+10
+
+Rayan
+
+Kasabi
+
+KSA

@@ -1,0 +1,245 @@
+---
+title: "Javaالتعامل مع الأعداد في جافا"
+source: "https://harmash.com/tutorials/java/numbers"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:18:24.277Z"
+---
+
+## مفهوم الأعداد في جافا
+
+عادةً ما نستخدم أنواع البيانات البدائية ( Primitive Data Types ) لتخزين الأعداد ( numbers ).  
+أي لتعريف متغير بهدف تخزين عدد، نقوم بتعريفه كـ `int` أو `float` أو `double` إلخ..
+
+#### مثال
+
+int    a \= 10;
+short  b \= 50;
+float  c \= 10.5f;
+double d \= 37.002;
+
+  
+
+أحياناً يضطر المبرمج أن يستخدم الكائن للنوع و ليس الشكل البدائي للنوع.  
+من أجل ذلك, جافا تقدم لنا wrapper classes.
+
+  
+
+ما معنى wrapper classes ؟
+
+كل نوع بيانات بدائي في جافا له كلاس يمثله, و يكون من نفس إسمه, أمثلة:
+
+*   النوع `int` يمكن تمثيله بالكلاس `Integer`.
+*   النوع `float` يمكن تمثيله بالكلاس `Float`.
+*   النوع `byte` يمكن تمثيله بالكلاس `Byte`.
+*   النوع `double` يمكن تمثيله بالكلاس `Double`.
+*   النوع `short` يمكن تمثيله بالكلاس `Short`.
+*   النوع `long` يمكن تمثيله بالكلاس `Long`.
+
+  
+
+إذاً الـ wrapper classes هم كل الكلاسات التي تمثل أنواع البيانات البدائية.  
+هذه الصورة تظهر لك جميع الكلاسات التي تمثل الأعداد.
+
+![](/content-images/java/numbers/1784305104248-30k3v0.PNG)
+
+  
+  
+
+ما هي فائدة الـ wrapper classes ؟
+
+فكرة الـ wrapper classes جعلنا قادرين على معاملة هذه الأنواع ككائنات و بناء دوال خاصة لهم و لكن المبرمج العادي قد لا يتعامل بتاتاً مع الـ wrapper classes لأنه نادراً ما يحتاج لهم.
+
+  
+
+### مصطلحات تقنية
+
+*   عملية تحويل النوع البدائي لكائن من نفس النوع تسمى boxing.
+*   عملية إرجاع قيمة الكائن إلى النوع البدائي لهذا الكائن تسمى unboxing.
+
+#### مثال
+
+Integer a \= 10;     // int و ليس Integer هنا ستكون a لأن نوع القيمة التي خزنها المتغير boxing هذه العملية تسمى
+
+int b \= a + 15;     // 15 قبل إضافتها على int لأنه سيتم تحويل قيمته للنوع a بالنسبة للمتغير unboxing هذه العملية تسمى
+
+  
+
+### شرح الكود
+
+*   `Integer a = 10`:  
+        `a` يمثل كائن نوعه `Integer` قيمته 10.
+  
+*   `int b = a + 15`:  
+        هنا سيتم تحويل قيمة الكائن `a` إلى النوع `int` ثم إضافة 15 عليها و تخزين الناتج في المتغير `b`.
+
+## دوال الكلاس `Math` في جافا
+
+  
+
+ستلاحظ أن جميع الدوال المذكورة في الجدول تتعامل مع أعداد نوعها `double` و ترجع قيم نوعها `double` أيضاً.  
+السبب في ذلك أن النوع `double` يجعلك قادر على تمرير أي عدد سواء كان نوعه `int`, `long` أو `float` بدون الحاجة إلى تحويله.
+
+  
+
+الكلاس `Math` هو كلاس جاهز في جافا, يحتوي على دوال تتعلق بالرياضيات, ذكرنا بعضها في هذا الجدول.
+
+إسم الدالة مع تعريفها
+
+1
+
+`public static double abs(double d)` ترجع القيمة المطلقة للعدد الذي نمرره لها مكان البارامتير `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-abs)
+
+2
+
+`public static double ceil(double d)` ترجع العدد الصحيح الأكبر أو الذي يساوي العدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-ceil)
+
+3
+
+`public static double floor(double d)` ترجع العدد الصحيح الأصغر أو الذي يساوي العدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-floor)
+
+4
+
+`public static double rint(double d)` ترجع أقرب عدد صحيح للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-rint)
+
+5
+
+`public static long round(double d)` ترجع أقرب عدد صحيح للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-round)
+
+6
+
+`public static double max(double a, double b)` ترجع العدد الأكبر بين العددين اللذين نمررهما لها مكان الباراميترين `a` و `b`.  
+[تابع القراءة](/tutorials/java/numbers/math-max)
+
+7
+
+`public static double min(double a, double b)` ترجع العدد الأصغر بين العددين اللذين نمررهما لها مكان الباراميترين `a` و `b`.  
+[تابع القراءة](/tutorials/java/numbers/math-min)
+
+8
+
+`public static double exp(double d)`
+
+ترجع قيمة ex، أي قيمة **المتسارع** ( exponential ) للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-exp)
+
+9
+
+`public static double log(double d)` ترجع قيمة الـ logarithm للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-log)
+
+10
+
+`public static double pow(double a, double b)` تضاعف قيمة الباراميتر `a` بقيمة الباراميتر `b` ثم ترجع الناتج.  
+[تابع القراءة](/tutorials/java/numbers/math-pow)
+
+11
+
+`public static double sqrt(double d)` ترجع قيمة الجزر التربيعي (square root) للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-sqrt)
+
+12
+
+`public static double sin(double d)` ترجع قيمة الـ sine للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-sin)
+
+13
+
+`public static double cos(double d)` ترجع قيمة الـ cosine للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-cos)
+
+14
+
+`public static double tan(double d)` ترجع قيمة الـ tangent للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-tan)
+
+15
+
+`public static double asin(double d)` ترجع قيمة الـ arc sine للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-asin)
+
+16
+
+`public static double acos(double d)` ترجع قيمة الـ arc cosine للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-acos)
+
+17
+
+`public static double atan(double d)` ترجع قيمة الـ arc tangent للعدد الذي نمرره لها مكان الباراميتر `d`.  
+[تابع القراءة](/tutorials/java/numbers/math-atan)
+
+18
+
+`public static double toDegrees(double d)` تحول قيمة العدد الذي نمرره لها مكان الباراميتر `d` لـ Degrees ثم ترجع الناتج.  
+[تابع القراءة](/tutorials/java/numbers/math-todegrees)
+
+19
+
+`public static double toRadians(double d)` تحول قيمة العدد الذي نمرره لها مكان الباراميتر `d` لـ Radians ثم ترجع الناتج.  
+[تابع القراءة](/tutorials/java/numbers/math-toradians)
+
+20
+
+`public static double random()` ترجع عدد عشوائي بين 0 و 1.  
+[تابع القراءة](/tutorials/java/numbers/math-random)
+
+## ثوابت الكلاس `Math` في جافا
+
+الكلاس `Math` يحتوي أيضاً على الثوابت التالية التي تتعلق بالرياضيات.
+
+إسم الثابت
+
+تعريفه
+
+`E`
+
+يحتوي على قيمة الـ Exponential.
+
+`PI`
+
+يحتوي على قيمة الـ PI.
+
+[شاهد المثال](/tutorials/java/numbers/math-constants)
+
+## دوال الأعداد في جافا التي تستخدم مع كائنات الـ wrapper classes
+
+ذكرنا بعض الدوال التي تستخدم مع الـ wrapper classes في هذا الجدول.
+
+إسم الدالة مع تعريفها
+
+1
+
+`public ... xxxValue()` عبارة عن مجموعة دوال تستخدم لتحويل قيمة الكائن ( الذي يمثل عدد ) لقيمة بدائية تحددها الدالة التي تم إستدعاءها من الكائن و ترجعها.  
+[تابع القراءة](/tutorials/java/numbers/xxxvalue)
+
+2
+
+`public int compareTo(T o)` تقارن قيمة الكائن الذي قام باستدعائها و الذي يمثل عدد ما مع قيمة الكائن التي نمررها لها مكان الباراميتر `o`.  
+ترجع 0 إن كانت قيمتهما متساوية, و ترجع 1 إن كانت قيمة الكائن الذي إستدعاها أكبر, و ترجع 1- إن كانت قيمة الكائن الذي إستدعاها أصغر.  
+[تابع القراءة](/tutorials/java/numbers/compareto)
+
+3
+
+`public boolean equals(Object o)` تقارن قيمة الكائن الذي قام باستدعائها و الذي يمثل عدد ما مع قيمة الكائن التي نمررها لها مكان الباراميتر `o`.  
+ترجع `true` إن كانت قيمتهما متساوية, و ترجع `false` إن لم تكن كذلك.  
+[تابع القراءة](/tutorials/java/numbers/equals)
+
+4
+
+`public String toString()` ترجع قيمة الكائن الذي قام باستدعائها و الذي يمثل عدد ما كـ `String`.  
+ملاحظة: تحويل القيمة العددية لقيمة نصية مفيد جداً في بعض الحالات و يجعل المبرمج يستفيد من دوال هي في الأصل ليست للتعامل مع الأعداد.  
+[تابع القراءة](/tutorials/java/numbers/tostring)
+
+5
+
+`public ... parseXxx(String s)` عبارة عن مجموعة دوال تستخدم للحصول على القيمة البدائية لعدد مخزن كـ `String`.  
+[تابع القراءة](/tutorials/java/numbers/parsexxx)
+
+6
+
+`public static Integer valueOf(String s)` تحول قيمة الكائن `s` التي نمررها لها و التي تمثل عدد في الأساس لقيمة نوعها `Integer`.  
+[تابع القراءة](/tutorials/java/numbers/integer-valueof)

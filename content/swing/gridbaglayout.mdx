@@ -1,0 +1,45 @@
+---
+title: "Swingالكلاس GridBagLayout"
+source: "https://harmash.com/tutorials/swing/gridbaglayout"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:16.135Z"
+---
+
+## مقدمة
+
+الكلاس `GridBagLayout` يستخدم لترتيب الأشياء التي نضيفها كجدول يتألف من أسطر و أعمدة يمكن تعديل أحجامها و مكان ظهورها.
+
+هنا يجب أن يتم ربط كل شيء يتم إضافته بكائن من الكلاس `GridBagConstraints` و الذي بدوره يحدد حجمه و موقعه.
+
+  
+
+### بناؤه
+
+public class GridBagLayout
+extends Object
+implements LayoutManager2, Serializable
+
+## دوال الكلاس `GridBagLayout`
+
+الجدول التالي يحتوي على أهم الدوال الموجودة في الكلاس `GridBagLayout`.
+
+الدالة مع تعريفها
+
+1
+
+`public void addLayoutComponent(Component comp, Object constraints)` تستخدم لإضافة أي شيء مع تحديد حجمه و مكان وضعه في النافذة أو الحاوية.  
+  
+
+*   مكان الباراميتر `comp` نضع الشيء الذي نريد إضافته.
+*   مكان الباراميتر `constraints` نضع كائن من الكلاس `GridBagConstraints` يمثل حجم و موقع الشيء الذي نريد إضافته.
+
+  
+ترمي الإستثناء IllegalArgumentException في حال لم يتم وضع كائن من الكلاس `GridBagConstraints` مكان الباراميتر `constraints`.
+
+## مثال شامل
+
+المثال التالي يعلمك طريقة ترتيب محتوى الـ Frame بواسطة الكلاس `GridBagLayout` و الكلاس `GridBagConstraints`.
+
+![طريقة ترتيب محتوى ال JFrame بواسطة الكلاس GridBagLayout في جافا](/content-images/swing/gridbaglayout/1784305396130-dyktdk.PNG)
+
+[شاهد المثال](/tutorials/swing/gridbaglayout/example-1)

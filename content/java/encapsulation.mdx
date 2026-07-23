@@ -1,0 +1,250 @@
+---
+title: "Javaالتغليف في جافا"
+source: "https://harmash.com/tutorials/java/encapsulation"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:18:49.458Z"
+---
+
+## مفهوم التغليف في جافا
+
+التغليف ( Encapsulation ) عبارة عن أسلوب يمكن اتباعه لإخفاء البيانات الأساسية في الكلاس, أي لإخفاء الخصائص الموجودة فيه ( Global Variables ), و جعل الكلاسات الأخرى قادرة على التعامل مع هذه الخصائص فقط من خلال دوال يقوم بإنشائها المبرمج الأساسي للكلاس.
+
+  
+
+### الأسلوب المتبع في عملية التغليف
+
+بما أن فكرة التغليف الأساسية هي إخفاء البيانات من جهة و إتاحة التعامل معها من جهة أخرى.
+
+أول ما يجب أن يخطر في بالك هو أنه يجب تعريف جميع الخصائص ( أي المتغيرات التي ستحفظ البيانات ) الموجودة في الكلاس كـ `private` لأن تعريف الخصائص كـ `private` يعني أنه يمكن الوصول إليهم فقط من داخل الكلاس الموجودين فيه.
+
+ثاني شيىء عليك التفكير فيه هو إيجاد طريقة للوصول إلى هذه الخصائص من الخارج. لذلك عليك تجهيز دوال نوعها `public` للتعامل مع هذه الخصائص, لأن الدوال التي نوعها `public` يمكن الوصول إليهم من أي مكان.
+
+إذاً لتحقيق مبدأ التغليف, عليك تعريف الخصائص كـ `private` و تعريف الدوال التي تستخدم للوصول إليهم كـ `public`.
+
+  
+
+### مفهوم دوال الـ Setter و الـ Getter
+
+عند التعامل مع أي متغير ( أو خاصية ) فعندك خيارين و هما إما إعطاءه قيمة جديدة و إما الحصول على القيمة الموجودة فيه. و بما أنه يجب بناء دوال للتعامل مع كل خاصية من الخصائص الموجودة في الكلاس, ينصح بإعتماد أسماء متعارف عليها كالتالي:
+
+*   إبدأ إسم كل دالة الهدف منها إعطاء قيمة للخاصية بالكلمة set ثم إسم الخاصية.
+*   إبدأ إسم كل دالة الهدف منها الحصول على قيمة الخاصية بالكلمة get ثم إسم الخاصية.
+
+## أمثلة شاملة حول التغليف في جافا
+
+الآن سنقوم بإنشاء كلاس إسمه `Employee` و فكرته تخزين معلومات الموظفين مثل الإسم `name`, الراتب `salary`, العمر `age`.  
+بعدها سنقوم بتجربة الكلاس `Employee` في الكلاس `Main`.
+
+#### المثال الأول
+
+Employee.java
+
+public class Employee {
+                        // يملك 3 خصائص Employee الكلاس
+    String name;        // لأنه عبارة عن نص String الإسم نوعه
+    int    age;         // لأنه عبارة عن رقم int العمر نوعه
+    double salary;      // لأنه عبارة عن رقم كبير يمكن أن يحتوي على فاصلة double الراتب نوعه
+ 
+}
+
+  
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // Employee من الكلاس e هنا قمنا بإنشاء الكائن
+        Employee e \= new Employee();
+ 
+        // e هنا قمنا بوضع قيم لخصائص الكائن
+        e.name   = "Mhamad";
+        e.age    = 21;
+        e.salary = 1500000;
+ 
+        // e هنا قمنا بعرض قيم خصائص الكائن
+        System.out.println("Name: "   +e.name);
+        System.out.println("Age: "    +e.age);
+        System.out.println("Salary: " +e.salary);
+ 
+    }
+ 
+}
+
+  
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Name: Mhamad
+Age: 21
+Salary: 1500000.0 
+
+  
+  
+
+الآن سنقوم بتعريف الخصائص كـ `private` و سنقوم بتعريف دوال نوعها `public` للتعامل مع هذه الخصائص.  
+ملاحظة: في هذا المثال قمنا بتطبيق مبدأ التغليف.
+
+#### المثال الثاني
+
+Employee.java
+
+public class Employee {
+ 
+    // private الآن قمنا بتعريف الخصائص كـ
+    private String name;
+    private int    age;
+    private double salary;
+ 
+    public String getName() {            // name هذه الدالة ترجع قيمة المخزنة الخاصية
+        return name;
+    }
+ 
+    public int getAge() {                // age هذه الدالة ترجع قيمة المخزنة الخاصية
+        return age;
+    }
+ 
+    public double getSalary() {          // salary هذه الدالة ترجع قيمة المخزنة الخاصية
+        return salary;
+    }
+ 
+ 
+    public void setName(String n) {      // name هذه الدالة نعطيها إسم فتقوم بوضعه للخاصية
+        name = n;
+    }
+ 
+    public void setAge(int a) {          // age هذه الدالة نعطيها رقم فتقوم بوضعه للخاصية
+        age = a;
+    }
+ 
+    public void setSalary(double s) {    // salary هذه الدالة نعطيها رقم فتقوم بوضعه للخاصية
+        salary = s;
+    }
+ 
+}
+
+  
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // Employee من الكلاس e هنا قمنا بإنشاء الكائن
+        Employee e \= new Employee();
+ 
+        // Setter من خلال دوال الـ e هنا قمنا بوضع قيم لخصائص الكائن
+        e.setName("Mhamad");
+        e.setAge(21);
+        e.setSalary(1500000);
+ 
+        // Getter من خلال دوال الـ e هنا قمنا بعرض قيم خصائص الكائن
+        System.out.println("Name: "   +e.getName());
+        System.out.println("Age: "    +e.getAge());
+        System.out.println("Salary: " +e.getSalary());
+ 
+    }
+ 
+}
+
+  
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Name: Mhamad
+Age: 21
+Salary: 1500000.0 
+
+  
+  
+
+من فوائد التغليف أيضاً أنه يتيح لك وضع شروط لتخزين البيانات, كما أنه يتيح لك الحصول على البيانات بالطريقة التي تريدها.
+
+الآن سنقوم بإضافة بعض التعديلات على دوال الـ Setter و الـ Getter.  
+إذاً هنا قمنا بتطبيق مبدأ التغليف أيضاً مع وضع بعض القيود عند إدخال البيانات, و إضافة بعض التعديلات عند جلب البيانات
+
+ملاحظة: قمنا بتعليم الشروط و التعديلات الجديدة باللون الأصفر.
+
+#### المثال الثالث
+
+Employee.java
+
+public class Employee {
+ 
+    private String name;
+    private int    age;
+    private double salary;
+ 
+ 
+    public String getName() {            // مع إظهار جملة صغيرة قبلها name هذه الدالة ترجع قيمة الخاصية
+        return "Name: " +name;
+    }
+ 
+    public int getAge() {
+        return age;
+    }
+ 
+    public double getSalary() {
+        return salary;
+    }
+ 
+ 
+    public void setName(String n) {      // بشرط أن يكون الإسم أكبر من 3 أحرف name هذه الدالة نعطيها رقم فتقوم بوضعه للخاصية
+        if (n.length() < 3) {
+            System.out.println("Name is too short, name can't be less then 3 characters!");
+        }
+        else {
+            name = n;
+        }
+    }
+ 
+    public void setAge(int a) {          // age هذه الدالة نعطيها رقم فتقوم بوضعه للخاصية
+        age = a;
+    }
+ 
+    public void setSalary(double s) {    // salary هذه الدالة نعطيها رقم فتقوم بوضعه للخاصية
+        salary = s;
+    }
+ 
+}
+
+  
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        Employee e \= new Employee();
+ 
+        e.setName("dj");     // لن يقبله لأنه أصغر من حرفين
+        e.setAge(21);
+        e.setSalary(1500000);
+ 
+        System.out.println(e.getName());
+        System.out.println("Age: "    +e.getAge());
+        System.out.println("Salary: " +e.getSalary());
+ 
+    }
+ 
+}
+
+  
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Name is too short, name can't be less then 3 characters!
+Name: null
+Age: 21
+Salary: 1500000.0 
+
+لاحظ أنه لم يقبل الإسم الذي أدخلناه له لأنه أصغر من ثلاثة أحرف, لذلك طبع الرسالة التي قمنا بتجهيزها في حال تم إدخال قيمة أصغر من ثلاثة أحرف, كما أنه لم يضع الإسم الذي قمنا بإدخاله في الخاصية `name` لأنه كما نلاحظ أن الدالة `getName()` قامت بإرجاع القيمة `null`.
+
+  
+  
+
+### فوائد التغليف
+
+*   يمكنه جعل الأشياء الموجودة في الكلاس قابلة للقراءة أو للكتابة من قبل الكلاسات الخارجية.
+*   يسمح للكلاس بوضع شروط أثناء تخزين البيانات.
+*   التغليف يساعد أيضاً في جعل البرنامج قابل للتطوير من مبرمجين آخرين بدون حاجة هؤلاء المبرمجين إلى معرفة تفاصيل الكود الأساسي في البرنامج.

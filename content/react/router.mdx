@@ -1,0 +1,646 @@
+---
+title: "Reactالتوجيه"
+source: "https://harmash.com/tutorials/react/router"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:19.622Z"
+---
+
+## الفرق بين الصفحات العادية و صفحات React
+
+مواقع الويب التقليدية يتم بناء كل صفحة فيها ويب كملف `html` منفرد، بالإضافة إلى ذلك فإننا نستخدم فيها الوسم `<a>` لإضافة روابط تجعل المستخدم قادر على الإنتقال من صفحة إلى أخرى.
+
+مواقع الويب التي يتم بناء واجهة المستخدم فيها بواسطة React تكون واجهتها عبارة عن صفحة ويب واحدة و لكنها تتألف من مجموعة من المكونات. و على حسب الطريقة التي يتم فيها عرض المكونات فإن المكوّن قد يتم عرضه للمستخدم على شكل صفحة كاملة و قد يتم عرضه له كجزء من الصفحة. مما يعني أن كل صفحة يراها المستخدم هي في الواقع عبارة عن مكوّن فقط.
+
+في React لا يجب استخدام الروابط التقليدية التي نضيفها بواسطة الوسم `<a>` فهذا الوسم مخصص للإنتقال من صفحة HTML إلى صفحة HTML أخرى و ليس من مكوّن إلى مكوّن آخر موجود في نفس الصفحة.  
+في حال استعملتها في React ستجد الصفحة بأكملها تتحدث بدلاً أن يتم عرض مكوّن آخر بدلاً من المكوّن الحالي.
+
+## ما هي React Router
+
+لبناء موّجه ( Router ) أو شبكة روابط في React تستطيع التحكم بها بشكل كامل، يمكنك استخدام المكتبة `react-router-dom`.
+
+هذه المكتبة ليست جزء من React بل هي مكتبة خارجية عليك تضمينها بنفسك في المشروع إذا أردت استخدامها.
+
+تتيح لك هذه المكتبة تحديد الروابط التي يمكن للمستخدم التنقل فيما بينها، المكوّن الذي سيتم عرضه عند الإنتقال للرابط، توجيه للمستخدم لصفحات محددة في حال حصول خطأ ما أو في حال عدم وجود الصفحة التي طلبها و غيرها من المميزات التي سنتعرف عليها.
+
+يوجد عدة أساليب يمكنك اتباعها للتعامل مع هذه المكتبة و لكننا سنعلمك الأسلوب الأفضل لذلك و الذي يُنصح باتباعه.  
+كما يمكنك التوجه [لموقعها الرسمي](https://reactrouter.com/en/main/start/overview) في حال أردت تعلم المزيد بشأنها.
+
+  
+
+في الجدول التالي ذكرنا أهم أسماء المكوّنات و الدوال الموجودة في المكتبة `react-router-dom`.
+
+بعض محتوى المكتبة
+
+1
+
+`createBrowserRouter()` تستخدم هذه الدالة لإنشاء شبكة روابط. الروابط نمررها فيها على شكل مصفوفة كائنات، حيث يحتوي كل كائن منها على مسار صفحة محددة بالإضافة إلى المكون الذي سيفتح عند التوجه للصفحة.
+
+2
+
+`<RouterProvider router={}>` في المكان الذي نريد فيه عرض محتوى شبكة الروابط، نقوم بوضع هذا المكوّن مع تمرير مصفوفة الروابط له كقيمة للخاصية `router`.
+
+3
+
+`<Link to="path">text</Link>` لإضافة روابط داخلية في واجهة المستخدم، نستخدم هذا الوسم مع تمرير مسار الصفحة المراد عرضها كقيمة للخاصية `to` و النص الذي سيظهر كرابط مكان الكلمة `text`.
+
+4
+
+`<NavLink to="path">text</NavLink>` يستخدم لإضافة روابط داخلية مثل الوسم `<Link>` بالإضافة إلى أنه يتيح معرفة الرابط المفتوح حالياً مما يسمح بإضافة خصائص CSS له.
+
+5
+
+`<Outlet>` يتم وضع هذا المكوّن في المكان المراد فيه عرض محتوى الروابط الداخلية.
+
+6
+
+`useParams()` في حال كان الرابط يحتوي على قيم دينامكية (أي متغيّرة)، يمكن استخدامها للحصول على كائن فيه جميع القيم الدينامكية التي يتضمنها الرابط على شكل خصائص.
+
+## تحضير مشروع للتطبيق العملي
+
+إفعل الخطوات التالية تباعاً حتى تنشئ مشروع جديد و تطبق فيه الأمثلة كما فعلنا بالضبط:
+
+1.  قم بإنشاء مشروع جديد إسمه `demo-app`.
+2.  بداخل المجلد `src` تجد ملف إسمه `App.js` قم بحذف كل الكود الإفتراضي الموجود فيه.
+3.  بداخل المجلد `src` تجد ملف إسمه `index.css` قم بحذف كل الكود الإفتراضي الموجود فيه.
+4.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `components` لأننا سنضع بداخله المكونات.
+5.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `pages` لأننا سنضع بداخله المكونات التي ستكون بمثابة صفحات.
+6.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `layouts` لأننا سنضع بداخله المكون الذي سيحتوي على التصميم العام لأي صفحة سيتم عرضها.
+
+لاحقاً سننشئ مكونين و 5 صفحات و سنقوم بإضافتها تباعاً في المشروع بالتوازي مع شبكة الروابط التي سنقوم بإنشائها.
+
+  
+
+### تضمين المكتبة `react-router-dom`
+
+لتضمين هذه المكتبة في المشروع، قم بفتح موجه الأوامر و أنت تقف في المجلد الخاص به و تنفيذ الأمر التالي.
+
+#### تضمين المكتبة
+
+لتحميل الإصدار الأخير من المكتبة.
+
+npm i react-router-dom@latest
+
+لتحميل الإصدار الذي استخدمناه حصراً في الأمثلة.
+
+npm i react-router-dom@6.26.2
+
+في هذا الدرس استخدمنا الإصدار السادس من هذه المكتبة و للدقة فإن رقم الإصدار هو `6.26.2` و قد أشرنا لهذا الأمر لأن طريقة استخدام الإصدارات الأقدم من هذه المكتبة تختلف مما يعني أن الأمثلة الموضوعة في هذا الدرس لا تعمل على الإصدارات القديمة من هذه المكتبة.
+
+## إنشاء شبكة روابط بسيطة في React
+
+في المثال التالي قمنا بإنشاء شبكة روابط بسيطة على النحو التالي بواسطة الوسم `<BrowserRouter>`.
+
+![بناء الروابط بواسطة المكوّن BrowserRouter في React](/content-images/react/router/1784304919118-j0w7jj.png)
+
+استخدمنا الوسم `<Routes>` لتحديد المسارات الموجودة في واجهة المستخدم بالإضافة إلى المكوّن الذي يجب فتحه في كل مسار مع الإشارة إلى أن خصائص كل مسار منهم قمنا بتحديدها بواسطة الوسم`<Route>`.
+
+حتى نتمكن من عرض قائمة الروابط نفسها في كل الصفحات، قمنا بإنشاء المكوّن `<Layout>` ليحدد الشكل العام لأي صفحة و فيه عرضنا قائمة الروابط التي وضعنا في المكوّن `<Nabar>` و تحتها مباشرةً محتوى الصفحة أياً كانت بواسطة الوسم `<Outlet>`.
+
+**تنبيه:** عند نسخ أوامر هذا المثال تأكد جيداً من أن تكون ملفات مشروعك موضوعة كما فعلنا بالضبط حتى لا تضطر إلى إجراء أي تعديلات.
+
+#### مثال
+
+/src/App.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// هنا قمنا بتضمين المكونات و الصفحات التي سنعرضها في واجهة المستخدم
+import Layout from "./layouts/Layout";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import ProfilePage from "./pages/ProfilePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import UsersPage from "./pages/UsersPage";
+
+// مع جعله يمكن الوصول له من خارج هذا الملف <App> هنا قمنا بتعريف المكوّن
+export default function App() {
+    return (
+        <div className\="app"\>
+            <BrowserRouter\>
+                <Routes\>
+                    <Route path\="/" element\={<Layout />}>
+                        <Route index element\={<HomePage />} />
+                        <Route path\="/about" element\={<AboutPage />} />
+                        <Route path\="/users" element\={<UsersPage />} />
+                        <Route path\="/users/:username" element\={<ProfilePage />} />
+                        <Route path\="\*" element\={<NotFoundPage />} />
+                    </Route\>
+                </Routes\>
+            </BrowserRouter\>
+        </div\>
+    );
+}
+
+/src/layouts/Layout.js
+
+// <Navbar /> بالإضافة إلى المكوّن react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
+// الذي سيمثل الشكل العام لجميع الصفحات التي سيتم عرضها <Layout> هنا قما بتعريف المكوّن
+export default function Layout() {
+    return (
+        <div\>
+            <Navbar /> {/\* هنا سيتم عرض قائمة الروابط الموجودة في هذا المكوّن \*/}
+            <Outlet /> {/\* هنا سيتم عرض محتوى الصفحة التي يتم إدخال رابطها \*/}
+        </div\>
+    )
+}
+
+/src/components/Navbar.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { NavLink } from 'react-router-dom';
+
+// و الذي وضعنا فيه قائمة الروابط <Navbar> هنا قما بتعريف المكوّن
+function Navbar() {
+    return (
+        <nav\>
+            <NavLink to\="/"\>Home</NavLink\>
+            <NavLink to\="/about"\>About</NavLink\>
+            <NavLink to\="/users"\>Users</NavLink\>
+            <NavLink to\="/error"\>Unkown</NavLink\>
+        </nav\>
+    )
+}
+
+export default Navbar;
+
+/src/pages/HomePage.js
+
+// و الذي وضعنا فيه محتوى الصفحة الرئيسية <HomePage> هنا قما بتعريف المكوّن
+export default function HomePage() {
+    return (
+        <div className\="page home"\>
+            <h1\>Home Page</h1\>
+            <p\>Page content can be added here..</p\>
+        </div\>
+    )
+}
+
+/src/pages/AboutPage.js
+
+// و الذي وضعنا فيه محتوى صفحة عادية <AboutPage> هنا قما بتعريف المكوّن
+export default function AboutPage() {
+    return (
+        <div className\="page home"\>
+            <h1\>About Page</h1\>
+            <p\>Page content can be added here..</p\>
+        </div\>
+    )
+}
+
+/src/pages/Users.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { Link } from "react-router-dom";
+
+// هنا قمنا بتعريف مصفوفة وضعنا فيها 3 كائنات، كل كائن منهم يمثل معلومات مستخدم واحد
+const users = \[
+    { id: 1, name: "Mhamad" },
+    { id: 2, name: "Sara" },
+    { id: 3, name: "Ziad" }
+\];
+
+// و الذي وضعنا فيه محتوى صفحة المستخدمين <UsersPage> هنا قما بتعريف المكوّن
+export default function UsersPage() {
+    return (
+        <div className\="page users"\>
+            <h1\>Users Page</h1\>
+            <p\>{users.length} users have been found.</p\>
+            <ul\>
+                {users.map(user => (
+                    <li key\={user.id} >
+                        <Link to\={\`/users/${user.name}\`}>{user.name}</Link\>
+                    </li\>
+                ))}
+            </ul\>
+        </div\>
+    )
+}
+
+/src/pages/ProfilePage.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { useParams, Link } from "react-router-dom";
+
+// و الذي حددنا فيه كيف سيتم عرض صفحة المستخدم <ProfilePage> هنا قما بتعريف المكوّن
+export default function ProfilePage() {
+
+    // لتخزين جميع المعلومات الدينامكية التي تم تمريرها في الرابط useParams() هنا قمنا باستخدام الدالة
+    // params.username فعلياً الرابط يحتوي على إسم المستخدم فقط و الذي أصبح بالإمكان الوصول إليه هكذا
+    const params = useParams();
+
+    return (
+        <div className\="page profile"\>
+            <h1\>{params.username}'s Profile</h1\>
+            <p\>You are viewing {params.username}'s profile.</p\>
+            <div\>
+                <Link to\="/users" className\="btn"\>Back to users</Link\>
+            </div\>
+        </div\>
+    )
+}
+
+/src/pages/NotFoundPage.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { Link } from "react-router-dom";
+
+// و الذي حددنا فيه ما سيتم عرضه للمستخدم عند الدخول لرابط غير موجود <NotFoundPage> هنا قما بتعريف المكوّن
+export default function NotFoundPage() {
+    return (
+        <div className\="page"\>
+            <h1\>Error 404 - Page Not Found!</h1\>
+            <p\>The page you are looking for has been removed or its URL has been changed.</p\>
+            <div\>
+                <Link to\="/" className\="btn"\>Go to Home Page</Link\>
+            </div\>
+        </div\>
+    )
+}
+
+/src/index.css
+
+\* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 1.6em;
+    font-weight: normal;
+    margin-bottom: 1em;
+}
+
+p {
+    color: gray;
+    margin: .6em 0;
+    line-height: 2.2em;
+}
+
+a {
+    text-decoration: none;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+}
+
+nav {
+    flex: 0;
+    background-color: #4a5ec9;
+    border-radius: 20px;
+    margin-bottom: 1.5em;
+}
+
+nav a {
+    display: inline-block;
+    color: #a2aff9;
+    margin: 0.5em 0.25em;
+    padding: 0.5em 1em;
+    font-size: 18px;
+    border-radius: 20px;
+    transition: all .3s;
+}
+
+nav a.active,
+nav a:hover {
+    color: white;
+    background-color: #657cff;
+}
+
+.page {
+    border-radius: 20px;
+    padding: 2em 1em;
+    background-color: white;
+}
+
+.users ul {
+    margin-top: 2em;
+    list-style-type: none;
+}
+
+.users ul li {
+    margin-bottom: 1em;
+}
+
+.users ul li a {
+    padding: 10px 15px;
+    display: block;
+    box-shadow: 1px 1px 4px #ddd;
+    border-radius: 10px;
+    color: crimson;
+}
+
+.btn {
+    height: 2.6em;
+    line-height: 2.6em;
+    padding: 0 1.4em;
+    color: whitesmoke;
+    background-color: #4a5ec9;
+    display: inline-block;
+    border-radius: 6px;
+    margin-top: 1.2em;
+}
+
+[جرب الكود](/trywebapp?file=/tutorials/react/router/browserrouter)
+
+## إنشاء شبكة روابط متقدمة في React
+
+في المثال التالي قمنا بإنشاء شبكة روابط متقدمة على النحو التالي بواسطة الدالة `createBrowserRouter()`.
+
+![بناء الروابط بواسطة الدالة createBrowserRouter في React](/content-images/react/router/1784304919560-ahj2du.png)
+
+استخدمنا الوسم `<RouterProvider>` لتحديد المسارات الموجودة في واجهة المستخدم بالإضافة إلى المكوّن الذي يجب فتحه في كل مسار مع الإشارة إلى أن خصائص كل مسار منهم قمنا بتحديدها على شكل كائن.
+
+حتى نتمكن من عرض قائمة الروابط نفسها في كل الصفحات، قمنا بإنشاء المكوّن `<Layout>` ليحدد الشكل العام لأي صفحة و فيه عرضنا قائمة الروابط التي وضعنا في المكوّن `<Nabar>` و تحتها مباشرةً محتوى الصفحة أياً كانت بواسطة الوسم `<Outlet>`.
+
+**تنبيه:** عند نسخ أوامر هذا المثال تأكد جيداً من أن تكون ملفات مشروعك موضوعة كما فعلنا بالضبط حتى لا تضطر إلى إجراء أي تعديلات.
+
+#### مثال
+
+/src/App.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+// هنا قمنا بتضمين المكونات و الصفحات التي سنعرضها في واجهة المستخدم
+import Layout from "./layouts/Layout";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import UsersPage from "./pages/UsersPage";
+import ProfilePage from "./pages/ProfilePage";
+import NotFoundPage from "./pages/NotFoundPage";
+
+// لإنشاء كائن يمثل شبكة الروابط createBrowserRouter() هنا قمنا باستخدام الدالة
+const router = createBrowserRouter(\[
+    {
+        path: '/',
+        element: <Layout />,
+        children: \[
+            {
+                path: '',
+                element: <HomePage />
+            },
+            {
+                path: '/about',
+                element: <AboutPage />
+            },
+            {
+                path: '/users',
+                element: <UsersPage />
+            },
+            {
+                path: '/users/:username',
+                element: <ProfilePage />
+            },
+            {
+                path: '\*',
+                element: <NotFoundPage />
+            }
+        \]
+    }
+\]);
+
+// مع جعله يمكن الوصول له من خارج هذا الملف <App> هنا قمنا بتعريف المكوّن
+// الذي يحتوي على شبكة الروابط قمن بتم router الكائن
+export default function App() {
+    return (
+        <div className\="app"\>
+            <RouterProvider router\={router} />
+        </div\>
+    );
+}
+
+/src/layouts/Layout.js
+
+// <Navbar /> بالإضافة إلى المكوّن react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
+// الذي سيمثل الشكل العام لجميع الصفحات التي سيتم عرضها <Layout> هنا قما بتعريف المكوّن
+export default function Layout() {
+    return (
+        <div\>
+            <Navbar /> {/\* هنا سيتم عرض قائمة الروابط الموجودة في هذا المكوّن \*/}
+            <Outlet /> {/\* هنا سيتم عرض محتوى الصفحة التي يتم إدخال رابطها \*/}
+        </div\>
+    )
+}
+
+/src/components/Navbar.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { NavLink } from 'react-router-dom';
+
+// و الذي وضعنا فيه قائمة الروابط <Navbar> هنا قما بتعريف المكوّن
+function Navbar() {
+    return (
+        <nav\>
+            <NavLink to\="/"\>Home</NavLink\>
+            <NavLink to\="/about"\>About</NavLink\>
+            <NavLink to\="/users"\>Users</NavLink\>
+            <NavLink to\="/error"\>Unkown</NavLink\>
+        </nav\>
+    )
+}
+
+export default Navbar;
+
+/src/pages/HomePage.js
+
+// و الذي وضعنا فيه محتوى الصفحة الرئيسية <HomePage> هنا قما بتعريف المكوّن
+export default function HomePage() {
+    return (
+        <div className\="page home"\>
+            <h1\>Home Page</h1\>
+            <p\>Page content can be added here..</p\>
+        </div\>
+    )
+}
+
+/src/pages/AboutPage.js
+
+// و الذي وضعنا فيه محتوى صفحة عادية <AboutPage> هنا قما بتعريف المكوّن
+export default function AboutPage() {
+    return (
+        <div className\="page home"\>
+            <h1\>About Page</h1\>
+            <p\>Page content can be added here..</p\>
+        </div\>
+    )
+}
+
+/src/pages/Users.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { Link } from "react-router-dom";
+
+// هنا قمنا بتعريف مصفوفة وضعنا فيها 3 كائنات، كل كائن منهم يمثل معلومات مستخدم واحد
+const users = \[
+    { id: 1, name: "Mhamad" },
+    { id: 2, name: "Sara" },
+    { id: 3, name: "Ziad" }
+\];
+
+// و الذي وضعنا فيه محتوى صفحة المستخدمين <UsersPage> هنا قما بتعريف المكوّن
+export default function UsersPage() {
+    return (
+        <div className\="page users"\>
+            <h1\>Users Page</h1\>
+            <p\>{users.length} users have been found.</p\>
+            <ul\>
+                {users.map(user => (
+                    <li key\={user.id} >
+                        <Link to\={\`/users/${user.name}\`}>{user.name}</Link\>
+                    </li\>
+                ))}
+            </ul\>
+        </div\>
+    )
+}
+
+/src/pages/ProfilePage.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { useParams, Link } from "react-router-dom";
+
+// و الذي حددنا فيه كيف سيتم عرض صفحة المستخدم <ProfilePage> هنا قما بتعريف المكوّن
+export default function ProfilePage() {
+
+    // لتخزين جميع المعلومات الدينامكية التي تم تمريرها في الرابط useParams() هنا قمنا باستخدام الدالة
+    // params.username فعلياً الرابط يحتوي على إسم المستخدم فقط و الذي أصبح بالإمكان الوصول إليه هكذا
+    const params = useParams();
+
+    return (
+        <div className\="page profile"\>
+            <h1\>{params.username}'s Profile</h1\>
+            <p\>You are viewing {params.username}'s profile.</p\>
+            <div\>
+                <Link to\="/users" className\="btn"\>Back to users</Link\>
+            </div\>
+        </div\>
+    )
+}
+
+/src/pages/NotFoundPage.js
+
+// react-router-dom هنا قمنا بتضمين ما نحتاجه من المكتبة
+import { Link } from "react-router-dom";
+
+// و الذي حددنا فيه ما سيتم عرضه للمستخدم عند الدخول لرابط غير موجود <NotFoundPage> هنا قما بتعريف المكوّن
+export default function NotFoundPage() {
+    return (
+        <div className\="page"\>
+            <h1\>Error 404 - Page Not Found!</h1\>
+            <p\>The page you are looking for has been removed or its URL has been changed.</p\>
+            <div\>
+                <Link to\="/" className\="btn"\>Go to Home Page</Link\>
+            </div\>
+        </div\>
+    )
+}
+
+/src/index.css
+
+\* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 1.6em;
+    font-weight: normal;
+    margin-bottom: 1em;
+}
+
+p {
+    color: gray;
+    margin: .6em 0;
+    line-height: 2.2em;
+}
+
+a {
+    text-decoration: none;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+}
+
+nav {
+    flex: 0;
+    background-color: #4a5ec9;
+    border-radius: 20px;
+    margin-bottom: 1.5em;
+}
+
+nav a {
+    display: inline-block;
+    color: #a2aff9;
+    margin: 0.5em 0.25em;
+    padding: 0.5em 1em;
+    font-size: 18px;
+    border-radius: 20px;
+    transition: all .3s;
+}
+
+nav a.active,
+nav a:hover {
+    color: white;
+    background-color: #657cff;
+}
+
+.page {
+    border-radius: 20px;
+    padding: 2em 1em;
+    background-color: white;
+}
+
+.users ul {
+    margin-top: 2em;
+    list-style-type: none;
+}
+
+.users ul li {
+    margin-bottom: 1em;
+}
+
+.users ul li a {
+    padding: 10px 15px;
+    display: block;
+    box-shadow: 1px 1px 4px #ddd;
+    border-radius: 10px;
+    color: crimson;
+}
+
+.btn {
+    height: 2.6em;
+    line-height: 2.6em;
+    padding: 0 1.4em;
+    color: whitesmoke;
+    background-color: #4a5ec9;
+    display: inline-block;
+    border-radius: 6px;
+    margin-top: 1.2em;
+}
+
+[جرب الكود](/trywebapp?file=/tutorials/react/router/createbrowserrouter)

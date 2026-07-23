@@ -1,0 +1,161 @@
+---
+title: "Swingالكلاس JLabel"
+source: "https://harmash.com/tutorials/swing/jlabel"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:15.209Z"
+---
+
+## مقدمة
+
+الكلاس `JLabel` يستخدم لإضافة عنوان (Label) في واجهة المستخدم.  
+محتوى هذا العنوان يمكن أن يكون: نص, أيقونة, نص و أيقونة بجانبه.
+
+  
+
+### بناؤه
+
+public class JLabel
+extends JComponent
+implements SwingConstants, Accessible
+
+## كونستركتورات الكلاس `JLabel`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JLabel`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JLabel()` ينشئ كائن من الكلاس `JLabel` يمثل عنوان فارغ.
+
+2
+
+`public JLabel(String text)` ينشئ كائن من الكلاس `JLabel` يمثل عنوان.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه كعنوان.
+
+3
+
+`public JLabel(String text, int horizontalAlignment)` ينشئ كائن من الكلاس `JLabel` يمثل عنوان مع إمكانية تحديد موقع ظهور نص العنوان في النافذة.  
+  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه كعنوان.
+*   مكان الباراميتر `horizontalAlignment` نمرر إسم ثابت يمثل موقع ظهور نص العنوان في النافذة.
+
+  
+الثوابت التي يمكن تمريرها مكان البارميتر `horizontalAlignment`: `LEFT`, `CENTER`, `RIGHT`, `LEADING` و `TRAILING`.
+
+4
+
+`public JLabel(Icon image)` ينشئ كائن من الكلاس `JLabel` يمثل أيقونة كعنوان.  
+مكان الباراميتر `image` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها كعنوان.
+
+5
+
+`public JLabel(Icon image, int horizontalAlignment)` ينشئ كائن من الكلاس `JLabel` يمثل أيقونة كعنوان مع إمكانية تحديد موقع ظهور أيقونة العنوان في النافذة.  
+  
+
+*   مكان الباراميتر `image` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها كعنوان.
+*   مكان الباراميتر `horizontalAlignment` نمرر إسم ثابت يمثل موقع ظهور أيقونة العنوان في النافذة.
+
+  
+الثوابت التي يمكن تمريرها مكان البارميتر `horizontalAlignment`: `LEFT`, `CENTER`, `RIGHT`, `LEADING` و `TRAILING`
+
+6
+
+`public JLabel(String text, Icon image, int horizontalAlignment)` ينشئ كائن من الكلاس `JLabel` يمثل نص و أيقونة معاً كعنوان.  
+  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه في العنوان.
+*   مكان الباراميتر `image` نمرر كائن من الإنترفيس `Icon` يمثل الأيقونة التي سيتم وضعها في العنوان.
+*   مكان الباراميتر `horizontalAlignment` نمرر إسم ثابت يمثل موقع ظهور نص و أيقونة العنوان في النافذة.
+
+  
+الثوابت التي يمكن تمريرها مكان البارميتر `horizontalAlignment`: `LEFT`, `CENTER`, `RIGHT`, `LEADING` و `TRAILING`
+
+## دوال الكلاس `JLabel`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JLabel`.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `JLabel` الذي قام بإستدعائها كـ `String`.
+
+2
+
+`public void setText(String text`) تستخدم لتبديل نص كائن الـ `JLabel` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public int getHorizontalAlignment()` ترجع رقم نوعه `int` يمثل موقع ظهور نص و أيقونة كائن الـ `JLabel` الذي قام بإستدعائها في عرض النافذة.
+
+4
+
+`public void setHorizontalAlignment(int alignment)` تستخدم لتحديد موقع ظهور نص و أيقونة كائن الـ `JLabel` الذي قام بإستدعائها في عرض النافذة.  
+مكان الباراميتر `alignment` نضع إسم إحدى ثوابت الإنترفيس `SwingConstants`: `LEFT`, `CENTER`, `RIGHT`, `LEADING` و `TRAILING`
+
+5
+
+`public int getVerticalAlignment()` ترجع رقم نوعه `int` يمثل موقع ظهور نص و أيقونة كائن الـ `JLabel` الذي قام بإستدعائها في طول النافذة.
+
+6
+
+`public void setVerticalAlignment(int alignment)` تستخدم لتحديد موقع ظهور نص و أيقونة كائن الـ `JLabel` الذي قام بإستدعائها في طول النافذة.  
+مكان الباراميتر `alignment` نضع إسم إحدى ثوابت الإنترفيس `SwingConstants`: `TOP`, `CENTER` و `BOTTOM`.
+
+7
+
+`public Icon getIcon()` ترجع أيقونة كائن الـ `JLabel` الذي قام بإستدعائها ككائن نوعه `Icon`.  
+ترجع `null` في حال كان لا يملك أيقونة.
+
+8
+
+`public void setIcon(Icon icon)` تستخدم لوضع أيقونة لكائن الـ `JLabel` الذي قام بإستدعائها.  
+مكان الباراميتر `icon` نضع كائن من الإنترفيس `Icon` يمثل الأيقونة التي ستوضع إلى جانب نص كائن الـ `JLabel`.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JLabel` و إضافته في النافذة.
+
+![طريقة إضافة jlabel في ال JFrame في جافا](/content-images/swing/jlabel/1784305334922-ytjhma.PNG)
+
+[شاهد المثال](/tutorials/swing/jlabel/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم خط كائن الـ `JLabel`.
+
+![تغير نوع خط ال jlabel في جافا](/content-images/swing/jlabel/1784305335015-smqs6m.PNG)
+
+[شاهد المثال](/tutorials/swing/jlabel/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط كائن الـ `JLabel`.
+
+![تغير لون ال jlabel في جافا](/content-images/swing/jlabel/1784305335105-yr4yzd.PNG)
+
+[شاهد المثال](/tutorials/swing/jlabel/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة إنشاء نافذة تعرض الوقت الحالي للمستخدم.
+
+![عرض الوقت الحالي في jlabel في جافا](/content-images/swing/jlabel/1784305335196-rzz0dm.PNG)
+
+[شاهد المثال](/tutorials/swing/jlabel/example-4)

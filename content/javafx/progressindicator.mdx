@@ -1,0 +1,173 @@
+---
+title: "JavaFXالكلاس ProgressIndicator"
+source: "https://harmash.com/tutorials/javafx/progressindicator"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:25.033Z"
+---
+
+## مقدمة
+
+الكلاس `ProgressIndicator` يستخدم لإضافة Progress Indicator في واجهة المستخدم.
+
+الـ Progress Indicator يستخدم في العادة للأسباب التالية:
+
+*   لجعل المستخدم يدرك أن عليه الإنتظار قليلاً حتى يتم تنفيذ شيء معين.
+*   لجعل المستخدم يدرك كم سيستغرق إجراء عملية معينة. مثل عند نسخ ملف أو تحميل ملف من النت.
+*   لجعل المستخدم يدرك كم بقي معه وقت حتى ينهي شيء معين. مثل في حال إنشاء برنامج إختبار.
+
+  
+  
+
+### بناء الكلاس `ProgressIndicator`
+
+public class ProgressIndicator
+extends Control
+
+  
+
+ملاحظة: الكلاس `ProgressIndicator` هو الكلاس الأب للكلاس `ProgressBar` الذي شرحناه في الدرس السابق.  
+لهذا السبب ستجد أن التعامل مع الكلاس `ProgressIndicator` يشبه تماماً التعامل مع الكلاس `ProgressBar`.
+
+  
+  
+
+### مصطلحات تقنية
+
+الـ `ProgressIndicator` الذي له قيمة محددة كما في الصورة التالية يسمى Determinate Progress Indicator.
+
+![javafx determinated progressindicator](/content-images/javafx/progressindicator/1784305223980-e5pb7r.gif)
+
+  
+
+الـ `ProgressIndicator` الذي ليس له قيمة محددة كما في الصورة التالية يسمى Indeterminate Progress Indicator.
+
+![javafx indeterminated progressindicator](/content-images/javafx/progressindicator/1784305224241-0fgr9k.gif)
+
+  
+  
+
+### طريقة التعامل معه
+
+للحصول على Progress Bar, يجب إنشاء كائن من الكلاس `ProgressIndicator`.
+
+عند تحديد قيمة الـ `ProgressIndicator` يجب وضع رقم بين 0 و 1 و هذا سيمثل بدوره النسبة المئوية لإكتمال الـ `ProgressIndicator`. و إليك بعض الأمثلة:
+
+*   إذا وضعت 0 فهذا يمثل 0%.
+*   إذا وضعت 0.40 فهذا يمثل 40%.
+*   إذا وضعت 1 فهذا يمثل 100%.
+
+لتغيير لون كائن الـ `ProgressIndicator` نستخدم الدالة `setStyle()` و نغيير قيمة خاصية إسمها `-fx-accent`.
+
+في حال قمت بإنشاء كائن من الـ `ProgressIndicator` و لم تقم بتحديد قيمته الأولية أو قمت بوضع قيمة أصغر من 0 كقيمة له أولية مثل 1- فإنه سيظهر كـ Indeterminate Progress Indicator.
+
+## كونستركتورات الكلاس `ProgressIndicator`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `ProgressIndicator`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public ProgressIndicator()` ينشئ كائن من الكلاس `ProgressIndicator` يمثل Indeterminate Progress Bar.
+
+2
+
+`public ProgressIndicator(double progress)` ينشئ كائن من الكلاس `ProgressIndicator` يمثل Determinate Progress Bar مع تحديد القيمة الأولية التي ستظهر فيه.  
+مكان الباراميتر `value` نضع القيمة التي نريدها أن تظهر فيه بشكل إفتراضي عند تشغيل البرنامج.
+
+## دوال الكلاس `ProgressIndicator`
+
+الجدول التالي يحتوي على دوال الكلاس `ProgressIndicator` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setProgress(double value)` تستخدم لتحديد قيمة كائن الـ `ProgressIndicator` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة الجديدة و التي يجب أن تكون بين 0 و 1.  
+
+*   إذا وضعت قيمة بين 0 و 1 فإنه سيظهر كـ Determinate Progress Bar قيمته تمثل نسبة مئوية. فمثلاً إذا وضعت إذا وضعت 0.40 فهذا يمثل 40%.
+*   إذا وضعت قيمة أصغر من 0 فإنه سيظهر كـ Indeterminate Progress Bar.
+*   إذا وضعت قيمة أكبر من 1 فإنه سيظهر كـ Determinate Progress Bar قيمته تساوي 100%.
+
+2
+
+`public final double getProgress()` ترجع قيمة كائن الـ `ProgressIndicator` الذي قام بإستدعائها كرقم نوعه `double`.
+
+3
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `ProgressIndicator` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+4
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `ProgressIndicator` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+5
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `ProgressIndicator` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `ProgressIndicator` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `ProgressIndicator` بالـ Pixel.
+
+6
+
+`public final void setVisible(boolean value)` تستخدم لإظهار أو إخفاء كائن الـ `ProgressIndicator` الذي قام باستدعائها في النافذة.  
+مكان الباراميتر `value` نضع القيمة `true` لإظهاره, و نضع القيمة `false` لإخفائه.
+
+7
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `ProgressIndicator` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+8
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `ProgressIndicator` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `ProgressIndicator` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `ProgressIndicator` و إضافته في النافذة.
+
+![طريقة إنشاء ProgressIndicator في javafx](/content-images/javafx/progressindicator/1784305224434-kskizw.gif)
+
+[شاهد المثال](/tutorials/javafx/progressindicator/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير لون الـ `ProgressIndicator`.
+
+![طريقة تغيير لون ال ProgressIndicator في javafx](/content-images/javafx/progressindicator/1784305224619-4wdir2.gif)
+
+[شاهد المثال](/tutorials/javafx/progressindicator/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تحديد قيمة الـ `ProgressIndicator`.
+
+![طريقة تحديد قيمة ال ProgressIndicator في javafx](/content-images/javafx/progressindicator/1784305224709-7qlz5o.PNG)
+
+[شاهد المثال](/tutorials/javafx/progressindicator/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة تغيير شكل الـ `ProgressIndicator` ليبدو كـ Indeterminate Progress Indicator ثم كـ Determinate Progress Indicator بالإعتماد على الكلاس `Task`.
+
+![طريقة ربط ال ProgressIndicator بمهمة معينة في javafx](/content-images/javafx/progressindicator/1784305225016-c9up4c.gif)
+
+[شاهد المثال](/tutorials/javafx/progressindicator/example-4)

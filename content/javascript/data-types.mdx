@@ -1,0 +1,363 @@
+---
+title: "جافاسكربتأنواع البيانات"
+source: "https://harmash.com/tutorials/javascript/data-types"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:18.216Z"
+---
+
+## مفهوم أنواع البيانات
+
+أي شيء تتعامل معه في جافاسكربت له نوع محدد و كل نوع منها له طريقة خاصة للتعامل معه فيها.
+
+أنواع بيانات في جافاسكربت تنقسم إلى 3 فئات رئيسية هي:
+
+*   بيانات بدائية ( Primitive Datatypes ) مثل النصوص ( Strings )، الأعداد ( Numbers ) و القيم المنطقية ( Booleans ).
+*   بيانات مرجعية ( Reference Datatypes ) مثل الكائنات ( Objects )، الدوال ( Functions ) و المصفوفات ( Arrays ).
+*   بيانات خاصة ( Special Datatypes ) و هي القيمة `undefined` و القيمة `null`.
+
+في هذا الدرس ستتعرف على أنواع البيانات بشكل عام و في دروس لاحقة ستتعمق أكثر في كل نوع منها.
+
+## القيم العددية ( Numbers )
+
+القيم العددية هي الأعداد بكافة أشكالها و التي يمكن إجراء عمليات حسابية عليها.
+
+*   الأعداد قد تكون صحيحة ( Integer Numbers ) مثل العدد `4`.
+*   الأعداد قد تكون عشرية ( Decimal Numbers ) مثل العدد `2.5`.
+*   الأعداد قد تكون أُسيّة ( Exponential Nation ) مثل العدد `55e6`.
+
+ستتعرف على جميع الدوال الجاهزة في جافاسكربت و المخصصة للتعامل مع الأعداد في درس لاحق.
+
+  
+
+في المثال التالي قمنا بتعريف متغيرات وضعنا فيها قيم عددية صحيحة ( Integer Numbers ).
+
+#### المثال الأول
+
+// هنا قمنا بتعريف متغيرات وضعنا فيها أعداد صحيحة
+let x = 3;
+let y = 5;
+
+// هنا قمنا بطباعة قيم المتغيرات التي قمنا بتعريفها
+document.write('x = ' + x + '<br>');
+document.write('y = ' + y);
+
+النتيجة
+
+x = 3  
+y = 5
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/integer-numbers)
+
+  
+
+في المثال التالي قمنا بتعريف متغيرات وضعنا فيها قيم عددية عشرية ( Decimal Numbers ).
+
+#### المثال الثاني
+
+// هنا قمنا بتعريف متغيرات وضعنا فيها أعداد عشرية
+let x = 10.5;
+let y = 2.44;
+
+// هنا قمنا بطباعة قيم المتغيرات التي قمنا بتعريفها
+document.write('x = ' + x + '<br>');
+document.write('y = ' + y);
+
+النتيجة
+
+x = 10.5  
+y = 2.44
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/decimal-numbers)
+
+  
+
+في المثال التالي قمنا بتعريف متغيرات وضعنا فيها قيم عددية أسيّة ( Exponent Numbers ).
+
+#### المثال الثالث
+
+// هنا قمنا بتعريف متغيرات وضعنا فيها أعداد أسيّة
+let x = 1234e5;   // 1234e5 = 1234 \* 100000 = 123400000
+let y = 1234e-5;  // 1234e-5 = 1234 \* -100000 = 0.01234
+
+// هنا قمنا بطباعة قيم المتغيرات التي قمنا بتعريفها
+document.write('x = ' + x + '<br>');
+document.write('y = ' + y);
+
+النتيجة
+
+x = 123400000  
+y = 0.1234
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/exponential-numbers)
+
+  
+
+في المثال التالي قمنا بإجراء عملية حسابية على الأعداد و هنا لاحظ أنه رغم أن العددين صحيحين إلا أن الإجابة تم تحويلها بشكل تلقائي إلى عدد عشري حتى تكون القيمة أدق.
+
+#### المثال الرابع
+
+// y على x وضعنا فيه ناتج قسمة z المتغير
+let x = 5;
+let y = 2;
+let z = x / y;
+
+// z هنا قمنا بطباعة قيم المتغير
+document.write('z = ' + z);
+
+النتيجة
+
+z = 2.5
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/math-operation)
+
+## القيم النصية ( Strings )
+
+القيم النصية هي الأحرف، الكلمات، الجمل و النصوص التي يمكن البحث فيها، تقطيعها، دمجها إلخ..  
+القيمة النصية يمكن وضعها بين `" "` أو `' '`.
+
+ستتعرف على جميع الدوال الجاهزة في جافاسكربت و المخصصة للتعامل مع النصوص في درس لاحق.
+
+  
+
+في المثال التالي قمنا بتعريف متغيرات وضعنا فيها نصوص.
+
+#### المثال الأول
+
+// هنا قمنا بتعريف متغيرات وضعنا فيها نصوص
+let web1 = 'Harmash.com';
+let web2 = 'FreeSkillAcademy.com';
+
+// هنا قمنا بطباعة قيم المتغيرات التي قمنا بتعريفها
+document.write('web1 = ' + web1 + '<br>');
+document.write('web2 = ' + web2);
+
+النتيجة
+
+web1 = Harmash.com  
+web2 = FreeSkillAcademy.com
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/strings)
+
+  
+
+في المثال التالي قمنا بدمج النصوص و تخزينها في متغير جديد.
+
+#### المثال الثاني
+
+let firstName = 'Mhamad';
+let lastName = 'Harmush';
+
+// firstName وضعنا فيه قيمة المتغير fullName المتغير
+// lastName يليه مسافة فارغة، يليه قيمة المتغير 
+let fullName = firstName + ' ' + lastName;
+
+// fullName هنا قمنا بطباعة قيم المتغير
+document.write('fullName = ' + fullName);
+
+النتيجة
+
+fullName = Mhamad Harmush
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/concatenate-strings)
+
+## القيم المنطقية ( Booleans )
+
+القيم المنطقية تستخدم حين يكون هناك إحتمالين فقط فتكون القيمة إما `true` و إما `false`.
+
+في المثال التالي قمنا بتعريف متغيرات وضعنا فيها منقطية ( Booleans ).
+
+#### مثال
+
+// هنا قمنا بتعريف متغيرات وضعنا فيها نصوص
+let isWorking = true;
+let isMarried = false;
+
+// هنا قمنا بطباعة قيم المتغيرات التي قمنا بتعريفها
+document.write('isWorking = ' + isWorking + '<br>');
+document.write('isMarried = ' + isMarried);
+
+النتيجة
+
+isWorking = true  
+isMarried = false
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/booleans)
+
+## القيم الكائنية ( Objects )
+
+الكائن عبارة عن نوع يمكنه إمتلاك عدة خصائص و يتم تعريفه بواسطة الرمزين `{ }`.
+
+في المثال التالي قمنا بتعريف كائن فيه ثلاث خصائص مع إعطاء كل خاصية منهم قيمة.  
+بعدها قمنا بطباعة قيم جميع الخصائص التي يملكها الكائن.
+
+#### مثال
+
+// داخله ثلاث خصائص person هنا قمنا بتعريف كائن إسمه
+let person = {
+    id: 1024,
+    username: 'mhamad',
+    isWorking: true
+};
+
+// person هنا قمنا بطباعة قيم جميع الخصائص التي يملكها الكائن
+document.write('id = ' + person.id + '<br>');
+document.write('username = ' + person.username + '<br>');
+document.write('isWorking = ' + person.isWorking);
+
+النتيجة
+
+id = 1024  
+username = mhamad  
+isWorking = true
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/objects)
+
+ستتعرف أكثر على طرق التعامل مع الكائنات في جافاسكربت في درس لاحق.
+
+## المصفوفات ( Arrays )
+
+المصفوفة عبارة عن نوع يمكنه تخزين العديد من القيم في وقت واحد و يتم تعريفه بواسطة الرمزين `[]`.  
+قيم المصفوفة يمكن أن تكون أعداد، نصوص، كائنات إلخ..
+
+في المثال التالي قمنا بتعريف مصفوفة وضعنا 3 قيم نصية، و من ثم قمنا بطباعة جميع قيمها.
+
+#### مثال
+
+// وضعنا فيها ثلاث قيم fruits هنا قمنا بتعريف مصفوفة إسمها
+let fruits = \['Apple', 'Banana', 'Blueberry'\];
+
+// fruits هنا قمنا بطباعة قيم جميع العناصر الموجودة في المصفوفة
+document.write('fruits\[0\] = ' + fruits\[0\] + '<br>');
+document.write('fruits\[1\] = ' + fruits\[1\] + '<br>');
+document.write('fruits\[2\] = ' + fruits\[2\]);
+
+النتيجة
+
+fruits\[0\] = Apple  
+fruits\[1\] = Banana  
+fruits\[2\] = Blueberry
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/arrays)
+
+ستتعرف أكثر على طرق التعامل مع المصفوفات في جافاسكربت في درس لاحق.
+
+## الدوال ( Functions )
+
+الدوال عبارة عن كود يتم تجهيزه و لا يتم تنفيذه إلا حينما يتم المناداة على الدالة الموجود فيها.  
+الدوال في جافاسكربت يتم تعريفها بواسطة الكلمة المفتاحية `function`.
+
+في المثال التالي قمنا بتعريف دالة تقوم بطباعة نص، و من ثم قمنا باستدعاءها حتى يتم تنفيذها.
+
+#### مثال
+
+// وضعنا فيها أمر طباعة demo هنا قمنا بتعريف دالة إسمها
+function demo() {
+    document.write('Hello World!');
+}
+
+// حتى يتم تنفيذ الأمر الموجود فيها demo() هنا قمنا باستدعاء الدالة
+demo();
+
+النتيجة
+
+Hello World!
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/functions)
+
+ستتعرف أكثر على طرق التعامل مع الدوال في جافاسكربت في درس لاحق.
+
+## الفرق بين `null` و `undefined`
+
+`undefined` تعني أن المتغير فارغ و لم يتم إعطاؤه أي قيمة.  
+أيضاً، في حال تم إسناد `undefined` كقيمة لمتغير فهذا سيؤدي إلى حذف قيمته بشكل نهائي.
+
+`null` يمكن وضعها في أي متغير للإعلان بأنه موجود و لكنه فارغ ليس فيه أي قيمة بعد.  
+غالباً ما يتم وضع `null` لتمثل كائن فارغ، أو مصفوفة فارغة و ليس متغير عادي.
+
+  
+
+في المثال التالي قمنا بطباعة قيمة متغير مع العلم أننا لم نقم بوضع قيمة فيه.
+
+#### المثال الأول
+
+// هنا قمنا بتعريف متغير بدون إعطائه قيمه أولية
+var website;
+
+// هنا حاولنا طباعة قيمة المتغير مع علمنا بأنه لا يملك قيمة
+document.write('website = ' + website);
+
+النتيجة
+
+website = undefined
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/undefined)
+
+  
+
+في المثال التالي قمنا بتعريف متغير قيمته `null` و من ثم قمنا بطباعة قيمته.
+
+#### المثال الثاني
+
+// null هنا قمنا بتعريف متغير قيمته الأولية هي
+var cars = null;
+
+// cars هنا قمنا بطباعة قيمة المتغير
+document.write('cars = ' + cars);
+
+// cars هنا قمنا بوضع بوضع مصفوفة من القيم في المتغير
+cars = \['BMW', 'Toyota', 'Ferrari'\];
+
+// من جديد cars هنا قمنا بطباعة قيمة المتغير
+document.write('<br>');
+document.write('cars = ' + cars);
+
+النتيجة
+
+cars = null  
+cars = BMW,Toyota,Ferrari
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/null)
+
+## طريقة معرفة نوع البيانات
+
+يمكنك استخدام العامل `typeof` لمعرفة أنواع البيانات.
+
+في المثال التالي قمنا بتعريف بعض الأشياء و من ثم قمنا بطباعة أنواعهم.
+
+#### مثال
+
+// هنا قمنا بتعريف متغيرات و إعطاءها بيانات من مختلف الأنواع
+var x;
+var firstName = 'Mhamad';
+var age = 25;
+var isMarried = true;
+var person = {id: 1, username: 'mhamad'};
+var fruits = \['Apple', 'Banana', 'Blueberry'\];
+function demo() {}
+
+// هنا قمنا بطباعة أنواع المتغيرات
+document.write('x: ' + typeof x);
+document.write('<br>');
+document.write('firstName: ' + typeof firstName);
+document.write('<br>');
+document.write('age: ' + typeof age);
+document.write('<br>');
+document.write('isMarried: ' + typeof isMarried);
+document.write('<br>');
+document.write('person: ' + typeof person);
+document.write('<br>');
+document.write('fruits: ' + typeof fruits);
+document.write('<br>');
+document.write('demo: ' + typeof demo);
+
+النتيجة
+
+x: undefined  
+firstName: string  
+age: number  
+isMarried: boolean  
+person: object  
+fruits: object  
+demo: function
+
+[جرب الكود](/tryit?file=/tutorials/javascript/data-types/typeof)

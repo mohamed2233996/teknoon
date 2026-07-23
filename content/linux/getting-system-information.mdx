@@ -1,0 +1,312 @@
+---
+title: "الحصول على معلومات الجهاز في لينكس"
+source: "https://harmash.com/tutorials/linux/getting-system-information"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:29:16.192Z"
+---
+
+## طريقة طباعة معلومات الجهاز
+
+في لينكس يوجد العديد من الأوامر و الأدوات التي يمكنك استعمالها لعرض المعلومات المتوفرة حول الجهاز و نظام التشغيل المثبت عليه.  
+فمثلاً يمكنك معرفة إسم و إصدار نظام التشغيل بالإضافة إلى إمكانية معرفة خصائص جميع هاردوير الجهاز.
+
+معرفة هذه المعلومات مهمة جداً فمن خلالها يمكنك معرفة قدرات جهازك بالإضافة إلى التعريفات المناسبة التي يمكنك تثبيها له حتى يعمل بكفاءة.
+
+## الأداة Neofetch في لينكس
+
+تعتبر الأداة `neofetch` من أجمل الأدوات التي يمكنك استعمالها للحصول على معلومات الجهاز بشكل مبسط.
+
+هذه الأداة غالباً ما تكون مثبتة بشكل افتراضي في أغلب توزيعات لينكس الحديثة و لهذا يمكنك استعمالها بشكل مباشر.
+
+في المثال التالي قمنا باستخدام الأمر `neofetch` لطباعة معلومات النظام التشغيل.
+
+#### Linux Terminal
+
+root@fedora:~$ neofetch  
+             .',;::::;,'.                root@fedora  
+         .';:cccccccccccc:;,.            ----------  
+      .;cccccccccccccccccccccc;.         OS: Fedora Linux 40 (KDE Plasma) x86\_64  
+    .:cccccccccccccccccccccccccc:.       Host: Aspire E5-575G V1.47  
+  .;ccccccccccccc;.:dddl:.;ccccccc;.     Kernel: 6.10.12-200.fc40.x86\_64  
+ .:ccccccccccccc;OWMKOOXMWd;ccccccc:.    Uptime: 3 hours, 46 mins  
+.:ccccccccccccc;KMMc;cc;xMMc:ccccccc:.   Packages: 2556 (rpm), 31 (flatpak)  
+,cccccccccccccc;MMM.;cc;;WW::cccccccc,   Shell: bash 5.2.26  
+:cccccccccccccc;MMM.;cccccccccccccccc:   Resolution: 2560x1440  
+:ccccccc;oxOOOo;MMM0OOk.;cccccccccccc:   DE: Plasma 6.2.0  
+cccccc:0MMKxdd:;MMMkddc.;cccccccccccc;   WM: kwin  
+ccccc:XM0';cccc;MMM.;cccccccccccccccc'   Theme: Breeze-Dark \[GTK2\], Breeze \[GTK3\]  
+ccccc;MMo;ccccc;MMW.;ccccccccccccccc;    Icons: McMojave-circle-dark \[GTK2/3\]  
+ccccc;0MNc.ccc.xMMd:ccccccccccccccc;     Terminal: konsole  
+cccccc;dNMWXXXWM0::cccccccccccccc:,      CPU: Intel i7-7500U (4) @ 3.500GHz  
+cccccccc;.:odl:.;cccccccccccccc:,.       GPU: NVIDIA GeForce 940MX  
+:cccccccccccccccccccccccccccc:'.         GPU: Intel HD Graphics 620  
+.:cccccccccccccccccccccc:;,..            Memory: 3691MiB / 15853MiB  
+  '::cccccccccccccc::;,.
+
+في حال لم تكن الأداة `neofetch` مثبتة في نظامك ستجده يخبرك بأنه لم يتعرف على هذا الأمر و عليك تثبيت الحزم الخاصة به كما سيخبرك حتى تتمكن من استعماله.
+
+## طباعة معلومات النظام الأساسية في لينكس
+
+1- يمكنك استخدام الأمر `uname -a` لعرض معلومات شاملة حول النواة ( Kernel )، بما في ذلك إسم النواة، إسم الجهاز، إصدار النواة، وإصدار نظام التشغيل و نوع المعالج.
+
+#### Linux Terminal
+
+root@fedora:~$ uname -a  
+Linux fedora 6.10.12-200.fc40.x86\_64 #1 SMP PREEMPT\_DYNAMIC Mon Sep 30 21:38:25 UTC 2024 x86\_64 GNU/Linux
+
+  
+
+2- يمكنك استخدام الأمر `lsb_release -a` لعرض معلومات حول توزيعة لينكس المثبتة على النظام، مثل إسم التوزيعة و إصدارها.
+
+#### Linux Terminal
+
+root@fedora:~$ lsb\_release -a  
+LSB Version:    n/a  
+Distributor ID: Fedora  
+Description:    Fedora Linux 40 (KDE Plasma)  
+Release:        40  
+Codename:       n/a  
+
+  
+
+3- يمكنك استخدام الأمر `hostnamectl` لعرض معلومات حول اسم الجهاز على الشبكة ( Hostname ) و إعدادات النظام الأخرى.
+
+#### Linux Terminal
+
+root@fedora:~$ hostnamectl  
+     Static hostname: harmash  
+           Icon name: computer-laptop  
+             Chassis: laptop 💻  
+          Machine ID: ff9ab53cc2314825b8ba71cda4a2g449  
+             Boot ID: fc5f9b052dd94e7695c66b828c4dabc1  
+    Operating System: Fedora Linux 40 (KDE Plasma)  
+         CPE OS Name: cpe:/o:fedoraproject:fedora:40  
+      OS Support End: Tue 2025-05-13  
+OS Support Remaining: 1month 4w  
+              Kernel: Linux 6.10.12-200.fc40.x86\_64  
+        Architecture: x86-64  
+     Hardware Vendor: Acer  
+      Hardware Model: Aspire E5-575G  
+    Firmware Version: V1.47  
+       Firmware Date: Thu 2023-09-06  
+        Firmware Age: 2y 6month 1w
+
+  
+
+4- الملف `/proc/version` يحتوي معلومات مفصلة حول إصدار النواة و يمكنك عرضها بواسطة الأمر `cat` كما يلي.
+
+#### Linux Terminal
+
+root@fedora:~$ cat /proc/version  
+Linux version 6.10.12-200.fc40.x86\_64 (mockbuild@9c8b6e336d184ac3a67ab45edc394e15) (gcc (GCC) 14.2.1 20240912 (Red Hat 14.2.1-3), GNU ld version 2.41-37.fc40) #1 SMP PREEMPT\_DYNAMIC Mon Sep 30 21:38:25 UTC 2024
+
+  
+
+5- الملف `/etc/os-release` يحتوي معلومات مفصلة حول توزيعة لينكس، مثل إسمها، إصدارها و تاريخ إيقاف الدعم عنها. يمكنك عرضها بواسطة الأمر `cat` كما يلي.
+
+#### Linux Terminal
+
+root@fedora:~$ cat /etc/os-release  
+NAME="Fedora Linux"  
+VERSION="40 (KDE Plasma)"  
+ID=fedora  
+VERSION\_ID=40  
+VERSION\_CODENAME=""  
+PLATFORM\_ID="platform:f40"  
+PRETTY\_NAME="Fedora Linux 40 (KDE Plasma)"  
+ANSI\_COLOR="0;38;2;60;110;180"  
+LOGO=fedora-logo-icon  
+CPE\_NAME="cpe:/o:fedoraproject:fedora:40"  
+DEFAULT\_HOSTNAME="fedora"  
+HOME\_URL="https://fedoraproject.org/"  
+DOCUMENTATION\_URL="https://docs.fedoraproject.org/en-US/fedora/f40/system-administrators-guide/"  
+SUPPORT\_URL="https://ask.fedoraproject.org/"  
+BUG\_REPORT\_URL="https://bugzilla.redhat.com/"  
+REDHAT\_BUGZILLA\_PRODUCT="Fedora"  
+REDHAT\_BUGZILLA\_PRODUCT\_VERSION=40  
+REDHAT\_SUPPORT\_PRODUCT="Fedora"  
+REDHAT\_SUPPORT\_PRODUCT\_VERSION=40  
+SUPPORT\_END=2025-05-13  
+VARIANT="KDE Plasma"  
+VARIANT\_ID=kde
+
+## طباعة معلومات الهاردوير في لينكس
+
+1- يمكنك استخدام الأمر `lscpu` لعرض معلومات حول وحدة المعالجة المركزية ( CPU )، مثل نوع المعالج، و عدد النوى، و سرعة المعالج.
+
+#### Linux Terminal
+
+root@fedora:~$ lscpu  
+Architecture: x86\_64  
+  CPU op-mode(s):         32-bit, 64-bit  
+  Address sizes:          39 bits physical, 48 bits virtual  
+  Byte Order:             Little Endian  
+CPU(s):                   4  
+  On-line CPU(s) list:    0-3  
+Vendor ID:                GenuineIntel  
+  Model name:             Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz  
+    CPU family:           6  
+    Model:                142  
+    Thread(s) per core:   2  
+    Core(s) per socket:   2  
+    Socket(s):            1  
+    Stepping:             9  
+    CPU(s) scaling MHz:   100%  
+    CPU max MHz:          3500.0000  
+    CPU min MHz:          400.0000  
+    BogoMIPS:             5799.77  
+    Flags:                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant\_tsc art arch\_perfmon pebs bts rep\_good nopl xtopolog y nonstop\_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds\_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4\_1 sse4\_2 x2apic movbe popcnt tsc\_deadline\_timer aes xsave avx f16c rdrand lahf\_lm abm 3dnow prefetch cpuid\_fault epb pti ssbd ibrs ibpb stibp tpr\_shadow flexpriority ept vpid ept\_ad fsgsbase tsc\_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel\_pt xsaveopt xsavec xgetbv1 xsa ves dtherm ida arat pln pts hwp hwp\_notify hwp\_act\_window hwp\_epp vnmi md\_clear flush\_l1d arch\_capabilities  
+Virtualization features:  
+  Virtualization:         VT-x  
+Caches (sum of all):  
+  L1d:                    64 KiB (2 instances)  
+  L1i:                    64 KiB (2 instances)  
+  L2:                     512 KiB (2 instances)  
+  L3:                     4 MiB (1 instance)  
+NUMA:  
+  NUMA node(s):           1  
+  NUMA node0 CPU(s):      0-3  
+Vulnerabilities:  
+  Gather data sampling:   Mitigation; Microcode  
+  Itlb multihit:          KVM: Mitigation: VMX disabled  
+  L1tf:                   Mitigation; PTE Inversion; VMX conditional cache flushes, SMT vulnerable  
+  Mds:                    Mitigation; Clear CPU buffers; SMT vulnerable  
+  Meltdown:               Mitigation; PTI  
+  Mmio stale data:        Mitigation; Clear CPU buffers; SMT vulnerable  
+  Reg file data sampling: Not affected  
+  Retbleed:               Mitigation; IBRS  
+  Spec rstack overflow:   Not affected  
+  Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl  
+  Spectre v1:             Mitigation; usercopy/swapgs barriers and \_\_user pointer sanitization  
+  Spectre v2:             Mitigation; IBRS; IBPB conditional; STIBP conditional; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected  
+  Srbds:                  Mitigation; Microcode  
+  Tsx async abort:       Not affected
+
+  
+
+2- يمكنك استخدام الأمر `free -h` لعرض معلومات حول استخدام الذاكرة العشوائية ( RAM ) و الذاكرة الافتراضية ( SWAP ).
+
+#### Linux Terminal
+
+root@fedora:~$ free -h  
+                total        used        free       shared   buff/cache   available  
+Mem:             15Gi       4.1Gi       5.7Gi        827Mi        6.8Gi        11Gi  
+Swap:           8.0Gi          0B       8.0Gi
+
+  
+
+3- يمكنك استخدام الأمر `free -h` لعرض معلومات حول استخدام مساحة القرص الصلب ( HARD Drive ).
+
+#### Linux Terminal
+
+root@fedora:~$ free -h  
+Filesystem       Size  Used  Avail  Use%  Mounted on  
+/dev/sda2        200G   93G   107G   47%  /  
+devtmpfs         4.0M     0   4.0M    0%  /dev  
+tmpfs             7.8G     0  7.8G    0%  /dev/shm  
+efivarfs         100K   87K   8.1K   92%  /sys/firmware/efi/efivars  
+tmpfs            3.1G  1.8M   3.1G    1%  /run  
+tmpfs            7.8G   40K   7.8G    1%  /tmp  
+/dev/sda1       1021M   20M  1002M    2%  /boot/efi  
+/dev/sda3        694G  458G   236G   67%  /home  
+tmpfs            1.6G  3.8M   1.6G    1%  /run/user/1000
+
+  
+
+4- يمكنك استخدام الأمر `lspci` لعرض معلومات حول منافذ التوصيل ( PCI ) المتصلة بالنظام.
+
+#### Linux Terminal
+
+root@fedora:~$ lspci  
+00:00.0 Host bridge: Intel Corporation Xeon E3-1200 v6/7th Gen Core Processor Host Bridge/DRAM Registers (rev 02)  
+00:02.0 VGA compatible controller: Intel Corporation HD Graphics 620 (rev 02)  
+00:14.0 USB controller: Intel Corporation Sunrise Point-LP USB 3.0 xHCI Controller (rev 21)  
+00:14.2 Signal processing controller: Intel Corporation Sunrise Point-LP Thermal subsystem (rev 21)  
+00:15.0 Signal processing controller: Intel Corporation Sunrise Point-LP Serial IO I2C Controller #0 (rev 21)  
+00:16.0 Communication controller: Intel Corporation Sunrise Point-LP CSME HECI #1 (rev 21)  
+00:17.0 SATA controller: Intel Corporation Sunrise Point-LP SATA Controller \[AHCI mode\] (rev 21)  
+00:1c.0 PCI bridge: Intel Corporation Sunrise Point-LP PCI Express Root Port #1 (rev f1)  
+00:1d.0 PCI bridge: Intel Corporation Sunrise Point-LP PCI Express Root Port #9 (rev f1)  
+00:1d.2 PCI bridge: Intel Corporation Sunrise Point-LP PCI Express Root Port #11 (rev f1)  
+00:1d.3 PCI bridge: Intel Corporation Device 9d1b (rev f1)  
+00:1f.0 ISA bridge: Intel Corporation Sunrise Point-LP LPC Controller (rev 21)  
+00:1f.2 Memory controller: Intel Corporation Sunrise Point-LP PMC (rev 21)  
+00:1f.3 Audio device: Intel Corporation Sunrise Point-LP HD Audio (rev 21)  
+00:1f.4 SMBus: Intel Corporation Sunrise Point-LP SMBus (rev 21)  
+01:00.0 3D controller: NVIDIA Corporation GM107 \[GeForce 940MX\] (rev a2)  
+01:00.1 Audio device: NVIDIA Corporation GM107 High Definition Audio Controller \[GeForce 940MX\] (rev a1)  
+03:00.0 Network controller: Qualcomm Atheros QCA9377 802.11ac Wireless Network Adapter (rev 31)  
+04:00.0 Unassigned class \[ff00\]: Realtek Semiconductor Co., Ltd. RTL8411B PCI Express Card Reader (rev 01)  
+04:00.1 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet Controller (rev 12)
+
+  
+
+5- يمكنك استخدام الأمر `lusb` لعرض معلومات حول أجهزة التوصيل أو أجهزة نقل البيانات ( USB ) المتصلة بالنظام.
+
+#### Linux Terminal
+
+root@fedora:~$ lusb  
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub  
+Bus 001 Device 002: ID 1c4f:0002 SiGma Micro Keyboard TRACER Gamma Ivory  
+Bus 001 Device 003: ID 09da:2403 A4Tech Co., Ltd. 2.4G Device  
+Bus 001 Device 004: ID 04ca:3015 Lite-On Technology Corp. Qualcomm Atheros QCA9377 Bluetooth  
+Bus 001 Device 005: ID 0bda:57f2 Realtek Semiconductor Corp. HD WebCam  
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+## طباعة معلومات الشبكة في لينكس
+
+1- يمكنك استخدام الأمر `hostname -I` لعرض عنوان الجهاز على الشبكة ( IP ).
+
+#### Linux Terminal
+
+root@fedora:~$ hostname -I  
+192.168.1.27
+
+  
+
+2- يمكنك استخدام الأمر `ip addr` لعرض معلومات حول عنواين الشبكة ( Network IPs ) و عنواين التوجيه فيها ( Network Interfaces ).
+
+#### Linux Terminal
+
+root@fedora:~$ ip addr  
+1: lo: <LOOPBACK,UP,LOWER\_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000  
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00  
+    inet 127.0.0.1/8 scope host lo  
+        valid\_lft forever preferred\_lft forever  
+    inet6 ::1/128 scope host noprefixroute  
+        valid\_lft forever preferred\_lft forever  
+2: enp4s0f1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq\_codel state DOWN group default qlen 1000  
+    link/ether a8:1e:84:6e:c9:d9 brd ff:ff:ff:ff:ff:ff  
+3: wlp3s0: <BROADCAST,MULTICAST,UP,LOWER\_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000  
+    link/ether 1a:43:b6:e9:f2:42 brd ff:ff:ff:ff:ff:ff permaddr 3c:a0:67:69:83:23  
+    inet 192.168.1.27/24 brd 192.168.1.255 scope global dynamic noprefixroute wlp3s0  
+        valid\_lft 6271sec preferred\_lft 6271sec  
+    inet6 fe80::b55b:c80b:209c:1692/64 scope link noprefixroute  
+        valid\_lft forever preferred\_lft forever
+
+## معلومات أخرى يمكن طباعتها في لينكس
+
+1- يمكنك استخدام الأمر `whoami` لعرض إسم المستخدم الحالي.
+
+#### Linux Terminal
+
+root@fedora:~$ whoami  
+root
+
+  
+
+2- يمكنك استخدام الأمر `date` لعرض التاريخ و الوقت الحالي في الجهاز.
+
+#### Linux Terminal
+
+root@fedora:~$ date  
+Sat Mar 15 05:43:46 AM EET 2025
+
+  
+
+3- يمكنك استخدام الأمر `uptime` لعرض مدة تشغيل النظام من لحظة إقلاعه.
+
+#### Linux Terminal
+
+root@fedora:~$ uptime  
+05:43:01 up 6:42, 1 user, load average: 0.56, 0.47, 0.43

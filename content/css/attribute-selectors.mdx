@@ -1,0 +1,181 @@
+---
+title: "CSSمحددات الخصائص"
+source: "https://harmash.com/tutorials/css/attribute-selectors"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:29.745Z"
+---
+
+## مفهوم محددات الخصائص
+
+تتيح لك CSS تحديد عناصر الصفحة بناءاً على خصائص HTML التي تملكها و هذا الأمر يجعلك قادر على تفرقة العناصر المتشابهة من خلال خصائصها المختلفة.
+
+فمثلاً إذا كان في الصفحة يوجد مربع نص عادي `<input type="text">` و مربع نص لإدخال كلمة مرور `<input type="password">` يمكنك تحديد أي عنصر تريد تعديل تصميمه من خلال قيمة الخاصية `type` المختلفة التي يمكلها كل عنصر منهما.
+
+## المحدد `[attribute]`
+
+يُستخدم هذا المحدد لتحديد العناصر من خلال أسماء الخصائص التي تملكها.
+
+في المثال التالي قمنا بتحديد الروابط التي تملك الخاصية `target`.
+
+#### مثال
+
+a\[target\] {
+    background: dodgerblue;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/attribute-selector)
+
+## المحدد `[attribute="value"]`
+
+يُستخدم هذا المحدد لتحديد العناصر من خلال أسماء و قيم الخصائص التي تملكها.
+
+في المثال التالي قمنا بتحديد الروابط التي تملك الخاصية و القيمة `target="_blank"`.
+
+#### مثال
+
+a\[target="\_blank"\] {
+    background: crimson;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/attribute-value-selector)
+
+## المحدد `[attribute~="value"]`
+
+يُستخدم هذا المحدد لتحديد العناصر التي عندها خصائص تتضمن كلمة معيّنة.
+
+في المثال التالي قمنا بتحديد الروابط التي تملك الخاصية `title` و قد ذكر فيها الكلمة `"Harmash"`.
+
+#### مثال
+
+a\[title="Harmash"\] {
+    background: dodgerblue;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/attribute-tilde-value-selector)
+
+في المثال السابق تم تحديد العناصر التي تملك الخاصية `title` و قد ذكر فيها الكلمة `"Harmash"` بشرط أن لا تكون هذه الكلمة ملتصقة بشيء آخر فمثلاً `"Harmash.com"` لا تعتبر مطابقة لها.
+
+## المحدد `[attribute|="value"]`
+
+يُستخدم هذا المحدد لتحديد العناصر التي عندها خصائص فيها كلمة معيّنة فقط أو تبدأ بهذه الكلمة و يليها كلمات أخرى يفصل بينها شرطة ( Hyphen ) أي الرمز `-`.
+
+في المثال التالي قمنا بتحديد وسوم `<div>` التي تملك الخاصية `lang` و قد بدأت بالكلمة `"en"` و قد تحتوي كلمة أخرى بينهما شرطة.
+
+#### مثال
+
+div\[lang|="en"\] {
+    background: dodgerblue;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/attribute-pipe-value-selector)
+
+## المحدد `[attribute^="value"]`
+
+يُستخدم هذا المحدد لتحديد العناصر التي عندها خاصية قيمتها تبدأ بكلمة معيّنة.
+
+في المثال التالي قمنا بتحديد جميع الروابط التي تملك الخاصية `href` و تبدأ بالكلمة `"https"`.
+
+#### مثال
+
+a\[href^="https"\] {
+    background: dodgerblue;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/attribute-exponent-value-selector)
+
+## المحدد `[attribute$="value"]`
+
+يُستخدم هذا المحدد لتحديد العناصر التي عندها خاصية قيمتها تنتهي بكلمة معيّنة.
+
+في المثال التالي قمنا بتحديد جميع الروابط التي تملك الخاصية `href` و تنتهي بالكلمة `"com"`.
+
+#### مثال
+
+a\[href$=".com"\] {
+    background: dodgerblue;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/attribute-dollar-value-selector)
+
+## المحدد `[attribute*="value"]`
+
+يُستخدم هذا المحدد لتحديد العناصر التي عندها خاصية قيمتها تتضمن كلمة معيّنة.
+
+في المثال التالي قمنا بتحديد جميع الروابط التي تملك الخاصية `href` و قيمتها تحتوي على الكلمة `"harmash"`.
+
+#### مثال
+
+a\[href\*="harmash"\] {
+    background: dodgerblue;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/attribute-star-value-selector)
+
+## طريقة إستخدام أكثر من محدد
+
+يمكنك استخدام أكثر من محدد في وقت واحد مع الإشارة إلى أنه يجب لصقها ببعضها بحيث لا يكون هناك مسافات فارغة بينها.
+
+في المثال التالي قمنا بتحديد جميع الروابط التي تملك الخاصية `href` و قيمتها تبدأ بالكلمة `"https"` و تنتهي بالكلمة `".com"`.
+
+#### مثال
+
+a\[href^="https"\]\[href$=".com"\] {
+    background: dodgerblue;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/multiple-selectors)
+
+## ذكر قيمة المحدد بدون رمز التنصيص
+
+في حال كانت القيمة التي سيتم استخدامها في المحدد تتألف من كلمة واحدة فقط يمكن وضعها بدون رموز التنصيص `" "`.
+
+في المثال التالي لاحظ أننا لم نضع قيم الخصائص `text` و `password` و `button` بين رموز تنصيص.
+
+#### مثال
+
+input\[type=text\],
+input\[type=password\] {
+    display: block;
+    background: #f1f1f1;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+input\[type=button\] {
+    color: white;
+    background: dodgerblue;
+    padding: 10px 15px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/attribute-selectors/use-selector-without-quotation-symbols)

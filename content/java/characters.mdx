@@ -1,0 +1,142 @@
+---
+title: "Javaالتعامل مع الأحرف في جافا"
+source: "https://harmash.com/tutorials/java/characters"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:18:26.669Z"
+---
+
+## مفهوم الأحرف
+
+عادةً ما نستخدم أنواع البيانات البدائية ( Primitive Data Types ) لتخزين الأحرف ( characters ).  
+أي لتعريف متغير بهدف تخزين حرف, نقوم بتعريفه كـ `char` أو `int` إذا كنا سنتعامل مع الملفات.
+
+#### مثال
+
+// a يحتوي على الحرف ch هنا المتغير
+char ch \= 'a';
+
+// و الذي يعتبر حرف Ω يحتوي على الرمز unicode هنا المتغير
+char unicode \= '\\u03A9';
+
+// هنا قمنا بتعريف مصفوفة من الأحرف
+char\[\] charArray = { 'a', 'b', 'c', 'd', 'e' }; 
+
+  
+
+أحياناً يضطر المبرمج أن يستخدم الكائن للنوع و ليس الشكل البدائي للنوع.  
+من أجل ذلك, جافا تقدم لنا الكلاس `Character` الذي يحتوي على مجموعة من الدوال الجاهزة للتعامل مع الأحرف.
+
+لتخزين حرف ككائن من الكلاس `Character`, يمكنك إنشاء كائن من الكلاس `Character` و تمرير الحرف الذي تريد تخزينه فيه في الكونستركتور ( Constructor ).
+
+#### مثال
+
+Character ch \= new Character('a'); 
+
+  
+
+في بعض الحالات يقوم المترجم في جافا بخلق كائن من الكلاس `Character` عنا. فمثلاً إذا قمنا بتمرير قيمة بدائية نوعها `char` في دالة تأخذ النوع `object` كباراميتر, يقوم المترجم في هذه الحالة بشكل تلقائي بتحويل النوع `char` للنوع `Character`, هذه الخاصية تسمى auto-boxing و عملية تحويل النوع لنوع بدائي من جديد تسمى unboxing.
+
+## مفهوم الـ Escape Sequences
+
+Escape Sequence تعني مجموعة أحرف متتالية, إذا أتت وراء بعضها فإنها تعني شيء معين.
+
+لخلق Escape Sequence نستخدم الرمز `\`.  
+إذاً, أي حرف مسبوق بالرمز `\` هو عبارة عن Escape Sequence و يعني شيء معين في جافا.
+
+  
+
+في هذه اللائحة وضعنا لك جميع الـ Escape Sequences الموجودين في جافا.
+
+Escape Sequence
+
+تعريفه
+
+`\t`
+
+يضيف عدة مسافات في مكان وضعها.
+
+`\b`
+
+يزيل الحرف الموجود قبلها.
+
+`\n`
+
+يجعل المحتوى الذي يأتي بعدها ينزل على سطر جديد.
+
+`\r`
+
+يجعل الكود يبدأ في التنفيذ من عندها.
+
+`\f`
+
+يضع فاصل بين المحتوى (أي تقسم المحتوى).  
+ملاحظة: لن يظهر لك تأثيرها إلا إذا إستخدمتها مع الملفات.
+
+`\'`
+
+لإضافة الرمز ' في مكان وضعها.
+
+`\"`
+
+لإضافة الرمز " في مكان وضعها.
+
+`\u`
+
+يستخدم لإضافة أي حرف أو رمز من خلال الـ unicode الخاص فيه.
+
+  
+
+هنا وضعنا مثال لكل Escape Sequence موجود في الجدول.
+
+[شاهد الأمثلة](/tutorials/java/characters/escape-sequences)
+
+## دوال الكلاس `Character`
+
+الكلاس `Character` هو كلاس جاهز في جافا, يحتوي على دوال للتعامل مع الأحرف, ذكرنا لك بعضها في هذا الجدول.
+
+الدالة مع تعريفها
+
+1
+
+`public static boolean isLetter(char ch)` ترجع `true` إذا كانت القيمة التي مررناها لها مكان الباراميتر `ch` عبارة عن حرف.  
+غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/characters/character-isletter)
+
+2
+
+`public static boolean isDigit(char ch)` ترجع `true` إذا كانت القيمة التي مررناها لها مكان الباراميتر `ch` عبارة عن رقم.  
+غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/characters/character-isdigit)
+
+3
+
+`public static boolean isWhitespace(char ch)` ترجع `true` إذا كانت القيمة التي مررناها لها مكان الباراميتر `ch` عبارة عن مسافة فارغة.  
+غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/characters/character-iswhitespace)
+
+4
+
+`public static boolean isUpperCase(char ch)` ترجع `true` إذا كانت القيمة التي مررناها لها مكان الباراميتر `ch` عبارة عن حرف كبير.  
+غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/characters/character-isuppercase)
+
+5
+
+`public static boolean isLowerCase(char ch)` ترجع `true` إذا كانت القيمة التي مررناها لها مكان الباراميتر `ch` عبارة عن حرف صغير.  
+غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/characters/character-islowercase)
+
+6
+
+`public static char toUpperCase(char ch)` نمرر لها مكان الباراميتر `ch` حرف صغير, فترجع لنا نفس الحرف و لكن كبير.  
+[شاهد المثال](/tutorials/java/characters/character-touppercase)
+
+7
+
+`public static char toLowerCase(char ch)` نمرر لها مكان الباراميتر `ch` حرف كبير, فترجع لنا نفس الحرف و لكن صغير.  
+[شاهد المثال](/tutorials/java/characters/character-tolowercase)
+
+8
+
+`public static String toString(char c)` تحول قيمة الباراميتر `c` لقيمة نوعها `String` و ترجعها.  
+[شاهد المثال](/tutorials/java/characters/character-tostring)

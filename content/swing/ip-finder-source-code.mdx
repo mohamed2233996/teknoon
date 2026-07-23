@@ -1,0 +1,170 @@
+---
+title: "Swingبرنامج كاشف عناوين المواقع و الأجهزة IP Finder"
+source: "https://harmash.com/tutorials/swing/ip-finder-source-code"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:59.063Z"
+---
+
+في هذا الدرس ستتعلم طريقة إنشاء برنامج ( IP Finder ) و الذي يمكن إستخدامه لجلب عنوان أي شيء متصل بالنت سواء كان سيرفر, حاسوب, هاتف إلخ..
+
+![java swing ip finder source code تحميل كود برنامج كاشف عناوين المواقع و الأجهزة في جافا](/content-images/swing/ip-finder-source-code/1784305438941-f336g8.PNG)
+
+[⇓ تحميل البرنامج](/tutorials/swing/ip-finder-source-code/29d4c234-4574-4518-be08-8f5d3b62aa0a_java-swing-ip-finder.jar) [⇓ تحميل المشروع كاملاً](/tutorials/swing/ip-finder-source-code/ba09c25f-113e-47e0-8aa7-ce61d6502f10_java-swing-ip-finder.zip) [⇓ تحميل مجلد الصور فقط](/tutorials/swing/ip-finder-source-code/bee51df7-eb6c-4bc6-a4b1-7c78eba1d521_java-swing-ip-finder-images.zip)
+
+  
+  
+
+### بناء اللعبة
+
+في هذا المشروع قمنا بوضع ملف الجافا بداخل مجلد إسمه `ip_finder`.  
+و قمنا بوضع الصورة التي وضعناها كخلفية بداخل مجلد إسمه `images` كما في الصورة التالية.
+
+![](/content-images/swing/ip-finder-source-code/1784305439046-t4zmug.PNG)
+
+  
+  
+
+#### كود البرنامج
+
+Main.java
+
+//  ip\_finder  موجود بداخل المجلد  Main.java  هنا ذكرنا أن الملف
+package ip\_finder;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+ 
+// و بالتالي أصبح إنشاء كائن منه يمثل إنشاء نافذة JFrame يرث من الكلاس Main هنا جعلنا الكلاس
+public class Main extends JFrame implements ActionListener {
+ 
+    // هنا قمنا بتعريف الأشياء التي سيتم وضعها في النافذة
+    JPanel backgroundPanel;
+    JLabel label, labelResult, backgroundImage;
+    JTextField textField;
+    JButton buttonFind;
+ 
+    // فقط createAndShowGUI() سيقوم الكونستركتور بإستدعاء الدالة Main عند إنشاء كائن من الكلاس
+    public Main() {
+        createAndShowGUI();
+    }
+ 
+    public static void main(String\[\] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // التي ستنشئ النافذة createAndShowGUI() و بالتالي سيتم إستدعاء الدالة Main هنا قمنا بإنشاء كائن من الكلاس
+                new Main();
+            }
+        });
+    }
+ 
+    // هنا نضع كود إنشاء النافذة و محتوياتها
+    private void createAndShowGUI() {
+ 
+        // هنا قمنا بإنشاء جميع الأشياء التي سنضيفها في النافذة
+        backgroundPanel = new JPanel(null);
+        backgroundImage = new JLabel(new ImageIcon(this.getClass().getResource("/images/world-map.png")));
+        label = new JLabel("Enter URL", JLabel.CENTER);
+        textField = new JTextField();
+        buttonFind = new JButton("Get IP");
+        labelResult = new JLabel("", JLabel.CENTER);
+ 
+        // هنا قمنا بتحديد حجم و مكان كل شيء سيتم إضافته في النافذة
+        backgroundPanel.setPreferredSize(new Dimension(600, 340));
+        backgroundImage.setBounds(0, 0, 600, 340);
+        label.setBounds(200, 75, 200, 30);
+        textField.setBounds(200, 115, 200, 36);
+        buttonFind.setBounds(200, 165, 200, 36);
+        labelResult.setBounds(0, 225, 600, 30);
+ 
+        // label هنا قمنا بتحديد خصائص العنوان
+        label.setFont(new Font("Arial", Font.PLAIN, 20));
+        label.setForeground(Color.WHITE);
+ 
+        // textField هنا قمنا بتحديد خصائص مربع النص
+        textField.setFont(new Font("Arial", Font.PLAIN, 18));
+        textField.setForeground(Color.LIGHT\_GRAY);
+        textField.setBackground(new Color(10, 10, 10));
+        textField.setCaretColor(Color.WHITE);
+        textField.setFocusable(true);
+        textField.setBorder(BorderFactory.createCompoundBorder(
+                            textField.getBorder(),
+                            BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+ 
+        // buttonFind هنا قمنا بتحديد خصائص الزر
+        buttonFind.setFont(new Font("Arial", Font.BOLD, 16));
+        buttonFind.setForeground(Color.LIGHT\_GRAY);
+        buttonFind.setBackground(Color.DARK\_GRAY);
+        buttonFind.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+        buttonFind.setFocusable(false);
+ 
+        // labelResult هنا قمنا بتحديد نوع و حجم خط النتيجة التي ستظهر مكان العنوان
+        labelResult.setFont(new Font("Arial", Font.PLAIN, 18));
+ 
+        // هنا قمنا بإضافة جميع الأشياء التي قمنا بإنشائها في حاوية النافذة
+        backgroundPanel.add(label);
+        backgroundPanel.add(textField);
+        backgroundPanel.add(buttonFind);
+        backgroundPanel.add(labelResult);
+        backgroundPanel.add(labelResult);
+        backgroundPanel.add(backgroundImage);
+ 
+        // actionPerformed() سيتم تنفيذ الأوامر الموضوعة في الدالة buttonFind هنا قلنا أنه عند النقر على الزر
+        buttonFind.addActionListener(this);
+ 
+        // هنا قمنا بإضافة الحاوية التي تحتوي على كل الأشياء التي قنما بتعريفها في النافذة
+        add(backgroundPanel);
+ 
+        // هنا قمنا بتحديد بعض خصائص النافذة و جعلناها مرئية
+        setTitle("IP Finder");
+        setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);
+        setResizable(false);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+ 
+ 
+    // actionPerformed() للدالة Override يجب أن نفعل ,ActionListener يطبق الإنترفيس Main بما أننا جعلنا الكلاس
+    // Get IP لتحديد ما سيحدث عند النقر على الزر
+    @Override
+    public void actionPerformed(ActionEvent e) {
+ 
+        // url سيتم تخزين النص الموجود في مربع النص في الكائن
+        String url \= textField.getText();
+ 
+        // labelResult إذا لم يكن مربع النص فارغاً سيحاول البرنامج الإتصال بالنت و جلب عنوان الموقع المذكور و وضعه كنص للكائن
+        if(!url.isEmpty())
+        {
+            try {
+                InetAddress address \= InetAddress.getByName(url);
+                String ip \= address.getHostAddress();
+                labelResult.setText(ip);
+                labelResult.setForeground(Color.GREEN);
+            }
+            catch (UnknownHostException ex) {
+                labelResult.setText("Invalid URL or Network is Down");
+                labelResult.setForeground(Color.RED);
+            }
+        }
+        // إذا كان مربع النص فارغاً عند النقر على الزر, سيتم إظهار النص التالي و تلوينه بالأحمر
+        else {
+            labelResult.setText("Please enter a valid URL in the above field");
+            labelResult.setForeground(Color.RED);
+        }
+    }
+ 
+}

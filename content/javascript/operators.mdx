@@ -1,0 +1,443 @@
+---
+title: "جافاسكربتالعوامل"
+source: "https://harmash.com/tutorials/javascript/operators"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:19.873Z"
+---
+
+## مفهوم العوامل في جافاسكربت
+
+العوامل ( operators ) عبارة عن رموز لها معنى محدد و يمكننا تقسيمها إلى 6 مجموعات أساسية كما يلي:
+
+*   Arithmetic Operators
+*   Comparison Operators
+*   Logical Operators
+*   Bitwise Operators
+*   Assignment Operators
+*   Type Operators
+
+## العوامل التي تستخدم في العمليات الحسابية (Arithmetic Operators)
+
+إسم العامل
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Assignment
+
+`=`
+
+`a = b`
+
+أعطي `a` قيمة `b`
+
+Addition
+
+`+`
+
+`a + b`
+
+أضف قيمة `b` على قيمة `a`
+
+Subtraction
+
+`-`
+
+`a - b`
+
+إطرح قيمة `b` من قيمة `a`
+
+Unary plus
+
+`+`
+
+`+a`
+
+أضرب قيمة `a` بالعامل `+`
+
+Unary minus
+
+`-`
+
+`-a`
+
+أضرب قيمة `a` بالعامل `-`
+
+Multiplication
+
+`*`
+
+`a * b`
+
+أضرب قيمة `a` بقيمة `b`
+
+Division
+
+`/`
+
+`a / b`
+
+أقسم قيمة `a` على قيمة `b`
+
+Modulo
+
+`%`
+
+`a % b`
+
+للحصول على آخر رقم يبقى عندما نقسم قيمة `a` على قيمة `b`
+
+Exponentiation
+
+`**`
+
+`a ** b`
+
+ضاعف قيمة `a` بقيمة `b`
+
+Increment
+
+`++`
+
+`a++`
+
+لإضافة 1 على قيمة `a` و تستخدم في الحلقات
+
+Decrement
+
+`--`
+
+`a--`
+
+لإنقاص 1 من قيمة `a` و تستخدم في الحلقات
+
+[أمثلة على كل عامل](/tutorials/javascript/operators/arithmetic-operators)
+
+## العوامل التي تستخدم في المقارنات (Comparison Operators)
+
+إسم العامل
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Equal to
+
+`==`
+
+`(a == b)`
+
+هل قيمة `a` تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Equal value and  
+equal type to
+
+`===`
+
+`(a === b)`
+
+هل قيمة `a` تساوي قيمة `b` و ما من نفس النوع؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Not equal to
+
+`!=`
+
+`(a != b)`
+
+هل قيمة `a` لا تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Not equal value  
+or not equal type
+
+`!==`
+
+`(a !== b)`
+
+هل قيمة `a` لا تساوي قيمة `b` أو نوع القيم ليس نفسه؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Greater than
+
+`>`
+
+`(a > b)`
+
+هل قيمة `a` أكبر من قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Less than
+
+`<`
+
+`(a < b)`
+
+هل قيمة `a` أصغر من قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Greater than  
+or Equal to
+
+`>=`
+
+`(a >= b)`
+
+هل قيمة `a` أكبر أو تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Less than  
+or Equal to
+
+`<=`
+
+`(a <= b)`
+
+هل قيمة `a` أصغر أو تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+Ternary
+
+`?:`
+
+`(condition)?a:b`
+
+إذا تحقق الشرط الموضوع بين القوسين، ضع قيمة `a` و إن لم يتحقق ضع قيمة `b`.
+
+[أمثلة على كل عامل](/tutorials/javascript/operators/comparison-operators)
+
+## العوامل التي تستخدم في وضع شروط منطقية (Logical Operators)
+
+إسم العامل
+
+رمزه
+
+مثال
+
+شرح الكود
+
+AND
+
+`&&`
+
+`(a && b)`
+
+هل قيمة `a` و `b` تساويان `true` ؟  
+هنا يجب أن يتم تحقيق الشرطين ليرجع `true`
+
+OR
+
+`||`
+
+`(a || b)`
+
+هل قيمة `a` أو `b` أو كلاهما تساويان `true` ؟  
+هنا يكفي أن يتم تحقيق شرط واحد من الشرطين ليرجع `true`
+
+NOT
+
+`!`
+
+`!a`
+
+هل قيمة `a` لا تساوي `true` ؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+[أمثلة على كل عامل](/tutorials/javascript/operators/logical-operators)
+
+## العوامل التي تستخدم للتعامل مع البتات (Bitwise Operators)
+
+إسم العامل
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Bitwise AND
+
+`&`
+
+`a & b`
+
+العامل `&` يحسب ناتج جمع الـ bits المشتركة بين `a` و `b`
+
+Bitwise OR
+
+`|`
+
+`a | b`
+
+العامل `|` يحسب ناتج جمع الـ bits المشتركة و الغير مشتركة بين `a` و `b`
+
+Bitwise XOR
+
+`^`
+
+`a ^ b`
+
+العامل `^` يحسب ناتج جمع الـ bits الغير مشتركة بين `a` و `b`
+
+Bitwise compliment OR
+
+`~`
+
+`~a`
+
+العامل `~` يقلب الـ bits التي تساوي 0 إلى 1 و يقلب الـ bits التي تساوي 1 إلى 0، ثم يضيف عليهم 1 و يحسب ناتج جمعهم, بعدها يضرب الجواب بالعامل ( `-` ) ثم يعطينا جواب سلبي.
+
+Left shift
+
+`<<`
+
+`a << 2`
+
+العامل `<<` يزيح الـ bits من آخر اليسار إلى أول اليمين.  
+العدد 2 يعني أننا سنزيح آخر إثنين bits و نضعهم في الأول.
+
+Right shift
+
+`>>`
+
+`a >> 2`
+
+العامل `>>` يزيح الـ bits من أول اليمين إلى آخر اليسار.  
+العدد 2 يعني أننا سنزيح أول إثنين bits و نضعهم في الأخير.
+
+[أمثلة على كل عامل](/tutorials/javascript/operators/bitwise-operators)
+
+## العوامل التي تستخدم لإعطاء قيم للمتغيرات (Assignment Operators)
+
+إسم العامل
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Basic Assignment
+
+`=`
+
+`a = b`
+
+ضع قيمة `b` في `a`.
+
+Add AND Assignment
+
+`+=`
+
+`a += b`
+
+أضف قيمة `a` على قيمة `b` و خزن الناتج في `a`
+
+Subtract AND Assignment
+
+`-=`
+
+`a -= b`
+
+أنقص قيمة `a` من قيمة `b` و خزن الناتج في `a`
+
+Multiply AND Assignment
+
+`*=`
+
+`a *= b`
+
+أضرب قيمة `a` بقيمة `b` و خزن الناتج في `a`
+
+Divide AND Assignment
+
+`/=`
+
+`a /= b`
+
+أقسم قيمة `a` على قيمة `b` و خزن الناتج في `a`
+
+Modulo AND Assignment
+
+`%=`
+
+`a %= b`
+
+أقسم قيمة `a` على قيمة `b` و خزن آخر رقم يبقى من عملية القسمة في `a`
+
+Left shift AND Assignment
+
+`<<=`
+
+`a <<= 2`
+
+أزح آخر إثنين bits و ضعهم في الأول ثم خزن الناتج في `a`
+
+Right shift AND Assignment
+
+`>>=`
+
+`a >>= 2`
+
+أزح أول اثنين bits و ضعهم في الآخر ثم خزن الناتج في `a`
+
+Bitwise AND Assignment
+
+`&=`
+
+`a &= b`
+
+أحسب ناتج جمع الـ bits المشتركة بين `a` و `b` و خزن الناتج في `a`
+
+Bitwise exclusive OR and Assignment
+
+`^=`
+
+`a ^= b`
+
+أحسب ناتج جمع الـ bits الغير مشتركة بين `a` و `b` و خزن الناتج في `a`
+
+Bitwise inexclusive OR and Assignment
+
+`|=`
+
+`a |= b`
+
+أحسب ناتج جمع الـ bits المشتركة و الغير مشتركة بين `a` و `b` و خزن الناتج في `a`
+
+[أمثلة على كل عامل](/tutorials/javascript/operators/assignment-operators)
+
+## العوامل التي تستخدم لمعرفة أنواع المتغيرات (Type Operators)
+
+إسم العامل
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Type of
+
+`typeof`
+
+`typeof a`
+
+أعطني نوع القيمة المخزنة في المتغير `a`
+
+Instance of
+
+`instanceof`
+
+`a instanceof String`
+
+هل المتغير `a` عبارة عن كائن من الكلاس `String`؟  
+إذا كان الجواب نعم فإنها ترجع `true`
+
+[أمثلة على كل عامل](/tutorials/javascript/operators/type-operators)

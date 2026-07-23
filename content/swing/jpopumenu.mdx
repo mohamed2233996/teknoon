@@ -1,0 +1,84 @@
+---
+title: "Swingالكلاس JPopupMenu"
+source: "https://harmash.com/tutorials/swing/jpopumenu"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:05.573Z"
+---
+
+## مقدمة
+
+الكلاس `JPopupMenu` يستخدم للحصول على قائمة منبثقة ( Popup Menu ) تظهر عند النقر على زر الفأرة الأيمن ( Right Click ).
+
+ملاحظة: ليس بالضرورة أن تظهر القائمة فقط عند النقر على زر الفأرة الأيمن, لكن الأغلب يظهرها عند النقر على زر الفأرة الأيمن.
+
+  
+
+### بناؤه
+
+public class JPopupMenu
+extends JComponent
+implements Accessible, MenuElement
+
+## كونستركتورات الكلاس `JPopupMenu`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JPopupMenu`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JPopupMenu()` ينشئ كائن من الكلاس `JPopupMenu` يمثل Popup Menu فارغة, أي لا تحتوي أي عنصر.  
+لإضافة خيارات فيها نستخدم الدالة `add()`.
+
+2
+
+`public JPopupMenu(String label)` ينشئ كائن من الكلاس `JPopupMenu` يمثل Popup Menu فارغة لها عنوان.  
+لإضافة خيارات فيها نستخدم الدالة `add()`.  
+مكان الباراميتر `label` نضع نص يمثل العنوان الذي سيظهر في أعلا الـ Popup Menu.  
+  
+ملاحظة: في حال لم يظهر العنوان الذي وضعته لا تظن أن المشكلة في الكود, المشكلة قد تكون أن الـ Theme المستخدم لا يدعم إظهار عنوان لها.
+
+## دوال الكلاس `JPopupMenu`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JPopupMenu`.
+
+الدالة مع تعريفها
+
+1
+
+`public JMenuItem add(String item)` تستخدم لإضافة عنصر جديد في آخر كائن الـ `JPopupMenu` الذي قام بإستدعائها ثم ترجع نسخة منه.  
+مكان الباراميتر `item` نضع نص العنصر الذي سيضاف.
+
+2
+
+`public JMenuItem add(JMenuItem item)` تستخدم لإضافة عنصر جديد في آخر كائن الـ `JPopupMenu` الذي قام بإستدعائها ثم ترجع نسخة منه.  
+مكان الباراميتر `item` نضع كائن من الكلاس `JMenuItem` أو من إحدى الكلاسات التي ترث منه, يمثل العنصر الذي سيضاف.  
+  
+الكلاسات التي ترث من الكلاس `JMenuItem` هي التالية:  
+
+*   `JMenu`: يستخدم لوضع قائمة داخلية في الـ Popup Menu.
+*   `JCheckBoxMenuItem`: يستخدم لوضع Check Box في الـ Popup Menu.
+*   `JRadioButtonMenuItem`: يستخدم لوضع Radio Button في الـ Popup Menu.
+
+3
+
+`public void addSeparator()` تستخدم لإضافة خط فاصل في كائن الـ `JPopupMenu`.  
+ترمي الإستثناء IllegalArgumentException في حال كان كائن الـ `JPopupMenu` الذي قام بإستدعائها فارغاً.
+
+4
+
+`public void show(Component invoker, int x, int y)` تستخدم لإظهار الـ Popup Menu في الموقع الذي تم تحديده.  
+  
+
+*   مكان الباراميتر `invoker` نضع إسم الكائن الذي سيستدعي الـ Popup Menu.
+*   مكان الباراميتر `x` نضع رقم يمثل بعد الـ Popup Menu أفقياً عن الـ invoker.
+*   مكان الباراميتر `y` نضع رقم يمثل بعد الـ Popup Menu عامودياً عن الـ invoker.
+
+## مثال شامل
+
+المثال التالي يعلمك طريقة إنشاء قائمة ( Popup Menu ) تظهر عند النقر على زر الفأرة الأيمن ( Right Click ).  
+هذه القائمة تسمح للمستخدم بأن يقوم بنسخ, قص, لصق و تحديد المحتوى.
+
+![طريقة إظهار قائمة JPopupMenu عند النقر على زر الفأرة الأيمن في جافا](/content-images/swing/jpopumenu/1784305385557-li33fl.PNG)
+
+[شاهد المثال](/tutorials/swing/jpopumenu/example-1)

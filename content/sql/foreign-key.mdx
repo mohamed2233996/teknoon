@@ -1,0 +1,125 @@
+---
+title: "SQLتعيين العمود كمفتاح أجنبي"
+source: "https://harmash.com/tutorials/sql/foreign-key"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:58.439Z"
+---
+
+## المفتاح الأجنبي ( Foreign Key )
+
+المفتاح الأجنبي هو العمود الذي نضع فيه قيم مفتاح رئيسي موجود في جدول آخر بهدف ربطهما مع بعض.
+
+كمثال بسيط، في الصورة التالية العمود `country_id` الموجود في الجدول `users` يعتبر مفتاح أجنبي لأن قيمه تشير لقيم العمود `id` الموجود في الجدول `countries`.
+
+![مفهوم المتفاح الأجنبي في قواعد البيانات](/content-images/sql/foreign-key/1784304598427-71uaee.PNG)
+
+نلاحظ أن قيم العمود `country_id` يجب أن تشير لقيم العمود `id` في الجدول `countries` لتخزين قيم صحيحة.
+
+لضمان أن لا يتم تخزين أرقام خاطئة في العمود `country_id` يجب تعيين هذا العمود كمفتاح أجنبي بالنسبة للعمود `id` الموجود في الجدول `countries`. عندها في حال تمرير قيمة للحقل `country_id` غير موجودة في العمود `id` فإنه لن يتم قبولها و سيظهر خطأ مفاهده بأنه لا يمكن فعل ذلك.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash`.
+
+#### مثال
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+قواعد بيانات SQLite لا توجد ميزة المفاتيح الأجنبية فيها. و بالنسبة لقواعد بيانات Access فإنه يمكن التعامل فيها مع المفاتيح الأجنبية بشكل مباشر من خلال البرنامج نفسه.
+
+## تعيين المفتاح الأجنبي عند إنشاء الجدول
+
+جميع الأعمدة التي سيتم تعيينها في الجدول بمثابة مفاتيح رئيسية ( Primary Key ) أو مفاتيح أجنبية ( Foreign Key ) يمكن تحديدها أثناء إنشاء الجدول أو في وقت لاحق. بالإضافة إلى ذلك فإنه يمكن تتكون من عمود واحد أو من أكثر من عمود.
+
+في حال كان المراد تعيين عمود واحد أو أكثر كمفتاح أجنبي في الجدول فإنه يمكن وضع قيد ( Constraint ) لتحديده كما يلي.
+
+CREATE TABLE table\_name (
+    column1 datatype NOT NULL,
+    column2 datatype NOT NULL,
+    ...,
+    CONSTRAINT constraint\_name FOREIGN KEY (column\_names)
+);
+
+*   مكان الكلمة `constraint_name` نضع الإسم الذي سيتم إعطاؤه للمفتاح.
+*   مكان الكلمة `column_names` نضع إسم العمود أو الأعمدة التي ستمثل المفتاح.
+
+المفتاح الرئيسي و المفاتيح الأجنبية في الجدول يمكن تعريفها كقيود فيه.
+
+  
+
+الإستعلام التالي ينشئ الجدولين `users` و `countries` مع تعيين جميع خصائصهما و مفاتيحهما.
+
+#### مثال
+
+\-- سيتم حذفه countries في حال كان يوجد في قاعدة البيانات جدول إسمه
+DROP TABLE IF EXISTS countries;
+
+\-- countries هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE countries (
+    id     INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    name   VARCHAR(100),
+    UNIQUE (name)
+);
+
+\-- سيتم حذفه users في حال كان يوجد في قاعدة البيانات جدول إسمه
+DROP TABLE IF EXISTS users;
+
+\-- users هنا قمنا بإنشاء جدول جديد إسمه
+CREATE TABLE users (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(50),
+    country\_id INT NOT NULL,
+    \-- countries الموجود في الجدول id هو مفتاح أجنبي بالنسبة للعمود country\_id يحدد أن العمود fk\_country\_user هنا قمنا بوضع قيد بإسم
+    CONSTRAINT fk\_country\_user FOREIGN KEY (country\_id) REFERENCES countries(id)
+);
+
+## تعيين المفتاح الأجنبي بعد إنشاء الجدول
+
+في حال أردت تعيين عمود أو أكثر كمفتاح أجنبي في الجدول بعد أن تم إنشاؤه، يمكنك استخدام الأمر `ADD CONSTRAINT` لإضافة القيد كما يلي.
+
+ALTER TABLE table\_name
+ADD CONSTRAINT constraint\_name FOREIGN KEY (column\_names)
+REFERENCES referenced\_table\_name(referenced\_column\_names);
+
+*   مكان الكلمة `table_name` نضع إسم الجدول الذي سيتم إنشاء القيد له.
+*   مكان الكلمة `constraint_name` نضع الإسم الذي سيتم إعطاؤه للمفتاح.
+*   مكان الكلمة `column_names` نضع إسم العمود أو الأعمدة التي ستمثل المفتاح.
+*   مكان الكلمة `referenced_table_name` نضع إسم الجدول الآخر الذي يوجد فيه المفتاح الرئيسي.
+*   مكان الكلمة `referenced_column_names` نضع إسم العمود أو الأعمدة التي تمثل المفتاح الرئيسي في الجدول الأخر.
+
+  
+
+الإستعلام التالي يضيف في الجدول `users` قيد إسمه `fk_country_users` مهمته تعيين العمود `country_id` الموجود في الجدول `users` كمفتاح أجنبي بالنسبة للعمود `id` الموجود في الجدول `countries`.
+
+#### مثال
+
+ALTER TABLE users                                     \-- users هنا قمنا بتحديد أننا نريد إجراء تعديل على بنية الجدول
+ADD CONSTRAINT fk\_country\_user                        \-- users و countries للإشارة إلى أنه مفتاح أجنبي بين الجدولين fk\_country\_user هنا قمنا بوضع قيد إسمه
+FOREIGN KEY (country\_id) REFERENCES countries(id);    \-- countries الموجود في الجدول id يستخدم قيم العمود country\_id هنا قمنا بتحديد أن العامود
+
+## حذف قيد المفتاح الأجنبي
+
+لحذف المفتاح الأجنبي الذي قمت بإضافته سابقاً كقيد في الجدول يمكنك استخدام الأمر `ALTER` كما يلي.
+
+ALTER TABLE table\_name
+DROP FOREIGN KEY fk\_constraint\_name;
+
+*   مكان الكلمة `table_name` نضع إسم الجدول الذي يحتوي على القيد.
+*   مكان الكلمة `constraint_name` نضع إسم القيد الذي نريد حذفه.
+
+  
+
+الإستعلام التالي يقوم بحذف قيد المفتاح الأجنبي `fk_country_user` من الجدول `users`.
+
+#### مثال
+
+ALTER TABLE users
+DROP FOREIGN KEY fk\_country\_user;

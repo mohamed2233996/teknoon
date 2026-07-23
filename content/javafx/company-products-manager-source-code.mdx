@@ -1,0 +1,1358 @@
+---
+title: "JavaFXإنشاء برنامج لحفظ و عرض منتجات شركة"
+source: "https://harmash.com/tutorials/javafx/company-products-manager-source-code"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:07.354Z"
+---
+
+في هذا الدرس ستتعلم طريقة إنشاء برنامج لحفظ و عرض منتجات الشركة باستخدام JavaFX.
+
+![javafx company product manager source code تحميل كود برنامج مدير منتجات الشركة بلغة جافا](/content-images/javafx/company-products-manager-source-code/1784305327123-two4aw.PNG)
+
+  
+
+### الأشياء المهمة التي ستتعلمها في هذا الدرس
+
+*   طريقة بناء قاعدة بيانات من الصفر.
+*   طريقة ربط البرنامج بقاعدة بيانات.
+*   طريقة إظهار محتوى قاعدة البيانات في جدول.
+*   طريقة إضافة, تحديث, مسح محتوى قاعدة البيانات من البرنامج.
+*   طريقة البحث السريع في الجدول.
+*   طريقة البحث و الإنتقال السريع في الجدول.
+*   طريقة جعل التصميم مميزاً.
+
+  
+
+[⇓ تحميل البرنامج بدون قاعدة البيانات](/tutorials/javafx/company-products-manager-source-code/f239f37d-99c8-4110-a67c-90d56e71a01a_javafx-company-products-manager-application.zip) [⇓ تحميل كود المشروع كاملاً](/tutorials/javafx/company-products-manager-source-code/d9063ef9-6a7e-4deb-a671-28722459b9b1_javafx-company-products-manager-project.zip) [⇓ تحميل مجلد الصور فقط](/tutorials/javafx/company-products-manager-source-code/7a354581-1e27-41ed-a5d0-7092b4598ca0_javafx-company-products-manager-images.zip) [⇓ تحميل مكتبة MySQL](/tutorials/javafx/company-products-manager-source-code/mysql-connector-java-5.1.40-bin.jar)
+
+  
+  
+
+### مميزات البرنامج
+
+*   هذا البرنامج يشبه كثيراً برامج إدارة المخزون التي يمكنك بيعها و الإستفادة منها.
+*   تم تجهيزه ليكون قابلاً للتعديل و التطوير بسهولة.
+
+  
+  
+
+### الخطوات التي يجب اتباعها لإنشاء المشروع
+
+حتى لا تظهر عندك أي أخطاء أثناء نسخ الكود, يجب إتباع الخطوات التالية لإنشاء المشروع بنجاح:
+
+*   بناء قاعدة البيانات و التأكد من إسم المستخدم فيها و كلمة مروره لأنك بحاجة إليهم.
+*   إنشاء مشروع جديد لا يحتوي على أي كلاس.
+*   تضمين مكتبة قاعدة البيانات ( و التي تختلف على حسب نوع قاعدة البيانات المستخدمة ) في المشروع.
+*   تضمين مجلد الصور.
+*   إنشاء ملفات الجافا بالترتيب التالي: `DBInfo`, ثم `Alert`, ثم `Common`, ثم `Product`,ثم `AddNewProductDialog`, ثم `AllProductsPane`, ثم `Main`.
+
+إذاً, يجب تجهيز قاعدة البيانات, المكتبات و الصور قبل المباشرة بكتابة كود الجافا.
+
+  
+  
+
+### ليس عندي خبرة في قواعد البيانات, ماذا أفعل؟
+
+سواء قمت بتحميل البرنامج أو المشروع كاملاً فإنك لا زلت بحاجة إلى إنشاء قاعدة البيانات على جهازك.  
+إضافةً إلى ذلك لا تنسى أنه يجب تشغيل السيرفر و تفعيل خدمتي الإستضافة و الإتصال بقاعدة البيانات قبل تشغيل البرنامج.
+
+لإنشاء قاعدة البيانات عندك خيارين:
+
+*   إنشاء قاعدة البيانات بواسطة إستعلام.
+*   إنشاء قاعدة البيانات بشكل يدوي.
+
+  
+
+**الطريقة الأولى:** إنشاء قاعدة بيانات بنفسك من خلال تنفيذ الإستعلام التالي في خادم قاعدة البيانات.
+
+\-- سيتم حذفها products\_db في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS products\_db;
+        
+\-- products\_db هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE products\_db;
+        
+\-- products\_db هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE products\_db;
+        
+\-- يتألف من خمسة أعمدة products هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر products\_db سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE \`products\` (
+  \`id\` int NOT NULL,
+  \`name\` varchar(200) DEFAULT NULL,
+  \`price\` decimal(10,2) DEFAULT NULL,
+  \`added\_date\` date DEFAULT NULL,
+  \`image\_url\` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (\`id\`)
+);
+
+  
+
+**الطريقة الثانية:** يمكنك إتباع الخطوات التالية لإنشاء قاعدة البيانات من الصفر إن لم ترد إنشاؤها بواسطة الإستعلام السابق.
+
+[تعلم طريقة إنشاء قاعدة البيانات من الصفر](/tutorials/javafx/company-products-manager-source-code/create-the-database)
+
+  
+  
+
+### بناء البرنامج
+
+بالنسبة للكود, قمنا بتقسيم هذا المشروع إلى إنترفيس واحد و ست كلاسات.
+
+*   الإنترفيس `DBInfo` وضعنا فيه المعلومات الأساسية التي نحتاجها للوصول إلى قاعدة البيانات و لتحديد مسار الصور التي سيتم تخزينها.
+*   الكلاس `SpecialAlert` قمنا ببنائه خصيصاً ليمثل أي نافذة منبثقة نعرض فيها خطأ أو رسالة عادية أمام المستخدم.
+*   الكلاس `Common` قمنا ببنائه خصيصاً لوضع جميع الدوال الثابتة التي قمنا ببنائها في نفس الكلاس.
+*   الكلاس `Product` يمثل المعلومات التي يمكن أن يحتويها كل منتج سيتم إضافته, هذا الأمر يسهل كثيراً طريقة جلب المعلومات المتوفرة حول أي منتج من قاعدة البيانات و وضعها في الجدول بالإضافة إلى جعل المستخدم قادر على التلاعب بطريقة ظهور البيانات في الجدول.
+*   الكلاس `AllProductsPane` يمثل النافذة الأساسية في البرنامج و التي يمكن فيها مشاهدة جميع المنتجات و تعديل بيانات أي منتج.
+*   الكلاس `AddNewProductDialog` يمثل النافذة المنبثقة المخصصة لإضافة منتج جديد.
+*   الكلاس `Main` يمثل النافذة الأساسية في البرنامج.
+
+  
+
+بعد إضافة جميع الملفات في المشروع, يجب أن تبدو كما في الصورة التالية.
+
+![](/content-images/javafx/company-products-manager-source-code/1784305327218-euvbl5.PNG)
+
+  
+
+#### كود البرنامج
+
+DBInfo.java
+
+// قمنا بتصميم هذا الإنترفيس خصيصاً لتحديد المعلومات الأساسية التي يجب توفرها للإتصال بخادم قاعدة البيانات. و بالتالي فإن أي
+// لهذا الإنترفيس حتى يحصل على المعلومات الموضوعة فيه implements كلاس في يريد التعامل مع قاعدة البيانات, يمكنه بسهولة أن يفعل
+public interface DBInfo {
+ 
+    // هنا قمنا بتحديد إسم قاعدة البيانات و طريقة الوصول لها
+    String DB\_NAME \= "jdbc:mysql://localhost/products\_db";
+ 
+    // هنا قمنا بتحديد نوع الترميز الذي سنستخدمه عند الإتصال بقاعدة البيانات. هذا الترميز يتيح لك تخزين البيانات باللغة العربية
+    String ENCODING \= "?useUnicode=yes&characterEncoding=UTF-8";
+ 
+    // هنا قمنا بدمج إسم قاعدة البيانات و طريقة الوصول إليها و نوع الترميز في متغير واحد بهدف تقليل حجم الكود لاحقاً فقط
+    String DB\_NAME\_WITH\_ENCODING \= DB\_NAME + ENCODING;
+ 
+    // هنا قمنا بتحديد إسم المستخدم في قاعدة البيانات
+    String USER \= "root";
+ 
+    // هنا قمنا بتحديد كلمة مرور المستخدم في قاعدة البيانات
+    String PASSWORD \= "";
+    
+    // هنا قمنا بتحديد المسار الذي سيتم فيه تخزين الصور التي يتم إضافتها في حاسوب المستخدم و الذي سنذكره أيضاً في قاعدة البيانات
+    String UPLOADED\_FILE\_PATH \= "D:/uploaded-files/";
+ 
+}
+
+  
+SpecialAlert.java
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+// لعرض أي نوافذ التنبيه في التطبيق بدون الحاجة إلى تكرار كود كبير SpecialAlert قمنا ببناء الكلاس
+public class SpecialAlert {
+    
+    // يمثل أي نافذة منبثقة سنعرضها في التطبيق مهما كان نوعها alert هنا قمنا بإنشاء كائن من الكلاس
+    Alert alert \= new Alert(AlertType.NONE);
+    
+    // الدالة التالية قمنا ببنائها لتحديد كل المعلومات التي نريد تمريرها للنافذة المنبثقة عند إظهارها دفعةً واحدة
+    public void show(String title, String message, AlertType alertType) {
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.setContentText(message);
+        alert.setAlertType(alertType);
+        alert.showAndWait();
+    }
+}
+
+  
+Common.java
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+
+// نقوم ببناءها في المشروع static قمنا ببنائه خصيصاً لوضع أي دوال Common الكلاس
+// حتى نحصل على الثوابت الموجودة فيه و التي سنحتاجها في الدوال DBInfo جعلناه ينفذ الإنترفيس
+public class Common implements DBInfo {
+    
+    // و التي سنستخدمها كلما أردنا الإتصال بقاعدة البيانات getConnection() هنا قمنا ببناء الدالة
+    public static Connection getConnection()
+    {
+        Connection con;
+
+        try {
+            // DBInfo معلومات الإتصال بقاعدة البيانات قمنا بجلبها من الإنترفيس
+            con = DriverManager.getConnection(DB\_NAME\_WITH\_ENCODING, USER, PASSWORD);
+            return con;
+        }
+        catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    // الدالة التالية نستخدمها لتوليد إسم فريد لكل صورة يضيفها المستخدم في التطبيق
+    public static String generateImagePath(File selectedFile)
+    {
+        // date هنا قمنا بإنشاء تاريخ و وضعناه في الكائن
+        java.util.Date date \= new java.util.Date();
+ 
+        // إفتراضياً Date التي يستخدمها الكلاس format جديدة لإظهار الوقت و لكننا إستخدمنا الـ format هنا قمنا بإنشاء
+        SimpleDateFormat sdf \= new SimpleDateFormat("Y-M-d-hh-mm-ss");
+        
+        // لأننا بحاجة لمعرفة إمتداد أي صورة سنقوم بتخزينها fileExtension في المتغير selectedFile هنا قمنا بتخزين إمتداد الملف الذي يشير إليه الكائن 
+        String fileExtension \= selectedFile.getName().substring(selectedFile.getName().lastIndexOf("."));
+ 
+        // fileExtension إمتداد الملف أو الصورة التي تم تخزينها في المتغير + date في النهاية سترجع الدالة إسم مكون من توقيت جهاز المستخدم الحالي المخزن في الكائن
+        return UPLOADED\_FILE\_PATH + sdf.format(date) + fileExtension;
+    }
+    
+    // الدالة التالية نستخدمها لحفظ أي صورة يضعها المستخدم لمنتج على حاسوبه
+    public static String saveSelectedImage(File selectedFile)
+    {
+        // createImagePath و من ثم سيتم تخزينه في المتغير generateImagePath() مسار الصورة التي سيتم تخزينها, سيتم إنشاؤه بواسطة الدالة
+        String createImagePath \= Common.generateImagePath(selectedFile);
+        try {
+            // يمثل الصورة التي إختارها المستخدم FileInputStream هنا قمنا بإنشاء كائن من الكلاس
+            FileInputStream in \= new FileInputStream(selectedFile);
+
+            // يمثل النسخة التي سننشئها من الصورة التي اختارها المستخدم FileOutputStream هنا قمنا بإنشاء كائن من الكلاس
+            FileOutputStream out \= new FileOutputStream(createImagePath);
+            
+            // out و تخزينه في نسخة الصورة الجديدة التي يمثلها الكائن in هنا قمنا بقراءة محتوى الصورة التي اختارها المستخدم حرفاً حرفاً من الكائن
+            int c;
+            while ((c = in.read()) != -1) {
+                out.write(c);
+            }
+
+            // هنا قمنا بإغلاق كلا الملفين في الذاكرة لأنه لم يعد هناك حاجة لهما
+            in.close();
+            out.close();
+        }
+        catch(Exception e) {}
+        
+        // هنا قمنا بإرجاع مسار النسخة الجديدة التي تم إنشاؤها من الصورة
+        return createImagePath;
+    }
+    
+    // filePath الدالة التالية نستخدمها لحذف أي صورة تم إضافتها سابقاً بناءاً على المسار الموجودة فيه و الذي نمرره مكان الباراميتر
+    public static void deleteImage(String filePath)
+    {
+        try {
+            File imageToDelete \= new File(filePath);
+            imageToDelete.delete();
+        }
+        catch(Exception e) {}
+    }
+    
+}
+
+  
+Product.java
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
+// ليمثل أي منتج يمكن عرضه في الجدول و يمكن تخزينه في قاعدة البيانات أيضاً Product قمنا ببناء الكلاس
+public class Product {
+ 
+    // هنا قمنا بتحديد المعلومات الأساسية التي يمكن أن يحتويها كل منتج
+    SimpleIntegerProperty id;
+    SimpleStringProperty name;
+    SimpleDoubleProperty price;
+    SimpleStringProperty addedDate;
+    SimpleStringProperty imageUrl;
+ 
+    // هنا قمنا بإنشاء كونستركتور إفتراضي لتحديد القيم الأولية التي نريد وضعها لأي منتج يتم إنشاؤه
+    public Product() {
+        this.id = new SimpleIntegerProperty(0);
+        this.name = new SimpleStringProperty("");
+        this.price = new SimpleDoubleProperty(0.0);
+        this.addedDate = new SimpleStringProperty("");
+        this.imageUrl = new SimpleStringProperty("");
+    }
+ 
+    // هنا قمنا بإنشاء كونستركتور ثاني يمكن استخدامه لتحديد القيم الأولية التي نريد تمريرها لأي منتج لحظة إنشاؤه
+    public Product(int id, String name, double price, String addedDate, String imageUrl) {
+        this.id = new SimpleIntegerProperty(0);
+        this.name = new SimpleStringProperty(name);
+        this.price = new SimpleDoubleProperty(price);
+        this.addedDate = new SimpleStringProperty(addedDate);
+        this.imageUrl = new SimpleStringProperty(imageUrl);
+    }
+    
+
+    // لكل خاصية وضعناها في الكلاس مع الإشارة إلى أن بناء هذا الدوال Getter و Setter هنا قمنا ببناء دوال
+    // TableView هو أمر إجباري و يجب فعله من لكي نتمكن لاحقاً من عرض الكائنات التي ننشئها من هذا الكلاس بداخل
+
+    public int getId() {
+        return id.getValue();
+    }
+ 
+    public void setId(int id) {
+        this.id = new SimpleIntegerProperty(id);
+    }
+ 
+    public String getName() {
+        return name.getValue();
+    }
+ 
+    public void setName(String name) {
+        this.name = new SimpleStringProperty(name);
+    }
+ 
+    public double getPrice() {
+        return price.getValue();
+    }
+ 
+    public void setPrice(double price) {
+        this.price = new SimpleDoubleProperty(price);
+    }
+ 
+    public String getAddedDate() {
+        return addedDate.getValue();
+    }
+ 
+    public void setAddedDate(String addedDate) {
+        this.addedDate = new SimpleStringProperty(addedDate);
+    }
+     
+    public String getImageUrl() {
+        return imageUrl.getValue();
+    }
+ 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = new SimpleStringProperty(imageUrl);
+    }
+ 
+}
+
+  
+AddNewProductDialog.java
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+
+// من أجل إضافة منتج جديد ( Add New ) يمثل النافذة المنبثقة التي سنظهرها عند النقر على الزر AddNewProductDialog الكلاس
+// لأننا سنظهره كنافذة منبثقة مخصصة ( أي نحن من يبنيها ) أمام المستخدم Dialog جعلناه يرث من الكلاس
+// ليحصل على المعلومات الضرورية التي نحتاجها للإتصال بخادم قاعدة البيانات DBInfo و جعلناه ينفذ الإنترفيس
+public class AddNewProductDialog extends Dialog implements DBInfo {
+
+    // هنا قمنا بإنشاء جميع الأشياء التي سنضعها في النافذة
+    Pane pane \= new Pane();
+    Label nameLabel \= new Label("Name");
+    Label productImage \= new Label("No image Selected");
+    Label priceLabel \= new Label("Price ( $ )");
+    TextField nameField \= new TextField();
+    TextField priceField \= new TextField();
+    Button chooseImageButton \= new Button("choose Image", new ImageView(new Image(getClass().getResourceAsStream("/images/add-image.png"))));
+    Button addButton \= new Button("Add Product", new ImageView(new Image(getClass().getResourceAsStream("/images/add-product.png"))));
+
+    // مما يجعلنا قادرين على تمرير البيانات التي نضيفها بشكل مباشر في الجدول table الذي وضعناه للكائن data هذا الكائن سنستخدمه للوصول إلى الكائن
+    Observabledata;
+
+    // لأننا سنستخدمه لعرض أي خطأ أو معلومة أما المستخدم بداخل نافذة منبثقة صغيرة بشكل مختصر SpecialAlert هنا قمنا بإنشاء كائن من الكلاس
+    SpecialAlert alert \= new SpecialAlert();
+    
+    // سنستخدمه لتخزين أي صورة يتم وضعها للمنتج بشكل مؤقت selectedFile الكائن
+    File selectedFile \= null;
+
+    // AddNewProductDialog هذا كونستركتور الكلاس
+    public AddNewProductDialog(Observabledata)
+    {
+        // AllProductsPane الذي سيستعمله هذا الكائن (أي النافذة المنبثقة) هو نفسه الذي نمرره له من الكلاس data هنا قلنا أن الكائن
+        // و هكذا فإن أي منتج سيتم إضافته في النافذة المنبثقة, سيتم عرضه بشكل مباشر في الجدول الموضوع في النافذة الأساسية في البرنامج
+        this.data = data;
+
+        // هنا قمنا بتحديد حجم كل شيء سيتم إضافته في النافذة المنبثقة
+        pane.setPrefSize(610, 390);
+        productImage.setPrefSize(224, 224);
+        nameLabel.setPrefSize(80, 40);
+        nameField.setPrefSize(270, 40);
+        priceLabel.setPrefSize(80, 40);
+        priceField.setPrefSize(270, 40);
+        chooseImageButton.setPrefSize(274, 45);
+        addButton.setPrefSize(538, 60);
+
+        // هنا قمنا بتحديد مكان ظهور كل شيء سيتم إضافته في النافذة المنبثقة
+        productImage.setTranslateX(36);
+        productImage.setTranslateY(40);
+        nameLabel.setTranslateX(300);
+        nameLabel.setTranslateY(30);
+        nameField.setTranslateX(300);
+        nameField.setTranslateY(70);
+        priceLabel.setTranslateX(300);
+        priceLabel.setTranslateY(120);
+        priceField.setTranslateX(300);
+        priceField.setTranslateY(160);
+        chooseImageButton.setTranslateX(298);
+        chooseImageButton.setTranslateY(220);
+        addButton.setTranslateX(34);
+        addButton.setTranslateY(310);
+
+        // هنا قمنا بتحديد خصائص الأشياء التي سيتم إضافتها في النافذة المنبثقة
+        chooseImageButton.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        addButton.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        nameField.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        priceLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        priceField.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        productImage.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        nameField.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        priceField.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        addButton.setStyle("-fx-background-color: #444; -fx-text-fill:white; -fx-cursor: hand;");
+        productImage.setAlignment(Pos.CENTER);
+
+        // الذي يمثل حاوية النافذة المنبثقة pane هنا قمنا بإضافة جميع الأشياء التي قمنا بإنشائها في الكائن
+        pane.getChildren().add(productImage);
+        pane.getChildren().add(chooseImageButton);
+        pane.getChildren().add(nameLabel);
+        pane.getChildren().add(priceLabel);
+        pane.getChildren().add(nameField);
+        pane.getChildren().add(priceField);
+        pane.getChildren().add(addButton);
+
+        // الأربع أسطر التالية, وضعناه من أجل جعل زر خروج النافذة المنبثقة يعمل بشكل صحيح
+        this.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        Node closeButton \= this.getDialogPane().lookupButton(ButtonType.CLOSE);
+        closeButton.managedProperty().bind(closeButton.visibleProperty());
+        closeButton.setVisible(false);
+
+        // هنا وضعنا عنوان للنافذة المنبثقة
+        this.setTitle("Add New Product");
+        
+        // في النافذة المنبثقة حتى يظهر محتواها بداخلها pane هنا أضقنا الحاوية
+        this.getDialogPane().setContent(pane);
+
+        // nameField هنا كأننا قمنا بالنقر بواسطة الفأرة بدخل الكائن
+        nameField.requestFocus();
+
+        // chooseImage() سيتم استدعاء الدالة chooseImageButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        chooseImageButton.setOnAction(Action -> {
+            chooseImage();
+        });
+
+        // insertProduct() سيتم استدعاء الدالة addButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        addButton.setOnAction(Action -> {
+            insertProduct();
+        });
+    }
+    
+    // الدالة التالية سنستخدمها لجعل النافذة المنبثقة خالية من أي قيم إفتراضية
+    private void resetWindow()
+    {
+        nameField.setText("");
+        priceField.setText("");
+        productImage.setText("No image selected");
+        productImage.setGraphic(null);
+        selectedFile = null;
+        nameField.requestFocus();
+    }
+
+    // الدالة التالية سنستخدمها لإظهار و إخفاء النافذة المنبثقة
+    public void display(boolean value)
+    {
+        // سيتم إظهار النافذة المنبثقة مع مسح أي قيم موضوعة فيها سابقاً value للباراميتر true إذا قمنا بتمرير القيمة
+        if(value == true) {
+            resetWindow();
+            this.showAndWait();
+        }
+        // سيتم إخفاء النافذة المنبثقة value للباراميتر false إذا قمنا بتمرير القيمة
+        else {
+            this.hide();
+        }
+    }
+
+    // الدالة التالية سنستخدمها لفحص القيم التي أدخلها المستخدم في الحقول للتأكد من صحتها قبل إضافة المنتج في قاعدة البيانات
+    private boolean checkInputs()
+    {
+        if (nameField.getText().equals("") && priceField.getText().equals("")) {
+            alert.show("Required fields are missing", "Name and Price fields cannot be empty!", AlertType.INFORMATION);
+            return false;
+        }
+        else if (nameField.getText().equals("")) {
+            alert.show("Required fields are missing", "Please enter product name", AlertType.INFORMATION);
+            return false;
+        }
+        else if (priceField.getText().equals("")) {
+            alert.show("Required fields are missing", "Please enter product price", AlertType.INFORMATION);
+            return false;
+        }
+
+        try {
+            Double.parseDouble(priceField.getText());
+            return true;
+        }
+        catch (NumberFormatException ex) {
+            alert.show("Error", "Price should be a decimal number (eg: 40, 10.5)", AlertType.ERROR);
+            return false;
+        }
+    }
+
+    // لجعل المستخدم قادر على إختيار صورة موجودة في حاسوبه chooseImage() قمنا ببناء الدالة
+    // Choose Image سيتم إستدعاء هذه الدالة عندما يقوم المستخدم بالنقر على الزر
+    private void chooseImage()
+    {
+        // و الذي سيمثل نافذة منبثقة لإختيار صورة من الجهاز FileChooser هنا قمنا بإنشاء كائن من الكلاس
+        FileChooser fileChooser \= new FileChooser();
+
+        // هنا قمنا بتحديد نوع الصور التي يمكنك للمستخدم إختيارها من جهازه
+        fileChooser.getExtensionFilters().add(
+                new ExtensionFilter("Select a .JPG .PNG .GIF image", "\*.jpg", "\*.png", "\*.gif")
+        );
+
+        // لتخزين الملف الذي قد يختاره المستخدم من الحاسوب selectedFile و قمنا بتجهيز الكائن showOpenDialog() بواسطة الدالة fileChooser هنا قمنا بإظهار الكائن
+        selectedFile = fileChooser.showOpenDialog(null);
+
+        // Open فهذا يعني أن المستخدم قام باختيار صورة من جهازه و من ثم نقر على الزر null لا تساوي selectedFile في حال كانت قيمة الكائن
+        if (selectedFile != null) {
+            // هنا قمنا بعرض الصورة التي تم اختيارها
+            try {
+                productImage.setText("");
+                productImage.setGraphic(new ImageView(new Image(
+                        selectedFile.toURI().toString(), 224, 224, true, true)));
+            }
+            catch (Exception e) {
+                alert.show("Error", "Failed to add Image", AlertType.ERROR);
+            }
+        }
+
+    }
+    
+    // قمنا ببناء الدالة التالية لحفظ جميع المعلومات التي أدخلها المستخدم في الحقول إضافةً إلى الصورة التي إختارها في قاعدة البيانات
+    private void insertProduct()
+    {
+        // إذا تم التشييك على الحقول و كان لا يوجد أي خطأ أو نقص في المعلومات المطلوب إدخالها
+        if (checkInputs()) {
+            try {
+                // سيتم الإتصال مع قاعدة البيانات
+                Connection con \= Common.getConnection();
+                
+                // إذا فشل الإتصال, سيتم إظهار نافذة منبثقة فيها رسالة تنبيه بذلك
+                if(con == null) {
+                    alert.show("Connection Error", "Failed to connect to database server", Alert.AlertType.ERROR);
+                }
+
+                // إذا نجح الإتصال, سيتم تجهيز الإستعلام الذي سيتم تنفيذه في قاعدة البيانات لحفظ المعلومات المدخلة في الحقول
+                PreparedStatement ps;
+
+                // إذا لم يقم المستخدم بوضع صورة للمنتج, سيتم تخزين فقط المعلومات التي أدخلها في الحقول
+                if (selectedFile == null) {
+                    ps = con.prepareStatement("INSERT INTO products(name, price, added\_date) values(?,?,?)");
+                }
+                // إذا قام المستخدم بوضع صورة للمنتج, سيتم تخزين المعلومات التي أدخلها في الحقول مع الصورة التي إختارها أيضاً
+                else {
+                    String createImagePath \= Common.saveSelectedImage(selectedFile);
+            
+                    ps = con.prepareStatement("INSERT INTO products(name, price, added\_date, image\_url) values(?,?,?,?)");
+                    ps.setString(4, createImagePath);
+                }
+
+                ps.setString(1, nameField.getText());
+                ps.setDouble(2, Double.valueOf(priceField.getText()));
+
+                LocalDate todayLocalDate \= LocalDate.now();
+                Date sqlDate \= Date.valueOf(todayLocalDate);
+
+                // تاريخ إضافة المنتج سيتم تخزينه بشكل تلقائي
+                ps.setDate(3, sqlDate);
+
+                // في الأخير سيتم تنفيذ الإستعلام و إغلاق الإتصال مع قاعدة البيانات
+                ps.executeUpdate();
+                con.close();
+
+                 // ل مسح جميع المعلومات التي أدخلها المستخدم في الحقول, حتى يتمكن من إدخال معلومات منتج جديد بسرعةresetWindow() ثم سيتم استدعاء
+                resetWindow();
+
+                viewProductInTheTable();
+            }
+            catch (Exception e) {
+                alert.show("Error", e.getMessage(), AlertType.ERROR);
+            }
+        }
+
+    }
+
+    // و التي سنقوم باستدعائها كلما تم إضافة منتج جديد لإظهاره في الجدول viewProductsInTheTable() هنا قمنا ببناء الدالة
+    private void viewProductInTheTable()
+    {
+        // products هنا قمنا بالإتصال بقاعدة البيانات و بتجهيز الإستعلام الذي سيجلب جميع قيم الجدول
+        Connection con \= Common.getConnection();
+        String query \= "SELECT \* FROM products ORDER BY ID DESC LIMIT 1";
+
+        // لتخزين نتيجة الإستعلام rs لتنفيذ الإستعلام, و الكائن st هنا قمنا بإنشاء الكائن
+        Statement st;
+        ResultSet rs;
+
+        try {
+            // rs هنا قمنا بتنفيذ الإستعلام و تخزين نتيجته في الكائن
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+
+            // في كل مرة rs لتخزين منتج واحد من المنتجات التي ستكون موجودة في الكائن product هنا قمنا بإنشاء الكائن
+            rs.next();
+
+            // product بيانات المنتج التي سيتم إرجاعها في كل مرة سيتم تخزينها بشكل مؤقت في الكائن
+            Product product \= new Product();
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setPrice(Double.parseDouble(rs.getString("price")));
+            product.setAddedDate(rs.getDate("added\_date").toString());
+            product.setImageUrl(rs.getString("image\_url"));
+
+            // productكعنصر واحد في المصفوفة product في الأخير سيتم إضافة الكائن
+            data.add(product);
+
+            // هنا قمنا بإغلاق الإتصال مع قاعدة البيانات لأننا لم نعد بحاجة إليها
+            con.close();
+        }
+        catch (SQLException e) {
+            alert.show("Error", e.getMessage(), AlertType.ERROR);
+        }
+
+    }
+
+}
+
+  
+AllProductsPane.java
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
+import javafx.util.StringConverter;
+
+// Pane يمثل حاوية النافذة التي سنظهرها عند تشغيل التطبيق لهذا جعلناه يرث من الكلاس AllProductsPane الكلاس
+// ليحصل على المعلومات الضرورية التي نحتاجها للإتصال بخادم قاعدة البيانات DBInfo و جعلناه ينفذ الإنترفيس
+public class AllProductsPane extends Pane implements DBInfo {
+
+    // AllProductsPane هنا قمنا بإنشاء جميع الأشياء التي سنضيفها في الحاوية التي يمثلها الكائن الذي ننشئه من الكلاس
+    TableView table \= new TableView();
+    TableColumn<Product, Integer> columnId = new TableColumn("ID");
+    TableColumn<Product, String> columnName = new TableColumn("Name");
+    TableColumn<Product, Double> columnPrice = new TableColumn("Price ($)");
+    TableColumn<Product, String> columnAddedDate = new TableColumn("Added Dated");
+    Label productImage \= new Label("No image found");
+    Label idLabel \= new Label("ID");
+    Label nameLabel \= new Label("Name");
+    Label priceLabel \= new Label("Price");
+    Label dateLabel \= new Label("Date");
+    Label moveFastLabel \= new Label("Move Fast");
+    Label searchLabel \= new Label("Search");
+    TextField idField \= new TextField();
+    TextField nameField \= new TextField();
+    TextField priceField \= new TextField();
+    TextField searchField \= new TextField();
+    Button updateImageButton \= new Button("Update Image");
+    Button insertButton \= new Button("Add New", new ImageView(new Image(getClass().getResourceAsStream("/images/insert.png"))));
+    Button updateButton \= new Button("Update", new ImageView(new Image(getClass().getResourceAsStream("/images/update.png"))));
+    Button deleteButton \= new Button("Delete", new ImageView(new Image(getClass().getResourceAsStream("/images/delete.png"))));
+    Button selectFirstButton \= new Button("First", new ImageView(new Image(getClass().getResourceAsStream("/images/first.png"))));
+    Button selectLastButton \= new Button("Last", new ImageView(new Image(getClass().getResourceAsStream("/images/last.png"))));
+    Button selectNextButton \= new Button("Next", new ImageView(new Image(getClass().getResourceAsStream("/images/next.png"))));
+    Button selectPreviousButton \= new Button("Previous", new ImageView(new Image(getClass().getResourceAsStream("/images/previous.png"))));
+    Button exitButton \= new Button("Exit", new ImageView(new Image(getClass().getResourceAsStream("/images/exit.png"))));
+    DatePicker datePicker \= new DatePicker();
+
+    // التي سنعرضها في الجدول ( Product سنخزن فيه معلومات جميع المنتجات ( التي هي عبارة عن كائنات من الكلاس data الكائن
+    ObservableList<Product> data = FXCollections.observableArrayList();
+    
+    // و الذي يمثل النافذة المنبثقة التي تسمح لنا بإضافة منتج جديد AddNewProductDialog هنا قمنا بإنشاء كائن من الكلاس
+    AddNewProductDialog addProductDialog \= new AddNewProductDialog(data);
+
+    // الكائن التالي سنخزن فيه الصورة التي تظهر للمنتج الذي يتم النقر عليه في الجدول أو التي يختارها المستخدم بشكل مؤقت عند تحديث صورة المنتج
+    File selectedFile \= null;
+
+    // ليظهر كالتالي:  يوم - شهر - سنة datePicker سنستخدمه لتحديد الطريقة التي سيظهر بها التاريخ بداخل الكائن dateFormat المتغير
+    final String dateFormat \= "yyyy-MM-dd";
+
+    // لأننا سنستخدمه لعرض أي خطأ أو معلومة أمام المستخدم بداخل نافذة منبثقة صغيرة بشكل مختصر SpecialAlert هنا قمنا بإنشاء كائن من الكلاس
+    SpecialAlert alert \= new SpecialAlert();
+
+    
+    // AllProductsPane هذا كونستركتور الكلاس
+    public AllProductsPane() {
+
+        // dateFormat يظهر بالفورمات الذي يشير إليه المتغير datePicker لها لجعل التاريخ الذي يظهر في الكائن dateFormatter() و تمرير الدالة setConverter() هنا قمنا باستدعاء الدالة
+        datePicker.setConverter(dateFormatter());
+
+        // table هنا وضعنا الأعمدة الأربعة في الكائن
+        table.getColumns().addAll(columnId, columnName, columnPrice, columnAddedDate);
+
+        // table سيتم عرضها في الكائن data هنا قمنا بتحديد أن البيانات التي ستكون موجودة في الكائن
+        table.setItems(data);
+
+        // تم إضافته في الجدول Product الموجودة في كل كائن id سيُعرض فيه قيم الـ columnId هنا قلنا أن العامود
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        
+        // تم إضافته في الجدول Product الموجودة في كل كائن name سيُعرض فيه قيم الـ columnName هنا قلنا أن العامود
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+        // تم إضافته في الجدول Product الموجودة في كل كائن price سيُعرض فيه قيم الـ columnPrice هنا قلنا أن العامود
+        columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        // تم إضافته في الجدول Product الموجودة في كل كائن addedDate سيُعرض فيه قيم الـ columnAddedDate هنا قلنا أن العامود
+        columnAddedDate.setCellValueFactory(new PropertyValueFactory<>("addedDate"));
+
+        // هنا قمنا بجعل حجم أعمدة الجدول ينقسم بالتساوي على عددهم مع إبقاء المستخدم قادر على تعديل أحجامهم بواسطة الفأرة
+        table.setColumnResizePolicy(TableView.CONSTRAINED\_RESIZE\_POLICY);
+
+        // AllProductsPane هنا قمنا بتحديد حجم كل شيء سيتم إضافته في الحاوية التي يمثلها الكائن الذي ننشئه من الكلاس
+        productImage.setPrefSize(270, 244);
+        updateImageButton.setPrefSize(130, 35);
+        idLabel.setPrefSize(50, 40);
+        idField.setPrefSize(270, 40);
+        nameLabel.setPrefSize(50, 40);
+        nameField.setPrefSize(270, 40);
+        priceLabel.setPrefSize(50, 40);
+        priceField.setPrefSize(270, 40);
+        dateLabel.setPrefSize(50, 40);
+        datePicker.setPrefSize(270, 40);
+        deleteButton.setPrefSize(130, 40);
+        updateButton.setPrefSize(130, 40);
+        table.setPrefSize(520, 505);
+        searchField.setPrefSize(255, 36);
+        searchLabel.setPrefSize(115, 40);
+        insertButton.setPrefSize(130, 60);
+        moveFastLabel.setPrefSize(190, 30);
+        selectFirstButton.setPrefSize(130, 40);
+        selectLastButton.setPrefSize(130, 40);
+        selectNextButton.setPrefSize(130, 40);
+        selectPreviousButton.setPrefSize(130, 40);
+        exitButton.setPrefSize(130, 40);
+
+        // AllProductsPane هنا قمنا بتحديد مكان ظهور كل شيء سيتم إضافته في الحاوية التي يمثلها الكائن الذي ننشئه من الكلاس
+        productImage.setTranslateX(80);
+        productImage.setTranslateY(40);
+        updateImageButton.setTranslateX(150);
+        updateImageButton.setTranslateY(295);
+        idLabel.setTranslateX(20);
+        idLabel.setTranslateY(355);
+        idField.setTranslateX(80);
+        idField.setTranslateY(355);
+        nameLabel.setTranslateX(20);
+        nameLabel.setTranslateY(405);
+        nameField.setTranslateX(80);
+        nameField.setTranslateY(405);
+        priceLabel.setTranslateX(20);
+        priceLabel.setTranslateY(455);
+        priceField.setTranslateX(80);
+        priceField.setTranslateY(455);
+        dateLabel.setTranslateX(20);
+        dateLabel.setTranslateY(505);
+        datePicker.setTranslateX(80);
+        datePicker.setTranslateY(505);
+        deleteButton.setTranslateX(80);
+        deleteButton.setTranslateY(575);
+        updateButton.setTranslateX(220);
+        updateButton.setTranslateY(575);
+        table.setTranslateX(377);
+        table.setTranslateY(40);
+        searchField.setTranslateX(530);
+        searchField.setTranslateY(577);
+        searchLabel.setTranslateX(460);
+        searchLabel.setTranslateY(575);
+        insertButton.setTranslateX(920);
+        insertButton.setTranslateY(40);
+        moveFastLabel.setTranslateX(890);
+        moveFastLabel.setTranslateY(150);
+        selectFirstButton.setTranslateX(920);
+        selectFirstButton.setTranslateY(200);
+        selectLastButton.setTranslateX(920);
+        selectLastButton.setTranslateY(250);
+        selectNextButton.setTranslateX(920);
+        selectNextButton.setTranslateY(300);
+        selectPreviousButton.setTranslateX(920);
+        selectPreviousButton.setTranslateY(350);
+        exitButton.setTranslateX(920);
+        exitButton.setTranslateY(575);
+
+        // AllProductsPane هنا قمنا بتحديد خصائص الأشياء التي سيتم إضافتها في الحاوية التي يمثلها الكائن الذي ننشئه من الكلاس
+        updateImageButton.setFont(Font.font("Arial", FontWeight.BOLD, 13));
+        idLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        idField.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        nameField.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        priceLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        priceField.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        dateLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        datePicker.getEditor().setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        deleteButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        updateButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        insertButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        searchField.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        searchLabel.setFont(Font.font("Arial", FontWeight.BOLD, 17));
+        moveFastLabel.setFont(Font.font("Arial", FontWeight.BOLD, 22));
+        selectFirstButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        selectLastButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        selectNextButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        selectPreviousButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        exitButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        productImage.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        idField.setStyle("-fx-border-color: lightgray; -fx-border-width: 2; -fx-background-color: #eee;");
+        nameField.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        priceField.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        searchField.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        datePicker.setStyle("-fx-border-color: lightgray; -fx-border-width: 2;");
+        productImage.setAlignment(Pos.CENTER);
+        moveFastLabel.setAlignment(Pos.CENTER);
+        idField.setEditable(false);
+
+        // AllProductsPane هنا قمنا بإضافة جميع الأشياء التي قمنا بإنشائها و تعديل تصيممها في الكائن الذي ننشئه من الكلاس
+        this.getChildren().add(table);
+        this.getChildren().add(productImage);
+        this.getChildren().add(updateImageButton);
+        this.getChildren().add(idLabel);
+        this.getChildren().add(idField);
+        this.getChildren().add(nameLabel);
+        this.getChildren().add(nameField);
+        this.getChildren().add(priceLabel);
+        this.getChildren().add(priceField);
+        this.getChildren().add(dateLabel);
+        this.getChildren().add(datePicker);
+        this.getChildren().add(insertButton);
+        this.getChildren().add(updateButton);
+        this.getChildren().add(deleteButton);
+        this.getChildren().add(searchField);
+        this.getChildren().add(searchLabel);
+        this.getChildren().add(moveFastLabel);
+        this.getChildren().add(selectFirstButton);
+        this.getChildren().add(selectLastButton);
+        this.getChildren().add(selectNextButton);
+        this.getChildren().add(selectPreviousButton);
+        this.getChildren().add(exitButton);
+
+        // لملئ الجدول بالمنتجات fillTheTable() هنا قمنا باستدعاء الدالة
+        fillTheTable();
+
+        // لإظهار معلومات و صورة أول منتج في الجدول في الحقول الموضوعة بجانبه showFirstProduct() هنا قمنا باستدعاء الدالة
+        showFirstProduct();
+        
+        // لعرض معلومات المنتج بجانب الجدول showProduct() سيتم استدعاء الدالة table هنا قمنا بتحديد أنه عند النقر على أي سطر في الجدول الذي يمثله الكائن
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                showProduct(table.getSelectionModel().getSelectedIndex());
+            }
+        });
+        
+        // حتى يتم إظهار النافذة المنبثقة addProductDialog من الكائن display() سيتم استدعاء الدالة insertButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        insertButton.setOnAction(Action -> {
+            addProductDialog.display(true);
+        });
+
+        // لعرض معلومات أول منتج في الجدول بجانبه showFirstProduct() سيتم استدعاء الدالة selectFirstButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        selectFirstButton.setOnAction(Action -> {
+            showFirstProduct();
+        });
+
+        // لعرض معلومات آخر منتج في الجدول بجانبه showLastProduct() سيتم استدعاء الدالة selectLastButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        selectLastButton.setOnAction(Action -> {
+            showLastProduct();
+        });
+
+        // لعرض معلومات المنتج التالي في الجدول بجانبه showNextProduct() سيتم استدعاء الدالة selectNextButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        selectNextButton.setOnAction(Action -> {
+            showNextProduct();
+        });
+
+        // لعرض معلومات المنتج السابق في الجدول بجانبه showPreviousProduct() سيتم استدعاء الدالة selectPreviousButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        selectPreviousButton.setOnAction(Action -> {
+            showPreviousProduct();
+        });
+
+        // لفتح نافذة منبثقة تسمح بتغير صورة المنتج chooseImage() سيتم استدعاء الدالة updateImageButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        updateImageButton.setOnAction(Action -> {
+            updateImage();
+        });
+
+        // لتحديث بيانات المنتج في قاعدة البيانات و في الجدول updateProduct() سيتم استدعاء الدالة updateButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        updateButton.setOnAction(Action -> {
+            updateProduct();
+        });
+        
+        // لحذف المنتج و صورته بشكل نهائي deleteProduct() سيتم استدعاء الدالة deleteButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        deleteButton.setOnAction(Action -> {
+            deleteProduct();
+        });
+
+        // لإغلاق البرنامج exit() سيتم استدعاء الدالة exitButton هنا قمنا بتحديد أنه عند النقر على الزر الذي يمثله الكائن
+        exitButton.setOnAction(Action -> {
+            System.exit(0);
+        });
+        
+        // للبحث في الجدول بناءاً على النص الذي يتم إدخاله search() سيتم استدعاء الدالة searchField هنا قمنا بتحديد أنه عند كتابة أو مسح أي حرف في مربع النص الذي يمثله الكائن
+        searchField.textProperty().addListener((obs, oldText, newText) -> {
+            search();
+        });
+        
+    }
+
+    // searchField لتحديد كيف سيتم البحث في الجدول عند إدخال أي كلمة في مربع البحث الذي يمثله الكائن search() هنا قمنا ببناء الدالة
+    private void search()
+    {
+        // keyword سيتم تخزينه بشكل مؤقت في المتغير searchField النص الذي يتم إدخاله في الكائن
+        String keyword \= searchField.getText();
+        
+        // في الجدول data سيتم عرض جميع البيانات الموجودة في الكائن searchField إذا كان لا يوجد أي نص مدخل في الكائن
+        if (keyword.equals("")) {
+            table.setItems(data);
+        }
+        
+        // data سيتم إنشاء نسخة من البيانات ( أي المنتجات ) الموجودة في الكائن searchField إذا كان يوجد أي نص مدخل في الكائن
+        // keyword فيها ) على نفس الأحرف الموجودة في المتغير name التي يحتوي إسمها ( أو الخاصية
+        else {
+            ObservableList<Product> filteredData = FXCollections.observableArrayList();
+            for (Product product : data) {
+                if(product.getName().contains(keyword))
+                    filteredData.add(product);
+            }
+            // في الأخير سيتم عرض نسخة البيانات المفلترة التي تم إنشاؤها في الجدول بدلاً من البيانات الأصلية التي كانت معروضة فيه
+            table.setItems(filteredData);
+        }
+    }
+
+    // و التي سنقوم باستدعائها كلما تم تحديد منتج جديد في الجدول لعرض جميع المعلومات showProduct() هنا قمنا ببناء الدالة
+    // الخاص فيه id المتوفرة عنه بجانب الجدول, مع الإشارة إلى أنه سيتم جلب جميع المعلومات الخاصة بالمنتج بناءاً على رقم الـ 
+    private void showProduct(int index)
+    {
+        idField.setText(data.get(index).getId() + "");
+        nameField.setText(data.get(index).getName());
+        priceField.setText(data.get(index).getPrice() + "");
+        datePicker.getEditor().setText(data.get(index).getAddedDate());
+
+        // في حال كان المنتج لا يملك صورة "No image found" الشرطين التاليين فكرتهما أنه سيتم وضع النص
+        if (data.get(index).getImageUrl() == null) {
+            productImage.setGraphic(null);
+            productImage.setText("No image found");
+        }
+        else {
+            productImage.setText("");
+            productImage.setGraphic(new ImageView(new Image(
+                    new File(data.get(index).getImageUrl()).toURI().toString(),
+                    224, 224, true, true)));
+        }        
+    }
+
+    // لتحديد أول منتج في الجدول ثم عرض معلوماته showFirstProduct() هنا قمنا ببناء الدالة
+    private void showFirstProduct()
+    {
+        if (!data.isEmpty()) {
+            table.getSelectionModel().select(0);
+            showProduct(0);
+        }
+    }
+
+    // لتحديد آخر منتج في الجدول ثم عرض معلوماته showlastProduct() هنا قمنا ببناء الدالة
+    private void showLastProduct()
+    {
+        if (!data.isEmpty()) {
+            table.getSelectionModel().select(data.size() - 1);
+            showProduct(data.size() - 1);
+        }
+    }
+
+    // لتحديد المنتج التالي في الجدول ثم عرض معلوماته showNextProduct() هنا قمنا ببناء الدالة
+    private void showNextProduct()
+    {
+        if (table.getSelectionModel().getSelectedIndex() < data.size() - 1) {
+            int currentSelectedRow \= table.getSelectionModel().getSelectedIndex() + 1;
+            table.getSelectionModel().select(currentSelectedRow);
+            showProduct(currentSelectedRow);
+        }
+    }
+
+    // لتحديد المنتج السابق في الجدول ثم عرض معلوماته showPreviousProduct() هنا قمنا ببناء الدالة
+    private void showPreviousProduct()
+    {
+        if (table.getSelectionModel().getSelectedIndex() > 0) {
+            int currentSelectedRow \= table.getSelectionModel().getSelectedIndex() - 1;
+            table.getSelectionModel().select(currentSelectedRow);
+            showProduct(currentSelectedRow);
+        }
+    }
+
+    // لجعل المستخدم قادر على إختيار صورة موجودة في حاسوبه updateImage() قمنا ببناء الدالة
+    // updateImageButton سيتم إستدعاء هذه الدالة عندما يقوم المستخدم بالنقر على الزر الذي يمثله الكائن
+    private void updateImage()
+    {
+        // الشرط التالي معناه أنه إذا لم يكن هناك أي سطر محدد في الجدول أثناء النقر على الزر سيتم إظهار رسالة
+        // تنبيه تبلغ المستخدم أنه يجب أن يحدد السطر ( أي المنتج ) الذي يريد تحديث صورته قبل أن ينقر على الزر
+        if(table.getSelectionModel().getSelectedItem() == null)
+        {
+            alert.show("Message", "Select the item that you want to update its image first", AlertType.INFORMATION);
+            return;
+        }
+
+        // و الذي سيمثل نافذة منبثقة لإختيار صورة من الجهاز FileChooser هنا قمنا بإنشاء كائن من الكلاس
+        FileChooser fileChooser \= new FileChooser();
+
+        // هنا قمنا بتحديد نوع الصور التي يمكنك للمستخدم إختيارها من جهازه
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Select a .JPG .PNG .GIF image", "\*.jpg", "\*.png", "\*.gif")
+        );
+
+        // لتخزين الملف الذي قد يختاره المستخدم من الحاسوب selectedFile و قمنا بتجهيز الكائن showOpenDialog() بواسطة الدالة fileChooser هنا قمنا بإظهار الكائن
+        selectedFile = fileChooser.showOpenDialog(null);
+
+        // Open فهذا يعني أن المستخدم قام باختيار صورة موجودة على جهازه و نقر على الزر null لا تساوي selectedFile في حال كانت قيمة الكائن
+        if (selectedFile != null) {
+            
+            try {
+                // createImagePath لإنشاء نسخة من الصورة التي اختارها مع حفظ المسار الذي أنشئت فيه في المتغير saveSelectedImage() هنا قمنا باستدعاء الدالة
+                String createImagePath \= Common.saveSelectedImage(selectedFile);
+
+                // لتخزين نص الإستعلام الذي سيتم تنفيذه query هنا قمنا بالإتصال بخادم قاعدة البيانات و تجهزي المتغير
+                Connection con \= Common.getConnection();
+           
+                // الخاص بالمنتج id هنا قمنا بتجهيز نص الإستعلام الذي يقضي بتحديث مسار الصورة بناءاً على رقم الـ
+                String query \= "UPDATE products SET image\_url = ? WHERE id = ?";
+                
+                // و الذي سيسمح لنا بتنفيذ الإستعلام PreparedStatement هنا قمنا بتجهيز كائن نوعه
+                PreparedStatement ps \= con.prepareStatement(query);
+                
+                // الخاص بالمنتج مكان ثاني علامة إستفهام id هنا مررنا مسار الصورة مكان أول علامة إستفهام و رقم الـ
+                ps.setString(1, createImagePath);
+                ps.setInt(2, Integer.parseInt(idField.getText()));
+                
+                // هنا قمنا بتنفيذ الإستعلام
+                ps.executeUpdate();
+
+                // هنا قمنا بإغلاق الإتصال مع خادم قاعدة البيانات
+                con.close();
+                
+                // selectedProduct هنا قمنا بتخزين بيانات المنتج الحالي الذي تم تغيير معلوماته في الكائن
+                Product selectedProduct \= (Product) table.getSelectionModel().getSelectedItem();
+
+                // هنا قمنا بمسح صورة المنتج القديمة من على جهاز المستخدم
+                Common.deleteImage(selectedProduct.getImageUrl());
+
+                // data و الذي سيتحدث بشكل تلقائي في الكائن selectedProduct هنا قمنا بتحديث رابط صورة المنتج الجديدة في الكائن
+                selectedProduct.setImageUrl(createImagePath);
+
+                // هنا قمنا بعرض صورة المنتج الجديدة
+                productImage.setText("");
+                productImage.setGraphic(new ImageView(new Image(
+                    selectedFile.toURI().toString(), 224, 224, true, true)));
+            }
+            catch (Exception ex) {
+                alert.show("Error", "Failed to update Image", AlertType.ERROR);
+            }
+        }
+
+    }
+
+    // لتحديد كيف سيتم تحديث بيانات المنتج في قاعدة البيانات updateProduct() قمنا ببناء الدالة
+    // updateButton سيتم إستدعاء هذه الدالة عندما يقوم المستخدم بالنقر على الزر الذي يمثله الكائن
+    private void updateProduct()
+    {
+        // الشرط التالي معناه أنه إذا لم يكن هناك أي سطر محدد في الجدول أثناء النقر على الزر سيتم إظهار رسالة
+        // تنبيه تبلغ المستخدم أنه يجب أن يحدد السطر ( أي المنتج ) الذي يريد تحديث بياناته قبل أن ينقر على الزر
+        if(table.getSelectionModel().getSelectedItem() == null)
+        {
+            alert.show("Message", "Select the item that you want to update first", AlertType.INFORMATION);
+            return;
+        }
+        
+        // الشرط التالي معناه أنه إذا تم التشييك على الحقول و كان لا يوجد أي خطأ أو نقص في المعلومات المطلوب إدخالها
+        // سيتم تنفيذ باقي الأوامر الموجودة في الدالة تحديث معلومات المنتج في قاعدة البيانات و في الجدول أيضاً
+        if (checkInputs() == false) {
+            return;
+        }
+
+        // selectedProduct هنا قمنا بتخزين بيانات المنتج الحالي الذي تم تغيير معلوماته في الكائن
+        Product selectedProduct \= (Product) table.getSelectionModel().getSelectedItem();
+
+        try {
+            // لتخزين نص الإستعلام الذي سيتم تنفيذه query هنا قمنا بالإتصال بخادم قاعدة البيانات و تجهزي المتغير
+            Connection con \= getConnection();
+            String query;
+
+            // إذا كان المنتج لا يملك صورة, سيتم تحديث كل حقوله في قاعدة البيانات مع عدا حقل الصورة
+            query = "UPDATE products SET name = ?, price = ?, added\_date = ? WHERE id = ?";
+
+            PreparedStatement ps \= con.prepareStatement(query);
+            ps.setString(1, nameField.getText());
+            ps.setDouble(2, Double.valueOf(priceField.getText()));
+            ps.setDate(3, Date.valueOf(datePicker.getEditor().getText()));
+            ps.setInt(4, Integer.parseInt(idField.getText()));
+            ps.executeUpdate();
+
+            // هنا قمنا بإغلاق الإتصال مع خادم قاعدة البيانات
+            con.close();
+
+            // هنا قمنا بوضوع جميع المعلومات الجديدة في الكائن الذي تم تحديده في الأساس في الجدول
+            selectedProduct.setName(nameField.getText());
+            selectedProduct.setPrice(Double.valueOf(priceField.getText()));
+            selectedProduct.setAddedDate(datePicker.getEditor().getText());
+            
+            // من أجل تحديث بيانات الجدول, أي لإظهار البيانات التي تم تحديثها فيه refresh() هنا قمنا باستدعاء الدالة
+            table.refresh();
+
+            // هنا قمنا بإظهار نافذة منبثقة تخبرنا أنه تم تحديث البيانات بنجاح
+            alert.show("Product Successfully updated",
+                    "Product information has been successfully updated",
+                    AlertType.INFORMATION);
+        
+        }
+        catch (Exception e) {
+            // في حال حدوث أي خطأ, سيتم عرضه بداخل نافذة منبثقة
+            alert.show("Error", e.getMessage(), AlertType.ERROR);
+        }
+    }
+    
+    // لتحديد كيف سيتم تحديث بيانات المنتج في قاعدة البيانات updateProduct() قمنا ببناء الدالة
+    // updateButton سيتم إستدعاء هذه الدالة عندما يقوم المستخدم بالنقر على الزر الذي يمثله الكائن
+    private void deleteProduct()
+    {
+        // الشرط التالي معناه أنه إذا لم يكن هناك أي سطر محدد في الجدول أثناء النقر على الزر سيتم إظهار رسالة
+        // تنبيه تبلغ المستخدم أنه يجب أن يحدد السطر ( أي المنتج ) الذي يريد حذفه قبل أن ينقر على الزر
+        if(table.getSelectionModel().getSelectedItem() == null)
+        {
+            alert.show("Message", "Select the item that you want to delete first", AlertType.INFORMATION);
+            return;
+        }
+        
+        // selectedProduct هنا قمنا بتخزين بيانات المنتج الحالي الذي تم تغيير معلوماته في الكائن
+        Product selectedProduct \= (Product) table.getSelectionModel().getSelectedItem();
+        
+        try {
+            // لتخزين نص الإستعلام الذي سيتم تنفيذه query هنا قمنا بالإتصال بخادم قاعدة البيانات و تجهزي المتغير
+            Connection con \= getConnection();
+
+            // الخاص فيه id هنا قمنا بتجهيز نص الإستعلام الذي يقضي بمسح المنتج بناءاً على رقم الـ
+            String query \= "DELETE FROM products WHERE id = ?";
+
+            // و الذي سيسمح لنا بتنفيذ الإستعلام PreparedStatement هنا قمنا بتجهيز كائن نوعه
+            PreparedStatement ps \= con.prepareStatement(query);
+            
+            // الخاص بالمنتج مكان علامة الإستفهام id هنا مررنا رقم الـ
+            ps.setInt(1, selectedProduct.getId());
+
+            // هنا قمنا بتنفيذ الإستعلام
+            ps.executeUpdate();
+
+            // هنا قمنا بإغلاق الإتصال مع خادم قاعدة البيانات
+            con.close();
+            
+            // إذا كان يوجد صورة موضوعة للمنتج سيتم مسحها أيضاً لأنه لم يعد هناك حاجة للإحتفاظ بها على جهاز المستخدم
+            Common.deleteImage(selectedProduct.getImageUrl());
+            
+            // حتى تكون البيانات المعروضة في الجدول مطابقة للبيانات الموجودة في قاعدة البيانات data هنا قمنا بحجز المنتج من الكائن
+            data.remove(selectedProduct);
+            
+            // من أجل تحديث بيانات الجدول, أي لإظهار البيانات التي تم تحديثها فيه refresh() هنا قمنا باستدعاء الدالة
+            table.refresh();
+            
+            // بعد مسح المنتج بنجاح سيتم عرض المنتج التالي الموجود بعده
+            if(data.size() > 0) {
+                showNextProduct();
+            }
+            // في حال لم يكن هناك أي منتج في الجدول, سيتم تفريغ الحقول الموضوعة بجانب المنتج و إزالة أي صورة كانت معروضة
+            else
+            {
+                idField.setText("");
+                nameField.setText("");
+                priceField.setText("");
+                datePicker.getEditor().setText("");
+                productImage.setText("No image found");
+                productImage.setGraphic(null);
+            }
+            
+        }
+        catch (Exception e) {
+            // في حال حدوث أي خطأ, سيتم عرضه بداخل نافذة منبثقة
+            alert.show("Error", e.getMessage(), AlertType.ERROR);
+        }
+    }
+
+    // dateFormat بالشكل ( الفورمات ) الذي قمنا بتحديده في المتغير datePicker هنا قمنا بتعريف دالة خاصة لإرجاع التاريخ الذي يختاره المستخدم بواسطة الكائن
+    public StringConverter dateFormatter()
+    {
+        StringConverter converter \= new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter \= DateTimeFormatter.ofPattern(dateFormat);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                }
+                return "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                }
+                return null;
+            }
+        };
+        return converter;
+    }
+
+    // و التي سنستخدمها كلما أردنا الإتصال بقاعدة البيانات getConnection() هنا قمنا ببناء الدالة
+    private Connection getConnection()
+    {
+        Connection con;
+        try {
+            // DBInfo معلومات الإتصال بقاعدة البيانات قمنا بجلبها من الإنترفيس
+            con = DriverManager.getConnection(DB\_NAME\_WITH\_ENCODING, USER, PASSWORD);
+            return con;
+        }
+        catch (SQLException e) {
+            alert.show("Connection Error", e.getMessage(), AlertType.ERROR);
+            return null;
+        }
+    }
+
+    // لتحديد كيف سيتم جلب البيانات من قاعدة البيانات و عرضها في الجدول عند تشغيل البرنامج fillTheTable() هنا قمنا ببناء الدالة
+    private void fillTheTable()
+    {
+        // products هنا قمنا بالإتصال بقاعدة البيانات و بتجهيز الإستعلام الذي سيجلب جميع قيم الجدول
+        Connection con \= getConnection();
+        String query \= "SELECT \* FROM products";
+
+        // لتخزين نتيجة الإستعلام rs لتنفيذ الإستعلام, و الكائن st هنا قمنا بإنشاء الكائن
+        Statement st;
+        ResultSet rs;
+
+        try {
+            // rs هنا قمنا بتنفيذ الإستعلام و تخزين نتيجته في الكائن
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+
+            // في كل مرة rs لتخزين منتج واحد من المنتجات التي ستكون موجودة في الكائن product هنا قمنا بإنشاء الكائن
+            // الحلقة التالية ترجع سطر واحد في كل مرة, أي معلومات منتج واحد
+            while (rs.next()) {
+                // product بيانات المنتج التي سيتم إرجاعها في كل مرة سيتم تخزينها بشكل مؤقت في الكائن
+                Product product \= new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setPrice(Double.parseDouble(rs.getString("price")));
+                product.setAddedDate(rs.getDate("added\_date").toString());
+                product.setImageUrl(rs.getString("image\_url"));
+
+                // data كعنصر واحد في الكائن product في الأخير سيتم إضافة الكائن
+                data.add(product);
+            }
+
+            // هنا قمنا بإغلاق الإتصال مع قاعدة البيانات لأننا لم نعد بحاجة إليها
+            con.close();
+        }
+        catch (SQLException e) {
+            alert.show("Error", e.getMessage(), AlertType.ERROR);
+        }
+    }
+
+    // لفحص القيم التي أدخلها المستخدم في الحقول للتأكد من صحتها قبل إضافة المنتج في قاعدة البيانات checkInputs() قمنا ببناء الدالة
+    private boolean checkInputs()
+    {
+        if (nameField.getText().equals("") && priceField.getText().equals("")) {
+            alert.show("Missing required Fields", "Name and Price fields cannot be empty!", AlertType.WARNING);
+            return false;
+        }
+        else if (nameField.getText().equals("")) {
+            alert.show("Missing required Fields", "Please enter product name", AlertType.WARNING);
+            return false;
+        }
+        else if (priceField.getText().equals("")) {
+            alert.show("Missing required Fields", "Please enter product price", AlertType.WARNING);
+            return false;
+        }
+
+        try {
+            Float.parseFloat(priceField.getText());
+            return true;
+        }
+        catch (NumberFormatException e) {
+            alert.show("Error", "Price should be a decimal number (eg: 40, 10.5)", AlertType.ERROR);
+            return false;
+        }
+    }
+
+}
+
+  
+Main.java
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage stage) {
+
+        // الذي يمثل الحاوية التي نريد عرضها في النافذة AllProductsPane هنا قمنا بإنشاء كائن من الكلاس
+        AllProductsPane allProductsPane \= new AllProductsPane();
+        
+        // scene في الكائن Root Node أي كأننا وضعناه كـ .scene مباشرةً في الكائن allProductsPane هنا قمنا بوضع الكائن
+        Scene scene \= new Scene(allProductsPane, 1070, 640);
+
+        // هنا وضعنا عنوان للنافذة
+        stage.setTitle("Company Products Manager");
+        
+        // أي وضعنا محتوى النافذة الذي قمنا بإنشائه للنافذة .stage في كائن الـ scene هنا وضعنا كائن الـ
+        stage.setScene(scene);
+        
+        // هنا قمنا بإظهار النافذة
+        stage.show();
+    }
+
+    public static void main(String\[\] args) {
+        launch(args);
+    }
+
+}

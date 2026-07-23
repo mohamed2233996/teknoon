@@ -1,0 +1,211 @@
+---
+title: "SQLجلب بيانات خالية من التكرار"
+source: "https://harmash.com/tutorials/sql/select-distinct"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:19.091Z"
+---
+
+## مفهوم البيانات المكررة
+
+عند تخزين البيانات في الجداول فمن الطبيعي جداً أن يتم تخزين نفس القيمة أكثر من مرة.  
+فعلى سبيل المثال يمكن وجود 50 شخص إسمهم **محمد** في الجدول الذي يحتوي على أسماء المستخدمين.
+
+في حال أردت جلب بيانات خالية من التكرار يمكنك إضافة الكلمة `DISTINCT` بعد الكلمة `SELECT`.
+
+  
+
+### طريقة استخدامها
+
+SELECT DISTINCT column\_list
+FROM table\_name;
+
+*   مكان الكلمة `column_list` نضع إسم الأعمدة.
+*   مكان الكلمة `table_name` نضع إسم الجدول الذي سنجلب بيانات غير مكررة منه.
+
+للدقة أكثر، الكلمة `DISTINCT` تزيل الأسطر المكررة من النتيجة. أي لا ترجع أي سطرين فيهما القيم نفسها.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `users` يحتوي على بيانات 10 مستخدمين.
+
+#### مثال
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من 4 أعمدة users هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE users (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(50),
+    country    VARCHAR(50)
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 مستخدمين
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO users VALUES (null, "Rami", "Masri", "Lebanon");
+INSERT INTO users VALUES (null, "Ahmad", "Naji", "Syria");
+INSERT INTO users VALUES (null, "Hanan", "Mostafa", "KSA");
+INSERT INTO users VALUES (null, "Saly", "Harmush", "Lebanon");
+INSERT INTO users VALUES (null, "Samir", "Saleh", "Lebanon");
+INSERT INTO users VALUES (null, "Hamad", "Akel", "Syria");
+INSERT INTO users VALUES (null, "Abdullah", "Helmi", "Egypt");
+INSERT INTO users VALUES (null, "Rashed", "Masri", "Oman");
+INSERT INTO users VALUES (null, "Majed", "Alali", "Yaman");
+INSERT INTO users VALUES (null, "Rayan", "Kasabi", "KSA");
+
+بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم إنشاء قاعدة البيانات `harmash` و إنشاء الجدول `users` بداخلها.  
+قم بالنقر على إسم قاعدة البيانات `harmash` من القائمة اليسرى حتى تبدأ بالتعامل معها و تطبيق ما ستتعلمه في هذا الدرس.
+
+فيما يلي البيانات التي قمنا بإضافتها بشكل إفتراضي في الجدول `users`.
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+1
+
+Rami
+
+Masri
+
+Lebanon
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+3
+
+Hanan
+
+Mostafa
+
+KSA
+
+4
+
+Saly
+
+Harmush
+
+Lebanon
+
+5
+
+Samir
+
+Saleh
+
+Lebanon
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+7
+
+Abdullah
+
+Helmi
+
+Egypt
+
+8
+
+Rashed
+
+Masri
+
+Oman
+
+9
+
+Majed
+
+Alali
+
+Yaman
+
+10
+
+Rayan
+
+Kasabi
+
+KSA
+
+## أمثلة حول إرجاع قيم غير مكررة
+
+الإستعلام التالي يجلب كل أسماء البلدان الموضوعة في جدول المستخدمين مع الإشارة إلى أنه لا يكرر إسم أي بلد في حال كان مذكور أكثر من مرة.
+
+#### المثال الأول
+
+SELECT DISTINCT country     \-- أحضر أسماء البلدان مع عدم تكرارها أكثر من مرة
+FROM users;                 \-- users أحضرها من الجدول
+
+النتيجة
+
+country
+
+Lebanon
+
+Syria
+
+KSA
+
+Egypt
+
+Oman
+
+Yaman
+
+  
+
+الإستعلام التالي يجلب كل أسماء البلدان الموضوعة في جدول المستخدمين مع الإشارة إلى أنه لا يكرر إسم أي بلد في حال كان مذكور أكثر من مرة.  
+إضافة إلى ذلك سيتم عرض أسماء البلدان بالترتيب الأبجدي.
+
+#### المثال الثاني
+
+SELECT DISTINCT country     \-- أحضر أسماء البلدان مع عدم تكرارها أكثر من مرة
+FROM users                  \-- users أحضرها من الجدول
+ORDER BY country;           \-- و قم بترتيبها بناءاً على إسم البلدان بشكل تصاعدي
+
+النتيجة
+
+country
+
+Egypt
+
+KSA
+
+Lebanon
+
+Oman
+
+Syria
+
+Yaman
+
+نلاحظ أننا حصلنا على نفس النتيجة السابقة و لكن أسماء البلدان تم وضعها بالترتيب الأبجدي.

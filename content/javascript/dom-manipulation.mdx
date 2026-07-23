@@ -1,0 +1,244 @@
+---
+title: "جافاسكربتإضافة / حذف عناصر"
+source: "https://harmash.com/tutorials/javascript/dom-manipulation"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:54.161Z"
+---
+
+## إدارة عناصر الصفحة
+
+الكائن `document` يوفر دوال جاهزة يمكن من خلالها إنشاء عناصر جديدة و تحديد أين سيتم إضافتها، إستبدال العناصر بعناصر أخرى، بالإضافة إلى حذف العناصر من الصفحة.
+
+في هذا الدرس ستتعلم كيف تنشئ عناصر جديدة، كيف تضيفها في الصفحة و في النهاية ستتعلم كيف تحذف عناصر منها.
+
+## إنشاء عنصر و إضافته في الصفحة
+
+لإنشاء عنصر جديد في الصفحة يمكنك استخدام إحدى الدوال التالية:
+
+*   الدالة `createElement()` تستخدم لإنشاء وسم HTML مثل `<p>` و `<div>`.
+*   الدالة `createTextNode()` تستخدم لإنشاء نص عادي يمكن عرضه بداخل وسم.
+
+الوسم الذي تنشئه بواسطة جافاسكربت، لا يظهر في الصفحة إلا بعد أن تقوم بإضافته فيها.  
+سنتعرف تباعاً على جميع الدوال التي يمكن من خلالها إضافة العناصر التي يتم إنشاءها في الصفحة.
+
+  
+
+### إضافة العنصر الجديد في آخر العنصر
+
+يمكنك استخدام الدالة `appendChild()` لإضافة العنصر الذي تم إنشاؤه بداخل عنصر آخر.  
+هذه الدالة تقوم بإضافة العنصر الذي تم تمريره لها في آخر العنصر الذي قام باستدعائها.
+
+في المثال التالي قمنا بإنشاء وسم `<p>` و بداخله وضعنا نص عادي.  
+بعدها قمنا بإضافة الوسم `<p>` في الوسم `<main>` الموجود أساساً في الصفحة.
+
+#### مثال
+
+// pElement و قمنا بتخزينه في المتغير <p> هنا قمنا بإنشاء وسم
+var pElement = document.createElement('p');
+
+// pText هنا قمنا بإنشاء نص يمكن وضعه في وسم و قمنا بتخزينه في المتغير
+var pText = document.createTextNode('This paragraph is added via Javascript.');
+
+// pElement في pText هنا قمنا بإضافة
+pElement.appendChild(pText);
+
+// mainElement في الصفحة في المتغير <main> هنا قمنا بتخزين أول وسم
+var mainElement = document.getElementsByTagName('main')\[0\];
+
+// mainElement في pElement هنا قمنا بإضافة
+mainElement.appendChild(pElement);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/appendchild)
+
+  
+
+### إضافة العنصر الجديد قبل عنصر محدد
+
+يمكنك استخدام الدالة `document.body.insertBefore()` لإضافة العنصر الذي تم إنشاؤه قبل عنصر محدد في الصفحة.  
+عند استدعائها يجب أن تمرر لها كائنين، الأول يمثل العنصر الجديد و الثاني يمثل العنصر الذي تريد إضافته قبله.
+
+في المثال التالي قمنا بإنشاء وسم `<div>` و بداخله وضعنا نص عادي.  
+بعدها قمنا بإضافة الوسم `<div>` قبل الوسم `<main>` الموجود أساساً في الصفحة.
+
+#### مثال
+
+// divElement و قمنا بتخزينه في المتغير <div> هنا قمنا بإنشاء وسم
+var divElement = document.createElement('div');
+
+// divText هنا قمنا بإنشاء نص يمكن وضعه في وسم و قمنا بتخزينه في المتغير
+var divText = document.createTextNode('This div is added via Javascript.');
+
+// divElement في divText هنا قمنا بإضافة
+divElement.appendChild(divText);
+
+// mainElement في الصفحة في المتغير <main> هنا قمنا بتخزين أول وسم
+var mainElement = document.getElementsByTagName('main')\[0\];
+
+// mainElement قبل العنصر divElement هنا قمنا بإضافة
+document.body.insertBefore(divElement, mainElement);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/document.body.insertbefore)
+
+## إضافة كود HTML جاهز في العنصر
+
+في حال أردت تمرير كود HTML بشكل مباشر في العنصر فيمكنك إسناده له كنص عن طريق الخاصية `innerHTML`.  
+هذه الخاصية تقوم بتديل كل محتوى العنصر بالمحتوى الذي نمرره لها.
+
+في المثال التالي قمنا بتبديل كل المحتوى الموجود في الوسم `<main>` بكود HTML جديد.
+
+#### مثال
+
+// mainElement في الصفحة في المتغير <main> هنا قمنا بتخزين أول وسم
+var mainElement = document.getElementsByTagName('main')\[0\];
+
+// mainElement هنا قمنا بتبديل كل المحتوى الموجود في العنصر الذي يمثله المتغير
+mainElement.innerHTML = '<p>Content is totally replaced by <b>Javascript</b></p>';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/innerhtml)
+
+  
+
+### تمرير كود HTML بجانب المحتوى
+
+يمكنك استخدام الدالة `insertAdjacentHTML()` في حال أردت إضافة كود HTML جاهز بدون حذف المحتوى الحالي في العنصر.  
+عندها استدعائها يجب أن تمرر لها قيمتين، الأولى تمثل الموقع الذي سيتم إضافة الكود فيه و الثانية تمثل الكود الذي سيتم إضافته.
+
+فيما يلي القيم النصية التي يمكنك استخدامها مع الدالة `insertAdjacentHTML()` لتحديد المكان الذي سيتم إضافة الكود به.
+
+القيمة
+
+معناها
+
+`'beforebegin'`
+
+لإضافة الكود قبل العنصر مباشرةً.
+
+`'afterend'`
+
+لإضافة الكود بعد العنصر مباشرةً.
+
+`'afterbegin'`
+
+لإضافة الكود في أول العنصر، أي قبل المحتوى الحالي الموجود فيه.
+
+`'beforeend'`
+
+لإضافة الكود في آخر العنصر، أي بعد المحتوى الحالي الموجود فيه.
+
+في المثال التالي قمنا بإضافة كود HTML قبل و بعد الوسم الذي يملك `id` يساوي `demo`.
+
+#### المثال الأول
+
+// element في المتغير demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element هنا قمنا بإضافة فقرة قبل الوسم الذي يمثله المتغير
+element.insertAdjacentHTML('beforebegin', '<p>This element is added before the demo element.</p>');
+
+// element هنا قمنا بإضافة فقرة قبل الوسم الذي يمثله المتغير
+element.insertAdjacentHTML('afterend', '<p>This element is added after the demo element.</p>');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/insertadjacenthtml-beforebegin-afterend)
+
+في المثال التالي قمنا بإضافة كود HTML في بداية و النهاية الوسم الذي يملك `id` يساوي `demo`.
+
+#### المثال الثاني
+
+// element في المتغير demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element هنا قمنا بإضافة كلمة بخط عريض في بداية الوسم الذي يمثله المتغير
+element.insertAdjacentHTML('afterbegin', '<b>After Beginnig</b> - ');
+
+// element هنا قمنا بإضافة كلمة بخط عريض في نهاية الوسم الذي يمثله المتغير
+element.insertAdjacentHTML('beforeend',  ' - <b>Before End</b>');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/insertadjacenthtml-afterbegin-beforeend)
+
+## حذف عنصر من الصفحة
+
+يمكنك استخدام الدالة `remove()` لحذف أي عنصر موجود في الصفحة.  
+إذاً يمكنك استدعائها من أي عنصر حتى تقوم بحذفه من الصفحة.
+
+في المثال التالي قمنا بحذف الوسم الذي يملك `id` يساوي `demo`.
+
+#### مثال
+
+// element في المتغير demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// من الصفحة element هنا قمنا بحذف الوسم الذي يمثله المتغير
+element.remove();
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/remove)
+
+  
+
+### حذف العنصر الإبن
+
+يمكنك استخدام الدالة `removeChild()` لحذف عنصر موجود كإبن لعنصر آخر في الصفحة.  
+إذاً يجب استدعائها من العنصر الأب، و تمرير العنصر الإبن الذي تريد حذفه منه لها.
+
+في المثال التالي قمنا بحذف الوسم الذي يملك `id="child"` و الموجود بداخل وسم يملك `id="parent"`.
+
+#### مثال
+
+// parentElement في المتغير parent يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var parentElement = document.getElementById('parent');
+
+// childElement في المتغير child يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var childElement = document.getElementById('child');
+
+// childElement هنا قمنا بحذف الوسم الذي يمثله المتغير
+// parentElement الموجود بداخل الوسم الذي يمثله المتغير 
+parentElement.removeChild(childElement);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/removechild)
+
+الدالة `removeChild()` ترجع الكائن الذي تم حذف و هذا الأمر يمكنك الإستفادة منه في حال أردت إعلام المستخدم بذلك.
+
+هنا قمنا بإعادة المثال السابق و لكننا هذه المرة قمنا بتخزين العنصر الذي تم حذفه في متغير و من بعدها قمنا بإعلام المستخدم بأنه تم حذفه.
+
+#### مثال
+
+var parentElement = document.getElementById('parent');
+var childElement = document.getElementById('child');
+
+// removedElement هنا قمنا بتخزين العنصر الذي حذفناه بداخل المتغير
+var removedElement = parentElement.removeChild(childElement);
+
+// removedElement العنصر الذي تم حذفه و المخزن في المتغير id هنا قمنا بطباعة
+document.write('Element with id equal "' + removedElement.id + '" is removed.');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/store-removed-element)
+
+## تبديل العنصر الإبن بعنصر آخر
+
+يمكنك استخدام الدالة `replacechild()` لتبديل العنصر الإبن بعنصر آخر.  
+إذاً يجب استدعائها من العنصر الأب و تمرير كائنين لها، الأول يمثل العنصر الجديد الذي سيتم وضعه و الثاني يمثل العنصر القديم الذي سيتم استبداله.
+
+في المثال التالي قمنا بتبديل الوسم الذي يملك `id="child"` و الموجود بداخل وسم يملك `id="parent"` بوسم جديد.
+
+#### مثال
+
+// parent في المتغير parent يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var parent = document.getElementById('parent');
+
+// oldChild في المتغير child يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var oldChild = document.getElementById('child');
+
+// newChild و قمنا بتخزينه في المتغير <p> هنا قمنا بإنشاء وسم
+var newChild = document.createElement('p');
+
+// newChildText هنا قمنا بإنشاء نص يمكن وضعه في وسم و قمنا بتخزينه في المتغير
+var newChildText = document.createTextNode('Replaced by Javascript.');
+
+// newChild في newChildText هنا قمنا بإضافة
+newChild.appendChild(newChildText);
+
+// oldChild هنا قمنا بتديل الوسم الذي يمثله المتغير
+// parent الموجود بداخل الوسم الذي يمثله المتغير 
+// newChild بالوسم الجديد الذي يمثله المتغير
+parent.replaceChild(newChild, oldChild);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-manipulation/replacechild)

@@ -1,0 +1,387 @@
+---
+title: "Javaإدخال البيانات في جافا"
+source: "https://harmash.com/tutorials/java/user-inputs"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:13.477Z"
+---
+
+## مفهوم إدخال البيانات في جافا
+
+في الدروس السابقة, كنا نكتب الكود ثم نقوم بتجربته فيتنفذ كما هو, بمعنى أننا كنا أصلاً نعرف ما سيظهر عند تشغيل الكود لأننا قمنا بإدخال القيم في المتغيرات قبل تشغيل البرنامج.  
+في هذا الدرس ستتعلم كيف تنشئ برنامح يتفاعل مع المستخدم, حيث أنك عندما تقوم بتشغيله سيطلب من المستخدم إدخال بيانات, و بعد إدخالها سيقوم البرنامج بمعالجتها و فعل شيء معين بها.
+
+الكلاس `Scanner` هو كلاس جاهز في جافا, يستخدم بشكل عام لجعل البرنامج يستقبل بيانات من المستخدم بالإضافة إلى إمكانية تحويل نوع هذه البيانات و التعديل عليها. و هو كبير جداُ حيث أنه يتألف من 9 كونستركتورات و أكثر من 50 دالة.
+
+  
+
+### أنواع البيانات التي يمكن إستقبالها باستخدام الكلاس `Scanner`
+
+*   أعداد صحيحة, أي أعداد لا تقبل الفاصلة, مثال: `123`
+*   أعداد تقبل الفاصلة العشرية, مثال: `10.55`
+*   حرف واحد ( سواء حرف, رقم, رمز ), مثال: `a` أو `3` أو `@`
+*   كلمة واحدة, مثل `harmash`
+*   سطر كامل ( أي أكثر من كلمة ), مثال: `harmash.com is one of the best sites to learn programming`
+*   صح أو خطأ, أي إجبار المستخدم على إدخال كلمة واحدة و هي إما `true` و إما `false`
+
+  
+
+إذاً كل نوع بيانات تريد إستقباله في البرنامج له دالة خاصة ستتعرف عليها لاحقاً.
+
+  
+
+### مصطلحات تقنية
+
+*   Delimiter تعني الـ Pattern المستخدمة في تحديد شكل المسافات الفارغة White Spaces.  
+    سترى لاحقاً أنه بإمكانك جعل مترجم جافا يعتبر حرف أو كلمة أو جملة ما تبدو و كأنها مسافة فارغة White Space.
+*   Console Application تعني البرنامج الذي يعمل بدون واجهة مستخدم ( أي بدون GUI).  
+    إذاً جميع البرامج التي فعلناها في الدروس السابقة تسمى Console Application لأن النتيجة التي كنا نراها عند تشغيل البرنامج, كانت تظهر في ما يسمى Console.
+
+## طريقة جعل البرنامج يستقبل بيانات من المستخدم في جافا
+
+في لغة جافا لكي تجعل البرنامج يستقبل معلومات من المستخدم عليك إتباع ثلاث خطوات أساسية:
+
+1.  إستدعاء الكلاس `Scanner` الذي يحتوي على دوال إدخال المعلومات من المستخدمين.
+2.  إنشاء كائن من هذا الكلاس لأنك لا تستطيع إستخدام دوال الكلاس `Scanner` إلا من خلال الكائن الذي يشير إليه.
+3.  إستدعاء إحدى دوال إدخال المعلومات من هذا الكائن.
+
+  
+  
+
+إذاً ستحتاج إلى الأوامر التالية في كل برنامج ( يعتبر Console Application ) تطلب فيه من المستخدم إدخال بيانات من لوحة المفاتيح.
+
+#### مثال
+
+1.  إستدعاء الكلاس `Scanner` حتى نستطيع إنشاء كائن منه.
+
+import java.util.Scanner; 
+
+  
+4.  إنشاء كائن من الكلاس `Scanner`, هنا قمنا بتسميته `input`.
+
+Scanner input \= new Scanner(System.in); 
+
+  
+7.  إستدعاء إحدى دوال إدخال البيانات من خلال كائن الـ `Scanner` الذي يفترض أنك قمت بإنشائه سابقاً.  
+    هنا قمنا بإستدعاء الدالة `nextInt()` من هذا الكائن و التي تعني أنه عند تشغيل البرنامج و عندما يأتي لتنفيذ هذا الكود, سيقوم بإنتظار المستخدم لإدخال عدد صحيح من لوحة المفاتيح, بعدها سيتم تخزين ما أدخله المستخدم في المتغير `a`.
+
+int a \= input.nextInt();
+
+  
+
+دائماً ضع دوال إستقبال البيانات بداخل الجملة `try`, و لا تنسى ايضاً إغلاق كائن الـ `Scanner` بواسطة الدالة `close()` مباشرةً عند الإنتهاء منه لتضمن عدم حدوث أي أخطاء من شأنها تعليق البرنامج.
+
+## أمثلة شاملة حول إدخال بيانات من المستخدم في جافا
+
+  
+
+### المثال الأول
+
+هنا قمنا بإنشاء برنامج يطلب من المستخدم إدخال إسمه و عمره و مهنته.
+
+[شاهد المثال](/tutorials/java/user-inputs/scanner-example-1)
+
+  
+  
+
+### المثال الثاني
+
+هنا قمنا بإنشاء برنامج يطلب من المستخدم إدخال علاماته المدرسية و يخزنها في مصفوفة.
+
+[شاهد المثال](/tutorials/java/user-inputs/scanner-example-2)
+
+  
+  
+
+### المثال الثالث
+
+هنا قمنا بإنشاء برنامج يطلب من المستخدم إدخال معلومات, بعد إدخالها يتم تخزينها في ملف ثم يتم عرضها من هذا الملف من جديد.
+
+[شاهد المثال](/tutorials/java/user-inputs/scanner-example-3)
+
+## كونستركتورات الكلاس `Scanner` في جافا
+
+الجدول التالي يحتوي على جميع الـ constructors الموجودين في الكلاس `Scanner`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public Scanner(File Source)` يستخدم هذا الكونستركتور لقراءة البيانات من ملف معين.
+
+2
+
+`public Scanner(File Source, String charsetName)` يستخدم هذا الكونستركتور لقراءة البيانات من ملف معين, مع تحديد الترميز المستخدم عند قراءتهم.
+
+3
+
+`public Scanner(InputStream source)` يستخدم هذا الكونستركتور لقراءة البيانات من كائن نوعه `InputStream`
+
+4
+
+`public Scanner(InputStream source, String charsetName)` يستخدم هذا الكونستركتور لقراءة البيانات من كائن نوعه `InputStream` مع تحديد الترميز المستخدم عند قراءتهم.
+
+5
+
+`public Scanner(Path source)` يستخدم هذا الكونستركتور لقراءة البيانات من الملف الذي يشير له كائن الـ `Path`
+
+6
+
+`public Scanner(Path source, String charsetName)` يستخدم هذا الكونستركتور لقراءة البيانات من الملف الذي يشير له كائن الـ `Path` مع تحديد الترميز المستخدم عند قراءتهم.
+
+7
+
+`public Scanner(Readable Source)` يستخدم هذا الكونستركتور لقراءة البيانات من كائن نوعه `Readable`
+
+8
+
+`public Scanner(ReadableByteChannel source)` يستخدم هذا الكونستركتور لقراءة البيانات من كائن نوعه `ReadableByteChannel`
+
+9
+
+`public Scanner(ReadableByteChannel source, String charsetName)` يستخدم هذا الكونستركتور لقراءة البيانات من كائن نوعه `ReadableByteChannel` مع تحديد الترميز المستخدم عند قراءتهم.
+
+  
+
+لاحقاً سنستخدم ثابت جاهز في جافا إسمه `System.in` لقراءة البيانات التي يدخلها المستخدم من لوحة المفاتيح (Keyboard).  
+الـ `System.in` عبارة عن `InputStream` يستخدم لجعل البرنامج يستقبل بيانات المستخدم من لوحة المفاتيح وقت التشغيل.
+
+## دوال الكلاس `Scanner` في جافا
+
+ملاحظة: في أغلب الأمثلة الموضوعة في الجدول التالي سنستخدم كونستركتور الكلاس `Scanner` الذي يأخذ `String` كـ Argument حتى ندخل بيانات مباشرةً في كائن الـ `Scanner` بدل إدخالها بواسطة دوال الإدخال. و النتيجة هي نفسها.  
+كما أننا لن نقوم باستخدام الجمل ( `try`, `catch`, `finally` ) حتى يكون التركيز فقط على الدوال التي نريدك أن تركز عليها.
+
+عند التعامل مع الكلاس `Scanner`, كل دالة تبدأ بكلمة `next` تعتبر دالة من دوال الإدخال.  
+**أمثلة:** `next()` - `nextLine()` - `nextInt()` - `nextFloat()` إلخ..
+
+  
+
+الجدول التالي يحتوي على دوال الإدخال الموجودة في الكلاس `Scanner`.
+
+الدالة مع تعريفها
+
+1
+
+`public String next()` ترجع الكلمة التالية التي تم إدخالها في كائن الـ `Scanner`.  
+و تستخدم ايضاً لإستقبال كلمة واحدة من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-next)
+
+2
+
+`public String next(Pattern pattern)` ترجع الكلمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت تتطابق مع كائن الـ `Pattern` الذي نمرره لها كـ Argument.  
+و تستخدم ايضاً لإستقبال كلمة واحدة من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-next-pattern)
+
+3
+
+`public String next(String pattern)` ترجع الكلمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت تتطابق مع الـ `String` الذي نمرره لها كـ Argument و الذي يمثل Pattern.  
+و تستخدم ايضاً لإستقبال كلمة واحدة من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-next-string)
+
+4
+
+`public String nextLine()` ترجع السطر التالي الذي تم إدخاله في كائن الـ `Scanner`.  
+و تستخدم ايضاً لإستقبال سطر كامل من المعلومات من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextline)
+
+5
+
+`public boolean nextBoolean()` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `boolean`, أي في حال كانت هذه القيمة `true` أو `false` ستقوم بإرجاعها.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `boolean` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextboolean)
+
+6
+
+`public byte nextByte()` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `byte`.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `byte` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextbyte)
+
+7
+
+`public byte nextByte(int radix)` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `byte` و كانت تتطابق مع الـ `radix` الذي نمرره لها كـ Argument.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `byte` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextbyte-radix)
+
+8
+
+`public double nextDouble()` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `double`.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `double` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextdouble)
+
+9
+
+`public float nextFloat()` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `float`.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `float` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextfloat)
+
+10
+
+`public int nextInt()` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `int`.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `int` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextint)
+
+11
+
+`public int nextInt(int radix)` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `int` و كانت تتطابق مع الـ `radix` الذي نمرره لها كـ Argument.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `int` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextint-radix)
+
+12
+
+`public long nextLong()` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `long`.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `long` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextlong)
+
+13
+
+`public long nextLong(int radix)` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `long` و كانت تتطابق مع الـ radix الذي نمرره لها كـ Argument.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `long` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextlong-radix)
+
+14
+
+`public short nextShort()` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `short`.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `short` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextshort)
+
+15
+
+`public short nextShort(int radix)` ترجع القيمة التالية التي تم إدخالها في كائن الـ `Scanner` في حال كانت هذه القيمة تعتبر من النوع `short` و كانت تتطابق مع الـ `radix` الذي نمرره لها كـ Argument.  
+و تستخدم ايضاً لإستقبال قيمة نوعها `short` من المستخدم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-nextshort-radix)
+
+  
+  
+
+الجدول التالي يحتوي على دوال البحث الموجودة في الكلاس `Scanner`.
+
+الدالة مع تعريفها
+
+1
+
+`public String findInLine(Pattern pattern)` تبحث في الـ `Scanner` الذي قام باستدعائها عن أول مكان يتطابق مع الـ `Pattern` التي نمررها لها كـ Argument و ترجعه.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-findinline)
+
+2
+
+`public String findInLine(String pattern)` تبحث في الـ `Scanner` الذي قام باستدعائها عن أول مكان يتطابق مع الـ `String` (التي تمثل Pattern) التي نمررها لها كـ Argument و ترجعه.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-findinline)
+
+3
+
+`public String findWithinHorizon(Pattern pattern, int horizon)` تبحث في الـ `Scanner` الذي قام باستدعائها عن أول مكان يتطابق مع الـ `Pattern`, و تتوقف في البحث قبل الـ index الذي نضعه في الباراميتر الثاني.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-findwithinhorizon)
+
+4
+
+`public String findWithinHorizon(String pattern, int horizon)` تبحث في الـ `Scanner` الذي قام باستدعائها عن أول مكان يتطابق مع الـ `String` (الذي يمثل Pattern), و تتوقف في البحث قبل الـ index الذي نضعه في الباراميتر الثاني.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-findwithinhorizon)
+
+5
+
+`public MatchResult match()` ترجع كائن نوعه `MatchResult` يمثل نتيجة آخر عملية بحث تم إجرائها على كائن الـ `Scanner` مع شرح مفصل.  
+و ترجع `null` في حال عدم حدوث أي إستثناء بسبب كائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-match)
+
+  
+  
+
+الجدول التالي يحتوي على دوال التشييك الموجودة في الكلاس `Scanner`.
+
+الدالة مع تعريفها
+
+1
+
+`public boolean hasNext()` ترجع `true` في حال كان يوجد كلمة تالية في كائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-hasnext)
+
+2
+
+`public boolean hasNext(Pattern pattern)` ترجع `true` في حال كان يوجد نص تالي في كائن الـ `Scanner` قيمته تساوي قيمة نص الـ Pattern التي نمررها لها كـ Argument.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-hasnext-pattern)
+
+3
+
+`public boolean hasNext(String pattern)` ترجع `true` في حال كان يوجد نص تالي في كائن الـ `Scanner` قيمته تساوي قيمة الـ `String` (التي تمثل Pattern) التي نمررها لها كـ Argument.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-hasnext-string)
+
+4
+
+`public boolean hasNextInt()` ترجع `true` في حال كان يوجد قيمة تالية في كائن الـ `Scanner` يمكن التعامل معها كـ `int`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-hasnextint)
+
+5
+
+`public boolean hasNextInt(int radix)` ترجع `true` في حال كان يوجد قيمة تالية في كائن الـ `Scanner` يمكن التعامل معها كـ `int` و تتطابق مع الـ radix الذي نمرره لها كـ Argument.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-hasnextint-radix)
+
+6
+
+`public boolean hasNextLine()` ترجع `true` في حال كان يوجد سطر تالي في كائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-hasnextline)
+
+  
+  
+
+الجدول التالي يحتوي على دوال المعالجة الموجودة في الكلاس `Scanner`.
+
+الدالة مع تعريفها
+
+1
+
+`public void close()` تغلق الـ `Scanner`, أي تمنع إدخال أي بيانات جديدة في البرنامج عن طريق كائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-close)
+
+2
+
+`public Pattern delimiter()` ترجع الـ `Pattern` الذي يستخدمه كائن الـ `Scanner` في تحديد شكل المسافات الفارغة.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-delimiter)
+
+3
+
+`public Locale locale()` ترجع كائن نوعه `Locale` يمثل نوع الترميز الذي يستخدمه كائن الـ `Scanner` عند قراءة و تخزين البيانات.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-locale)
+
+4
+
+`public int radix()` ترجع الـ radix الإفتراضية لكائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-radix)
+
+5
+
+`public Scanner reset()` ترجع الخصائص الإفتراضية لكائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-reset)
+
+6
+
+`public Scanner skip(Pattern pattern)` تتخطى النص التالي في كائن الـ `Scanner` في حال كان يتطابق مع كائن الـ `Pattern` مع تجاهل الـ delimiters.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-skip-pattern)
+
+7
+
+`public Scanner skip(String pattern)` تتخطى النص التالي في كائن الـ `Scanner` في حال كان يتطابق مع الـ `String` الذي نمرره لها كـ Argument و الذي يمثل Pattern مع تجاهل الـ delimiters.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-skip-string)
+
+8
+
+`public String toString()` ترجع `String` تمثل كافة معلومات كائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-tostring)
+
+9
+
+`public Scanner useDelimiter(Pattern pattern)` تستخدم لجعل حرف أو كلمة أو جملة تبدو كمسافة فارغة في كائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-usedelimiter-pattern)
+
+10
+
+`public Scanner useDelimiter(String pattern)` تستخدم لجعل حرف أو كلمة أو جملة تبدو كمسافة فارغة في كائن الـ `Scanner`.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-usedelimiter-string)
+
+11
+
+`public Scanner useLocale(Locale locale)` تستخدم لتحديد الترميز الذي سيستخدمه كائن الـ `Scanner` عند قراءة و تخزين البيانات.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-uselocale)
+
+12
+
+`public Scanner useRadix(int radix)` تستخدم لتحديد الـ radix الذي سيستخدمه كائن الـ `Scanner` عند قراءة و تخزين أي رقم.  
+[تابع القراءة](/tutorials/java/user-inputs/scanner-useradix)

@@ -1,0 +1,228 @@
+---
+title: "C++تعدد الأشكال"
+source: "https://harmash.com/tutorials/cplusplus/polymorphism"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:17:31.906Z"
+---
+
+## مفهوم تعدد الأشكال
+
+تعدد الأشكال أو بوليمورفيزم ( Polymorphism ) هو مجرد أسلوب في كتابة الكود يقصد منه بناء دالة تنفذ أوامر مختلفة على حسب الكائن الذي نمرره لها عند إستدعاءها.  
+في العادة تعدد الأشكال يكون مرتبط بشكل أساسي بالوراثة حيث تكون الدالة مبنية على أساس الكلاس الأب, و لكننا عند إستدعاءها نمرر لها كائن من إحدى الكلاسات التي ترث منه.
+
+## تطبيق مبدأ تعدد الأشكال
+
+في المثال التالي قمنا بتعريف كلاس مجرّد إسمه `Country` يعتبر الكلاس الأساسي لأي كلاس يمثل بلد و بالتالي أي كلاس سننشئه ليمثل بلد ما يجب أن يرث منه. في هذا الكلاس قمنا بتجهيز 3 دوال مجرّدة أيضاً.
+
+بعدها قمنا بتعريف كلاس إسمه `Egypt` و كلاس إسمه `Australia` يرثان من الكلاس `Country` و يفعلان Override لكل الدوال التي ورثوها منه.
+
+بعدها قمنا بإنشاء دالة إسمها `printCountryInfo()` مهمتها إستدعاء جميع الدوال الموجودة في الكائن الذي نمرره لها بشرط أن يكون هذا الكائن قد تم إنشاؤه من كلاس يرث من الكلاس `Country`.
+
+في الأخير قمنا بإنشاء كائن من الكلاس `Egypt` و كائن من الكلاس `Australia` و تمرير كل كائن منهما للدالة `printCountryInfo()`.
+
+#### مثال
+
+main.cpp
+
+#include <iostream>
+
+using namespace std;
+
+// يحتوي على 3 دوال مجردة Country هنا قمنا بإنشاء كلاس إسمه
+class Country
+{
+    public:
+        virtual void name() \= 0;
+        virtual void capital() \= 0;
+        virtual void language() \= 0;
+};
+
+// للدوال الثلاثة الموجودة التي ورثها منه Override و يفعل Country يرث من الكلاس Australia هنا قمنا بإنشاء كلاس فارغ إسمه
+class Australia : public Country
+{
+    public:
+        void name() override
+        {
+            cout << "Country: Australia\\n";
+        }
+
+        void capital() override
+        {
+            cout << "Capital: Canberra\\n";
+        }
+
+        void language() override
+        {
+            cout << "Language: English\\n";
+        }
+};
+
+// للدوال الثلاثة الموجودة التي ورثها منه Override و يفعل Country يرث من الكلاس Egypt هنا قمنا بإنشاء كلاس فارغ إسمه
+class Egypt : public Country
+{
+    public:
+        void name() override
+        {
+            cout << "Country: Egypt\\n";
+        }
+
+        void capital() override
+        {
+            cout << "Capital: Cairo\\n";
+        }
+
+        void language() override
+        {
+            cout << "Language: Arabic\\n";
+        }
+};
+
+// فتقوم بتنفيذ الدوال الثلاثة الموجودة فيه Country عند استدعاءها نمرر لها عنوان كائن يرث من الكلاس printCountryInfo هنا قمنا بتعريف دالة إسمها
+void printCountryInfo(Country& country)
+{
+    country.name();
+    country.capital();
+    country.language();
+    cout << "----------------\\n";
+}
+
+// main() هنا قمنا بتعريف الدالة
+int main()
+{
+    // eg إسمه Egypt و كائن من الكلاس au إسمه Australiaypt هنا قمنا بإنشاء كائن من الكلاس
+    Australia au;
+    Egypt eg;
+
+    // لكي يتم إستدعاء الدوال الثلاثة منهم au و au و مررنا لها الكائنين printCountryInfo() هنا قمنا باستدعاء الدالة
+    printCountryInfo(au);
+    printCountryInfo(eg);
+
+    return 0;
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Country: Australia  
+Capital: Canberra  
+Language: English  
+\----------------  
+Country: Egypt  
+Capital: Cairo  
+Language: Arabic  
+\----------------
+
+## تطبيق مبدأ تعدد الأشكال مع المصفوفات
+
+المصفوفات العادية لا يمكن تخزين كائنات من كلاسات مختلفة فيها و ضمان أن لا يسبب هذا الأمر أي مشاكل لأنها ليست مهيئة لهذا الأمر, لذلك سنستخدم نوع متقدم من المصفوفات للتعامل بهدف تعليمك كيف يمكن تطبيق مبدأ تعدد الأشكال مع المصفوفات.
+
+من أحد أول أنواع المصفوفات المتقدمة هو النوع `vector` و هو النوع الذي سنستخدمه بعد قليل مع الإشارة إلى أننا سنشرحه بتفصيل ممل لاحقاً في الدورة.  
+الكائن الذي تنشئه من الكلاس `vector` يمكن تخزين عدد غير محدد من القيم العادية أو الكائنات بداخله و متى شئت يمكن إضافة المزيد أو حذف الموجود فيه على عكس المصفوفات العادية التي عليك تحديد حجمها لحظة إنشائها.  
+حتى تتمكن من إنشاء كائنات من الكلاس `vector` يجب أن تضمّن الكلاس `vector` أولاً.  
+لوضع أي شيء قيمة بداخل `vector` نستخدم الدالة `push_back()` و لحذف أي قيمة نسخدم الدالة `erase()`.
+
+  
+  
+
+في المثال التالي قمنا بإعادة المثال السابق و لكننا هذه المرة في الدالة `main()` قمنا بإنشاء كائن من الكلاس `vector` إسمه `countries` و تخزين الكائنات التي أنشأناها من الكلاس `Australia` و `Egypt` فيه.
+
+#### مثال
+
+main.cpp
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// يحتوي على 3 دوال مجردة Country هنا قمنا بإنشاء كلاس إسمه
+class Country
+{
+    public:
+        virtual void name() \= 0;
+        virtual void capital() \= 0;
+        virtual void language() \= 0;
+};
+
+// للدوال الثلاثة الموجودة التي ورثها منه Override و يفعل Country يرث من الكلاس Australia هنا قمنا بإنشاء كلاس فارغ إسمه
+class Australia : public Country
+{
+    public:
+        void name() override
+        {
+            cout << "Country: Australia\\n";
+        }
+
+        void capital() override
+        {
+            cout << "Capital: Canberra\\n";
+        }
+
+        void language() override
+        {
+            cout << "Language: English\\n";
+        }
+};
+
+// للدوال الثلاثة الموجودة التي ورثها منه Override و يفعل Country يرث من الكلاس Egypt هنا قمنا بإنشاء كلاس فارغ إسمه
+class Egypt : public Country
+{
+    public:
+        void name() override
+        {
+            cout << "Country: Egypt\\n";
+        }
+
+        void capital() override
+        {
+            cout << "Capital: Cairo\\n";
+        }
+
+        void language() override
+        {
+            cout << "Language: Arabic\\n";
+        }
+};
+
+// فتقوم بتنفيذ الدوال الثلاثة الموجودة فيه Country عند استدعاءها نمرر لها عنوان كائن يرث من الكلاس printCountryInfo هنا قمنا بتعريف دالة إسمها
+void printCountryInfo(Country& country)
+{
+    country.name();
+    country.capital();
+    country.language();
+    cout << "----------------\\n";
+}
+
+// main() هنا قمنا بتعريف الدالة
+int main()
+{
+    // eg إسمه Egypt و كائن من الكلاس au إسمه Australiaypt هنا قمنا بإنشاء كائن من الكلاس
+    Australia au;
+    Egypt eg;
+
+    // Country سنضع فيه فيه مؤشرات لكائنات ترث من الكلاس countries إسمه vector هنا قمنا بإنشاء كائن من الكلاس
+    vector<Country\*> countries;
+
+    // countries في الكائن eg و au هنا قمنا بإضافة عناوين الكائنين
+    countries.push\_back(&au);
+    countries.push\_back(&eg);
+
+    // countries هنا قمنا بإنشاء حلقة في كل مرة تمر على عنصر (مؤشر لكائن) موجود في الكائن
+    // و تمرير العنصر (أي مؤشر الكائن) لها printCountryInfo() و من ثم تقوم باستدعاء الدالة
+    for (unsigned i=0; i<countries.size(); i++)
+    {
+        printCountryInfo(\*countries\[i\]);
+    }
+
+    return 0;
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Country: Australia  
+Capital: Canberra  
+Language: English  
+\----------------  
+Country: Egypt  
+Capital: Cairo  
+Language: Arabic  
+\----------------

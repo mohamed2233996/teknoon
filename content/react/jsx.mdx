@@ -1,0 +1,311 @@
+---
+title: "Reactقواعد JSX"
+source: "https://harmash.com/tutorials/react/jsx"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:14:53.922Z"
+---
+
+## ما هي JSX
+
+JSX هي إمتداد للغة جافاسكربت حيث أنها تسمح بإدراج وسوم HTML بشكل مباشر في كود الجافاسكربت.
+
+JSX هي اختصار لجملة JavaScript XML و هي تستخدم بشكل أساسي في React لإنشاء و برمجة عناصر واجهة المستخدم بطريقة بسيطة و واضحة، مما يسهّل عملية إنشاء الواجهات مهما كانت معقدة.
+
+## كيفية استعمال JSX
+
+في حال أردت إنشاء عناصر واجهة المستخدم في React بدون اتباع أسلوب JSX فسيكون عليك استخدام الدالة `createElement()` لإنشاء العنصر و الدالة `appendChild()` لإضافة العنصر كإبن للعنصر الذي يجب إضافته فيه و هذا الأمر يتطلب كتابة الكثير من الكود خاصةً عند الحاجة لإضافة مجموعة من العناصر.
+
+إذاً في React أنت لست مجبر على كتابة الكود بأسلوب JSX و لكن حين ترى كم هو رائع ستستخدمه لا محالة.
+
+لتجربة جميع الأمثلة الموضوعة في هذا الدرس قم بإنشاء مشروع React جديد. و للعلم سنقوم بكتابة الكود في الملف `index.js` الموجود في المجلد `src` فقط لأننا لن نقوم بإنشاء مكونات جديدة في هذا الدرس.
+
+  
+
+### إنشاء عنصر بأسلوب React
+
+المثال التالي يوضح كيفية إنشاء عنصر في الصفحة باستخدام الدالة `createElement()` الموجودة في React بدلاً من اتباع أسلوب JSX.  
+أي عنصر سيضاف بواسطة هذه الدالة يجب ذكر نوعه، خصائصه و محتواه بين أقواس الدالة على النحو التالي.
+
+#### مثال
+
+index.js
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+// <h1> هنا قمنا بإنشاء متغير يمثل وسم
+const myElement = React.createElement('h1', {}, 'This is not a JSX code');
+
+// في العنصر الأساسي في الصفحة myElement الموجود في المتغير <h1> هنا قمنا بإضافة الوسم
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/creating-element-without-jsx)
+
+  
+
+### إنشاء عنصر بأسلوب JSX
+
+المثال التالي يوضح كيفية إنشاء عنصر في الصفحة بأسلوب JSX.  
+لاحظ كيف قمنا بتمرير وسم HTML بشكل مباشر للمتغير `myElement`.
+
+#### مثال
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// <h1> هنا قمنا بإنشاء متغير يمثل وسم
+const myElement = <h1\>This is JSX code</h1\>;
+
+// في العنصر الأساسي في الصفحة myElement الموجود في المتغير <h1> هنا قمنا بإضافة الوسم
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/creating-element-with-jsx)
+
+عند بناء المشروع فإن الكود المكتوب بأسلوب JSX سيتم تحويله إلى كود React عنك بشكل تلقائي.
+
+## إضافة مجموعة عناصر بأسلوب JSX
+
+المثال التالي يوضح كيفية إضافة عدة عناصر في الصفحة بأسلوب JSX.
+
+#### مثال
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// هنا قمنا بإنشاء متغير وضعنا فيه جميع الوسوم التي نريد إضافتها
+const myElement = (
+    <div\>
+        <h1\>Reactjs Tutorial</h1\>
+        <p\>This tutorial is made by harmash.</p\>
+    </div\>
+);
+
+// في العنصر الأساسي في الصفحة myElement هنا قمنا بإضافة الوسوم الموجودة في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/inserting-large-block-of-html)
+
+لست مجبر على وضع الوسوم بداخل قوسين `()` و لكن هذا الأمر يجعل كتابة الكود و قراءته أفضل.
+
+## تجميع الوسوم في JSX
+
+الوسوم التي يتم إنشاءها بأسلوب JSX يجب أن تكون مجمّعة ضمن وسم واحد حتى و لو كان وسماً فارغاً.
+
+في حال لم يتم وضع الوسوم بداخل وسم واحد فإنه سيظهر الخطأ التالي عند محاولة بناء المشروع:
+
+SyntaxError: Adjacent JSX elements must be wrapped in an enclosing tag.  
+Did you want a JSX fragment <>...</>
+
+  
+
+في المثال التالي قمنا بمحاولة إضافة وسمين بدون تجميعهما في وسم واحد مما سيؤدي لظهور خطأ.
+
+#### المثال الأول
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// هنا حاولنا إنشاء متغير وضعنا فيه جميع الوسوم التي نريد إضافتها و لكننا نعلم أننا فعلنا ذلك بطريقة خاطئة
+const myElement = (
+    <h1\>Reactjs Tutorial</h1\>
+    <p\>This tutorial is made by harmash.</p\>
+);
+
+// في العنصر الأساسي في الصفحة myElement هنا حاولنا إضافة الوسوم الموجودة في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/missing-parent-element-error)
+
+  
+
+المشكلة التي حصلت في المثال السابق يمكن تجنبها من خلال تجميع الوسوم المراد عرضها بداخل وسم واحد مثل الوسم `<div>` أو من خلال تجميعها بداخل وسم فارغ `<>` كما فعلنا في المثال التالي.
+
+  
+
+في المثال التالي قمنا بوضع الوسوم بداخل وسم فارغ `<>...</>` حتى نتجنب ظهور خطأ.
+
+#### المثال الثاني
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// هنا قمنا بإنشاء متغير وضعنا فيه جميع الوسوم التي نريد إضافتها
+const myElement = (
+    <>
+        <h1\>Reactjs Tutorial</h1\>
+        <p\>This tutorial is made by harmash.</p\>
+    </>
+);
+
+// في العنصر الأساسي في الصفحة myElement هنا قمنا بإضافة الوسوم الموجودة في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/wrapping-html-block)
+
+في المثال السابق سيتم إضافة الوسوم كما يلي في الصفحة.
+
+<div id\="root"\>
+    <h1\>Reactjs Tutorial</h1\>
+    <p\>This tutorial is made by harmash.</p\>
+</div\>
+
+نلاحظ أن وضع الوسوم بداخل وسم فارغ يجعل الدالة `ReactDOM.render()` تضيفهم بشكل مباشر في المكان المراد وضعهم فيه بدون الوسم الفارغ لأنه في HTML لا يمكن وضع وسم فارغ في الصفحة.
+
+## إغلاق الوسوم في JSX
+
+الوسوم المراد إنشاءها بأسلوب JSX سواء كانت فردية أو زوجية فإنه يجب إغلاقها.
+
+في حال لم يتم إغلاق الوسوم سيظهر الخطأ التالي عند محاولة بناء المشروع:
+
+SyntaxError: Unterminated JSX contents.
+
+  
+
+في المثال التالي قمنا بمحاولة عرض وسم فردي بدون إغلاقه ( أي بدون إنهائه هكذا /> ) مما سيؤدي لظهور خطأ.
+
+#### المثال الأول
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// هنا حاولنا إنشاء متغير وضعنا فيه وسم غير مغلق مما يعني أنه سيسبب مشكلة
+const myElement = <input type\="text"\>;
+
+// في العنصر الأساسي في الصفحة myElement هنا حاولنا إضافة الوسم الموجود في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/unclosing-html-tags)
+
+  
+
+المشكلة التي حصلت في المثال السابق يمكن تجنبها من خلال كتابة `<input type="text"/>` بدلاً من `<input type="text">` كما فعلنا في المثال التالي.
+
+  
+
+في المثال التالي قمنا بإغلاق الوسم `<input>` حتى نتجنب ظهور خطأ.
+
+#### المثال الثاني
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// <input> هنا قمنا بإنشاء متغير يمثل وسم
+const myElement = <input type\="text"/>;
+
+// في العنصر الأساسي في الصفحة myElement الموجود في المتغير <input> هنا قمنا بإضافة الوسم
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/closing-html-tags)
+
+## التعابير في JSX
+
+التعبير ( Expression ) في JSX هو أي كود جافاسكربت يتم وضعه بين `{ }` مما سيؤدي لوضع نتيجته مكانه.  
+التعبير قد يكون عرض لقيمة متغير ما، نتيجة شرط، نتيجة عملية حسابية إلخ..
+
+  
+
+المثال التالي يوضح كيفية عرض ناتج عملية حسابية بشكل مباشر في عنصر تم إنشاؤه بأسلوب JSX.
+
+#### المثال الأول
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// و قد مررنا فيه تعبير يمثل عملية حسابية <h1> هنا قمنا بإنشاء متغير وضعنا فيه وسم
+const myElement = <h1\>The result of the expression is {5 \* 3}</h1\>;
+
+// في العنصر الأساسي في الصفحة myElement هنا قمنا بإضافة الوسم الموجود في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/expressions-in-jsx)
+
+  
+
+المثال التالي يوضح كيفية عرض قيمة متغير في عنصر تم إنشاؤه بأسلوب JSX.
+
+#### المثال الثاني
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// وضعنا فيه نص عادي name هنا قمنا بتعريف متغير إسمه 
+const name = "Mhamad";
+
+// name و قد مررنا فيه قيمة المتغير <h1> هنا قمنا بإنشاء متغير وضعنا فيه وسم 
+const myElement = <h1\>Hello {name}</h1\>;
+
+// في العنصر الأساسي في الصفحة myElement هنا قمنا بإضافة الوسم الموجود في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/displaying-variable-value-in-jsx)
+
+  
+
+المثال التالي يوضح كيفية عرض قيمة شرط في عنصر تم إنشاؤه بأسلوب JSX.  
+**ملاحظة:** تم وضع الشرط بطريقة الجملة الشرطية Ternary If، أي بطريقة العامل `?:`.
+
+الجملة الشرطية ترجع النص `"allowed"` إذا كانت قيمة المتغير `"allowed"` أكبر أو تساوي 18، و ترجع النص `"not allowed"` إذا لم تكن كذلك.
+
+#### المثال الثالث
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+
+// وضعنا فيه القيمة 22 age هنا قمنا بتعريف متغير إسمه 
+var age = 22;
+
+// و قد مررنا فيه نص عادي بالإضافة إلى القيمة التي ترجعها الجملة الشرطية <h1> هنا قمنا بإنشاء متغير وضعنا فيه وسم 
+const myElement = <h1\>Your are {if (age >= 18 )? "allowed": "not allowed"} to work</h1\>;
+
+// في العنصر الأساسي في الصفحة myElement هنا قمنا بإضافة الوسم الموجود في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/ternary-operator-in-jsx)
+
+## إضافة كلاس HTML في JSX
+
+غالباً ما نستعمل الخاصية `class` في HTML لإضافة كلاسات CSS للوسوم.
+
+إستخدام الخاصية `class` مع الوسوم هو أمر ممنوع في JSX بسبب أن الكود في JSX سيتحول في النهاية إلى كود جافاسكربت و نحن نعلم أن الكلمة `class` هي من الكلمات المفتاحية في جافاسكربت.
+
+لحل هذه المشكلة، قم فقط باستخدام الخاصية `className` المجهزة في JSX بدلاً من الخاصية التقليدية `class` الموجودة في HTML.
+
+  
+
+المثال التالي يوضح كيفية إضافة كلاس إسمه `demo` للوسم بأسلوب JSX.  
+**ملاحظة:** الكلاس `demo` قمنا بتعريفه في الملف `index.css`.
+
+#### مثال
+
+index.js
+
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+// "demo" و قد جعلناه يستعمل الكلاس <h1> هنا قمنا بإنشاء متغير وضعنا فيه وسم 
+const myElement = <h1 className\="demo"\>Hello World</h1\>;
+
+// في العنصر الأساسي في الصفحة myElement هنا قمنا بإضافة الوسم الموجود في المتغير
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+
+[جرب الكود](/trywebapp?file=/tutorials/react/jsx/classname-property-in-jsx)

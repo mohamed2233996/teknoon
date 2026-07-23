@@ -1,0 +1,754 @@
+---
+title: "Javaالإستثناءات في جافا"
+source: "https://harmash.com/tutorials/java/exceptions"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:18:42.249Z"
+---
+
+## مفهوم الإستثناءات في جافا
+
+الإستثناء (Exceptions) في البرمجة عبارة عن خطأ يحدث أثناء تشغيل البرنامج يؤدي إلى إيقافه بشكل غير طبيعي.
+
+ظهور خطأ يؤدي إلى إيقاف البرنامج هو أمر سيئ جداً لأنه يؤدي إلى نفور عدد كبير من المستخدمين و عدم رغبتهم في العودة إلى استخدام هذا البرنامج مجدداً.
+
+في هذا الدرس ستتعلم كيف تتجنب حدوث أخطاء في البرامج التي تكتبها, و فعلياً ستتعلم كيف تلتقط هذه الأخطاء في حال حدثت لجعل البرنامج شغال دائماً في نظر المستخدم و لا يظهر له أي أخطاء.
+
+  
+
+### بعض الأسباب التي تسبب حدوث إستثناء
+
+*   في حال إدخال قيمة لا تتطابق مع نوع المتغير الذي ستخزن فيه.
+*   في حال إدخال رقم index غير موجود في مصفوفة أو في متغير نوعه `String`.
+*   في حال كان البرنامج يتصل بالشبكة و فجأةً إنقطع الإتصال.
+*   في حال كان البرنامج يحاول قراءة معلومات من ملف نصي, و كان هذا الملف غير موجود.
+
+  
+  
+
+### فئات الإستثناءات
+
+الإستثناءات قد تحدث بسبب المستخدم (User), أو المبرمج (Programmer), أو بسبب الأجهزة المستخدمة (Physical Resources).
+
+بناءً على هذا, تم تقسيم الإستثناءات إلى ثلاث فئات أساسية:
+
+*   Checked Exception: تعني خطأ برمجي يحدث أثناء ترجمة البرنامج (أي قبل تشغيل الكود).
+*   Unchecked Exception: تعني خطأ منطقي يحدث أثناء تشغيل البرنامج.
+*   Error: تعني خطأ يحدث بسبب الجهاز الذي نحاول تشغيل البرنامج عليه.
+
+  
+  
+
+### Checked Exception
+
+Checked Exception تعني إستثناء يحدث أثناء ترجمة الكود, و هنا يكون الخطأ من المبرمج لأن الكود الذي كتبه يوجد فيه مشكلة ظاهرة من الأساس.
+
+الآن في حال قمنا بتعريف متغير نوعه `int`, ثم قمنا بإعطائه نص كقيمة, سنلاحظ أنه سيظهر لنا خطأ قبل تشغيل البرنامج, و في حال حاولنا تشغيله, سيظهر الخطأ عندما يحاول ترجمة الكود.
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        int a;
+        a = "this is incompatible type, 'a' should be String";
+ 
+    }
+ 
+}
+
+سيظهر الخطأ التالي إذا قمنا بتشغيل البرنامج.
+
+Exception in thread "main" java.lang.RuntimeException: Uncompilable source code - incompatible types: java.lang.String cannot be converted to int
+
+هذا الخطأ يعني أن هناك مشكلة في النوع المستخدم لتخزين البيانات.  
+ثم أخبرنا بسبب المشكلة و هي أنه لا يمكن تحويل الـ `String` لـ `int`, أي لا يمكن تخزين قيمة نوعها `String` في متغير نوعه `int`.
+
+  
+  
+
+### Unchecked Exception
+
+(Unchecked Exception) تعني إستثناء يحدث أثناء تشغيل البرنامج و يسمى أيضاً (Runtime Exception), و هو يتضمن الـ (Programming Bugs) و التي تعني أخطاء منطقية (Logical Errors) أو أخطاء سببها عدم إستخدام الأشياء المعرفة في لغة البرمجة بالشكل الصحيح (APIs errors).
+
+الآن في حال قمنا بتعريف مصفوفة نوعها `int` تتألف من 5 عناصر, ثم قمنا بطباعة قيمة عنصر غير موجود فيها ( مثل العنصر رقم 10 ). سنلاحظ أنه سيظهر الخطأ أثناء تشغيل البرنامح و ليس أثناء ترجمة الكود, و السبب أنه سيكتشف عدم وجود عنصر يحمل الـ index رقم 10 بعد أن يتم إنشاء هذه المصفوفة في الذاكرة ( أي بعد ترجمة الكود و تنفيذه ).
+
+إذاً حدوث خطأ أثناء التشغيل يعني أن الخطأ لا يكتشف إلا أثناء محاولة تنفيذ الأوامر.
+
+#### مثال
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        int\[\] a = { 1, 2, 3, 4, 5 };
+        System.out.println( a\[10\] );
+ 
+    }
+ 
+}
+
+سيظهر الخطأ التالي إذا قمنا بتشغيل البرنامج.
+
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 10
+
+هذا الخطأ يعني أن العنصر ليس موجود في المصفوفة.  
+ثم أخبرنا بسبب المشكلة و هي أنه لم يجد عنصر يحمل الـ index رقم 10.
+
+  
+  
+
+### Error
+
+Error تعني خطأ يحدث بسبب الجهاز الذي نحاول تشغيل البرنامج عليه, لا علاقة أبداً للبرنامج بهذا الخطأ.
+
+فمثلاً إذا إمتلأت ذاكرة الجهاز الذي يعمل عليه البرنامج سيحدث خطأ, و هو أن نظام التشغيل لا يقدر أن يشغل هذا البرنامج لأن ذاكرة الجهاز ممتلئة. و عندها سيظهر الرسالة التالية لتوضيح الخطأ JVM is out of Memory
+
+لذلك تجد بعض البرامج تحفظ الأشياء التي يفعلها المستخدم كل مدة معينة, و هكذا لن يقلق المستخدم إذا توقف البرنامج الذي يعمل عليه فجأةً, لأن هذا البرنامج في نظره قوي فهو يحفظ له بياناته كل مدة و يتيح له استردادها إذا حدث خطأ ما متى شاء.
+
+## بناء الإستثناءات في جافا
+
+تم تقسيم الإستثناءات في جافا إلى عدة أنواع و كل نوع تم تمثيله في كلاس منعزل.  
+جميع هذه الكلاسات ترث من كلاس أساسي إسمه `Exception`.  
+الكلاس `Exception` بدوره يرث من كلاس إسمه `Throwable`.
+
+إذاً, أي كلاس يرث من الكلاس `Exception` هو كلاس يمثل إستثناء معين.
+
+الأخطاء التي سببها الأجهزة و التي تسمى Errors, تم إنشاء كلاس خاص لهم إسمه `Error` و هو يرث مباشرةً من الكلاس `Throwable`.
+
+  
+
+لا تقلق بتاتاً إذا لم تفهم أي شيء الآن ستفهم الوراثة في دروس لاحقة, لكننا ذكرنا لك كلمة "وراثة" لأنها ستمر معك لاحقاً في هذا الدرس.
+
+  
+
+فكرة عامة عن الوراثة  
+إذا قلنا الكلاس `B` يرث من الكلاس `A`. فهذا يعني أن الكلاس `B` أصبح يملك نسخة من الأشياء الموجودة في الكلاس `A`.
+
+  
+
+تم بناء الإستثناءات بشكل منظم كما في الصورة التالية.
+
+![](/content-images/java/exceptions/1784305122195-wz7kxf.PNG)
+
+  
+
+لمشاهدة أغلب الإستثناءات الـ checked و unchecked التي يواجهها المبرمجين
+
+[أدخل هنا](/tutorials/java/exceptions/built-in-exceptions)
+
+## إلتقاط الإستثناء في جافا
+
+إلتقاط الإستثناء يسمى Catching Exception, و هو عبارة عن طريقة تسمح لك بحماية البرنامج من أي كود تشك بأنه قد يسبب أي خطأ باستخدام الجملتين `try` و `catch`.
+
+أي كود مشكوك فيه يجب وضعه بداخل حدود الجملة `try`.  
+الجملة `catch` عبارة عن دالة يمكنك من خلالها معرفة كل شيء عن الخطأ الذي حدث.
+
+  
+
+### طريقة تعريف الجمل `try` و `catch`
+
+  
+
+try {
+    // Protected Code
+    // هنا نكتب الأوامر التي قد تولد إستثناء
+}
+catch(ExceptionType e) {
+    // Error Handling Code
+    // برمي إستثناء try هنا نكتب أوامر تحدد للبرنامج ماذا يفعل إذا قامت الـ
+} 
+
+  
+
+الكود الذي نضعه بداخل الجملة `try` يسمى Protected Code و هذا يعني أن البرنامج محمي من أي خطأ قد يحدث بسبب هذا الكود.  
+الكود الذي نضعه بداخل الجملة `catch` يسمى Error Handling Code و يقصد منها الكود الذي سيعالج الإستثناء الذي قد يتم إلتقاطه.
+
+عندما تضع الكود بداخل حدود الجملة `try` فأنت بذلك تقوم بتجربة هذا الكود, و ذلك يعني أن جميع الأوامر الموضوعة فيها ستنفذ بشكل عادي جداً, و في حال حدثت أي مشكلة في الكود, ستقوم الجملة `try` بتمرير الإستثناء الذي يمثل هذه المشكلة كـ argumentإلى الدالة `catch` ليتم معالجته بدل أن تظهر أمام المستخدم.
+
+الإستثناء الذي تقوم الجملة `try` برميه عبارة عن كائن من إحدى الكلاسات التي ترث من الكلاس `Exception`.
+
+  
+
+عندما تستخدم الجملة `try` حتى لو لم تضع بداخلها أي كود, فأنت مجبر على وضع الجملة `catch` أو `finally` بعدها.  
+كما أنه بإمكانك وضع العدد الذي تريده من الجملة `catch` و سترى ذلك و ستتعرف على الجملة `finally` لاحقاً في هذا الدرس.
+
+  
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        try {                              // try هنا قمنا بتجربة الكود الموجود بداخل الجملة
+            int\[\] a = new int \[5\];         // هنا قمنا بإنشاء مصفوفة تتألف من 5 عناصر
+            System.out.println( a\[10\] );   // catch هنا حاولنا عرض قيمة عنصر غير موجود في المصفوفة, لذلك سيحدث خطأ, مما سيؤدي رمي إستثناء إلى الدالة
+        }
+        catch( Exception e ) {                                // e هنا سيتم إلتقاط الإستثناء, ثم تخزينه في الكائن
+            System.out.println( "Exception thrown: " + e );   // لنعرف طبيعة الخطأ الذي حدث e هنا قمنا بعرض محتوى الكائن
+        }
+ 
+        // بعد الإنتهاء من تجربة الكود سيتم تنفيذ باقي الأوامر الموجودة في البرنامج
+        System.out.println( "The program still work properly" );
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Exception thrown: java.lang.ArrayIndexOutOfBoundsException: 10  
+The program still work properly
+
+  
+
+إذا وضعنا الكلاس `Exception` كباراميتر للدالة `catch`, فهذا يعني أن أي إستثناء سترميه الدالة `try` ستقوم الدالة `catch` بالتقاطه.
+
+في المثال السابق كان بإمكانك وضع الكلاس `ArrayIndexOutOfBoundsException` بدل الكلاس `Exception`, لأننا بعد تجربة الكود عرفنا أن نوع الخطأ الذي قد يرمى بسبب هذا الكود نوعه `ArrayIndexOutOfBoundsException`.
+
+إذاً إذا كنت لا تعرف طبيعة الخطأ الذي قد يحدث ضع الكلاس `Exception` في الدالة `catch` لأن الكلاس `Exception` يعتبر الكلاس الأساسي و الإفتراضي لجميع الأخطاء التي قد تحدث.
+
+## وضع عدة جمل `catch` في جافا
+
+أحياناً الكود الواحد قد يسبب عدة أخطاء, ففي هذه الحالة ستضطر إلى معالجة كل خطأ قد يحدث على حدة ليستمر البرنامج في العمل بشكل طبيعي.
+
+إذاً يمكنك وضع العدد الذي تريده من الجملة `catch` بعد الجملة `try`.
+
+  
+
+### طريقة وضع أكثر من `catch`
+
+  
+
+try {
+    // Protected Code
+    // هنا نكتب الأوامر التي قد تولد إستثناء
+}
+catch(ExceptionType1 e1) {
+    // Error Handling Code For ExceptionType1
+    // ExceptionType1 برمي إستثناء من النوع try هنا نكتب أوامر تحدد للبرنامج ماذا يفعل إذا قامت الـ
+}
+catch(ExceptionType2 e2) {
+    // Error Handling Code For ExceptionType2
+    // ExceptionType2 برمي إستثناء من النوع try هنا نكتب أوامر تحدد للبرنامج ماذا يفعل إذا قامت الـ
+}
+catch(ExceptionType3 e3) {
+    // Error Handling Code For ExceptionType3
+    // ExceptionType3 برمي إستثناء من النوع try هنا نكتب أوامر تحدد للبرنامج ماذا يفعل إذا قامت الـ
+}
+
+  
+
+هنا قمنا بوضع ثلاث جمل `catch` و طبعاً كان بإمكاننا وضع العدد الذي نريده.
+
+  
+
+### طريقة تعامل البرنامج مع الجمل `catch`
+
+إذا قامت الجملة `try` برمي إستثناء, سيتم إرساله إلى جملة الـ `catch` الأولى, بعدها سيتم مقارنة نوع الإستثناء المرمي مع نوع الإستثناء الموضوع كباراميتر في الدالة, إذا كان نوع الإستثناء المرمي هو نفسه نوع الإستثناء الموضوع كباراميتر, سيتم معالجة الخطأ الذي حدث بداخل هذه الـ `catch`.  
+
+إذا كان نوع الإستثناء المرمي غير النوع الموضوع كباراميتر, سيتم الإنتقال إلى جملة الـ `catch` التالية و تنفيذ نفس الخطوات السابقة.
+
+في حال تم إيجاد إستثناء يطابق الإستثناء المرمي, سيتم تنفيذ جميع الأوامر الموجودة في جملة الـ `catch` و بعدها سيتخطى البرنامج جميع جمل الـ `catch` الموجودة بعدها و يكمل باقي الأوامر الموجودة في البرنامج.
+
+و في حال لم يتم إيجاد أي إستثناء يطابق الإستثناء المرمي, سيتوقف البرنامج و يظهر الخطأ الذي حدث.
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s \= "1234567891011121314151617181920212223";
+        int a;
+ 
+        try {
+            System.out.println( "s.charAt(28): " + s.charAt(28) );   // s رقم 28 في النص index هنا حاولنا عرض الحرف الموجود على الـ
+            a = Integer.parseInt(s);                                 // int لقيمة s هنا حاولنا تحويل قيمة
+        }
+        catch( StringIndexOutOfBoundsException e1 ) {                // e1 بعدها تقوم بتخزينه في الكائن StringIndexOutOfBoundsException تلتقط الإستثناء الذي نوعه catch هذه الـ
+            System.out.println( "Index is not exist in the string!" );
+        }
+        catch( NumberFormatException e2 ) {                          // e2 بعدها تقوم بتخزينه في الكائن NumberFormatException تلتقط الإستثناء الذي نوعه catch هذه الـ
+            System.out.println( "Can't convert 's' to a number because is to long!" );
+        }
+        catch( Exception e3 ) {                                      // e3 تلتقط أي إستثناء آخر قد يحدث نسينا ذكره, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+            System.out.println( "Exception thrown: " + e3 );
+        }
+ 
+        // بعد الإنتهاء من تجربة الكود سيتم تنفيذ باقي الأوامر الموجودة في البرنامج
+        System.out.println( "The program still work properly" );
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+s.charAt(28): 9  
+Can't convert 's' to a number because is to long!  
+The program still work properly
+
+  
+
+يمكنك أيضأ وضع أكثر من إستثناء بداخل نفس الجملة `catch` باستخدام العامل `|` و الذي يعني " أو "  
+عندها إذا رمت الجملة `try` أي إستثناء من الإستثناءات الموجودة في الجملة `catch` سيتم معالجة الإستثناء فيها.
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s \= "1234567891011121314151617181920212223";
+        int a;
+ 
+        try {
+            System.out.println( "s.charAt(28): " + s.charAt(28) );            // s رقم 28 في النص index هنا حاولنا عرض الحرف الموجود على الـ
+            a = Integer.parseInt(s);                                          // int لقيمة s هنا حاولنا تحويل قيمة
+        }
+        catch( StringIndexOutOfBoundsException|NumberFormatException e1 ) {   // e1 بعدها تقوم بتخزينه في الكائن ,NumberFormatException أو StringIndexOutOfBoundsException تلتقط الإستثناء إذا كان نوعه catch هذه الـ
+            System.out.println( "The string 's' throw: " +e1 );
+        }
+        catch( Exception e2 ) {                                               // e2 تلتقط أي إستثناء آخر قد يحدث نسينا ذكره, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+            System.out.println( "Exception thrown: " + e2 );
+        }
+ 
+        // بعد الإنتهاء من تجربة الكود سيتم تنفيذ باقي الأوامر الموجودة في البرنامج
+        System.out.println( "The program still work properly" );
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+s.charAt(28): 9  
+The string 's' throw: java.lang.NumberFormatException: For input string: "1234567891011121314151617181920212223"  
+The program still work properly  
+
+## الجملة `finally` في جافا
+
+الجملة `finally` تأتي بعد الجملتين `try` و `catch`.  
+الكود الموضوع في الجملة `finally` يتنفذ دائماً, أي في حال حدث إستثناء أو لم يحدث فإنه سيتنفذ.
+
+الجملة `finally` تستخدم لتنظيف الكود, بمعنى أنها تستخدم للتخلص من أي كود لم يعد البرنامج يحتاج إليه.
+
+  
+
+### مكان وضع الجملة `finally`
+
+  
+
+try {
+    // Protected Code
+}
+catch(ExceptionType1 e1) {
+    // Error Handling Code For ExceptionType1
+}
+catch(ExceptionType2 e2) {
+    // Error Handling Code For ExceptionType2
+}
+catch(ExceptionType3 e3) {
+    // Error Handling Code For ExceptionType3
+}
+finally {
+    // Optional Cleanup Code
+    // هنا نقوم بكتابة أوامر للتخلي عن أي شيء لم يعد البرنامج بحاجة له
+} 
+
+  
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s \= "1234567891011121314151617181920212223";
+        int a;
+ 
+        try {
+            System.out.println( "s.charAt(28): " + s.charAt(28) );   // s رقم 28 في النص index هنا حاولنا عرض الحرف الموجود على الـ
+            a = Integer.parseInt(s);                                 // int لقيمة s هنا حاولنا تحويل قيمة
+        }
+        catch( StringIndexOutOfBoundsException e1 ) {                // e1 بعدها تقوم بتخزينه في الكائن StringIndexOutOfBoundsException تلتقط الإستثناء الذي نوعه catch هذه الـ
+            System.out.println( "Index is not exist in the string!" );
+        }
+        catch( NumberFormatException e2 ) {                          // e2 بعدها تقوم بتخزينه في الكائن NumberFormatException تلتقط الإستثناء الذي نوعه catch هذه الـ
+            System.out.println( "Can't convert 's' to a number because is to long!" );
+        }
+        catch( Exception e3 ) {                                      // e3 تلتقط أي إستثناء آخر قد يحدث نسينا ذكره, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+            System.out.println( "Exception thrown: " + e3 );
+        }
+        finally {                                                    // تتنفذ في حال حدث إستثناء أو لم يحدث finally الجملة
+            System.out.println( "finally codes always execute" );
+        }
+ 
+        // بعد الإنتهاء من تجربة الكود سيتم تنفيذ باقي الأوامر الموجودة في البرنامج
+        System.out.println( "The program still work properly" );
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+s.charAt(28): 9  
+Can't convert 's' to a number because is to long!  
+finally codes always execute  
+The program still work properly
+
+  
+
+ستعرف فائدة الجملة `finally` في دروس لاحقة عندما تتعامل مع الملفات, الشبكات, قواعد البيانات إلخ..  
+
+*   إذا كان البرنامج يقرأ محتوى ملف نصي, سيكون عليك التأكد من إغلاق الملف بعد الإنتهاء من قرائته.
+*   إذا كان البرنامج يقرأ بيانات من قاعدة بيانات , سيكون عليك التأكد من إغلاق قاعدة البيانات بعد الإنتهاء من التعامل معها.
+*   إذا كان البرنامج يتصل بالشبكة , سيكون عليك التأكد من إغلاق الإتصال بعد الإنتهاء من التعامل معها.
+  
+
+  
+
+### ملاحظات مهمة
+
+*   لا يمكنك إستخدام الجملة `try` إذا لم تضع بعدها الجملة `catch` أو الجملة `finally`.
+*   لا يمكنك وضع الجملة `catch` إذا لم تستخدم قبلها الجملة `try`.
+*   الجملة `finally` توضع إختيارياً.
+*   لا يمكنك وضع أي كود بين الجمل `try` و `catch` و `finally`.
+
+## دوال الكلاس `Exception` في جافا
+
+هنا وضعنا بعض الدوال الموجودة في الكلاس `Exception` و التي يمكن إستخدامها لمعرفة الأخطاء التي حدثت في البرنامج.
+
+الدالة مع تعريفها
+
+1
+
+`public String getMessage` ترجع رسالة بسيطة تظهر لنا الخطأ الذي حدث.
+
+2
+
+`public String toString()` ترجع إسم كلاس الإستثناء الذي حدث مضافاً إليه نتيجة الخطأ التي ترجعها الدالة `getMessage()`.
+
+3
+
+`public void printStackTrace()` يستخدمها المبرمج لمعرفة الأخطاء التي قد تحدث أثناء تشغيل البرنامج, و هي مفيدة جداً لأنها تظهر الخطأ الذي حدث كما هو بكامل تفاصيله. إذاً هذه الدالة تستخدم للـ Debugging.
+
+  
+  
+
+#### المثال الأول
+
+في هذا المثال سنستخدم الدالة `getMessage()` لمعرفة سبب الخطأ الذي حدث فقط.
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s \= "abcd 12345";
+        int a;
+ 
+        try {
+            a = Integer.parseInt(s);                 // int لقيمة s هنا حاولنا تحويل قيمة
+        }
+        catch( Exception e ) {                       // e تلتقط أي إستثناء قد يحدث, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+            System.out.println( e.getMessage() );    // لمعرفة الخطأ الذي حدث getMessage() هنا قمنا باستخدام الدالة
+        }
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+For input string: "abcd 12345"
+
+  
+  
+
+#### المثال الثاني
+
+في هذا المثال سنستخدم الدالة `toString()` لمعرفة سبب الخطأ الذي حدث و إسم الكلاس الذي يمثل الإستثناء الذي حدث.
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s \= "abcd 12345";
+        int a;
+ 
+        try {
+            a = Integer.parseInt(s);                // int لقيمة s هنا حاولنا تحويل قيمة
+        }
+        catch( Exception e ) {                      // e تلتقط أي إستثناء قد يحدث, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+            System.out.println( e.toString() );     // لمعرفة الخطأ الذي حدث toString() هنا قمنا باستخدام الدالة
+        }
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+java.lang.NumberFormatException: For input string: "abcd 12345"
+
+  
+  
+
+#### المثال الثالث
+
+في هذا المثال سنستخدم الدالة `printStackTrace()` لمعرفة تفاصيل الخطأ الذي حدث بتفصيل.
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s \= "abcd 12345";
+        int a;
+ 
+        try {
+            a = Integer.parseInt(s);    // int لقيمة s هنا حاولنا تحويل قيمة
+        }
+        catch( Exception e ) {          // e تلتقط أي إستثناء قد يحدث, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+            e.printStackTrace();        // لمعرفة الخطأ الذي حدث printStackTrace() هنا قمنا باستخدام الدالة
+        }
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+java.lang.NumberFormatException: For input string: "abcd 12345"  
+at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)  
+at java.lang.Integer.parseInt(Integer.java:580)  
+at java.lang.Integer.parseInt(Integer.java:615)  
+at testexceptions.Main.main
+
+## الكلمتين `throws` و `throw` في جافا
+
+إذا قمت بتعريف دالة و أردت لهذه الدالة أن ترمي إستثناء إذا حدث شيء معين فعليك وضع الكلمة `throws` بعد أقواس الباراميترات ثم تحديد نوع الإستثناء الذي قد ترميه الدالة, و إذا قمت مسبقاً بتعريف إستثناء يمكنك جعل الدالة تقوم برميه.
+
+الكلمة `throw` تستخدم لتحديد نوع الإستثناء الذي سيرسل إلى الجملة `catch`.  
+الكلمة `throws` تستخدم لتحديد نوع الإستثناء الذي قد تقوم الدالة برميه في حال كنت تريد تجربة الكود و معالجته في مكان إستدعاء الدالة.
+
+  
+
+#### المثال الأول
+
+الأسلوب المتبع هنا يسمى Exception Thrower/Exception Catcher.
+
+في هذا المثال قمنا ببناء دالة ترمي إستثناء و تعالجه بداخلها في حال قمنا بإعطائها عمر أكبر من 63.
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+        // مما يعني أنها ستقوم برمي إستثناء argument هنا قمنا باستدعاء الدالة و أعطيناها القيمة 70 كـ
+        checkAge(70);
+    }
+ 
+ 
+    public static void checkAge (int age) {
+        // و النص الذي وضعناه بين القوسين عبارة عن شرح للمشكلة التي قد تحدث و هو الذي سيتم عرضه catch أكبر من 63 سيتم رمي إستثناء إلى الدالة age هنا الدالة تقوم بتجربة الكود و في حال كانت قيمة
+        try {
+            if(age > 63) {
+                throw new Exception("you are too old!");
+            }
+        }
+        // ثم تقوم بعرض نوع الخطأ e تلتقط أي إستثناء قد يحدث, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+        catch( Exception e ) {
+            System.out.println( e.getMessage() );
+        }
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+you are too old!
+
+  
+
+إذاً لا نحتاج إلى إستخدام الكلمة `throws` إلا إذا أردنا وضع الدالة بداخل الجملة `try` عند إستدعائها.
+
+  
+  
+
+#### المثال الثاني
+
+الأسلوب المتبع هنا يسمى Exception Thrower/Exception Propagator.
+
+في هذا المثال قمنا ببناء دالة ترمي إستثناء يعالج في مكان الإستدعاء في حال قمنا بإعطائها عمر أكبر من 63.
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+        // لأنها قد ترمي إستثناء try و وضعناها بداخل الجملة argument هنا قمنا باستدعاء الدالة و أعطيناها القيمة 70 كـ
+        try {
+            checkAge(70);
+        }
+        // ثم تقوم بعرض نوع الخطأ e تلتقط أي إستثناء قد يحدث, بعدها تقوم بتخزينه في الكائن catch هذه الـ
+        catch( Exception e ) {
+            System.out.println( e.getMessage() );
+        }
+    }
+ 
+ 
+    // و النص الذي وضعناه بين القوسين عبارة عن شرح للمشكلة التي قد تحدث و هو الذي سيتم عرضه catch أكبر من 63 سيتم رمي إستثناء إلى الدالة age هنا الدالة تقوم بتجربة الكود عند إستدعئها و في حال كانت قيمة
+    public static void checkAge (int age) throws Exception{
+        if(age > 63) {
+            throw new Exception("you are too old!");
+        }
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+you are too old!
+
+  
+
+إذا أردت إنشاء دالة ترمي أكثر من إستثناء, عليك فقط وضع فاصلة بين كل نوعين, و في حال لم يتم التعرف على الإستثناء الذي قمت باستخدامه, يجب أن تفعل له `import` فقط.
+
+  
+
+#### المثال الثالث
+
+الأسلوب المتبع هنا يسمى Exception Thrower/Exception Propagator.
+
+في هذا المثال قمنا ببناء دالة قد ترمي إستثناءين يتم معالجتهما في مكان الإستدعاء.
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // لأنها قد ترمي إستثناء try و وضعناها بداخل الجملة argument و أعطيناها القيمة 0 كـ checkAge() هنا قمنا باستدعاء الدالة
+        try {
+            checkAge(0);
+        }
+        // و بعدها تقوم بعرض الخطأ e1 ثم تقوم بتخزينه في الكائن ArithmeticException تلتقط أي إستثناء من النوع catch هذه الـ
+        catch( ArithmeticException e1 ) {
+            System.out.println( e1.getMessage() );
+        }
+        // ثم تقوم بعرض نوع الخطأ e2 تلتقط أي إستثناء آخر قد يحدث ثم تقوم بتخزينه في الكائن catch هذه الـ
+        catch( Exception e2 ) {
+            System.out.println( e2.getMessage() );
+        }
+ 
+    }
+ 
+ 
+    // Exception أو من النوع ArithmeticException هنا قلنا أن الدالة قد ترمي إستثناء من النوع
+    // ArithmeticException أصغر أو تساوي صفر سيتم رمي إستثناء من النوع argument هنا الدالة تقوم بتجربة الكود عند إستدعائها و في حال كانت القيمة التي نمررها لها كـ
+    // Exception و إذا حدث أي إستثناء آخر سيتم رمي إستثناء من النوع
+    public static void checkAge (int age) throws ArithmeticException, Exception{
+        if(age <= 0) {
+            throw new ArithmeticException("This is ArithmeticException");
+        }
+        else{
+            System.out.println( 100/age );
+        }
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+This is ArithmeticException
+
+## إنشاء `Exception` جديد و إستخدامه في جافا
+
+في البداية ننصح بالعودة لهذه الفقرة بعد دراسة الوارثة, لكي يتم فهم الكود بشكل كامل.
+
+  
+
+### خطوات إنشاء إستثناء جديد
+
+1.  يجب إنشاء كلاس جديد يرث من الكلاس `Exception`.
+2.  يجب إستدعاء الكونستركتور الـ Superclass ( أي الكونستركتور الخاص بالكلاس `Exception` ) في كونستركتور الكلاس الجديد الذي نقوم بإنشائه.
+3.  يجب تمرير الرسالة التي سيرميها الإستثناء في الدالة `super()`.
+
+  
+
+#### مثال
+
+هنا قمنا بتعريف كلاس جديد يمثل `Exception` و قمنا بتسميته `MyException`.
+
+MyException.java
+
+public class MyException extends Exception {
+ 
+    public MyException(String msg){
+        super(msg);
+    }
+ 
+}
+
+  
+
+هنا قمنا بإنشاء الكلاس `Main` لتجربة الكلاس `MyException`.
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // لأنها قد ترمي إستثناء try و وضعناها بداخل الجملة argument و أعطيناها القيمة 0 كـ checkAge() هنا قمنا باستدعاء الدالة
+        try {
+            checkAge(20);
+            checkAge(18);
+            checkAge(10);
+        }
+        // ثم تقوم بعرض رسالة الخطأ e ثم تقوم بتخزينه في الكائن MyException تلتقط إستثناء نوعه catch هذه الـ
+        catch( MyException e ) {
+            System.out.println( e.getMessage() );
+        }
+ 
+    }
+ 
+ 
+    // أصغر من 13 argument إذا كان العمر الموضوع فيها كـ MyException هذه الدالة تقوم برمي إستثناء نوعه
+    public static void checkAge(int age) throws MyException {
+        if(age < 13) {
+            throw new MyException("you can't watch horror movies");
+        }
+        else {
+            System.out.println( "you can watch the movie" );
+        }
+    }
+ 
+}
+
+  
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+you can watch the movie
+you can watch the movie
+you can't watch horror movies

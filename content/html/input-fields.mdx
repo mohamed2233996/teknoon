@@ -1,0 +1,212 @@
+---
+title: "HTMLحقول الإدخال"
+source: "https://harmash.com/tutorials/html/input-fields"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:10:55.794Z"
+---
+
+## مفهوم حقول الإدخال
+
+حقول الإدخال أو مربعات النصوص في صفحات الويب يمكن تصنيفها لنوعين أساسيين:
+
+*   مربع نص يتألف من سطر واحد حيث يظهر كل ما يكتبه المستخدم فيه على سطر واحد.
+*   مربع نص متعدد الأسطر حيث يمكن أن يظهر ما يكتبه المستخدم فيه على أكثر من سطر.
+
+في هذا الدرس سنتعرف على الوسوم التي تستخدم للحصول على مربعات نصوص بالإضافة لخصائصها.
+
+## إضافة مربع نص
+
+لإضافة مربع نص في الصفحة يمكنك استخدام الوسم `<input>` مع الإشارة إلى أن هذا الوسم يمكن استخدامه لإضافة الكثير من الأشياء الأخرى و التي سنتعرف عليها في دروس لاحقة.
+
+يمكنك إضافة الخصائص التالية لهذا الوسم:
+
+*   `id` نضيفها له في حال أردنا ربطه بوسم `<label>`.
+*   `name` نضيفها له حتى يتم إرسال القيمة الموضوعة فيه عند النقر على زر الإرسال.
+*   `type` لتحديد النوع أو الشكل الذي سيتم عرضه مكان الوسم في الصفحة.
+*   `value` لإعطائه قيمة أولية.
+*   `readonly` لجعل قيمته غير قابلة للتغيير.
+*   `disabled` لجعله يظهر بلون باهت و قيمته غير قابلة للنسخ أو التغيير.
+*   `size` لتحديد كم حرف تريد أن يظهر بداخل المربع (كأنك تحدد حجمه نسبةً لعدد الأحرف التي يمكن إدخالها فيه).
+*   `maxlength` لتحديد أقصى عدد أحرف يمكن أن إدخلها فيه.
+*   `placeholder` لإظهار تلميح بداخل مربع النص يظهر في حال كان فارغاً.
+*   `required` يمكنك إضافتها له لإجبار المستخدم على إدخال قيمة في مربع النص في حال تركه فارغاً و نقر على زر إرسال البيانات.
+
+  
+
+### تحديد نوع مربع النص
+
+بالنسبة لنوع مربع النص الذي نحدده بواسطة الخاصية `type` فإن الأشكال التالية هي الأكثر أهمية:
+
+*   `<input type="text">` للحصول على مربع نص عادي و هذا هو النوع الإفتراضي له.
+*   `<input type="password">` للحصول على مربع نص مخصص لإدخال كلمة المرور.
+*   `<input type="number">` للحصول على مربع نص مخصص لإدخال الرقام.
+*   `<input type="email">` للحصول على مربع نص مخصص لإدخال بريد إلكتروني.
+
+إفتراضياً، في حال لم تحدد شكل الوسم `<input>` سيتم إعتبار أنك تريد عرض مربع نص عادي `<input type="text">`.
+
+  
+
+في المثال التالي قمنا بعرض مربع نص بدون تحديد نوعه.
+
+#### المثال الأول
+
+<label for\="username"\>Username</label\><br\>
+<input id\="username" name\="username"\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-type-text)
+
+  
+
+في المثال التالي قمنا بعرض مربع نص مخصص لإدخال بريد إلكتروني و مربع نص مخصص لإدخال كلمة مرور.  
+**ملاحظة:** هنا في حال لم يدخل المستخدم نص يشبه البريد الإلكتروني فإنه لن يتمكن من النقر على زر إرسال البيانات .
+
+#### المثال الثاني
+
+<label for\="email"\>Email</label\><br\>
+<input type\="email" id\="email" name\="email"\><br\><br\>
+<label for\="password"\>Password</label\><br\>
+<input type\="password" id\="password" name\="password"\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-type-email-and-password)
+
+  
+
+في المثال التالي قمنا بعرض مربع نص مخصص لإدخال رقم.  
+**ملاحظة:** هنا يسمح للمستخدم بإدخال أعداد فقط بداخل مربع النص.
+
+#### المثال الثالث
+
+<label for\="age"\>Your age</label\><br\>
+<input type\="number" id\="age" name\="age"\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-type-number)
+
+  
+
+في المثال التالي قمنا بتحديد أن عدد الأحرف التي يمكن أن تظهر بداخل مربع النص هو 20 و عدد الأحرف الأقصى التي يمكن إدخالها فيه هو 25.
+
+#### المثال الرابع
+
+<label for\="username"\>Username</label\><br\>
+<input type\="text" id\="username" name\="username" size\="20" maxlength\="25"\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-with-size-and-maxlength)
+
+  
+
+في المثال التالي قمنا بإضافة قيمة أولية في مربع النص.
+
+#### المثال الخامس
+
+<label for\="username"\>Username</label\><br\>
+<input type\="text" id\="username" name\="username" value\="mhamad"\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-with-value)
+
+  
+
+في المثال التالي قمنا بجعل قيمة مربع النص قابلة للقراءة فقط، أي لا يمكن تغييرها.
+
+#### المثال السادس
+
+<label for\="username"\>Username</label\><br\>
+<input type\="text" id\="username" name\="username" value\="mhamad" readonly\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-with-readonly)
+
+  
+
+في المثال التالي قمنا بجعل مربع النص يظهر بشكل غير مفعّل مما يعني أنه يظهر بلون باهت و قيمته غير قابلة للنسخ أو التغيير.
+
+#### المثال السابع
+
+<label for\="username"\>Username</label\><br\>
+<input type\="text" id\="username" name\="username" value\="mhamad" disabled\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-with-disabled)
+
+  
+
+في المثال التالي قمنا بجعل مربعات النصوص تظهر تلميحات في حال كانت فارغة.
+
+#### المثال الثامن
+
+<label for\="email"\>Email</label\><br\>
+<input type\="email" id\="email" name\="email" placeholder\="Enter your email address"\><br\><br\>
+<label for\="password"\>Password</label\><br\>
+<input type\="password" id\="password" name\="password" placeholder\="Enter your password"\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-with-placeholder)
+
+  
+
+في المثال التالي قمنا بجعل المستخدم مجبر على ملئ مربعات النصوص في حال تركها فارغة و نقر على زر إرسال البيانات.
+
+#### المثال التاسع
+
+<label for\="email"\>Email</label\><br\>
+<input type\="email" id\="email" name\="email" required\><br\><br\>
+<label for\="password"\>Password</label\><br\>
+<input type\="password" id\="password" name\="password" required\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/input-with-required)
+
+## إضافة مربع نص متعدد الأسطر
+
+نستخدم الوسم `<textarea>` على هذا النحو `<textarea>text</textarea>` لعرض مربع نص يتألف من أكثر من سطر.  
+مكان الكلمة `text` نمرر كل النص الذي نريد عرضه بداخله.
+
+في العادة نستخدم مربع نص متعدد الأسطر حين نطلب من المستخدم إدخال عنوانه أو نبذة عنه.
+
+يمكنك إضافة الخصائص التالية لهذا الوسم:
+
+*   `id` نضيفها له في حال أردنا ربطه بوسم `<label>`.
+*   `name` نضيفها له حتى يتم إرسال القيمة الموضوعة فيه عند النقر على زر الإرسال.
+*   `readonly` نضيفها له في حال أردنا جعل قيمته غير قابلة للتغيير.
+*   `disabled` نضيفها له في حال أردنا جعله يظهر بلون باهت و قيمته غير قابلة للنسخ أو التغيير.
+*   `cols` نضيفها له في حال أردنا تحديد كم حرف كحد أقصى يمكن أن يظهر فيه على نفس السطر, أي كأنك تحدد عرضه نسبةً لعدد الأحرف الأقصى التي يمكن إدخالها في كل سطر.
+*   `rows` نضيفها له في حال أردنا تحديد كم سطر يمكن أن يظهر فيه في كل مرة، أي كأنك تحدد طوله نسبةً لعدد الأسطر التي تحددها له.
+
+  
+
+في المثال التالي قمنا بإضافة مربع نص يتألف من أكثر من سطر مع وضع قيمة أولية فيه.
+
+#### المثال الأول
+
+<label for\="biography"\>Biography</label\><br\>
+<textarea name\="biography" id\="biography"\>Harmash.com is published in 2014.</textarea\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/textarea)
+
+  
+
+في المثال التالي قمنا بإضافة مربع نص يتألف من أكثر من سطر مع تحديد عدد الأحرف الأقصى التي يمكن أن تظهر في كل سطر و عدد الأسطر الإفتراضية التي ستظهر فيه.
+
+#### المثال الثاني
+
+<label for\="biography"\>Biography</label\><br\>
+<textarea name\="biography" id\="biography" cols\="40" rows\="4"\>Harmash.com is published in 2014.</textarea\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/textarea-with-rows-and-cols)
+
+  
+
+في المثال التالي قمنا بإضافة مربع نص يتألف من أكثر من سطر مع تحديد حجمه و جعل قيمته قابلة للقراءة فقط.
+
+#### المثال الثالث
+
+<label for\="biography"\>Biography</label\><br\>
+<textarea name\="biography" id\="biography" cols\="40" rows\="4" readonly\>Harmash.com is published in 2014.</textarea\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/textarea-with-readonly)
+
+  
+
+في المثال التالي قمنا بإضافة مربع نص يتألف من أكثر من سطر مع تحديد حجمه و جعله غير مفعّل، أي لا يمكن تغيير قيمته أو نسخها.
+
+#### المثال الرابع
+
+<label for\="biography"\>Biography</label\><br\>
+<textarea name\="biography" id\="biography" cols\="40" rows\="4" disabled\>Harmash.com is published in 2014.</textarea\>
+
+[جرب الكود](/tryit?file=/tutorials/html/input-fields/textarea-with-disabled)

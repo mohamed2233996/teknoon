@@ -1,0 +1,111 @@
+---
+title: "Swingالكلاس JMenuBar و الكلاسات التي يمكن إستخدامها في شريط القائمة"
+source: "https://harmash.com/tutorials/swing/jmenubar"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:07.829Z"
+---
+
+## مقدمة
+
+الكلاس `JMenuBar` يستخدم لإضافة شريط القوائم ( Menu Bar ) في أعلا الـ Frame.  
+الكلاس `Menu` يستخدم لإضافة قائمة ( Menu ) في شريط القوائم.  
+الكلاس `MenuItem` يستخدم لإضافة عنصر ( Item ) في القائمة.  
+الكلاس `JCheckBoxMenuItem` يستخدم لإضافة Check Box في القائمة و هو مثل الكلاس `JCheckBox`.  
+الكلاس `JRadioButtonMenuItem` يستخدم لإضافة Radio Button في القائمة و هو مثل الكلاس `JRadioButton`.
+
+  
+
+### بناء الكلاس `JMenuBar`
+
+public class JMenuBar
+extends JComponent
+implements Accessible, MenuElement
+
+  
+
+### بناء الكلاس `JMenu`
+
+public class JMenu
+extends JMenuItem
+implements Accessible, MenuElement
+
+  
+
+### بناء الكلاس `JMenuItem`
+
+public class JMenuItem
+extends AbstractButton
+implements Accessible, MenuElement
+
+  
+
+### بناء الكلاس `JCheckBoxMenuItem`
+
+public class JCheckBoxMenuItem
+extends JMenu
+implements Accessible, SwingConstants
+
+  
+
+### بناء الكلاس `JRadioButtonMenuItem`
+
+public class JRadioButtonMenuItem
+extends JMenu
+implements Accessible
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء شريط القوائم و إضافة قوائم فيه.
+
+![طريقة إنشاء شريط قوائم JMenuBar و إضافة قوائم JMenuItem فيه في جافا](/content-images/swing/jmenubar/1784305387437-68299h.PNG)
+
+[شاهد المثال](/tutorials/swing/jmenubar/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة إضافة عناصر ( Menu Items ) في كل قائمة و إضافة خط فاصل ( Separator ) بين العناصر.  
+ستتعلم أيضاً كيف تنفذ أوامر عند النقر على العناصر الموجودة في القوائم.
+
+![طريقة إضافة عناصر JMenuItem في كل قائمة JMenu و تنفيذ أوامر عند النقر على العناصر في جافا](/content-images/swing/jmenubar/1784305387542-dl1ht7.PNG)
+
+[شاهد المثال](/tutorials/swing/jmenubar/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة وضع أيقونات لعناصر القائمة.
+
+![طريقة إضافة أيقونات للعناصر JMenuItem في جافا](/content-images/swing/jmenubar/1784305387641-e8yog1.PNG)
+
+[شاهد المثال](/tutorials/swing/jmenubar/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة إضافة Check Boxes و Radio Buttons كعناصر في القائمة.
+
+![طريقة إضافة JCheckBoxMenuItem و JRadioButtonMenuItem كعناصر للقائمة JMenu في جافا](/content-images/swing/jmenubar/1784305387731-c2lwcb.PNG)
+
+[شاهد المثال](/tutorials/swing/jmenubar/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة وضع القوائم بداخل بعضها البعض.
+
+![طريقة وضع قائمة JMenuBar بداخل قائمة JMenuBar أخرى في جافا](/content-images/swing/jmenubar/1784305387820-1nim8s.PNG)
+
+[شاهد المثال](/tutorials/swing/jmenubar/example-5)

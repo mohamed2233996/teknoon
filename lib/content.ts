@@ -2,11 +2,6 @@
  * lib/content.ts
  * -----------------
  * دوال مساعدة لقراءة ملفات MDX اللي اتسحبت من هرمش وترتيبها.
- * الافتراض: كل قسم (javascript, html, css...) في مجلد منفصل جوه content/
- * زي: content/javascript/intro-to-js.mdx
- *
- * تركيب المكتبات المطلوبة:
- *   npm install gray-matter next-mdx-remote
  */
 
 import fs from "fs";
@@ -25,10 +20,9 @@ export interface LessonMeta {
 }
 
 export interface Lesson extends LessonMeta {
-  content: string; // نص الـ MDX الخام (من غير الـ frontmatter)
+  content: string;
 }
 
-// يرجع كل أسماء الأقسام المتاحة (أسماء المجلدات جوه content/)
 export function getCategories(): string[] {
   if (!fs.existsSync(CONTENT_ROOT)) return [];
   return fs
@@ -37,7 +31,6 @@ export function getCategories(): string[] {
     .map((d) => d.name);
 }
 
-// يرجع كل الدروس (metadata بس) الموجودة في قسم معين
 export function getLessonsByCategory(category: string): LessonMeta[] {
   const dir = path.join(CONTENT_ROOT, category);
   if (!fs.existsSync(dir)) return [];
@@ -61,7 +54,6 @@ export function getLessonsByCategory(category: string): LessonMeta[] {
     .sort((a, b) => a.title.localeCompare(b.title, "ar"));
 }
 
-// يرجع درس واحد كامل (metadata + المحتوى) عشان نعرضه في صفحة الدرس
 export function getLesson(category: string, slug: string): Lesson | null {
   const filePath = path.join(CONTENT_ROOT, category, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
@@ -80,7 +72,6 @@ export function getLesson(category: string, slug: string): Lesson | null {
   };
 }
 
-// يرجع كل مسارات (category/slug) الموجودة - مفيد لـ generateStaticParams
 export function getAllLessonParams(): { category: string; slug: string }[] {
   const categories = getCategories();
   return categories.flatMap((category) =>

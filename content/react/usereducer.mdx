@@ -1,0 +1,247 @@
+---
+title: "Reactالدالة useReducer()"
+source: "https://harmash.com/tutorials/react/usereducer"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:14.066Z"
+---
+
+## مقدمة للدالة `useReducer()` في React
+
+تستخدم هذه الدالة لمراقبة أي تغيير يحصل في مجموعة قيم سواء كانت عبارة عن خصائص تابعة لكائن واحد أو كانت أكثر تعقيداً كمصفوفة تحتوي على مجموعة من الكائنات.
+
+فكرة هذه الدالة مشابهة جداً للدالة `useState()` و لكنها خيار أسهل للإستخدام في حال كان المراد مراقبة حالة مجموعة من القيم.
+
+إذا كنت بحاجة لمراقبة حالة عدة متغيرات تابعة لنفس المكوّن، فيمكنك تجميع هذه المتغيرات كخصائص في كائن واحد و استخدام `useReducer()` لمراقبة أي تغيير يحصل فيها بدلاً من استخدام الدالة `useState()` لمراقبة حالة كل متغير منهم على حدا.
+
+هذه الدالة هي من ضمن دوال [الهووكس](/tutorials/react/hooks) ( Hooks ) التي يمكن استخدامها في المكوّن المبني بأسلوب Function Component.
+
+  
+
+### طريقة تضمينها
+
+حتى تتمكن من استخدام الدالة `useReducer()` يجب تضمينها أولاً كما يلي.
+
+#### مثال
+
+import { useReducer } from "react";
+
+  
+
+### الشكل العام لاستخدامها
+
+عند استخدام هذه الدالة فإنه يتم ربطها بالشيء الذي سيتم مراقبة قيمته و بالدالة التي من خلالها سيتم تحديث قيمته.
+
+#### مثال
+
+const \[state, dispatch\] = useReducer(reducer, initialArg, init?)
+
+*   `state` \_ إسم المتغير الذي سيتم مراقبة حالته.
+*   `dispatch` \_ إسم الدالة التي يمكن من خلالها تحديث قيمة المتغير.
+*   `reducer` \_ إسم الدالة التي نحدد من خلالها كيف سيتم تحديث قيمة المتغير.
+*   `initialArg` \_ القيمة التي سيتم مراقبتها، عادةً ما تكون كائن أو مصفوفة فيها كائنات.
+*   `init?` \_ هو باراميتر إختياري مكانه يمكن تمرير دالة تقوم بإحضار القيم الأولية التي سيتم مراقبتها.
+
+## تحضير مشروع للتطبيق العملي
+
+إفعل الخطوات التالية تباعاً حتى تنشئ مشروع جديد و تطبق فيه الأمثلة كما فعلنا بالضبط:
+
+1.  قم بإنشاء مشروع جديد إسمه `demo-app`.
+2.  بداخل المجلد `src` تجد ملف إسمه `App.js` قم بحذف كل الكود الإفتراضي الموجود فيه.
+3.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `components` لأننا سنضع بداخله مكوّنات.
+4.  بداخل المجلد `components` قم بإنشاء ملف إسمه `MyComponent.js` لأنه سيمثل مكوّن.
+
+في هذا المشروع قمنا بتجهيز مكوّن واحد هو `<MyComponent>` لأننا سنقوم لاحقاً بعرض محتواه و تحديث قيم خصائصه بعد عرضها في المكون `<App>`.
+
+## مراقبة حالة خصائص الكائن في React
+
+في المثال التالي، قمنا بتعريف كائن إسمه `initialData` وضعنا فيه كائن يمثل المعلومات الأساسية التي نريد مراقبتها.  
+بعدها قمنا بتعريف دالة إسمها `reducer()` يمكن من خلالها تحديث قيم موجودة في شيء نوعه `Reducer`.
+
+بعدها قمنا بتعريف مكوّن إسمه `<MyComponent>` يحتوي على مربع نص و زر بالإضافة إلى فقرة.  
+في هذا المكوّن أنشأنا `Reducer` بهدف حفظ جميع القيم القابلة للتحديث فيه على النحو التالي:
+
+*   القيم ستتخزن على شكل خصائص في كائن إسمه `state` و الذي وضعنا فيه نسخة من الكائن `initialData` كقيمة أولية.
+*   يمكن تحديث القيم من خلال استدعاء دالة إسمها `dispatch()` و التي تقوم داخلياً باستدعاء الدالة `reducer()`.
+
+في النهاية قمنا بعرض المكوّن `<MyComponent>` في المكوّن `<App>` لتجربته.
+
+#### مثال
+
+/src/components/MyComponent.js
+
+import { useReducer } from "react";
+
+// username و counter وضعنا فيه خاصيتين هما initialData هنا قمنا بتعريف كائن إسمه
+// لإعطاء الكائن الذي سيتم مراقبة خصائصه قيم أولية useReducer() هذا الكائن سنمرره لاحقاً للدالة
+const initialData = {
+    counter: 0,
+    username: 'Mhamad'
+};
+
+// سنستخدمها لتحديث قيم خصائص الكائن الذي سيستخدمها reducer هنا قمنا بتعريف دالة إسمها
+// يمثل الكائن الذي يملك الخصائص المراد تحديث قيمها state الباراميتر
+// هو نص يمثل نوع التغيير المراد فعله على خاصية محددة من خصائص الكائن action الباراميتر
+function reducer(state, action) {
+    // لمعرفة أي خاصية سيتم تحديثها action الموجودة في الباراميتر type هنا سيتم فحص قيمة الخاصية
+    switch (action.type) {
+        // فإنه سيتم إضافة 1 'counter\_incremented' هي النص type إذا كانت قيمة الخاصية
+        // state الموجودة في الكائن الذي يمثله الباراميتر counter على قيمة الخاصية
+        case 'counter\_incremented':
+            return {
+                ...state,
+                counter: state.counter + 1
+            };
+        // فإنه سيتم تحديث 'username\_changed' هي النص type إذا كانت قيمة الخاصية
+        // state الموجودة في الكائن الذي يمثله الباراميتر username قيمة الخاصية
+        case 'username\_changed':
+            return {
+                ...state,
+                username: action.username
+            };
+    }
+
+    // فإنه سيتم رمي إستثناء switch تشير لفعل غير موجود في الجملة action إذا كانت قيمة
+    throw Error('Unknown action: ' + action.type);
+}
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+    // dispatch() عبارة عن كائن يمكن تحديث قيمه بواسطة دالة إسمها state هنا قمنا بتعريف متغير إسمه
+    // حتى تحدث القيم reducer() فإنها بشكل تلقائي ستسدعي الدالة dispatch() عند استدعاء الدالة
+    const \[state, dispatch\] = useReducer(reducer, initialData);
+    
+    // لمراقبة أي تغيير يحصل في قيمة مربع النص handleInputChange() هنا قمنا بتعريف الدالة
+    // dispatch() عن طريق الدالة state الموجودة في الكائن username و من ثم تمرير القيمة الجديدة للخاصية
+    const handleInputChange = (e) => {
+        dispatch({
+            type: "username\_changed",
+            username: e.target.value
+        });
+    };
+
+    // لرصد أي نقرة تتم على الزر handleInputChange() هنا قمنا بتعريف الدالة
+    // dispatch() عن طريق الدالة state الموجودة في الكائن counter حتى يتم إضافة 1 على قيمة الخاصية 
+    const handleButtonClick = () => {
+        dispatch({type: "counter\_incremented"});
+    };
+
+    // state و قد عرضنا فيه جميع قيم الكائن MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    // state.counter و زر لتغيير قيمة state.username بالإضافة إلى مربع نص يمكن من خلاله تغيير قيمة الخاصية
+    return (
+        <>
+            <input value\={state.username} onChange\={(e) => handleInputChange(e)} />
+            <button onClick\={() => handleButtonClick()}>Increase counter</button\>
+            <p\>{state.username} clicks on the button {state.counter} times.</p\>
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف MyComponent هنا قمنا بجعل المكون
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usereducer/handle-object)
+
+## مراقبة حالة خصائص مجموعة من الكائنات في React
+
+في المثال التالي، قمنا بتعريف مصفوفة كائنات إسمها `initialTasks` وضعنا فيه ثلاث عناصر (كائنات) نريد مراقبة قيمها.  
+بعدها قمنا بتعريف دالة إسمها `reducer()` يمكن من خلالها تحديث القيم الموجودة في شيء `Reducer`.
+
+بعدها قمنا بتعريف مكوّن إسمه `<MyComponent>` عرضنا فيه قيم الكائنات كخانات إختيار.  
+في هذا المكوّن أنشأنا `Reducer` بهدف حفظ قيم الكائنات الموضوعة كعناصر في المصفوفة فيه على النحو التالي:
+
+*   مصفوفة الكائنات ستتخزن في مصفوفة إسمها `tasks` و التي وضعنا فيها نسخة من عناصر المصفوفة `initialTasks` كقيمة أولية.
+*   يمكن تحديث قيم عناصر المصفوفة من خلال استدعاء دالة إسمها `dispatch()` و التي تقوم داخلياً باستدعاء الدالة `reducer()`.
+
+في النهاية قمنا بعرض المكوّن `<MyComponent>` في المكوّن `<App>` لتجربته.
+
+#### مثال
+
+/src/components/MyComponent.js
+
+import { useReducer } from "react";
+
+// وضعنا فيها ثلاث كائنات initialTasks هنا قمنا بتعريف مصفوفة إسمها
+// لإعطاء المصفوفة التي سيتم مراقبة قيمها قيم أولية useReducer() هذه المصفوفة سنمررها لاحقاً للدالة
+const initialTasks = \[
+    {
+        id: 1,
+        title: 'Task 1',
+        completed: true
+    },
+    {
+        id: 2,
+        title: 'Task 2',
+        completed: false
+    },
+    {
+        id: 3,
+        title: 'Task 3',
+        completed: false
+    }
+\];
+
+// سنستخدمها لتحديث قيم عناصر المصفوفة التي ستستخدمها reducer هنا قمنا بتعريف دالة إسمها
+// يمثل المصفوفة التي فيها العناصر (الكائنات) المراد تحديث خصائصها state الباراميتر
+// هو نص يمثل نوع التغيير المراد فعله على خصائص عنصر (كائن) محدد في المصفوفة action الباراميتر
+function reducer(state, action) {
+    // لمعرفة أي خصائص سيتم تحديثها في الكائن action الموجودة في الباراميتر type هنا سيتم فحص قيمة الخاصية
+    switch (action.type) {
+        // فإنه سيتم تنفيذ الأوامر التالية 'completed' هي النص type إذا كانت قيمة الخاصية
+        case "completed":
+            // و عندما يتم إيجاد عنصر يملك نفس قيمة state هنا سيتم المرور على عناصر المصفوفة
+            // الموجودة complete فإنه سيتم عكس قيمة action التي تم تمريرها كخاصية في الباراميتر id
+            // true ستصبح false و إذا كانت ،false ستصبح true  في العنصر (الكائن)، بمعنى إذا كانت
+            return state.map((task) => {
+                if (task.id === action.id) {
+                    return {
+                        ...task, completed:
+                        !task.completed
+                    };
+                }
+                return task;
+            });
+    }
+    
+    // فإنه سيتم رمي إستثناء switch تشير لفعل غير موجود في الجملة action إذا كانت قيمة
+    throw Error('Unknown action: ' + action.type);
+}
+
+// MyComponent هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+function MyComponent() {
+    // dispatch() عبارة يمكن تحديث قيمه بواسطة دالة إسمها tasks هنا قمنا بتعريف مصفوفة إسمها
+    // حتى تحدث القيم reducer() فإنها بشكل تلقائي ستسدعي الدالة dispatch() عند استدعاء الدالة
+    const \[tasks, dispatch\] = useReducer(reducer, initialTasks);
+
+    // لمراقبة أي تغيير يحصل في قيمة خانة الإختيار handleComplete() هنا قمنا بتعريف الدالة
+    // dispatch() عن طريق الدالة state الموجودة في عنصر محدد في الكائن completed و من ثم تمرير القيمة الجديدة للخاصية
+    const handleComplete = (task) => {
+        dispatch({
+            type: "completed",
+            id: task.id
+        });
+    };
+
+    // MyComponent هنا قمنا بتحضير ما سيتم عرضه عند تضمين المكوّن
+    // tasks و قد عرضنا فيه جميع خصائص جميع عناصر المصفوفة 
+    return (
+        <>
+            {tasks.map((task) => (
+                <div key\={task.id}\>
+                    <label\>
+                        <input
+                            type\="checkbox"
+                            checked\={task.completed}
+                            onChange\={() => handleComplete(task)}
+                        />
+                        {task.title}
+                    </label\>
+                </div\>
+            ))}
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف MyComponent هنا قمنا بجعل المكون
+export default MyComponent;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/usereducer/handle-array-of-objects)

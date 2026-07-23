@@ -1,0 +1,91 @@
+---
+title: "Swingالإنترفيس MouseListener"
+source: "https://harmash.com/tutorials/swing/awt-mouselistener"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:31.307Z"
+---
+
+يستخدم هذا الإنترفيس للتنبه عندما يقوم المستخدم بالنقر على أزرار الفأرة.
+
+الإنترفيس `MouseListener` يحتوي على خمس دوال يجب أن تفعل لها Override عند إنشاء كائن منه:  
+
+*   الدالة `mouseClicked(MouseEvent e)`: يتم إستدعاءها بعد أن يقوم المستخدم بالنقر على أي زر موجود في الفأرة.
+*   الدالة `mousePressed(MouseEvent e)`: يتم إستدعاءها عندما يقوم المستخدم بالنقر على أي زر موجود في الفأرة و قبل أن يرفع إصبعه عنه.
+*   الدالة `mouseReleased(MouseEvent e)`: يتم إستدعاءها بعد أن يقوم المستخدم بإزالة إصبعه عن الزر الذي نقر عليه من الفأرة.
+*   الدالة `mouseEntered(MouseEvent e)`: يتم إستدعاءها عندما يقوم المستخدم بتمرير الفأرة فوق شيء.
+*   الدالة `mouseExited(MouseEvent e)`: يتم إستدعاءها عندما يقوم المستخدم بإبعاد الفأرة عن فوق شيء.
+
+  
+
+#### مثال
+
+Main.java
+
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        JFrame frame \= new JFrame("MouseListener demo");         // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        JLabel mousePosition \= new JLabel(" Mouse Position:");   // mousePosition إسمه Label هنا أنشأنا
+        JLabel mouseStatus \= new JLabel(" Mouse Status:");       // mouseStatus إسمه Label هنا أنشأنا
+ 
+        frame.add(mousePosition);                                // frame في الـ mousePosition هنا أضفنا الكائن
+        frame.add(mouseStatus);                                  // frame في الـ mouseStatus هنا أضفنا الكائن
+ 
+        // هنا نضع الأوامر التي نريد تنفيذها عند تفاعل المستخدم مع النافذة بواسطة الفأرة
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mousePosition.setText(" Mouse Position: ("+e.getX()+", "+e.getY() +")");
+                mouseStatus.setText(" Mouse Status: Mouse Clicked");
+            }
+ 
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseStatus.setText(" Mouse Status: Mouse Pressed");
+            }
+ 
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                mouseStatus.setText(" Mouse Status: Mouse Released");
+            }
+ 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                mouseStatus.setText(" Mouse Status: Mouse Entered");
+            }
+ 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                mouseStatus.setText(" Mouse Status: Mouse Exited");
+            }
+        });
+ 
+        frame.setSize(300, 250);                                // هنا قمنا بتحديد حجم النافذة. عرضها 300 و طولها 250
+        frame.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.setLayout(new GridLayout(2, 1));                  // لترتيب الأشياء التي أضفناها فيها GroupLayout هنا جعلنا النافذة تستخدم الـ
+        frame.setVisible(true);                                 // هنا جعلنا النافذة مرئية
+ 
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+![مثال يشرح طريقة تعريف الحدث MouseListener في جافا](/content-images/swing/awt-mouselistener/1784305411291-36dj4x.PNG)
+
+إذا قمت بالنقر على النافذة بواسطة الفأرة سيتم عرض النص `Mouse Status: Mouse Entered` و النقطة التي قمت بالنقر عليها مثل `Mouse Position: (201, 155)`.
+
+إذا قمت بالنقر على النافذة بواسطة الفأرة و أبقيت إصبعك فوق الزر سيتم عرض النص `Mouse Status: Mouse Pressed`.
+
+إذا قمت بالنقر على النافذة بواسطة الفأرة و أبقيت إصبعك فوق الزر, ثم قمت بتحريك الفأرة قليلاً, ثم أزلت إصبعك عن الفأرة, سيتم عرض النص `Mouse Status: Mouse Released`.
+
+إذا قمت بتمرير الفأرة فوق النافذة سيتم عرض النص `Mouse Status: Mouse Entered`.
+
+إذا قمت بتمرير الفأرة خارج النافذة سيتم عرض النص `Mouse Status: Mouse Exited`.

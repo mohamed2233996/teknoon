@@ -1,0 +1,530 @@
+---
+title: "الحدود"
+source: "https://harmash.com/tutorials/css/border"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:11:50.564Z"
+---
+
+## مفهوم الحدود
+
+أي عنصر تضيفه في الصفحة، يمكنك إظهار حدود بالشكل الذي تراه مناسباً حيث يمكنك إظهار حدوده من كل الجهات أو من جهات محددة، تحديد سمك و شكل و لون الحدود، بالإضافة إلى تحديد ما إن كانت زوايا الحدود ستظهر بشكل حاد أو دائري.
+
+بشكل عام، حتى تُظهر حدود العنصر عليك تحديد نوع حدوده و من ثم التلاعب بالألوان و الزوايا كما تريد.
+
+  
+
+Border on all sides
+
+Rounded borders
+
+Dashed Borders
+
+Colored background with border on the left
+
+Border on the bottom
+
+## تحديد شكل حدود العنصر
+
+لتحديد شكل الحدود نضيف الخاصية `border-style` و من ثم نمرر لها إحدى القيم التالية:
+
+*   `dotted` لإظهار الحدود كنقط.
+*   `dashed` لإظهار الحدود كخط متقطع.
+*   `solid` لإظهار الحدود كخط.
+*   `double` لإظهار الحدود كخط مزدوج.
+*   `groove` لإظهار الحدود بشكل ثلاثي الأبعاد و كأنها أخدود.
+*   `ridge` لإظهار الحدود بشكل ثلاثي الأبعاد و كأنها قمة.
+*   `inset` لإظهار الحدود بشكل ثلاثي الأبعاد و كأن عليها ضوء من الجهة السفلية ناحية اليمين.
+*   `outset` لإظهار الحدود بشكل ثلاثي الأبعاد و كأن عليها ضوء من الجهة العلوية ناحية اليسار.
+*   `none` لإزالة الحدود.
+*   `hidden` لإخفاء الحدود.
+
+الإختلاف بين `none` و `hidden` تلاحظه فقط في حال كنت تتعامل مع عناصر متلاصقة تتشارك نفس الحدود مثل حدود العناصر `<td>` و `<th>` في الجداول. هنا إذا كانت كل خلايا الجدول مدموجة بواسطة الخاصية `border-collapse:collapse;` فإن القيمة `hidden` تقوم بإخفاء الحدود في حين أن القيمة `none` لا تلغيها. هذا [مثال عملي](/tryit?file=/tutorials/css/border/hidden-vs-none-with-tables) يوضح الإختلاف بينهما.
+
+  
+
+في المثال التالي قمنا بتعريف كلاسات CSS عند إضافتها للعناصر فإنها تظهر حدود لها شكل محدد حولها.  
+لتبسيط الشرح جعلنا أسماء الكلاسات مثل أسماء أشكال الحدود التي تظهرها.
+
+#### مثال
+
+.dotted { 
+    border-style: dotted;
+}
+
+.dashed {
+    border-style: dashed;
+}
+
+.solid {
+    border-style: solid;
+}
+
+.double {
+    border-style: double;
+}
+
+.groove {
+    border-style: groove
+}
+
+.ridge {
+    border-style: ridge;
+}
+
+.inset {
+    border-style: inset;
+}
+
+.outset {
+    border-style: outset;
+}
+
+.none {
+    border-style: none;
+}
+
+.hidden {
+    border-style: hidden;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-style)
+
+  
+
+إذا قمت بتمرير قيمتين للخاصية `border-style` سيحدث التالي:
+
+*   القيمة الأولى ستمثل شكل الحدود في الأعلى و الأسفل.
+*   القيمة الثانية ستمثل شكل الحدود في جهة اليمين و اليسار.
+
+#### مثال
+
+.mix {
+    border-style: solid double;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-style-2-values)
+
+  
+
+إذا قمت بتمرير ثلاث قيم للخاصية `border-style` سيحدث التالي:
+
+*   القيمة الأولى ستمثل شكل الحدود في الأعلى.
+*   القيمة الثانية ستمثل شكل الحدود في جهة اليمين و اليسار.
+*   القيمة الثالثة ستمثل شكل الحدود في الأسفل.
+
+#### مثال
+
+.mix {
+    border-style: solid double dotted;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-style-3-values)
+
+  
+
+إذا قمت بتمرير أربع قيم للخاصية `border-style` سيحدث التالي:
+
+*   القيمة الأولى ستمثل شكل الحدود في الأعلى.
+*   القيمة الثانية ستمثل شكل الحدود في جهة اليمين.
+*   القيمة الثالثة ستمثل شكل الحدود في الأسفل.
+*   القيمة الرابعة ستمثل شكل الحدود في جهة اليسار.
+
+#### مثال
+
+.mix {
+    border-style: solid double dotted none;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-style-4-values)
+
+## تحديد سمك الحدود
+
+لتحديد سمك الحدود نضيف الخاصية `border-width` و من ثم نمرر لها إحدى القيم التالية:
+
+*   `thin` لجعل الحدود رفيعة السمك.
+*   `medium` لجعل الحدود متوسط السمك.
+*   `thick` لجعل الحدود عريضة السمك.
+*   رقم بالبكسل `px` أو بوحدة قياس أخرى ليمثل سمك الحدود.
+
+  
+
+في المثال التالي قمنا بتعريف كلاسات CSS عند إضافتها للعناصر فإنها تظهر حدود أحجامها مختلفة.
+
+#### مثال
+
+.one {
+    border-style: double;
+    border-width: 5px;
+}
+
+.two {
+    border-style: solid;
+    border-width: medium;
+}
+
+.three {
+    border-style: dotted;
+    border-width: thick;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-width)
+
+  
+
+إذا قمت بتمرير قيمتين للخاصية `border-width` سيحدث التالي:
+
+*   القيمة الأولى ستمثل سمك الحدود في الأعلى و الأسفل.
+*   القيمة الثانية ستمثل سمك الحدود في جهة اليمين و اليسار.
+
+#### مثال
+
+.mix {
+    border-style: solid;
+    border-width: 5px 2px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-width-2-values)
+
+  
+
+إذا قمت بتمرير ثلاث قيم للخاصية `border-width` سيحدث التالي:
+
+*   القيمة الأولى ستمثل سمك الحدود في الأعلى.
+*   القيمة الثانية ستمثل سمك الحدود في جهة اليمين و اليسار.
+*   القيمة الثالثة ستمثل سمك الحدود في الأسفل.
+
+#### مثال
+
+.mix {
+    border-style: solid;
+    border-width: 3px 2px 1px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-width-3-values)
+
+  
+
+إذا قمت بتمرير أربع قيم للخاصية `border-width` سيحدث التالي:
+
+*   القيمة الأولى ستمثل سمك الحدود في الأعلى.
+*   القيمة الثانية ستمثل سمك الحدود في جهة اليمين.
+*   القيمة الثالثة ستمثل سمك الحدود في الأسفل.
+*   القيمة الرابعة ستمثل سمك الحدود في جهة اليسار.
+
+#### مثال
+
+.mix {
+    border-style: solid;
+    border-width: 1px 1px 1px 5px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-width-4-values)
+
+## تحديد لون الحدود
+
+لتلوين حدود العنصر نستخدم الخاصية `border-color` و اللون نضعه لها كقيمة من خلال إسمه ( Color Name ) أو بتحديد درجته بأسلوب HEX أو RGB أو RGBA أو HSL أو HSLA كما تعلمنا في درس الألوان.
+
+إن لم يكن شكل الحدود `border-style` محدداً فإن لون الحدود `border-color` لن يظهر لأنه منطقياً لا يمكنك تلوين الحدود و هي بالأساس غير موجودة.
+
+  
+
+فيما يلي قمنا بتلوين خلفية الصفحة و خلفية العناصر الموجودة فيها.
+
+#### مثال
+
+.one {
+    border-style: solid;
+    border-color: red;
+}
+
+.two {
+    border-style: solid;
+    border-color: green;
+}
+
+.three {
+    border-style: solid;
+    border-color: blue;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-color)
+
+  
+
+إذا قمت بتمرير قيمتين للخاصية `border-color` سيحدث التالي:
+
+*   القيمة الأولى ستمثل لون الحدود في الأعلى و الأسفل.
+*   القيمة الثانية ستمثل لون الحدود في جهة اليمين و اليسار.
+
+#### مثال
+
+.mix {
+    border-style: solid;
+    border-color: blue red;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-color-2-values)
+
+  
+
+إذا قمت بتمرير ثلاث قيم للخاصية `border-color` سيحدث التالي:
+
+*   القيمة الأولى ستمثل لون الحدود في الأعلى.
+*   القيمة الثانية ستمثل لون الحدود في جهة اليمين و اليسار.
+*   القيمة الثالثة ستمثل لون الحدود في الأسفل.
+
+#### مثال
+
+.mix {
+    border-style: solid;
+    border-color: red green blue;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-color-3-values)
+
+  
+
+إذا قمت بتمرير أربع قيم للخاصية `border-color` سيحدث التالي:
+
+*   القيمة الأولى ستمثل لون الحدود في الأعلى.
+*   القيمة الثانية ستمثل لون الحدود في جهة اليمين.
+*   القيمة الثالثة ستمثل لون الحدود في الأسفل.
+*   القيمة الرابعة ستمثل لون الحدود في جهة اليسار.
+
+#### مثال
+
+.mix {
+    border-style: solid;
+    border-color: red green blue orange;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-color-4-values)
+
+## تحديد شكل و سمك و لون كل جهة من الحدود
+
+يمكنك تحديد شكل و سمك و لون الحدود العلوية للعنصر بواسطة الخصائص التالية:
+
+*   `border-top-style` لتحديد شكل الحدود العلوية.
+*   `border-top-width` لتحديد سمك الحدود العلوية.
+*   `border-top-color` لتحديد لون الحدود العلوية.
+
+يمكنك تحديد شكل و سمك و لون الحدود السفلية للعنصر بواسطة الخصائص التالية:
+
+*   `border-bottom-style` لتحديد شكل الحدود السفلية.
+*   `border-bottom-width` لتحديد سمك الحدود السفلية.
+*   `border-bottom-color` لتحديد لون الحدود السفلية.
+
+يمكنك تحديد شكل و سمك و لون الحدود جهة يمين العنصر بواسطة الخصائص التالية:
+
+*   `border-right-style` لتحديد شكل الحدود جهة اليمين.
+*   `border-right-width` لتحديد سمك الحدود جهة اليمين.
+*   `border-right-color` لتحديد لون الحدود جهة اليمين.
+
+يمكنك تحديد شكل و سمك و لون الحدود جهة يسار العنصر بواسطة الخصائص التالية:
+
+*   `border-left-style` لتحديد شكل الحدود جهة اليسار.
+*   `border-left-width` لتحديد سمك الحدود جهة اليسار.
+*   `border-left-color` لتحديد لون الحدود جهة اليسار.
+
+  
+
+في المثال التالي قمنا بتحديد خصائص حدود كل جهة على حدا.
+
+#### مثال
+
+.demo {
+    /\* خصائص الحدود العلوية \*/
+    border-top-style: solid;
+    border-top-width: 10px;
+    border-top-color: blue;
+    
+    /\* خصائص الحدود السفلية \*/
+    border-bottom-style: solid;
+    border-bottom-width: 10px;
+    border-bottom-color: blue;
+    
+    /\* خصائص الحدود جهة اليمين \*/
+    border-right-style: double;
+    border-right-width: 10px;
+    border-right-color: orange;
+    
+    /\* خصائص الحدود جهة اليسار \*/
+    border-left-style: double;
+    border-left-width: 10px;
+    border-left-color: orange;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-sides)
+
+## تعريف كل خصائص الحدود بسطر واحد
+
+يمكنك تعريف كل خصائص الحدود بشكل مختصر ( Shorthand Property ) حتى لا تضطر إلى كتابة الكثير من كود CSS.
+
+  
+
+### تحديد خصائص الحدود من كل الجهات
+
+لتحديد سمك، شكل و لون حدود العنصر من كل الجهات أكتب `border` و من ثم قم بتمرير خصائص القيم التالية لها بالترتيب و يمكنك عدم تمريرها جميعها:
+
+border: \[border-width\] \[border-style\] \[border-color\];
+
+  
+
+### تحديد خصائص الحدود من الجهة العلوية
+
+لتحديد سمك، شكل و لون حدود العنصر من الجهة العلوية أكتب `border-top` و من ثم قم بتمرير خصائص القيم التالية لها بالترتيب و يمكنك عدم تمريرها جميعها:
+
+border-top: \[border-width\] \[border-style\] \[border-color\];
+
+  
+
+### تحديد خصائص الحدود من الجهة السفلية
+
+لتحديد سمك، شكل و لون حدود العنصر من الجهة السفلية أكتب `border-bottom` و من ثم قم بتمرير خصائص القيم التالية لها بالترتيب و يمكنك عدم تمريرها جميعها:
+
+border-bottom: \[border-width\] \[border-style\] \[border-color\];
+
+  
+
+### تحديد خصائص الحدود من الجهة اليمنى
+
+لتحديد سمك، شكل و لون حدود العنصر من الجهة اليمنى أكتب `border-right` و من ثم قم بتمرير خصائص القيم التالية لها بالترتيب و يمكنك عدم تمريرها جميعها:
+
+border-right: \[border-width\] \[border-style\] \[border-color\];
+
+  
+
+### تحديد خصائص الحدود من الجهة اليسرى
+
+لتحديد سمك، شكل و لون حدود العنصر من الجهة اليسرى أكتب `border-left` و من ثم قم بتمرير خصائص القيم التالية لها بالترتيب و يمكنك عدم تمريرها جميعها:
+
+border-left: \[border-width\] \[border-style\] \[border-color\];
+
+  
+
+في المثال التالي قمنا بإظهار حدود سمكها 5 بكسل، شكلها خط و لونها أحمر.
+
+#### مثال
+
+.demo {
+    border: 5px solid red;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-shorthand)
+
+  
+
+في المثال التالي قمنا بإظهار حدود في أعلى العنصر سمكها 5 بكسل، شكلها خط و لونها أحمر.
+
+#### مثال
+
+.demo {
+    border-top: 5px solid red;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-top-shorthand)
+
+  
+
+في المثال التالي قمنا بإظهار حدود في أسفل العنصر سمكها 5 بكسل، شكلها خط و لونها أحمر.
+
+#### مثال
+
+.demo {
+    border-bottom: 5px solid red;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-top-shorthand)
+
+  
+
+في المثال التالي قمنا بإظهار حدود في الجهة اليمنى للعنصر سمكها 5 بكسل، شكلها خط و لونها أحمر.
+
+#### مثال
+
+.demo {
+    border-right: 5px solid red;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-right-shorthand)
+
+  
+
+في المثال التالي قمنا بإظهار حدود في الجهة اليسرى للعنصر سمكها 5 بكسل، شكلها خط و لونها أحمر.
+
+#### مثال
+
+.demo {
+    border-left: 5px solid red;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-left-shorthand)
+
+## تحديد شكل زواية الحدود
+
+يمكنك جعل زوايا الحدود منحنية بالدرجة التي تريدها، و يمكنك تحديد درجة إنحاء الزوايا الأربعة للعنصر دفعة واحدة و يمكنك تحديد درجة إنحناء كل زاوية منهم على حدا بالشكل الذي تريده.
+
+  
+
+لتحديد درجة إنحناء الزوايا الأربعة للعنصر نضيف الخاصية `border-radius` و من ثم نمرر لها رقم بالبكسل أو بأي وحدة قياس أخرى يمثل درجة الإنحناء.
+
+#### مثال
+
+.demo {
+    border: 3px solid red;
+    border-radius: 20px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-radius)
+
+  
+
+لتحديد درجة إنحناء الزاوية العلوية جهة يمين العنصر نضيف الخاصية `border-top-right-radius` و من ثم نمرر لها رقم بالبكسل أو بأي وحدة قياس أخرى يمثل درجة الإنحناء.
+
+#### مثال
+
+.demo {
+    border: 3px solid red;
+    border-top-right-radius: 20px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-top-right-radius)
+
+  
+
+لتحديد درجة إنحناء الزاوية العلوية جهة يسار العنصر نضيف الخاصية `border-top-left-radius` و من ثم نمرر لها رقم بالبكسل أو بأي وحدة قياس أخرى يمثل درجة الإنحناء.
+
+#### مثال
+
+.demo {
+    border: 3px solid red;
+    border-top-left-radius: 20px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-top-left-radius)
+
+  
+
+لتحديد درجة إنحناء الزاوية السفلية جهة يمين العنصر نضيف الخاصية `border-bottom-right-radius` و من ثم نمرر لها رقم بالبكسل أو بأي وحدة قياس أخرى يمثل درجة الإنحناء.
+
+#### مثال
+
+.demo {
+    border: 3px solid red;
+    border-bottom-right-radius: 20px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-bottom-right-radius)
+
+  
+
+لتحديد درجة إنحناء الزاوية السفلية جهة يسار العنصر نضيف الخاصية `border-bottom-left-radius` و من ثم نمرر لها رقم بالبكسل أو بأي وحدة قياس أخرى يمثل درجة الإنحناء.
+
+#### مثال
+
+.demo {
+    border: 3px solid red;
+    border-bottom-left-radius: 20px;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/border/border-bottom-left-radius)

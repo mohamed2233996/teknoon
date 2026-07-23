@@ -1,0 +1,127 @@
+---
+title: "جافاسكربتالإستدعاء اللاحق"
+source: "https://harmash.com/tutorials/javascript/callbacks"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:14:26.762Z"
+---
+
+## مفهوم الإستدعاء اللاحق
+
+الإستدعاء اللاحق ( Callback ) يتم من خلال تمرير دالة كباراميتر في دالة أخرى.  
+هذا الأسلوب في كتابة الكود يسمح بتنفيذ الأوامر الموجودة في الدالة الأساسية بالإضافة إلى أوامر الدالة التي نمررها لها عند استدعائها.
+
+الدالة التي توضع كباراميتر في الدالة الأساسية تسمى Callback Function.
+
+أسلوب الإستدعاء اللاحق الذي ستتعلمه في هذا الدرس ستستخدمه مستقبلاً عند كتابة أوامر متزامنة ( Synchronized ).
+
+## كيفية بناء Callback Function
+
+على الرغم من أن كود المثال الذي سنضعه لك ليس بكبير إلا أنه يعتبر من الأساليب الأكثر تعقيداً في جافاسكربت و لهذا سنقوم بشرحه على مراحل حتى يصبح فهمه سهلاً.
+
+  
+
+### المرحلة الأولى
+
+function printNames(arr, callbackFunction) {
+    for (e of arr) {
+        callbackFunction(e);
+    }
+}
+
+هنا قمنا بإنشاء دالة جديدة إسمها `printNames()` و تحتوي على باراميترين:
+
+*   الأول إسمه `arr` و هو يمثل مصفوفة من الأسماء يجب تمريرها عند استدعاء الدالة.
+*   الثاني إسمه `callbackFunction` و هو يمثل الدالة التي يجب بنائها عند استدعاء الدالة `printNames()`.
+
+في الدالة `printNames()` قمنا بإنشاء حلقة تمر على كل عنصر في المصفوفة `arr` و من ثم تستدعي الدالة التي يتم تمريرها مكان الدالة `callbackFunction` و تمرره له.
+
+هكذا سيتم تنفيذ أوامر الدالة `callbackFunction()` على كل عنصر موجود في المصفوفة `arr`.
+
+  
+
+### المرحلة الثانية
+
+const names = \['Mhamad', 'Hala', 'Samy', 'Maria'\];
+
+هنا قمنا بإنشاء مصفوفة إسمها `names` و فيها بعض الأسماء حتى نمررها لاحقاً إلى الدالة `printNames()`.
+
+  
+
+### المرحلة الثالثة
+
+printNames(names, function(name) {
+    document.write(name + ' contains ' + name.length + ' letters.<br>');
+});
+
+هنا قمنا باستدعاء الدالة `printNames()` و تمرير مصفوفة الأسماء `names` لها، و قمنا أيضاً بتمرير دالة كباراميتر لها لتحل مكان الدالة `callbackFunction()` الموضوعة فيها.
+
+  
+
+### كيف سيتم دمج المراحل
+
+بدايةً، إذا وضعنا كود المراحل الثالثة معاً فإنه يبدو كما يلي.
+
+// كود المرحلة الأولى
+function printNames(arr, callbackFunction) {
+    for (e of arr) {
+        callbackFunction(e);
+    }
+}
+
+// كود المرحلة الثانية
+const names = \['Mhamad', 'Hala', 'Samy', 'Maria'\];
+
+// كود المرحلة الثالثة
+printNames(names, function(name) {
+    document.write(name + ' contains ' + name.length + ' letters.<br>');
+});
+
+الآن، في المرحلة الثالثة عندما قمنا باستدعاء الدالة `printNames()` و تمرير مصفوفة و دالة لها، فإن أوامر الدالة التي تم تمريرها لها سيتم تنفيذها في المكان الذي تم استدعاء الدالة `callBackFunction()` فيه كما يلي.
+
+function printNames(arr) {
+    for (e of arr) {
+        document.write(e + ' contains ' + e.length + ' letters.<br>');
+    }
+}
+
+const names = \['Mhamad', 'Hala', 'Samy', 'Maria'\];
+
+printNames(names);
+
+  
+
+فيما يلي يمكنك تجربة جميع المراحل السابقة.
+
+#### المثال الأول
+
+function printNames(arr, callbackFunction) {
+    for (e of arr) {
+        callbackFunction(e);
+    }
+}
+
+const names = \['Mhamad', 'Hala', 'Samy', 'Maria'\];
+
+printNames(names, function(name) {
+    document.write(name + ' contains ' + name.length + ' letters.<br>');
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/callbacks/callback-function)
+
+فيما يلي قمنا بإعادة المثال السابق و قد كتبنا الـ Callback Function هذه المرة كدالة سهمية ( Arrow Function ).
+
+#### المثال الثاني
+
+function printNames(arr, callbackFunction) {
+    for (e of arr) {
+        callbackFunction(e);
+    }
+}
+
+const names = \['Mhamad', 'Hala', 'Samy', 'Maria'\];
+
+printNames(names, (name) => {
+    document.write(name + ' contains ' + name.length + ' letters.<br>');
+});
+
+[جرب الكود](/tryit?file=/tutorials/javascript/callbacks/callback-function-2)

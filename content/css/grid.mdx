@@ -1,0 +1,1171 @@
+---
+title: "CSSGrid"
+source: "https://harmash.com/tutorials/css/grid"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:45.028Z"
+---
+
+## ما هو Grid
+
+Grid هو مجموعة من الخصائص التي يمكنك استخدامها لتحديد مواقع و أحجام العناصر بشكل مرن جداً مهما كان مخطط التصميم معقد.
+
+Header
+
+Menu
+
+Main
+
+Right
+
+Footer
+
+في هذا الدرس سنتعرف على جميع الخصائص التالية و القيم التي يمكن إعطائها لها:
+
+`column-gap` `gap` `grid` `grid-auto-columns` `grid-auto-flow` `grid-auto-rows` `grid-column` `grid-column-end` `grid-column-gap` `grid-column-start` `grid-gap` `grid-row` `grid-row-end` `grid-row-gap` `grid-row-start` `grid-template` `grid-template-areas` `grid-template-columns` `grid-template-rows` `row-gap`
+
+## البدء باستخدام Grid
+
+لتفهم كيف تستطيع ترتيب العناصر بأسلوب Grid سنفترض بدايةً أنه عندنا العناصر التالية.
+
+<div\>1</div\>
+<div\>2</div\>
+<div\>3</div\>
+
+أول شيء يجب فعله للبدء باستخدام أسلوب Grid هو وضع العناصر بداخل عنصر آخر ليكون بمثابة حاوية لها كالتالي و يمكنك إعطاء كل واحد منهم كلاس ليكون الوصول إليهم أسهل عند تحديد مواقعهم.
+
+<div class\="grid-container"\>
+    <div class\="item-1"\>1</div\>
+    <div class\="item-2"\>2</div\>
+    <div class\="item-3"\>3</div\>
+</div\>
+
+الآن يجب إعطاء العنصر الذي يمثّل الحاوية الخاصية `display:grid;` كما يلي.  
+**ملاحظة:** العناصر ستظهر تحت بعضها البعض و سبب ذلك أننا لم نحدد مواقعها.
+
+#### مثال
+
+.grid-container {
+    display: grid;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/display-grid)
+
+بعد فعل الخطوات السابقة يمكنك استخدام باقي خصائص Grid لتحديد مواقع العناصر الموجودة في الحاوية بالشكل و الطريقة التي تريدها كما سترى في الأمثلة القادمة.
+
+## الفرق بين Flex و Grid
+
+Flex يعتبر خيار أسهل و أنسب إن كان المراد عرض العناصر وراء بعضها البعض أفقياً أو عمودياً، و هو يغنيك تماماً عن استخدام الخاصية `float`.
+
+Grid هو الخيار الأفضل إذا كان المراد عرض العناصر في مواقع و أحجام محددة أفقياً و عمودياً، فهو فعلياً يتيح لك بناء جدول `<table>` يمكن التحكم بمواقع عناصره بشكل مرن أكثر.
+
+يمكنك استخدام Flex و Grid جنباً إلى جنب لترتيب عناصر الصفحة بالشكل الذي تريده.
+
+## الخاصية `grid-template-columns`
+
+يمكنك استخدام هذه الخاصية لتحديد عدد العناصر الأقصى في كل سطر.
+
+في المثال التالي قمنا باستخدام الخاصية `grid-template-columns` لتقسيم الحاوية أفقياً، و قد قمنا بإعطاءها 3 قيم `auto` مما يعني أن عدد العناصر الأقصى على كل سطر هو ثلاثة و أحجام الأعمدة يتم تحديدها بشكل تلقائي على قدر حاجتها.
+
+#### مثال
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-template-columns)
+
+## الخاصية `grid-template-rows`
+
+يمكنك استخدام هذه الخاصية لتحديد طول العناصر الأقصى في كل سطر.
+
+في المثال التالي قمنا باستخدام الخاصية `grid-template-rows` لتحديد كم سيكون طول كل سطر منهم.  
+**ملاحظة:** هنا كل قيمة يتم وضعها يتم إعتبارها الطول المراد وضعه للسطر بحسب ترتيبه.
+
+هنا السطرين الأول و الثالث أعطيناهما القيمة `auto` مما يعني أن طولهما سيتحدد بشكل تلقائي نسبةً لأطول عنصر موضوع فيهم، أما السطر الثاني فجعلنا حجمه 100 بكسل.
+
+#### مثال
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto 100px auto;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-template-rows)
+
+## الخصائص `grid-column-start` `grid-column-end` `grid-column`
+
+الهدف الأساسي لهذه الخصائص هو جعل العنصر يظهر على أكثر من عمود في ذات السطر، و فيما يلي فائدة كل واحدة منها:
+
+*   الخاصية `grid-column-start` يمكنك استخدامها لتحديد من أي عمود سيبدأ العنصر.
+*   الخاصية `grid-column-end` يمكنك استخدامها لتحديد قبل أي عمود سيتوقف العنصر.
+*   الخاصية `grid-column` هي اختصار للخاصيتين `grid-column-start` و `grid-column-end`.
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-column-start` لتحديد أن العنصر سيبدأ من العمود الأول، و الخاصية `grid-column-end` لتحديد أنه سيتوقف قبل العنصر الثالث.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.item-1 {
+    grid-column-start: 1; 
+    grid-column-end: 3; 
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-column-start-grid-column-end)
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-column` لتحديد أن العنصر سيبدأ من العمود الأول و سيتوقف قبل العنصر الثالث و بالتالي سنحصل على نفس نتيجة المثال السابق.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.item-1 {
+    grid-column: 1 / 3; 
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-column-slash)
+
+  
+
+في المثال التالي قمنا باستخدام الكلمة المفتاحية `span` مع الخاصية `grid-column` لتحديد أن العنصر سيبدأ من العمود الأول و سيتمدد على عمودين و بالتالي سنحصل على نفس نتيجة المثال السابق أيضاً.
+
+#### المثال الثالث
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.item-1 {
+    grid-column: 1 / span 2; 
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-column-slash-span)
+
+## الخصائص `grid-row-start` `grid-row-end` `grid-row`
+
+الهدف الأساسي لهذه الخصائص هو جعل العنصر يظهر على أكثر من سطر في ذات السطر، و فيما يلي فائدة كل واحدة منها:
+
+*   الخاصية `grid-row-start` يمكنك استخدامها لتحديد من أي سطر سيبدأ العنصر.
+*   الخاصية `grid-row-end` يمكنك استخدامها لتحديد قبل أي سطر سيتوقف العنصر.
+*   الخاصية `grid-row` هي اختصار للخاصيتين `grid-row-start` و `grid-row-end`.
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-row-start` لتحديد أن العنصر سيبدأ من السطر الأول، و الخاصية `grid-row-end` لتحديد أنه سيتوقف قبل السطر الثالث.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.item-1 {
+    grid-row-start: 1; 
+    grid-row-end: 3; 
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-row-start-grid-row-end)
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-column` لتحديد أن العنصر سيبدأ من السطر الأول و سيتوقف قبل السطر الثالث و بالتالي سنحصل على نفس نتيجة المثال السابق.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.item-1 {
+    grid-row: 1 / 3; 
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-row-slash)
+
+  
+
+في المثال التالي قمنا باستخدام الكلمة المفتاحية `span` مع الخاصية `grid-row` لتحديد أن العنصر سيبدأ من السطر الأول و سيتمدد على سطرين و بالتالي سنحصل على نفس نتيجة المثال السابق أيضاً.
+
+#### المثال الثالث
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.item-1 {
+    grid-row: 1 / span 2; 
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-row-slash-span)
+
+  
+
+يمكنك إظهار العنصر على أكثر من سطر و أكثر من عمود في ذات الوقت.
+
+  
+
+### إظهار العنصر على أكثر من عمود و سطر
+
+في المثال التالي قمنا باستخدام الخاصية `grid-row` لجعل العنصر يبدأ من السطر الأول إلى السطر الثاني و قمنا باستخدام الخاصية `grid-column` لجعله يظهر من العمود الأول إلى العمود الثاني.
+
+#### مثال
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.item-1 {
+    grid-row: 1 / 3; 
+    grid-column: 1 / 3; 
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-row-slash-grid-column-slash)
+
+## الخاصية `grid-auto-flow`
+
+إذا لم تكن سترتب العناصر في مواقع محددة في الحاوية، يمكنك استخدام الخاصية `grid-auto-flow` لجعل العناصر تصطف أفقياً أو عمودياً في المساحات المتوفرة. فيما يلي القيم التي يمكنك إعطاءها لها.
+
+القيمة
+
+إستخدامها
+
+`row`
+
+لجعل العناصر تصطف وراء بعضها البعض على ذات السطر إن كان هناك مساحات متوفرة، و هذه هي القيمة الإفتراضية.
+
+`column`
+
+لجعل العناصر تصطف تحت بعضها البعض مع محاولة ملئ العمود قبل الإنتقال للعمود التالي.
+
+`dense`
+
+لجعل العناصر تصطف في أي مكان متاح إن كانت أحجامها متفاوتة و بدون الإهتمام للترتيب الذي تم وضعها فيه.
+
+`row dense`
+
+لجعل العناصر تصطف وراء بعضها البعض على ذات السطر في أي مكان متاح إن كانت أحجامها متفاوتة و بدون الإهتمام للترتيب الذي تم وضعها فيه.
+
+`column dense`
+
+لجعل العناصر تصطف وراء بعضها البعض على ذات العمود في أي مكان متاح إن كانت أحجامها متفاوتة و بدون الإهتمام للترتيب الذي تم وضعها فيه.
+
+  
+
+في المثال التالي قمنا بتقسيم الحاوية لثلاث أعمدة و جعلنا طول العناصر في كل عمود يتم تحديده بشكل تلقائي.  
+العنصرين الأول و الثاني جعلناهما يظهران على عمودين.
+
+الخاصية `grid-auto-flow` أضفناها للحاوية و قمنا بإعطائها القيمة `row` لكي يتم صف العناصر في السطر المتاح حالياً، الأمر الذي سيجعل العنصر الثاني يظهر على السطر التالي لأنه لا يوجد مساحة له في السطر الأول، و العنصر الثالث سيظهر بجانب العنصر الثاني لأنه يوجد مساحة كافية لعرضه.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-auto-flow: row;
+}
+
+.item-1, .item-2 {
+    grid-column: auto/span 2;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-flow-row)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-flow` القيمة `column` لكي يتم صف العناصر في العمود المتاح حالياً، الأمر الذي سيجعل العنصر الخامس يظهر في أعلى العمود الثالث حيث المساحة متوفرة له.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-auto-flow: column;
+}
+
+.item-1, .item-2 {
+    grid-column: auto/span 2;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-flow-column)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-flow` القيمة `dense` لكي يتم صف العناصر في أي مكان متوفر.
+
+#### المثال الثالث
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-auto-flow: dense;
+}
+
+.item-1, .item-2 {
+    grid-column: auto/span 2;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-flow-dense)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-flow` القيمة `row dense` لكي يتم صف العناصر في أي مكان متوفر على ذات السطر.  
+**ملاحظة:** العناصر ستترتب كما في المثال السابق لأنه في الحالتين العناصر سيتم صفها سطراً سطراً.
+
+#### المثال الرابع
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-auto-flow: row dense;
+}
+
+.item-1, .item-2 {
+    grid-column: auto/span 2;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-flow-row-dense)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-flow` القيمة `column dense` لكي يتم صف العناصر في أي مكان متوفر و بشكل عمودي.
+
+#### المثال الخامس
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-auto-flow: column dense;
+}
+
+.item-1, .item-2 {
+    grid-column: auto/span 2;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-flow-column-dense)
+
+## الخاصية `grid-auto-columns`
+
+يمكنك استخدام الخاصية `grid-auto-columns` لتحديد عرض الأعمدة. فيما يلي القيم التي يمكنك إعطاءها لها.
+
+القيمة
+
+إستخدامها
+
+`auto`
+
+لجعل عرض الأعمدة يتحدد بشكل تلقائي.
+
+`1fr`
+
+لجعل عرض الأعمدة متساوية.
+
+`min-content`
+
+لجعل عرض الأعمدة يتحدد نسبةً للعنصر الذي يحتاج أقل عرض.
+
+`max-content`
+
+لجعل عرض الأعمدة يتحدد نسبةً للعنصر الذي يحتاج أكبر عرض.
+
+`minmax()`
+
+دالة تستخدم لتحديد أصغر و أكبر عرض ممكن للأعمدة. بين أقواسها نضع القيمة الأصغر، يليها فاصلة، يليها القيمة الأكبر.
+
+`fit-content()`
+
+دالة تستخدم لتحديد العرض الأقصى الذي يمكن أن تصل إليه الأعمدة. بين أقواسها نضع قيمة واحدة تمثل العرض الأقصى الذي يمكن أن يصل له كل عمود.  
+**ملاحظة:** هنا عرض الأعمدة يتحدد بشكل تلقائي نسبةً لما تحتويه العناصر و لكنه إذا وصل للحجم الأقصى فإنه لا يتجاوزه.
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-columns` القيمة `auto` لجعل عرض الأعمدة يتحدد بشكل تلقائي.  
+**ملاحظة:** عرض الأعمدة قد يظهر لك بشكل متساوي في حال كان حجمها صغير جداً نسبةً للمساحة المتوفرة في الحاوية.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: auto;
+}
+
+النتيجة
+
+One
+
+Two
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-columns-auto)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-columns` القيمة `min-content` لجعل أحجام الأعمدة تتحدد بشكل تلقائي نسبةً لأصغر عنصر موجود في العمود.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: min-content;
+}
+
+النتيجة
+
+One
+
+Two
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-columns-min-content)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-columns` القيمة `1fr` لجعل أحجام الأعمدة تنقسم بشكل متساوي.
+
+#### المثال الثالث
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+}
+
+النتيجة
+
+One
+
+Two
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-columns-1fr)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-columns` الدالة `minmax()` كقيمة لتحديد أصغر و أكبر حجم مراد للأعمدة.
+
+#### المثال الرابع
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: minmax(50px, auto);
+}
+
+النتيجة
+
+One
+
+Two
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-columns-minmax)
+
+## الخاصية `grid-auto-rows`
+
+يمكنك استخدام الخاصية `grid-auto-rows` لتحديد طول الأسطر. فيما يلي القيم التي يمكنك إعطاءها لها.
+
+القيمة
+
+إستخدامها
+
+`auto`
+
+لجعل طول الأسطر يتحدد بشكل تلقائي.
+
+`1fr`
+
+لجعل طول الأسطر متساوي.
+
+`min-content`
+
+لجعل طول الأسطر يتحدد نسبةً للعنصر الذي يحتاج أقل طول.
+
+`max-content`
+
+لجعل طول الأسطر يتحدد نسبةً للعنصر الذي يحتاج أكبر طول.
+
+`minmax()`
+
+دالة تستخدم لتحديد أصغر و أكبر عرض ممكن للأسطر. بين أقواسها نضع القيمة الأصغر، يليها فاصلة، يليها القيمة الأكبر.
+
+`fit-content()`
+
+دالة تستخدم لتحديد العرض الأقصى الذي يمكن أن تصل إليه الأسطر. بين أقواسها نضع قيمة واحدة تمثل الطول الأقصى الذي يمكن أن يصل له كل سطر.  
+**ملاحظة:** هنا طول الأسطر يتحدد بشكل تلقائي نسبةً لما تحتويه العناصر و لكنه إذا وصل للحجم الأقصى فإنه لا يتجاوزه.
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-rows` القيمة `auto` لجعل طول الأسطر يتحدد بشكل تلقائي.  
+**ملاحظة:** طول الأسطر قد يظهر لك بشكل متساوي في حال كانت تحتاج سطر واحد فقط للظهور كما في المثال التالي، و بالطبع يمكنك إضافة المزيد من الكلام بداخل أي عنصر حتى تلاحظ كيف سيتغير طول السطر بأكمله.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: auto;
+}
+
+النتيجة
+
+One
+
+Two
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-rows-auto)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-rows` القيمة `min-content` لجعل أحجام الأعمدة تتحدد بشكل تلقائي نسبةً لأصغر عنصر موجود في العمود.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: min-content;
+}
+
+النتيجة
+
+One
+
+Two
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-rows-min-content)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-rows` القيمة `1fr` لجعل أحجام الأعمدة تنقسم بشكل متساوي.
+
+#### المثال الثالث
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+}
+
+النتيجة
+
+One
+
+Two  
+(Extra Height Affect All)
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-rows-1fr)
+
+  
+
+في المثال التالي قمنا بإعطاء الخاصية `grid-auto-rows` الدالة `minmax()` كقيمة لتحديد أصغر و أكبر حجم مراد للأعمدة.
+
+#### المثال الرابع
+
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: minmax(50px, auto);
+}
+
+النتيجة
+
+One
+
+Two
+
+Three
+
+Four
+
+Five
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-auto-rows-minmax)
+
+## الخصائص `grid-row-gap` `grid-column-gap` `gap`
+
+الهدف الأساسي لهذه الخصائص هو إضافة هامش بين العناصر، و فيما يلي فائدة كل واحدة منها:
+
+*   الخاصية `grid-row-gap` يمكنك استخدامها لإضافة هامش بين الأسطر.
+*   الخاصية `grid-column-gap` يمكنك استخدامها لإضافة هامش بين الأعمدة.
+*   الخاصية `gap` يمكنك استخدامها لإضافة هامش بين الأسطر و الأعمدة.
+
+في الإصدار الثاني من CSS كانت أسماء هذه الخصائص تكتب بدون `grid-` في أولها كما يلي:
+
+*   الخاصية `grid-row-gap` كان إسمها `row-gap`.
+*   الخاصية `grid-column-gap` كان إسمها `column-gap`.
+*   الخاصية `grid-gap` كان إسمها `gap`.
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-row-gap` لإضافة هامش بمقدار 10 بكسل بين الأسطر.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-row\-gap: 10px;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-row-gap)
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-column-gap` لإضافة هامش بمقدار 10 بكسل بين الأعمدة.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column\-gap: 10px;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-column-gap)
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-gap` لإضافة هامش بمقدار 10 بكسل بين الأسطر و الأعمدة.
+
+#### المثال الثالث
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+}
+
+النتيجة
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-gap)
+
+## الخاصية `grid-template-areas`
+
+يمكنك استخدام الخاصية `grid-template-areas` لتقسيم الحاوية إلى مناطق مع إعطاء كل منطقة منها إسم محدد.  
+بعدها يجب إضافة الخاصية `grid-area` لكل عنصر في الحاوية و إعطائه إسم المنطقة التي نريد وضعه فيها كقيمة.
+
+  
+
+### كيفية تسمية المناطق
+
+عند تقسيم الحاوية إلى مناطق فإننا نكتبها بشكل مريح على النحو التالي ليكون التعامل معها أسهل.
+
+grid-template-areas:
+    "header header"
+    "navbar main"
+    "navbar footer";
+
+أسماء المناطق المكررة بجانب بعضها بشكل منطقي يقوم المتصفح بدمجها كمنقطة واحدة بشكل تلقائي لك.
+
+هكذا قمنا بتعريف المناطق 👇
+
+Header
+
+Header
+
+Navbar
+
+Main
+
+Navbar
+
+Footer
+
+هكذا تم دمج المناطق أفقياً و عمودياً 👇
+
+Header
+
+Navbar
+
+Main
+
+Footer
+
+  
+
+في المثال التالي قمنا باستخدام الخاصية `grid-template-areas` لتحديد أسماء المناطق التي سيتم تخصيصها في كل سطر في الحاوية، و من ثم قمنا باستخدام الخاصية `grid-area` لتحديد أي عنصر سيظهر في أي منطقة.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "navbar main"
+        "navbar footer";
+}
+
+.header {
+    grid-area: header;
+}
+
+.navbar {
+    grid-area: navbar;
+}
+
+.main {
+    grid-area: main;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+النتيجة
+
+Header
+
+Navbar
+
+Main
+
+Footer
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-template-areas)
+
+  
+
+في المثال التالي قمنا بتقسيم الحاوية إلى مناطق، بعدها قمنا بإضافة هامش بمقدار 10 بكسل بين الأسطر و الأعمدة، و من ثم قمنا بجعل حجم العمود الأول 150 بكسل و العمود الثاني يظهر على كل المساحة المتاحة.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-auto-columns: 150px auto;
+    grid-template-areas:
+        "header header"
+        "navbar main"
+        "navbar footer";
+}
+
+النتيجة
+
+Header
+
+Navbar
+
+Main
+
+Footer
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-template-areas-2)
+
+## الخاصية `grid-template`
+
+يمكنك استخدام الخاصية `grid-template` لتقسيم الحاوية لمناطق لها أسماء محددة و كذلك تحديد أحجام الأعمدة و الأسطر دفعة واحدة. إذاً هي اختصار للخصائص التالية:
+
+*   `grid-template-areas`
+*   `grid-template-columns`
+*   `grid-template-rows`
+
+  
+
+في المثال التالي قمنا بتقسيم الحاوية إلى مناطق مع تحديد أن عرض العمود الأول هو 150 بكسل و العمود الثاني يظهر على كل المساحة المتاحة. كما أن أننا وضعنا هامش بمقدار 10 بكسل بين الأعمدة و الأسطر.
+
+#### المثال الأول
+
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template:
+        "header header"
+        "navbar main"
+        "navbar footer"
+        / 150px auto;
+}
+
+النتيجة
+
+Header
+
+Navbar
+
+Main
+
+Footer
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-template)
+
+  
+
+في المثال التالي قمنا بإعادة المثال السابق مع جعل السطر الأول طوله 90 بكسل، السطر الثاني مطابق لحجم الشاشة و السطر الثالث 50 بكسل.
+
+#### المثال الثاني
+
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template:
+        "header header" 90px
+        "navbar main" 1fr
+        "navbar footer" 50px
+        / 150px auto;
+}
+
+النتيجة
+
+Header
+
+Navbar
+
+Main
+
+Footer
+
+[جرب الكود](/tryit?file=/tutorials/css/grid/grid-template-2)

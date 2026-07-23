@@ -1,0 +1,170 @@
+---
+title: "JavaFXالكلاس ProgressBar"
+source: "https://harmash.com/tutorials/javafx/progressbar"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:20:22.043Z"
+---
+
+## مقدمة
+
+الكلاس `ProgressBar` يستخدم لإضافة Progress Bar في واجهة المستخدم.
+
+الـ Progress Bar يستخدم في العادة للأسباب التالية:
+
+*   لجعل المستخدم يدرك أن عليه الإنتظار قليلاً حتى يتم تنفيذ شيء معين.
+*   لجعل المستخدم يدرك كم سيستغرق إجراء عملية معينة. مثل عند نسخ ملف أو تحميل ملف من النت.
+*   لجعل المستخدم يدرك كم بقي معه وقت حتى ينهي شيء معين. مثل في حال إنشاء برنامج إختبار.
+*   لجعل المستخدم يدرك كم خطوة بقي عليه لإنهاء شيء محدد.
+*   لجعل المستخدم يدرك مدى قوة كلمة السر التي أدخلها.
+
+  
+  
+
+### بناء الكلاس `ProgressBar`
+
+public class ProgressBar
+extends ProgressIndicator
+
+  
+  
+
+### مصطلحات تقنية
+
+الـ `ProgressBar` الذي له قيمة محددة كما في الصورة التالية يسمى Determinate Progress Bar.
+
+![javafx determinated progressbar](/content-images/javafx/progressbar/1784305220677-f805af.PNG)
+
+  
+
+الـ `ProgressBar` الذي ليس له قيمة محددة كما في الصورة التالية يسمى Indeterminate Progress Bar.
+
+![javafx indeterminated progressbar](/content-images/javafx/progressbar/1784305221309-k87hwn.gif)
+
+  
+  
+
+### طريقة التعامل معه
+
+للحصول على Progress Bar, يجب إنشاء كائن من الكلاس `ProgressBar`.
+
+عند تحديد قيمة الـ `ProgressBar` يجب وضع رقم بين 0 و 1 و هذا سيمثل بدوره النسبة المئوية لإكتمال الخط الذي يظهر في الـ `ProgressBar`. و إليك بعض الأمثلة:
+
+*   إذا وضعت 0 فهذا يمثل 0%.
+*   إذا وضعت 0.40 فهذا يمثل 40%.
+*   إذا وضعت 1 فهذا يمثل 100%.
+
+لتغيير لون كائن الـ `ProgressBar` نستخدم الدالة `setStyle()` و نغيير قيمة خاصية إسمها `-fx-accent`.
+
+في حال قمت بإنشاء كائن من الـ `ProgressBar` و لم تقم بتحديد قيمته الأولية أو قمت بوضع قيمة أصغر من 0 كقيمة له أولية مثل 1- فإنه سيظهر كـ Indeterminate Progress Bar.
+
+## كونستركتورات الكلاس `ProgressBar`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `ProgressBar`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public ProgressBar()` ينشئ كائن من الكلاس `ProgressBar` يمثل Indeterminate Progress Bar.
+
+2
+
+`public ProgressBar(double progress)` ينشئ كائن من الكلاس `ProgressBar` يمثل Determinate Progress Bar مع تحديد القيمة الأولية التي ستظهر فيه.  
+مكان الباراميتر `value` نضع القيمة التي نريدها أن تظهر فيه بشكل إفتراضي عند تشغيل البرنامج.
+
+## دوال الكلاس `ProgressBar`
+
+الجدول التالي يحتوي على دوال الكلاس `ProgressBar` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public final void setProgress(double value)` تستخدم لتحديد قيمة كائن الـ `ProgressBar` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة الجديدة و التي يجب أن تكون بين 0 و 1.  
+
+*   إذا وضعت قيمة بين 0 و 1 فإنه سيظهر كـ Determinate Progress Bar قيمته تمثل نسبة مئوية. فمثلاً إذا وضعت إذا وضعت 0.40 فهذا يمثل 40%.
+*   إذا وضعت قيمة أصغر من 0 فإنه سيظهر كـ Indeterminate Progress Bar.
+*   إذا وضعت قيمة أكبر من 1 فإنه سيظهر كـ Determinate Progress Bar قيمته تساوي 100%.
+
+2
+
+`public final double getProgress()` ترجع قيمة كائن الـ `ProgressBar` الذي قام بإستدعائها كرقم نوعه `double`.
+
+3
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `ProgressBar` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+4
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `ProgressBar` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+5
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `ProgressBar` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `ProgressBar` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `ProgressBar` بالـ Pixel.
+
+6
+
+`public final void setVisible(boolean value)` تستخدم لإظهار أو إخفاء كائن الـ `ProgressBar` الذي قام باستدعائها في النافذة.  
+مكان الباراميتر `value` نضع القيمة `true` لإظهاره, و نضع القيمة `false` لإخفائه.
+
+7
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `ProgressBar` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+8
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `ProgressBar` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `ProgressBar` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `ProgressBar` و إضافته في النافذة.
+
+![طريقة إنشاء ProgressBar في javafx](/content-images/javafx/progressbar/1784305221562-a1tc7c.gif)
+
+[شاهد المثال](/tutorials/javafx/progressbar/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير لون الـ `ProgressBar`.
+
+![طريقة تغيير لون ال ProgressBar في javafx](/content-images/javafx/progressbar/1784305221832-23iljf.gif)
+
+[شاهد المثال](/tutorials/javafx/progressbar/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تحديد قيمة الـ `ProgressBar`.
+
+![طريقة تحديد قيمة ال ProgressBar في javafx](/content-images/javafx/progressbar/1784305221920-le6jcy.PNG)
+
+[شاهد المثال](/tutorials/javafx/progressbar/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة تغيير قيمة الـ `ProgressBar` بناءاً على قيمة `TextField` أو `PasswordField` أو `TextArea`.
+
+![تغيير قيمة ال ProgressBar بناءاً على قيمة TextField أو PasswordField أو TextArea في javafx](/content-images/javafx/progressbar/1784305222022-62pi1g.gif)
+
+[شاهد المثال](/tutorials/javafx/progressbar/example-4)

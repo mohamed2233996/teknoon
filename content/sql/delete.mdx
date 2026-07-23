@@ -1,0 +1,335 @@
+---
+title: "SQLأمر حذف بيانات من الجدول"
+source: "https://harmash.com/tutorials/sql/delete"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:22.410Z"
+---
+
+## الأمر `DELETE`
+
+الأمر `DELETE` يستخدم لحذف كل الأسطر الموجودة في الجدول أو لحذف أسطر محددة منه.
+
+عند التعامل مع أمر الحذف عليك أن تكون حذر للغاية حتى لا تقوم بحذف البيانات الخطأ لأنك لا تستطيع إرجاع أي بيانات تقوم بحذفها.
+
+  
+
+### طريقة استخدامه
+
+DELETE FROM table\_name
+WHERE condition;
+
+*   مكان الكلمة `table_name` نضع إسم الجدول الذي سنحذف سطر أو أكثر منه.
+*   مكان الكلمة `condition` يمكننا وضع شرط لنحدد أية أسطر نريد أن نحذف في حال لم نكن نريد حذف جميع الأسطر.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `users` يحتوي على بيانات 10 مستخدمين.
+
+#### مثال
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من 4 أعمدة users هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE users (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(50),
+    country    VARCHAR(50)
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 مستخدمين
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO users VALUES (null, "Rami", "Masri", "Lebanon");
+INSERT INTO users VALUES (null, "Ahmad", "Naji", "Syria");
+INSERT INTO users VALUES (null, "Hanan", "Mostafa", "KSA");
+INSERT INTO users VALUES (null, "Saly", "Harmush", "Lebanon");
+INSERT INTO users VALUES (null, "Samir", "Saleh", "Lebanon");
+INSERT INTO users VALUES (null, "Hamad", "Akel", "Syria");
+INSERT INTO users VALUES (null, "Abdullah", "Helmi", "Egypt");
+INSERT INTO users VALUES (null, "Rashed", "Masri", "Oman");
+INSERT INTO users VALUES (null, "Majed", "Alali", "Yaman");
+INSERT INTO users VALUES (null, "Rayan", "Kasabi", "KSA");
+
+بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم إنشاء قاعدة البيانات `harmash` و إنشاء الجدول `users` بداخلها.  
+قم بالنقر على إسم قاعدة البيانات `harmash` من القائمة اليسرى حتى تبدأ بالتعامل معها و تطبيق ما ستتعلمه في هذا الدرس.
+
+  
+
+في ما يلي البيانات التي قمنا بإضافتها بشكل إفتراضي في الجدول `users`.
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+1
+
+Rami
+
+Masri
+
+Lebanon
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+3
+
+Hanan
+
+Mostafa
+
+KSA
+
+4
+
+Saly
+
+Harmush
+
+Lebanon
+
+5
+
+Samir
+
+Saleh
+
+Lebanon
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+7
+
+Abdullah
+
+Helmi
+
+Egypt
+
+8
+
+Rashed
+
+Masri
+
+Oman
+
+9
+
+Majed
+
+Alali
+
+Yaman
+
+10
+
+Rayan
+
+Kasabi
+
+KSA
+
+## أمثلة حول حذف بيانات من الجدول
+
+الإستعلام التالي يحذف كل سطر يملك رقم التعرفة `id` يساوي `1` و من ثم يقوم بعرض جميع الأسطر المتبقية.
+
+#### المثال الأول
+
+DELETE FROM users WHERE id \= 1;   \-- 1 يساوي id أي سطر يملك رقم users إحذف من الجدول
+SELECT \* FROM users;              \-- users ثم أعرض جميع البيانات الموجودة في الجدول
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+3
+
+Hanan
+
+Mostafa
+
+KSA
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+7
+
+Abdullah
+
+Helmi
+
+Egypt
+
+8
+
+Rashed
+
+Masri
+
+Oman
+
+9
+
+Majed
+
+Alali
+
+Yaman
+
+10
+
+Rayan
+
+Kasabi
+
+KSA
+
+نلاحظ أن أول سطر و الذي كان يملك رقم `id` يساوي `1` تم حذفه.
+
+  
+
+دائماً إعتمد على رقم التعرفة إذا أردت حذف سطر واحد من الجدول لأنه يستحيل وجود سطر آخر يملك نفس الرقم، و هكذا ستضمن أن يتم حذف سطر واحد فقط من الجدول.
+
+  
+
+الإستعلام التالي يحذف كل سطر يملك `country` يساوي `Lebanon` و من ثم يقوم بعرض جميع الأسطر المتبقية.
+
+#### المثال الثاني
+
+DELETE FROM users WHERE country \= 'Lebanon';   \-- Lebanon يساوي country أي سطر يملك رقم users إحذف من الجدول
+SELECT \* FROM users;                           \-- users ثم أعرض جميع البيانات الموجودة في الجدول
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+2
+
+Ahmad
+
+Naji
+
+Syria
+
+3
+
+Hanan
+
+Mostafa
+
+KSA
+
+6
+
+Hamad
+
+Akel
+
+Syria
+
+7
+
+Abdullah
+
+Helmi
+
+Egypt
+
+8
+
+Rashed
+
+Masri
+
+Oman
+
+9
+
+Majed
+
+Alali
+
+Yaman
+
+10
+
+Rayan
+
+Kasabi
+
+KSA
+
+نلاحظ أنه تم حذف كل سطر كان يملك `country` يساوي `Lebanon`.
+
+  
+
+الإستعلام التالي يحذف كل الأسطر الموجودة في الجدول لأنه لا يوجد شرط للحذف.
+
+#### المثال الثالث
+
+DELETE FROM users;     \-- users إحذف كل الأسطر الموجودة في الجدول
+SELECT \* FROM users;   \-- users ثم أعرض جميع البيانات الموجودة في الجدول
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+country
+
+نلاحظ أنه قد تم حذف جميع أسطر الجدول `users`.

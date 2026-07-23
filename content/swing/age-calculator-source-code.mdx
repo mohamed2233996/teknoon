@@ -1,0 +1,364 @@
+---
+title: "Swingطريقة إنشاء برنامج لحساب الأعمار"
+source: "https://harmash.com/tutorials/swing/age-calculator-source-code"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:54.319Z"
+---
+
+في هذا الدرس ستتعلم طريقة إنشاء برنامج لحساب الأعمار ( Age Calculator ) باستخدام إطار الـ Swing.
+
+![java swing age calculator source code تحميل كود برنامج حساب الأعمار في جافا](/content-images/swing/age-calculator-source-code/1784305434281-s9reez.PNG)
+
+  
+
+### مميزات البرنامج
+
+*   يمكن إستخدام هذا البرنامج لحساب عمر الشخص الحي أو المدة التي عاشها الشخص المتوفي.
+*   لحساب عمر الشخص الحي, ضع فقط تاريخ ميلاده.
+*   لحساب المدة التي عاشها الشخص المتوفي, ضع تاريخ ميلاده و تاريخ وفاته.
+
+[⇓ تحميل البرنامج](/tutorials/swing/age-calculator-source-code/cd6f757c-5690-472f-9926-517e1a14c650_java-swing-age-calculator.jar) [⇓ تحميل المشروع كاملاً](/tutorials/swing/age-calculator-source-code/cf33a83d-6f18-4c2a-8ffd-27fdd0f154dc_java-swing-age-calculator.zip)
+
+  
+
+#### كود البرنامج
+
+Main.java
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.time.LocalDate;
+import java.time.Period;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+ 
+// و بالتالي أصبح إنشاء كائن منه يمثل إنشاء نافذة JFrame يرث من الكلاس Main هنا جعلنا الكلاس
+public class Main extends JFrame {
+ 
+    // هنا قمنا بتعريف الأشياء التي سيتم وضعها في النافذة
+    JLabel birthDate, deathDate, result;
+    JCheckBox deathDateState;
+    JComboBox dayOfBirth, monthOfBirth, yearOfBirth, dayOfDeath, monthOfDeath, yearOfDeath;
+    JButton calculateAge;
+ 
+    // سنستخدم هذه المتغيرات لتخزين التواريخ التي إختارها المستخدم من النافذة بشكل مؤقت
+    int d1, d2, m1, m2, y1, y2;
+ 
+    // لتخزين تاريخ وفاته endDate لتخزين تاريخ ميلاد الشخص, و الكائن startDate سنستخدم الكائن
+    LocalDate startDate, endDate;
+ 
+    // سنستخدم هذه المتغيرات لعرض الفارق النهائي بين تاريخ الميلاد و التاريخ الحالي أو تاريخ الوفاة
+    long daysCounter, monthsCounter, yearsCounter;
+ 
+    // لتحديد نوع خط و حجم العناوين التي سنضيفها في النافذة font سنستخدم الكائن
+    Font font \= new Font("Arial", Font.BOLD, 18);
+ 
+    // فقط createAndShowGUI() سيقوم الكونستركتور بإستدعاء الدالة ColorPicker عند إنشاء كائن من الكلاس
+    public Main() {
+        createAndShowGUI();
+    }
+ 
+ 
+    // هنا نضع كود إنشاء النافذة و محتوياتها
+    private void createAndShowGUI() {
+ 
+        // لجعل النافذة محتوى االنافذة يظهر بشكل أجمل Nimbus إلى الـ UIManager هنا قمنا بتغيير الـ
+        try {
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        }
+        catch (Exception e) { }
+ 
+        // هنا وضعنا أسماء الأشهر التي تظهر في قائمة الأشهر
+        String\[\] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+ 
+        // هنا وضعنا أرقام الأشهر الأولية التي سنضعها في قائمة الأرقام
+        Integer\[\] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+            11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+ 
+        // currentYear هنا قمنا بتخزين رقم السنة الحالية في المتغير
+        int currentYear \= LocalDate.now().getYear();
+ 
+        // هنا قمنا بإنشاء مصفوفة, عدد عناصرها يساوي عدد السنة الحالية
+        Integer\[\] years = new Integer\[currentYear\];
+ 
+        // هنا قمنا بتخزين أرقام السنين من 1 إلى عدد السنين الحالية
+        for (int i \= 0; i < years.length; i++)
+            years\[i\] = i + 1;
+ 
+        // هنا قمنا بإنشاء جميع الأشياء التي سنضيفها فيا النافذة
+        birthDate = new JLabel("Birth Date");
+        deathDate = new JLabel("Death Date");
+        deathDateState = new JCheckBox();
+        dayOfBirth = new JComboBox(days);
+        monthOfBirth = new JComboBox(months);
+        yearOfBirth = new JComboBox(years);
+        dayOfDeath = new JComboBox(days);
+        monthOfDeath = new JComboBox(months);
+        yearOfDeath = new JComboBox(years);
+        calculateAge = new JButton("Calculate Age");
+        result = new JLabel("", JLabel.CENTER);
+ 
+        // هنا قمنا بتحديد حجم و مكان كل شيء سيتم إضافته في النافذة
+        birthDate.setBounds(175, 40, 200, 30);
+        dayOfBirth.setBounds(120, 80, 50, 30);
+        monthOfBirth.setBounds(173, 80, 70, 30);
+        yearOfBirth.setBounds(246, 80, 70, 30);
+        deathDateState.setBounds(158, 140, 20, 30);
+        deathDate.setBounds(183, 140, 200, 30);
+        dayOfDeath.setBounds(120, 180, 50, 30);
+        monthOfDeath.setBounds(173, 180, 70, 30);
+        yearOfDeath.setBounds(246, 180, 70, 30);
+        calculateAge.setBounds(118, 250, 200, 60);
+        result.setBounds(0, 345, 440, 30);
+ 
+        // هنا قمنا بتحديد حجم و نوع خط العناوين الموجودة في النافذة
+        birthDate.setFont(font);
+        deathDate.setFont(font);
+        calculateAge.setFont(font);
+        result.setFont(new Font("Arial", Font.BOLD, 17));
+ 
+        // هنا قمنا بتحديد السنة الإفتراضية المختارة من قوائم السنين
+        yearOfBirth.setSelectedItem(2000);
+        yearOfDeath.setSelectedItem(2000);
+ 
+        // هنا جعلنا خيار تحديد الوفاة و القوائم الموجودة ضمنه غير مفعلة إفتراضياً
+        deathDate.setEnabled(false);
+        dayOfDeath.setEnabled(false);
+        monthOfDeath.setEnabled(false);
+        yearOfDeath.setEnabled(false);
+ 
+ 
+        // هنا قمنا بإضافة جميع الأشياء التي قمنا بإنشائها في النافذة
+        add(birthDate);
+        add(deathDate);
+        add(dayOfBirth);
+        add(monthOfBirth);
+        add(yearOfBirth);
+        add(deathDateState);
+        add(dayOfDeath);
+        add(monthOfDeath);
+        add(yearOfDeath);
+        add(calculateAge);
+        add(result);
+ 
+ 
+        // Check Box هنا قمنا بتحديد ما يحدث عندما يقوم المستخدم بوضع علامة صح أو إزالتها من الـ
+        deathDateState.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                // عند وضع علامة الصح سيتم تفعيل خيار تحديد تاريخ الوفاة
+                if (deathDateState.isSelected()) {
+                    deathDate.setEnabled(true);
+                    dayOfDeath.setEnabled(true);
+                    monthOfDeath.setEnabled(true);
+                    yearOfDeath.setEnabled(true);
+                }
+                // عند إزالة علامة الصح سيتم تفعيل خيار تحديد تاريخ الوفاة
+                else {
+                    deathDate.setEnabled(false);
+                    dayOfDeath.setEnabled(false);
+                    monthOfDeath.setEnabled(false);
+                    yearOfDeath.setEnabled(false);
+                }
+            }
+        });
+ 
+ 
+        // هنا قمنا بتحديد ما يحدث عندما يقوم المستخدم بتغيير الشهر من قائمة الأشهر في تاريخ الميلاد
+        monthOfBirth.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+ 
+                // سيتم تخزين إسم الشهر المختار من قائمة الأشهر و على أساسه سيتم توليد عدد الأيام الموجودة في الشهر
+                String month \= monthOfBirth.getSelectedItem().toString();
+ 
+                if( month.equals("Jan") || month.equals("Mar") || month.equals("May")
+                    || month.equals("Jul") || month.equals("Aug") || month.equals("Oct") || month.equals("Dec") )
+                    for( int i \= 1; i <= 31; i++ )
+                        dayOfBirth.addItem(i);
+ 
+                else if( month.equals("Feb") )
+                    for( int i \= 1; i <= 28; i++ )
+                        dayOfBirth.addItem(i);
+ 
+                else
+                    for( int i \= 1; i <= 30; i++ )
+                        dayOfBirth.addItem(i);
+ 
+            }
+        });
+ 
+ 
+        // هنا قمنا بتحديد ما يحدث عندما يقوم المستخدم بتغيير الشهر من قائمة الأشهر في تاريخ الميلاد
+        monthOfDeath.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+ 
+                // سيتم تخزين إسم الشهر المختار من قائمة الأشهر و على أساسه سيتم توليد عدد الأيام الموجودة في الشهر
+                String month \= monthOfDeath.getSelectedItem().toString();
+ 
+                if( month.equals("Jan") || month.equals("Mar") || month.equals("May")
+                    || month.equals("Jul") || month.equals("Aug") || month.equals("Oct") || month.equals("Dec") )
+                    for( int i \= 1; i <= 31; i++ )
+                        dayOfDeath.addItem(i);
+ 
+                else if( month.equals("Feb") )
+                    for( int i \= 1; i <= 28; i++ )
+                        dayOfDeath.addItem(i);
+ 
+                else
+                    for( int i \= 1; i <= 30; i++ )
+                        dayOfDeath.addItem(i);
+ 
+            }
+        });
+ 
+ 
+        // هنا قمنا بتحديد ما يحدث عند النقر على زر إظهار العمر
+        calculateAge.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+ 
+                // سنستخدم هذا المتغير لتخزين نص النتيجة التي ستظهر
+                String text \= "";
+ 
+                // هنا قمنا بتخزين تاريخ الميلاد الذي إختاره المستخدم في المتغيرات التالية
+                y1 = yearOfBirth.getSelectedIndex() + 1;
+                m1 = monthOfBirth.getSelectedIndex() + 1;
+                d1 = dayOfBirth.getSelectedIndex() + 1;
+ 
+                // إذا كان خيار تحديد الميلاد مفعل, سيتم تخزين التاريخ المحدد في المتغيرات التالية
+                if (deathDateState.isSelected()) {
+                    y2 = yearOfDeath.getSelectedIndex() + 1;
+                    m2 = monthOfDeath.getSelectedIndex() + 1;
+                    d2 = dayOfDeath.getSelectedIndex() + 1;
+                }
+                // إذا كان خيار تحديد الميلاد غير مفعل, سيتم تخزين التاريخ الحالي في المتغيرات التالية
+                else {
+                    y2 = LocalDate.now().getYear();
+                    m2 = LocalDate.now().getMonthValue();
+                    d2 = LocalDate.now().getDayOfMonth();
+                }
+ 
+                // endDate و التاريخ الثاني في الكائن startDate هنا قمنا بوضع تاريخ الميلاد الذي حدده المستخدم في الكائن
+                startDate = LocalDate.of(y1, m1, d1);
+                endDate = LocalDate.of(y2, m2, d2);
+ 
+                // هنا قمنا بتخزين الفارق بين التواريخ في المتغيرات التالية
+                yearsCounter = Period.between(startDate, endDate).getYears();
+                monthsCounter = Period.between(startDate, endDate).getMonths();
+                daysCounter = Period.between(startDate, endDate).getDays();
+ 
+                // هنا قلنا إذا كان التاريخين متواسيين سيتم إظهار التنبيه التالي
+                if (yearsCounter == 0 && monthsCounter == 0 && daysCounter == 0) {
+                    result.setForeground(Color.red);
+                    result.setText("Cannot compare same date!");
+                }
+ 
+                // هنا قلنا أنه إذا كانت التواريخ المحددة هي منطقياً صحيحة سيتم إظهار العمر
+                else if (!Period.between(startDate, endDate).isNegative())
+                {
+ 
+                    if (yearsCounter == 1)
+                        text += yearsCounter + " year ";
+ 
+                    else if (yearsCounter > 1)
+                        text += yearsCounter + " years ";
+ 
+                    if (monthsCounter == 1)
+                    {
+                        if (yearsCounter > 0 && daysCounter > 0)
+                            text += ", " + monthsCounter + " month ";
+ 
+                        else if (yearsCounter > 0 && daysCounter == 0)
+                            text += "and " + monthsCounter + " month ";
+ 
+                        else
+                            text += monthsCounter + " month ";
+                    }
+ 
+                    if (monthsCounter > 1)
+                    {
+                        if (yearsCounter > 0 && daysCounter > 0)
+                            text += ", " + monthsCounter + " months ";
+ 
+                        else if (yearsCounter > 0 && daysCounter == 0)
+                            text += "and " + monthsCounter + " months ";
+ 
+                        else
+                            text += monthsCounter + " months ";
+                    }
+ 
+                    if (daysCounter == 1)
+                    {
+                        if (yearsCounter == 0 && monthsCounter == 0)
+                            text += daysCounter + " day";
+ 
+                        else
+                            text += "and " + daysCounter + " day";
+                    }
+ 
+                    if (daysCounter > 1)
+                    {
+                        if (yearsCounter == 0 && monthsCounter == 0)
+                            text += daysCounter + " days";
+ 
+                        else
+                            text += "and " + daysCounter + " days";
+                    }
+ 
+                    result.setForeground(Color.black);
+                    result.setText(text);
+                }
+ 
+                // هنا قلنا أنه إذا كانت التواريخ المحددة هي منطقياً غير مقبولة سيتم إظهار التنبيه التالي
+                else
+                {
+                    result.setForeground(Color.red);
+                    result.setText("Logic order of Dates is wrong!");
+                }
+ 
+            }
+        });
+ 
+ 
+        // هنا قمنا بتحديد بعض خصائص النافذة و جعلناها مرئية
+        setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);
+        setSize(436, 446);
+        setTitle("Age Calculator");
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setLayout(null);
+        setVisible(true);
+ 
+    }
+ 
+ 
+    public static void main(String\[\] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // التي ستنشئ النافذة createAndShowGUI() و بالتالي سيتم إستدعاء الدالة Main هنا قمنا بإنشاء كائن من الكلاس
+                new Main();
+            }
+        });
+    }
+ 
+}

@@ -1,0 +1,455 @@
+---
+title: "بايثونالعوامل"
+source: "https://harmash.com/tutorials/python/operators"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:35.644Z"
+---
+
+## مفهوم العوامل
+
+العوامل ( operators ) عبارة عن رموز لها معنى محدد و يمكننا تقسيمها إلى 7 مجموعات أساسية هي:
+
+*   Arithmetic Operators
+*   Comparison Operators
+*   Logical Operators
+*   Bitwise Operators
+*   Assignment Operators
+*   Membership Operators
+*   Identity Operators
+
+## العوامل التي تستخدم في العمليات الحسابية (Arithmetic Operators)
+
+إسمه
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Assignment
+
+`=`
+
+`a = b`
+
+أعطي `a` قيمة `b`
+
+Addition
+
+`+`
+
+`a + b`
+
+أضف قيمة `b` على قيمة `a`
+
+Subtraction
+
+`-`
+
+`a - b`
+
+إطرح قيمة `b` من قيمة `a`
+
+Unary plus
+
+`+`
+
+`+a`
+
+أضرب قيمة `a` بالعامل `+`
+
+Unary minus
+
+`-`
+
+`-a`
+
+أضرب قيمة `a` بالعامل `-`
+
+Multiplication
+
+`*`
+
+`a * b`
+
+أضرب قيمة `a` بقيمة `b`
+
+Exponent
+
+`**`
+
+`a ** b`
+
+ضاعف قيمة `a` بقيمة `b`
+
+Division
+
+`/`
+
+`a / b`
+
+أقسم قيمة `a` على قيمة `b`
+
+Floor Divide
+
+`//`
+
+`a // b`
+
+أقسم قيمة `a` على قيمة `b` و أرجع أقرب عدد صحيح للناتج لا يحتوي على فاصلة.
+
+Modulo
+
+`%`
+
+`a % b`
+
+للحصول على آخر رقم يبقى عندما نقسم قيمة `a` على قيمة `b`
+
+[أمثلة على كل عامل](/tutorials/python/operators/arithmetic-operators-examples)
+
+## العوامل التي تستخدم في المقارنات (Comparison Operators)
+
+إسمه
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Equal to
+
+`==`
+
+`(a == b)`
+
+هل قيمة `a` تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+Not equal to
+
+`!=`
+
+`(a != b)`
+
+هل قيمة `a` لا تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+Greater than
+
+`>`
+
+`(a > b)`
+
+هل قيمة `a` أكبر من قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+Less than
+
+`<`
+
+`(a < b)`
+
+هل قيمة `a` أصغر من قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+Greater than  
+or Equal to
+
+`>=`
+
+`(a >= b)`
+
+هل قيمة `a` أكبر أو تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+Less than  
+or Equal to
+
+`<=`
+
+`(a <= b)`
+
+هل قيمة `a` أصغر أو تساوي قيمة `b` ؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+[أمثلة على كل عامل](/tutorials/python/operators/comparison-operators-examples)
+
+## العوامل التي تستخدم في وضع شروط منطقية (Logical Operators)
+
+إسمه
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Logical AND
+
+`and`
+
+`a and b`
+
+هل قيمة `a` و `b` تساويان `True` ؟  
+هنا يجب أن يتم تحقيق الشرطين ليرجع `True`
+
+Logical OR
+
+`or`
+
+`a or b`
+
+هل قيمة `a` أو `b` أو كلاهما تساويان `True` ؟  
+هنا يكفي أن يتم تحقيق شرط واحد من الشرطين ليرجع `True`
+
+Logical NOT
+
+`not`
+
+`not a`
+
+هل قيمة `a` لا تساوي `True` ؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+[أمثلة على كل عامل](/tutorials/python/operators/logical-operators-examples)
+
+## العوامل التي تستخدم للتعامل مع البتات (Bitwise Operators)
+
+إسمه
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Bitwise AND
+
+`&`
+
+`a & b`
+
+العامل `&` يحسب ناتج جمع البتات المشتركة بين `a` و `b`
+
+Bitwise OR
+
+`|`
+
+`a | b`
+
+العامل `|` يحسب ناتج جمع البتات المشتركة و الغير مشتركة بين `a` و `b`
+
+Bitwise XOR
+
+`^`
+
+`a ^ b`
+
+العامل `^` يحسب ناتج جمع البتات الغير مشتركة بين `a` و `b`
+
+Bitwise compliment OR
+
+`~`
+
+`~a`
+
+العامل `~` يقلب البتات التي تساوي 0 إلى 1 و يقلب البتات التي تساوي 1 إلى 0، ثم يضيف عليهم 1 و يحسب ناتج جمعهم، بعدها يضرب الجواب بالعامل ( `-` ) ثم يعطينا جواب سلبي.
+
+Left shift
+
+`<<`
+
+`a << 2`
+
+العامل `<<` يزيح البتات من آخر اليسار إلى أول اليمين.  
+العدد 2 يعني أننا سنزيح آخر إثنين بت و نضعهم في الأول.
+
+Right shift
+
+`>>`
+
+`a >> 2`
+
+العامل `>>` يزيح البتات من أول اليمين إلى آخر اليسار.  
+العدد 2 يعني أننا سنزيح أول إثنين بت و نضعهم في الأخير.
+
+[أمثلة على كل عامل](/tutorials/python/operators/bitwise-operators-examples)
+
+## العوامل التي تستخدم لإعطاء قيم للمتغيرات (Assignment Operators)
+
+إسمه
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Basic Assignment
+
+`=`
+
+`a = b`
+
+ضع قيمة `b` في `a`.
+
+Add AND Assignment
+
+`+=`
+
+`a += b`
+
+أضف قيمة `a` على قيمة `b` و خزن الناتج في `a`
+
+Susbtract AND Assignment
+
+`-=`
+
+`a -= b`
+
+أنقص قيمة `a` من قيمة `b` و خزن الناتج في `a`
+
+Multiply AND Assignment
+
+`*=`
+
+`a *= b`
+
+أضرب قيمة `a` بقيمة `b` و خزن الناتج في `a`
+
+Exponent AND Assignment
+
+`**=`
+
+`a **= b`
+
+ضاعف قيمة `a` بقيمة `b` و خزن الناتج في `a`
+
+Divide AND Assignment
+
+`/=`
+
+`a /= b`
+
+أقسم قيمة `a` على قيمة `b` و خزن الناتج في `a`
+
+Floor Divide AND Assignment
+
+`//=`
+
+`a //= b`
+
+أقسم قيمة `a` على قيمة `b` و أرجع أقرب عدد صحيح للناتج
+
+Modulo AND Assignment
+
+`%=`
+
+`a %= b`
+
+أقسم قيمة `a` على قيمة `b` و خزن آخر رقم يبقى من عملية القسمة في `a`
+
+Left shift AND Assignment
+
+`<<=`
+
+`a <<= 2`
+
+أزح آخر إثنين بت و ضعهم في الأول ثم خزن الناتج في `a`
+
+Right shift AND Assignment
+
+`>>=`
+
+`a >>= 2`
+
+أزح أول اثنين بت و ضعهم في الآخر ثم خزن الناتج في `a`
+
+Bitwise AND Assignment
+
+`&=`
+
+`a &= b`
+
+أحسب ناتج جمع البتات المشتركة بين `a` و `b` و خزن الناتج في `a`
+
+Bitwise exclusive OR and Assignment
+
+`^=`
+
+`a ^= b`
+
+أحسب ناتج جمع البتات الغير مشتركة بين `a` و `b` و خزن الناتج في `a`
+
+Bitwise inexclusive OR and Assignment
+
+`|=`
+
+`a |= b`
+
+أحسب ناتج جمع البتات المشتركة و الغير مشتركة بين `a` و `b` و خزن الناتج في `a`
+
+[أمثلة على كل عامل](/tutorials/python/operators/assignment-operators-examples)
+
+## العوامل التي تستخدم للبحث في المصفوفات (Membership Operators)
+
+إسمه
+
+رمزه
+
+مثال
+
+شرح الكود
+
+In
+
+`in`
+
+`a in arr`
+
+هل قيمة المتغير `a` موجودة في المصفوفة `arr`؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+Not In
+
+`not in`
+
+`a not in arr`
+
+هل قيمة المتغير `a` غير موجودة في المصفوفة `arr`؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+[أمثلة على كل عامل](/tutorials/python/operators/membership-operators-examples)
+
+## العوامل التي تستخدم لمعرفة ما إذا كان الكائنين يشيران لكائن واحد في الذاكرة أم لا (Identity Operators)
+
+إسمه
+
+رمزه
+
+مثال
+
+شرح الكود
+
+Is
+
+`is`
+
+`a is b`
+
+هل الكائن `a` و الكائن `b` يشيران إلى كائن واحد في الذاكرة؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+Is Not
+
+`is not`
+
+`a is not b`
+
+هل الكائن `a` و الكائن `b` لا يشيران إلى كائن واحد في الذاكرة؟  
+إذا كان الجواب نعم فإنها ترجع `True`
+
+[أمثلة على كل عامل](/tutorials/python/operators/identity-operators-examples)

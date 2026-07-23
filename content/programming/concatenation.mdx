@@ -1,0 +1,125 @@
+---
+title: "دمج البيانات في أساسيات البرمجة"
+source: "https://harmash.com/tutorials/programming/concatenation"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:07:40.480Z"
+---
+
+## مفهوم الدمج
+
+الدمج ( Concatenation ) يقصد به صف القيم سواء كانت رقمية أو نصية بجانب بعضها بهدف عرضها أو لتخزينها كنص جديد.
+
+بشكل عام، لدمج القيم في محرر هرمش قم بوضع الرمز `+` بين القيم التي تريد دمجها.
+
+## دمج نص مع نص
+
+دمج النصوص مع بعضها يعتبر أسهل أنواع الدمج لأن النصوص ستظهر بالضبط كما تضعها.
+
+  
+
+في المثال التالي قمنا بدمج نصّين مع بعض و عرض النص الذي نتج عنهما.  
+النص الأول هو كلمة `"Mr."` و النص الثاني هو كلمة `"Mhamad"`.  
+النص الذي سينتج عند دمجهما هو `"Mr.Mhamad"`.
+
+#### المثال الأول
+
+write("Mr." + "Mhamad");
+
+النتيجة
+
+Mr.Mhamad
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/concatenation/concatenate-2-strings) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/concatenation/concatenate-2-strings)
+
+  
+
+أثناء دمج نصوص مع بعضها أحياناً نقوم بإضافة مسافة فارغة بينها حتى لا يتداخل الكلام الموضوع فيها مع بعضه و ستفهم المقصود من المثال التالي.
+
+  
+
+في المثال التالي إفترضنا أن لدينا نصيّن، الأول هو إسم المستخدم و الثاني هو إسم عائلته و نريد طباعة إسمه الكامل ( أي إسمه و إسم عائلته ).  
+لو فرضنا أن إسمه `"Mhamad"` و إسم عائلته `"Harmush"` فإن إسمه الكامل يجب أن يظهر `"Mhamad Harmush"`.
+
+إذاً لعرض إسمه الكامل بشكل صحيح لا بد لنا أن نضع مسافة فارغة `" "` بينهما حتى لا يندمجان معاً فيظهر إسمه هكذا `"MhamadHarmush"`.
+
+#### المثال الثاني
+
+write("Mhamad" + " " + "Harmush");
+
+النتيجة
+
+Mhamad Harmush
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/concatenation/concatenate-3-strings) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/concatenation/concatenate-3-strings)
+
+## دمج رقم مع نص
+
+دمج نص مع رقم أمر لا يسبب أي مشكلة و لكن في حال دمج النص مع أكثر من رقم هنا سيكون عليك الإنتباه مما سينتج لأن الناتج سيكون مربك للغاية لو لم تستوعب ما يجري و هذا الأمر سنوضحه بدقة من خلال الأمثلة.
+
+  
+
+في المثال التالي قمنا بدمج نص مع رقم.
+
+#### المثال الأول
+
+write("Harmash is published in " + 2014);
+
+النتيجة
+
+Harmash is published in 2014
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/concatenation/concatenate-string-with-number) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/concatenation/concatenate-string-with-number)
+
+  
+
+في المثال التالي قمنا بدمج نص مع رقمين وراء بعض.
+
+#### المثال الثاني
+
+write("x = " + 1 + 2);
+
+النتيجة
+
+x = 12
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/concatenation/concatenate-string-with-2-numbers) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/concatenation/concatenate-string-with-2-numbers)
+
+  
+
+في حال قمت بدمج مجموعة أرقام مع نص و لكنك وضعت الأرقام في البداية، فهنا سيتم حساب ناتج الأرقام الموضوعة قبل النص و من بعدها يتم دمجهم مع النص.  
+هذا الأمر يحدث فقط إن كانت الأرقام موضوعة في بداية عملية الدمج.
+
+  
+
+في المثال التالي حين بدأ المحرر بتنفيذ أمر الطباعة وجد رقمين و بينهما زائد فظن أننا نريد حساب ناتج جمعهما و ليس عرضهما بجانب بعضهما.  
+بعد أن قام بحساب ناتج جمعهما وجد أننا أيضاً وضعنا نص. الآن حين رأى ذلك علم أننا نريد دمج النص مع ما سبقه.
+
+خلاصة: في البداية يوجد عملية جمع و يليها يوجد عملية دمج.
+
+#### المثال الثالث
+
+write(1 + 2 + " = x");
+
+النتيجة
+
+3 = x
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/concatenation/concatenate-2-numbers-with-string) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/concatenation/concatenate-2-numbers-with-string)
+
+## دمج نص مع ناتج عملية حسابية
+
+عند الحاجة لدمج نص و ناتج عملية قم بوضع العملية الحسابية بين قوسين `( )` لأن ذلك يعطيها أولية التنفيذ و سيتم معاملة ما بين القوسين معاملة رياضية. عندها سواء كانت العملية الحسابية موضوعة قبل أو بعد النص فإن ذلك لن يسبب أي مشكلة.
+
+  
+
+في المثال التالي قمنا بدمج نص مع ناتج عملية حسابية.
+
+#### مثال
+
+write("x = " + (1 + 2));
+
+النتيجة
+
+x = 3
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/concatenation/concatenate-string-with-mathematical-operation) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/concatenation/concatenate-string-with-mathematical-operation)

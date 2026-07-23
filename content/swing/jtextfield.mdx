@@ -1,0 +1,119 @@
+---
+title: "Swingالكلاس JTextField"
+source: "https://harmash.com/tutorials/swing/jtextfield"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:19.222Z"
+---
+
+## مقدمة
+
+الكلاس `JTextField` يستخدم لإضافة مربع نص (Text Field) في واجهة المستخدم.  
+
+ملاحظة: الـ Text Field يظهر سطر واحد بداخله و لا يمكن جعله يتألف من أكثر من سطر.
+
+  
+
+### بناؤه
+
+public class JTextField
+extends JTextComponent
+implements SwingConstants
+
+## كونستركتورات الكلاس `JTextField`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JTextField`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JTextField()` ينشئ كائن من الكلاس `JTextField` يمثل Text Field فارغ.
+
+2
+
+`public JTextField(String text)` ينشئ كائن من الكلاس `JTextField` يمثل Text Field فيه نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه بداخل الـ Text Field.
+
+3
+
+`public JTextField(int columns)` ينشئ كائن من الكلاس `JTextField` يمثل Text Field فارغ يمكنه أن يحتوي على عدد محدد من الأحرف.  
+مكان الباراميتر `columns` نمرر رقم يمثل عدد الأحرف الأقصى التي يمكن إدخالها في الـ Text Field.
+
+4
+
+`public JTextField(String text, int columns)` ينشئ كائن من الكلاس `JTextField` يمثل Text Field فيه نص و يمكنه أن يحتوي على عدد محدد من الأحرف.  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه بداخل الـ Text Field.
+*   مكان الباراميتر `columns` نمرر رقم يمثل عدد الأحرف الأقصى التي يمكن إدخالها في الـ Text Field.
+
+## دوال الكلاس `JTextField`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JTextField`.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `JTextField` الذي قام بإستدعائها كـ `String`.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `JTextField` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public void addActionListener(ActionListener al)` تستخدم لتنفيذ أوامر معينة عند النقر داخل كائن الـ `JTextField` الذي قام بإستدعائها.  
+مكان الباراميتر `al` نضع كائن من الكلاس `ActionListener` و نفعل بداخله Override لدالة إسمها `actionPerformed(ActionEvent ae)`.
+
+4
+
+`public void removeActionListener(ActionListener al)` تستخدم لعدم تنفيذ أوامر الدالة `addActionListener()` من جديد عند النقر بداخل كائن الـ `JTextField` الذي قام بإستدعائها.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JTextField` و إضافته في النافذة.
+
+![طريقة إضافة JTextField في ال JFrame](/content-images/swing/jtextfield/1784305338941-gjy0k5.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextfield/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط كائن الـ `JTextField`.
+
+![تغيير لون و حجم و نوع خط ال JtextField](/content-images/swing/jtextfield/1784305339033-kvtlj7.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextfield/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة الحصول على النص المدخل في الـ Text Field.
+
+![طريقة الحصول على النص المدخل في ال JTextField عند النقر على زر في جافا](/content-images/swing/jtextfield/1784305339124-r18hty.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextfield/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة الحصول على النص المدخل في Text Field و تحويله إلى رقم.  
+
+المثال عبارة واجهة مستخدم فيها إثنين Text Field, إثنين Label و Button واحد.  
+عند النقر على الـ Button سيتم جمع القيم المدخلة في الـ Text Fields.
+
+![تحويل النص المدخل في ال JtextField إلى عدد في جافا](/content-images/swing/jtextfield/1784305339214-1i95s1.png)
+
+[شاهد المثال](/tutorials/swing/jtextfield/example-4)

@@ -1,0 +1,189 @@
+---
+title: "Swingالكلاس JTextArea"
+source: "https://harmash.com/tutorials/swing/jtextarea"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:23.646Z"
+---
+
+## مقدمة
+
+الكلاس `JTextArea` يستخدم لإضافة مربع نص كبير يتألف من أكثر من سطر (Text Area) في واجهة المستخدم.
+
+  
+
+### بناؤه
+
+public class JTextArea
+extends JTextComponent
+implements SwingConstants
+
+## كونستركتورات الكلاس `JTextArea`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JTextArea`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JTextArea()` ينشئ كائن من الكلاس `JTextArea` يمثل Text Area فارغ.
+
+2
+
+`public JTextArea(String text)` ينشئ كائن من الكلاس `JTextArea` يمثل Text Area فيه نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه بداخل الـ Text Area.
+
+3
+
+`public JTextArea(int rows, int columns)` ينشئ كائن من الكلاس `JTextArea` يمثل Text Area له عدد محدد من الأسطر و الأحرف.  
+
+*   مكان الباراميتر `rows` نمرر رقم يمثل عدد أسطر الـ Text Area.
+*   مكان الباراميتر `columns` نمرر رقم يمثل عدد الأحرف الأقصى التي يمكن إدخالها في كل سطر.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال تم تمرير عدد أصغر من 0 مكان الباراميتر `rows` أو `rows`.
+
+4
+
+`public JTextArea(String text, int rows, int columns)` ينشئ كائن من الكلاس `JTextArea` يمثل Text Area له عدد محدد من الأسطر و الأحرف.  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه بداخل الـ Text Area.
+*   مكان الباراميتر `rows` نمرر رقم يمثل عدد أسطر الـ Text Area.
+*   مكان الباراميتر `columns` نمرر رقم يمثل عدد الأحرف الأقصى التي يمكن إدخالها في كل سطر.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال تم تمرير عدد أصغر من 0 مكان الباراميتر `rows` أو `rows`.
+
+## دوال الكلاس `JTextArea`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JTextArea`.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `JTextArea` الذي قام بإستدعائها كـ `String`.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `JTextArea` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public int getRows()` ترجع رقم يمثل عدد الأسطر الظاهرة في كائن الـ `JTextArea` الذي قام بإستدعائها.
+
+4
+
+`public void setRows(int rowsNumber)` تستخدم لتحديد عدد أسطر كائن الـ `JTextArea` الذي قام بإستدعائها.  
+مكان الباراميتر `rowsNumber` نضع عدد الأسطر الجديد.  
+  
+ترمي الإستثناء IllegalArgumentException في حال تم إعطاءها عدد أصغر من 0.
+
+5
+
+`public int getLineCount()` ترجع رقم يمثل عدد جمع الأسطر الموجودة في كائن الـ `JTextArea` الذي قام بإستدعائها سواء كانت ظاهرة أو غير ظاهرة.
+
+6
+
+`public void setCols(int columnsNumber)` تستخدم لتحديد عدد الأحرف الأقصى التي يمكن إدخالها في كل سطر في كائن الـ `JTextArea` الذي قام بإستدعائها.  
+مكان الباراميتر `columnsNumber` نضع عدد الأحرف الجديد.  
+  
+ترمي الإستثناء IllegalArgumentException في حال تم إعطاءها عدد أصغر من 0.
+
+7
+
+`public void setLineWrap(boolean wrapLine)` تستخدم لجعل محتوى كائن الـ `JTextArea` الذي قام بإستدعائها يظهر على سطر جديد في حال كان عدد الأحرف الموجود في السطر أكبر من عدد الأحرف التي يمكن وضعها فيه.  
+مكان الباراميتر `wrapLine` نضع القيمة `true` لتفعيل هذه الخاصية.  
+  
+ملاحظة: يجب إستدعاء الدالة `setWrapStyleWord()` مباشرةً بعد إستدعاء هذه الدالة حتى لا يتم وضع الكلمة الواحدة على سطرين في حال كان عدد الأحرف الموجود في السطر أكبر من عدد الأحرف التي يمكن وضعها فيه.
+
+8
+
+`public void setWrapStyleWord(boolean wrapWord)` من المهم جداً إستدعاء هذه الدالة بعد إستدعاء الدالة `setLineWrap()` حتى لا يتم تجزئة الكلمة على سطرين في حال كان عدد الأحرف الموجود في السطر أكبر من عدد الأحرف التي يمكن وضعها فيه.  
+مكان الباراميتر `wrapWord` نضع القيمة `true` لتفعيل هذه الخاصية.
+
+9
+
+`public void insert(String str, int pos)` تستخدم لإضافة نص في مكان محدد في كائن الـ `JTextArea` الذي قام بإستدعائها.  
+
+*   مكان الباراميتر `str` نضع النص الذي نريد إضافته.
+*   مكان الباراميتر `pos` نضع رقم Index يمثل المكان الذي سيتم فيه وضع النص.
+
+  
+ترمي الإستثناء IllegalArgumentException في حال وضعنا مكان الباراميتر `pos` عدد أصغر أو أكبر من عدد الأحرف الموجودة في كائن الـ `JTextArea` الذي قام بإستدعائها.
+
+10
+
+`public void append(String str)` تستخدم لإضافة النص الذي نمرره لها مكان الباراميتر `str` في آخر النص الموجود في كائن الـ `JTextArea` الذي قام بإستدعائها.
+
+11
+
+`public void addActionListener(ActionListener al)` تستخدم لتنفيذ أوامر معينة عند النقر داخل كائن الـ `JTextArea` الذي قام بإستدعائها.  
+مكان الباراميتر `al` نضع كائن من الكلاس `ActionListener` و نفعل بداخله Override لدالة إسمها `actionPerformed(ActionEvent ae)`.
+
+12
+
+`public void removeActionListener(ActionListener al)` تستخدم لعدم تنفيذ أوامر الدالة `addActionListener()` من جديد عند النقر بداخل كائن الـ `JTextArea` الذي قام بإستدعائها.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JTextArea` و إضافته في النافذة.
+
+![طريقة إضافة JTextArea في ال JFrame في جافا](/content-images/swing/jtextarea/1784305342964-276pnd.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextarea/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط كائن الـ `JTextArea`.
+
+![تغيير لون و حجم و نوع خط ال JtextArea في جافا](/content-images/swing/jtextarea/1784305343056-6dju0q.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextarea/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة جعل محتوى كائن الـ `JTextArea` ينزل بشكل تلقائي على سطر جديد عند الحاجة.  
+كما ستتعلم طريقة إظهار Scroll Bar للـ `JTextArea` في حال كان عدد الأسطر المدخلة أكبر من عدد الأسطر التي يمكنها أن تظهر فيه.
+
+![طريقة جعل النص يظهر بداخل ال jtextarea في جافا](/content-images/swing/jtextarea/1784305343147-itzfk4.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextarea/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة الحصول على النص الموجود في الـ Text Area.  
+
+المثال عبارة واجهة مستخدم فيها Text Area, إثنين Labels و Button.  
+عند النقر على الـ Button سيتم عرض النص المدخل في الـ Text Area في الـ Label الذي وضعناه تحت الـ Button.
+
+![طريقة الحصول على النص الموجود بداخل ال JTextArea في جافا](/content-images/swing/jtextarea/1784305343247-rhfxs3.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextarea/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة الحصول على عدد الأسطر و الأحرف الموجودة في الـ Text Area.
+
+المثال عبارة واجهة مستخدم فيها Text Area و إثنين Labels.  
+كلما تم إدخال أو حذف حرف في الـ Text Area سيتم إظهار عدد الأسطر في Label و عدد الأحرف في Label آخر.
+
+![حساب عدد الأحرف و الأسطر المدخلة في ال JTextArea في جافا](/content-images/swing/jtextarea/1784305343632-8d7t71.PNG)
+
+[شاهد المثال](/tutorials/swing/jtextarea/example-5)

@@ -1,0 +1,370 @@
+---
+title: "Javaالتعامل مع النصوص في جافا"
+source: "https://harmash.com/tutorials/java/strings"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:18:29.285Z"
+---
+
+## مفهوم النصوص في جافا
+
+**نص:** تعني `String` في جافا, و النص عبارة عن مجموعة من الأحرف.  
+النوع `String` عبارة عن كلاس و لاحظ أنه يبدأ بحرف كبير مثل إسم أي كلاس في جافا.
+
+إذاً عندما نقوم بتعريف `String` فنحن فعلياً نقوم بتعريف كائن, و لكننا نقول له متغير لأنه بشكل عام يسمح لنا بتخزين أي قيمة بداخله - كقيمة نصية - و لكنه في الأساس كائن نوعه `String` و ليس متغير عادي.
+
+  
+
+### طريقة تعريف `String`
+
+أبسط طريقة و الأكثر إستخداماً هي تعريفه مثل متغير عادي.
+
+#### مثال
+
+String greeting \= "Hello world!";
+
+  
+
+تذكر أنك حتى لو قمت بتعريفه مثل متغير عادي, سيعتبره المترجم كائن.  
+و مثل أي كائن, تستطيع إنشاء كائن نوعه `String` من خلال الكلمة `new` و من خلال الكونستركتور, و ستفهم معنى هاتين الكلمتين في دروس لاحقة.
+
+  
+  
+
+الكلاس `String` يحتوي على 13 كونستركتور يمكنك استخدامهم لوضع قيمة أولية في النص من خلال عدة مصادر, مثل من مصفوفة أحرف.
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // هنا قمنا بتعريف مصفوفة من الأحرف
+        char\[\] helloArray = { 'h', 'e', 'l', 'l', 'o' };
+ 
+        // من خلال الكونستركتور helloString هنا وضعنا محتوى مصفوفة الأحرف كنص للكائن
+        String helloString \= new String(helloArray);
+ 
+        // helloString هنا قمنا بعرض قيمة الكائن
+        System.out.println( helloString );
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+hello
+
+  
+  
+
+### مفهوم الـ Concatenation
+
+Concatenation تعني إضافة محتوى نص على نص, أي كأنك تنسخ نص و تلصقه في نهاية نص آخر.
+
+يمكنك تطبيق الـ Concatenation في جافا بطريقتين:
+
+*   بإستخدام العامل `+`.
+*   أو بإستدعاء الدالة `concat()` التي شرحناها لاحقاً في هذا الدرس.
+
+  
+
+في المثال التالي سنقوم بتعريف نصين و نعطيهم قيم, ثم سنعرف نص ثالث و نضع النصين السابقين فيه.
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s1 \= "welcome to ";     // هنا قمنا بتعريف النص الأول
+        String s2 \= "harmash.com";     // هنا قمنا بتعريف النص الثاني
+ 
+        String s3 \= s1 + s2;           // أضفنا قيمة النصين السابقين في النص الثالث
+        System.out.println( s3 );      // هنا عرضنا قيمة النص الثالث لنتأكد إذا تمت عملية الإضافة كما نريد
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+welcome to harmash.com
+
+## مصطلحات مهمة لها علاقة بالتعامل مع النصوص في جافا
+
+لنفترض أننا قمنا بتعريف `String` إسمه `welcome` و أعطيناه قيمة.
+
+#### مثال
+
+String welcome \= "welcome to harmash.com";
+
+  
+
+سيتم تخزين محتوى النص في الذاكرة حرفاً حرفاً و بالترتيب و يبدأ بترقيمهم من الرقم 0 كما في هذه الصورة.
+
+![](/content-images/java/strings/1784305108826-8tpsp2.PNG)
+
+  
+  
+
+### مصطلحات تقنية
+
+*   عدد أحرف الـ `String` يسمى length.
+*   رقم الخانة يسمى index.
+*   إذا قمنا بأخذ جزء من الـ `String` فهذا الجزء يسمى substring.
+
+  
+
+أنت كمبرمج يمكنك إستغلال أرقام الخانات لتصل لمحتوى النص و تفعل به ما تشاء.  
+هناك دوال كثيرة جاهزة في جافا للتعامل مع النصوص, عليك فقط فهم طريقة عملها و استخدامها.
+
+  
+
+### مثال
+
+![](/content-images/java/strings/1784305109244-fl4bnq.PNG)
+
+## دوال الكلاس `String` في جافا
+
+الكلاس `String` هو كلاس جاهز في جافا, يحتوي على دوال كثيرة للتعامل مع محتوى النصوص, سواء للبحث عن أحرف أو كلمات أو جمل, تجزيء النص, تغيير الـ Case للأحرف, دمج النصوص إلخ..
+
+  
+
+سنقسم دوال الكلاس `String` إلى 5 فئات أساسية كما في الجدول التالي:
+
+*   دوال للبحث (Searching)
+*   دوال للتجزيء (Substring)
+*   دوال للتبديل (Replacing)
+*   دوال للمقارنة (Comparison)
+*   دوال للمعالجة (Manipulation)
+
+  
+
+الكلاس `String` يعتبر Immutable class و هذا يعني أنك عندما تستدعي أي دالة على `String`, لن تعدل محتوى الـ `String` الذي قام باستدعائها, بل سترجع لك نسخة معدلة من هذا الـ `String` و سيبقى الـ `String` الأصلي كما هو.
+
+## دوال البحث في جافا الموجودة في الكلاس `String`
+
+إسم الدالة مع تعريفها
+
+1
+
+`public char charAt(int index)` ترجع الحرف الموجود على الـ index الذي نمرره لها مكان الباراميتر `index` في الـ `String` الذي قام بإستدعائها.  
+[شاهد المثال](/tutorials/java/strings/string-charat)
+
+2
+
+`public int indexOf(String str)` تبحث في الـ `String` الذي قام بإستدعائها عن أول index يوجد إبتداءاَ من عنده نفس النص الذي نمرره لها مكان الباراميتر `str` و ترجعه.  
+[شاهد المثال](/tutorials/java/strings/string-indexof)
+
+3
+
+`public int lastIndexOf(String str)` تبحث في الـ `String` الذي قام بإستدعائها عن آخر index يوجد إبتداءاَ من عنده نفس النص الذي نمرره لها مكان الباراميتر `str` و ترجعه.  
+[شاهد المثال](/tutorials/java/strings/string-lastindexof)
+
+4
+
+`public boolean contains(CharSequence cs)` ترجع `true` في حال كان الـ `String` الذي قام بإستدعائها يحتوي على نفس قيمة النص الذي نمرره لها مكان الباراميتر `cs` ككائن من الكلاس `CharSequence`.  
+غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-contains)
+
+## دوال التجزيء في جافا الموجودة في الكلاس `String`
+
+إسم الدالة مع تعريفها
+
+1
+
+`public String substring(int startIndex, int endIndex)` ترجع `String` عبارة عن جزء (substring) من الـ `String` الذي قام باستدعائها.  
+[شاهد المثال](/tutorials/java/strings/string-substring)
+
+2
+
+`public CharSequence subSequence(int startIndex, int endIndex)` ترجع كائن من الكلاس `CharSequence` عبارة عن جزء (substring) من الـ `String` الذي قام باستدعائها.  
+[شاهد المثال](/tutorials/java/strings/string-subsequence)
+
+3
+
+`public String[] split(String regex)` ترجع نسخة من الـ `String` الذي قام باستدعائها مقسمة على شكل مصفوفة نوعها `String`.  
+مكان الباراميتر `regex` نمرر نص يحدد الطريقة التي سيتم على أساسها تقسيم الـ `String` و وضع كل قسم فيها في عنصر بداخل المصفوفة.  
+[شاهد المثال](/tutorials/java/strings/string-split)
+
+## دوال التبديل في جافا الموجودة في الكلاس `String`
+
+إسم الدالة مع تعريفها
+
+1
+
+`public String replace(char oldSequence, char newSequence)` عند استدعائها نمرر لها قيمتين عبارة عن `char` أو `CharSequence`.  
+تبحث في الـ `String` الذي قام باستدعائها عن القيمة الأولى التي نمررها لها و تبدلها بالقيمة الثانية التي نمررها لها.  
+[شاهد المثال](/tutorials/java/strings/string-replace)
+
+2
+
+`public String replaceAll(String regex, String replacement)` تستخدم للبحث في الـ `String` الذي قام باستدعائها عن Substring ما لتبديله بنص جديد.  
+مكان الباراميتر `regex` نمرر نص يمثل النص الذي نريد استبداله.  
+و مكان الباراميتر `replacement` نمرر النص الذي سيحل مكانه.  
+إذاً هنا كلما تم إيجاد نفس قيمة الباراميتر `regex` سيتم إستبدالها بقيمة الباراميتر `replacement`.  
+[شاهد المثال](/tutorials/java/strings/string-replaceall)
+
+3
+
+`public String replaceFirst(String regex, String replacement)` تستخدم لتبديل نص محدد بداخل الـ `String` الذي قام باستدعائها.  
+مكان الباراميتر `regex` نمرر نص يمثل النص الذي نريد استبداله.  
+و مكان الباراميتر `replacement` نمرر النص الذي سيحل مكانه.  
+إذاً هنا عند إيجاد نفس قيمة الباراميتر `regex` سيتم إستبدالها بقيمة الباراميتر `replacement`.  
+[شاهد المثال](/tutorials/java/strings/string-replacefirst)
+
+## دوال المقارنة في جافا الموجودة في الكلاس `String`
+
+إسم الدالة مع تعريفها
+
+1
+
+`public boolean startsWith(String prefix)` تستخدم لمعرفة ما إذا كان الـ `String` الذي قام باستدعائها يبدأ بنص معين أم لا.  
+إذا كانت قيمة الباراميتر `prefix` موجودة في بدايته ترجع `true`, غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-startswith)
+
+2
+
+`public boolean endsWith(String suffix)` تستخدم لمعرفة ما إذا كان الـ `String` الذي قام باستدعائها ينتهي بنص معين أم لا.  
+إذا كانت قيمة الباراميتر `suffix` موجودة في نهايته ترجع `true`, غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-endswith)
+
+3
+
+`public boolean equals(Object anObject)` تقارن قيمة الـ `String` الذي قام باستدعائها مع قيمة أي كائن نمرره لها مكان الباراميتر `anObject`.  
+ترجع `true` في حال كانت جميع أحرفهم متطابقة, غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-equals)
+
+4
+
+`public boolean equalsIgnoreCase(String str)` تقارن قيمة الـ `String` الذي قام باستدعائها مع قيمة الـ `String` الذي نمرره لها مكان الباراميتر `str`.  
+ترجع `true` في حال كانت جميع أحرفهم متطابقة و لا يهمها إذا كانت الأحرف كبير أو صغيرة, غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-equalsignorecase)
+
+5
+
+`public boolean contentEquals(StringBuffer sb)` تقارن قيمة الـ `String` الذي قام باستدعائها مع قيمة كائن الـ `StringBuffer` الذي نمرره لها مكان الباراميتر `sb`.  
+ترجع `true` في حال كانت جميع أحرفهم متطابقة, غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-contentequals)
+
+6
+
+`public int compareTo(String anotherString)` تقارن قيمة الـ `String` الذي قام باستدعائها مع قيمة الـ `String` الذي نمرره لها مكان الباراميتر `anotherString`.  
+ترجع 0 في حال كانت جميع أحرفهم متساوية. و ترجع قيمة أكبر أو أصغر من 0 تمثل الفارق بين كود الـ ASCII الخاص بأول حرف مختلف تم إيجاده بينهما.  
+[شاهد المثال](/tutorials/java/strings/string-compareto)
+
+7
+
+`public int compareToIgnoreCase(String anotherString)` تقارن قيمة الـ `String` الذي قام باستدعائها مع قيمة الـ `String` الذي نمرره لها مكان الباراميتر `anotherString` و لا يهمها إذا كانت الأحرف كبير أو صغيرة.  
+ترجع 0 في حال كانت جميع أحرفهم متساوية. و ترجع قيمة أكبر أو أصغر من 0 تمثل الفارق بين كود الـ ASCII الخاص بأول حرف مختلف تم إيجاده بينهما.  
+[شاهد المثال](/tutorials/java/strings/string-comparetoignorecase)
+
+8
+
+`public boolean matches(String regex)` تقارن قيمة الـ `String` الذي قام باستدعائها مع التعبير النمطي الذي نمرره لها مكان الباراميتر `regex`.  
+ترجع `true` في حال كانت جميع أحرفهم متطابقة, غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-matches)
+
+9
+
+`public boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)` تقارن جزء محدد في الـ `String` الذي قام باستدعائها مع جزء محدد في الـ `String` الذي نمرره لها مكان الباراميتر `other`.  
+ترجع `true` في حال كانت جميع أحرفهم متطابقة, غير ذلك ترجع `false`.  
+[شاهد المثال](/tutorials/java/strings/string-regionmatches)
+
+## دوال المعالجة في جافا الموجودة في الكلاس `String`
+
+إسم الدالة مع تعريفها
+
+1
+
+`public String concat(String s)` ترجع نسخة من الـ `String` الذي قام باستدعائها مضافاً عليه قيمة الـ `String` الذي نمرره لها مكان الباراميتر `s`.  
+[شاهد المثال](/tutorials/java/strings/string-concat)
+
+2
+
+`public static String copyValueOf(char[] data)` ترجع نسحة من مصفوفة الأحرف التي نمررها لها مكان الباراميتر `data` كـ `String`.  
+[شاهد المثال](/tutorials/java/strings/string-copyvalueof)
+
+3
+
+`public void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)` تنسخ أحرف الـ `String` الذي قام باستدعائها بداخل مصفوفة الأحرف التي نمررها لها مكان الباراميتر `dst` مع تحديد النطاق الذي نريد نسخه و المكان الذي نريد وضع الأحرف فيه.  
+[شاهد المثال](/tutorials/java/strings/string-getchars)
+
+4
+
+`public int hashCode()` ترجع قيمة الـ hash code للـ `String` الذي قام باستدعائها.  
+[شاهد المثال](/tutorials/java/strings/string-hashcode)
+
+5
+
+`public String intern()` تمنع وجود أكثر من `String` يحتوى على نفس المحتوى, لذلك هي مهمة جداً من أجل التخزين. فهي تسرع عمل المعالج و تحفظ مساحات الذاكرة.  
+[شاهد المثال](/tutorials/java/strings/string-intern)
+
+6
+
+`public int length()` ترجع رقم يمثل عدد أحرف الـ `String` الذي قام باستدعائها.  
+[شاهد المثال](/tutorials/java/strings/string-length)
+
+7
+
+`public char[] toCharArray()` ترجع أحرف الـ `String` الذي قام باستدعائها كمصفوفة نوعها `char`.  
+[شاهد المثال](/tutorials/java/strings/string-tochararray)
+
+8
+
+`public String toLowerCase()` ترجع نسخة من الـ `String` الذي قام باستدعائها كل أحرفها صغيرة.  
+[شاهد المثال](/tutorials/java/strings/string-tolowercase)
+
+9
+
+`public String toUpperCase()` ترجع نسخة من الـ `String` الذي قام باستدعائها كل أحرفها كبيرة.  
+[شاهد المثال](/tutorials/java/strings/string-touppercase)
+
+10
+
+`public String trim()` ترجع نسخة من الـ `String` الذي قام باستدعائها لا تحتوي على مسافات فارغة في بدايتها و نهايتها.  
+[شاهد المثال](/tutorials/java/strings/string-trim)
+
+11
+
+`public String valueOf(Object anObject)` ترجع أي قيمة نمررها لها مكان الباراميتر `anObject` كـ `String`.  
+[شاهد المثال](/tutorials/java/strings/string-valueof)
+
+## إرشادات مهمة لمعالجة الأخطاء التي نواجهها عند التعامل مع النصوص في جافا
+
+في حال وضعت رقم index غير موجود سيظهر لك الخطأ التالي
+
+java.lang.StringIndexOutOfBoundsException: String index out of range
+
+هذا الخطأ يعني أنك طلبت إرجاع قيمة خانة في الـ `String` غير موجودة, أو أنك حاولت تبديل قيمة خانة في الـ `String` هي في الأساس غير موجودة.  
+في الحالتين هذا يعني أنك خرجت عن مساحة الـ `String` المحجوزة في الذاكرة.
+
+إذاً في حال ظهر لك هذا الخطأ إعرف أنك إستخدمت رقم index أكبر من أرقام الـ index الموجودة في الـ `String`, أو قد يكون رقم أصغر من صفر.
+
+  
+
+#### مثال
+
+Main.java
+
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        String s \= "java is amazing";
+        System.out.println( s.charAt(30) );
+ 
+    }
+ 
+}
+
+سنحصل على النتيجة التالية عند التشغيل.
+
+Exception in thread "main" java.lang.StringIndexOutOfBoundsException: String index out of range: 30
+
+هذا يعني أنك طلبت إرجاع قيمة خانة في الـ `String` غير موجودة, و أظهر لنا أن الخانة رقم 30 تحديداً غير موجودة.

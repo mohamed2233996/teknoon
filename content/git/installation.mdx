@@ -1,0 +1,74 @@
+---
+title: "تثبيت Git و ضبط إعدادتها"
+source: "https://harmash.com/tutorials/git/installation"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:29:35.088Z"
+---
+
+## تحميل و تثبيت Git
+
+حتى تتمكن من استخدام Git عليك تحميلها و تثبيتها على جهازك و من ثم إضافة إعداداتك الخاصة (إسمك و بريدك الإلكتروني).  
+الآن، شاهد خطوات التحميل و التثبيت الخاصة بنظام تشغيل حاسوبك أنت حتى تثبتها بشكل صحيح.
+
+[خطوات Windows](/tutorials/git/installation/windows) [خطوات macOS](/tutorials/git/installation/macos) [خطوات Linux](/tutorials/git/installation/linux)
+
+  
+
+### التحقق من عملية التثبيت
+
+بعد قيامك باتباع خطوات تثبيت Git قم بفتح موجّه الأوامر (أو الطرفية) و اكتب الأمر `git --version` لمعرفة ما إن تم تثبيتها بنجاح أم لا.  
+إذا ظهر لك رقم إصدار Git فهذا يعني أنه تم تثبيتها بنجاح و أصبح بإمكانك استخدامها.
+
+  
+
+### مثال
+
+#### Terminal
+
+\> git --version  
+git version 2.49.0
+
+حينما قمنا بتجربة الأمر `git --version` ظهر لنا رقم إصدار Git التي تم تثبيتها على الحاسوب و بالتالي أصبح بإمكاننا البدء باستخدامها.
+
+## ضبط إعدادات Git لأول مرة
+
+Git هو نظام يتتبع تاريخ المشروع بالكامل، لذلك يجب أن يعرف هوية الشخص الذي ينفّذ التعديلات. أي يجب أن يعرف إسمه و بريده الإلكتروني قبل أن يحفظ له أي نسخة (Commit) من عمله.
+
+  
+
+### تحديد إعدادات Git
+
+1- لتزويد Git بإسمك، استخدم الأمر التالي مع وضع إسمك مكان النص `"your-name"`.
+
+git config --global user.name "your-name"
+
+2- لتزويد Git ببريدك الإلكتروني، استخدم الأمر التالي مع وضع بريدك الإلكتروني مكان النص `"your-email"`.
+
+git config --global user.email "your-email"
+
+يمكنك استخدام هذه الأوامر متى شئت لتحديث الإعدادات الخاصة بك في Git.
+
+  
+
+فيما يلي قمنا بإعلام Git أن إسم المستخدم هو `"mhamad"` و بريده الإلكتروني هو `"mhamad.harmush@gmail.com"`.
+
+#### Terminal
+
+\> git config --global user.name "mhamad"  
+\> git config --global user.email "mhamad.harmush@gmail.com"  
+
+  
+
+### عرض إعدادات Git
+
+في حال أردت عرض إعدادات Git للتأكد من أنك أدخلتها بشكل صحيح، يمكنك استخدام الأمر `git config --list` كما يلي.
+
+#### Terminal
+
+\> git config --list  
+user.name=mhamad  
+user.email=mhamad.harmush@gmail.com
+
+  
+
+بعد تثبيت Git و ضبط إعدادتها، أصبح بإمكانك استخدامها لحفظ تعديلات أي مشروع تعمل عليه.

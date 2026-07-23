@@ -1,0 +1,287 @@
+---
+title: "Javaمفهوم المزامنة في جافا"
+source: "https://harmash.com/tutorials/java/serialization"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:19.833Z"
+---
+
+## مزامنة حالة الكائن في جافا
+
+في معظم البرامج التي نستخدمها, نلاحظ أنه يوجد مكان خاص لضبط إعدادات البرنامج يسمح للمستخدم أن يخصص البرنامج بالشكل الذي يريده.  
+بعد أن يقوم المستخدم بضبط إعدادت برنامجه, نلاحظ أن هذه الإعدادات تظل محفوظة في البرنامج حتى إذا خرج من البرنامج و فتحه من جديد.
+
+فمثلاً في البرامج التي تستخدم للكتابة, تجد في صفحة الإعدادات أنه بإمكانك تغير أنواع الخطوط المستخدمة في البرنامج, و تغيير أحجامها و ألوانها. و وقد تجد في الإعدادات أيضاً أنه بإمكانك إستخدام التطبيق بأكثر من لغة إلخ..  
+بالنسبة للألعاب, غالباً ما تجد أنه في صفحة الإعدادات يمكنك تحديد ما إذا كنت تريد سماع نغمات حماسية أثناء اللعب أم لا, بالإضافة إلى إمكانية تحديد مستوى الصوت. أيضاً أحياناً تجد أنه يمكنك تحديد مستوى اللعب ( سهل - متوسط - صعب - صعب جداً ).
+
+للحفاظ على إعدادات البرنامج التي ضبطها المستخدم, نقوم بحفظ هذه الإعدادات بداخل ملف و هذا ما ستتعلمه في هذا الدرس.
+
+ملاحظة: عليك فهم درس **التعامل مع الملفات** جيداً حتى تستطيع فهم هذا الدرس, لأننا سنقوم بتخزن المعلومات في ملف.
+
+  
+
+### شكل الكائن في الذاكرة
+
+أثناء تشغيل البرنامج, كل كائن يتم إنشاءه فيه, يتم تمثيله في الذاكرة كسلسلة كبيرة من الـ Bytes يفهمها نظام التشغيل.  
+هذه السلسلة تحتوي على جميع معلومات الكائن, مثل:
+
+*   الكلاس المشتق منه.
+*   كل كلاس يرث منه.
+*   كل إنترفيس يطبقه.
+*   كل دالة يملكها.
+*   كل متغير يملكه, بالإضافة إلى نوعه و قيمته الحالية إلخ..
+
+عند تنفيذ جميع الأوامر الموجودة في البرنامج أو عند الخروج منه, يتم مسح جميع البيانات المتعلقة بهذا البرنامج من الذاكرة لأنه لم يعد لها حاجة. أي يتم مسح جميع الكائنات, المتغيرات و الدوال, و بالتالي يتوقف أي إتصال قائم بين البرنامج و الأشياء خارجية مثل ملف, شبكة أو قاعدة بيانات إلخ..
+
+  
+
+### مفهوم الـ Serialization و الـ Deserialization
+
+Serialization تعني حفظ حالة الكائن الحالية بداخل ملف.  
+عندما نقول: "حفظ حالة الكائن", فنحن بذلك نقصد إنشاء نسخة مطابقة من الكائن الموجود في الذاكرة و وضعها في ملف خارجي.
+
+Deserialization تعني استرجاع حالة الكائن الموجودة في ملف.  
+عندما نقول: "استرجاع حالة الكائن", فنحن بذلك نقصد خلق الكائن الموجود في ملف خارجي بداخل ذاكرة الجهاز.
+
+ملاحظة: بشكل عام عندما نحفظ حالة الكائن و نسترجعها, نقول أننا نفعل Serialization و لكننا فعلياً نفعل Serialization + Deserialization.
+
+  
+
+### أهمية الـ Serialization
+
+*   حفظ حالة الكائن الذي تم إنشاءه في الذاكرة في ملف خارجي.
+*   حالة الكائن المحفوظة في ملف يمكن إستخدامها متى شئنا لخلق الكائن من جديد في الذاكرة.
+*   مشاركة حالة الكائن عبر شبكة, حيث أنه يمكن استخدام الملف الذي حفظنا فيه حالة الكائن لخلق الكائن في جهاز آخر.
+*   تخزين الصور في قواعد البيانات ( الصورة تحفظ في قاعدة البيانات كـ BLOB ).
+
+إذاً في حال أردت حفظ معلومات الكائن قبل الخروج من البرنامج يمكنك إنشاء ملف متزامن يحفظ لك حالة الكائن, و بعدها يمكنك استرجاعها عند تشغيل البرنامج من جديد.
+
+  
+
+### تطبيق الـ Serialization و الـ Deserialization
+
+لتحقيق الـ Serialization, نستخدم الكلاس `ObjectOutputStream` لإنشاء نسخة من الكائن الموجود في الذاكرة و وضعها في ملف.  
+لتحقيق الـ Deserialization, نستخدم الكلاس `ObjectInputStream` لخلق الكائن المحفوظ في الملف في الذاكرة من جديد.
+
+كل كلاس منهم يملك عدة كونستركتورات و دوال, سنشرح فقط الأشياء التي سنستخدمها في هذا الدرس.
+
+## خطوات الـ Serialization في جافا
+
+لإنشاء كائن من كلاس معين و حفظ حالته عليك اتباع الخطوات التالية:
+
+1.  الكائن الذي تريد حفظ حالته, يجب أن يكون في الأساس مشتق من كلاس يفعل `implements` للإنترفيس `Serializable`.
+2.  إنشاء ملف إمتداده `.ser` بواسطة الكلاس `FileOutputStream`.
+3.  تجهيز كائن من الكلاس `ObjectOutputStream` الذي يستخدم لكتابة حالة الكائن في الملف.
+4.  نسخ حالة الكائن الموجود في الذاكرة في هذا الملف بواسطة الدالة `writeObject()`.
+5.  عند الإنتهاء من عملية النسخ, نقوم بقطع كل إتصال قمنا بإجرائه مع هذا الملف.
+
+  
+
+### الكلمة المحجوزة `transient`
+
+في حال أردت عدم نسخ جميع الأشياء المتعلقة بالكائن في الذاكرة, عليك وضع الكلمة `transient` في تعريف كل شيء لا تريده أن ينسخ في الملف, و عندها سيتم تجاهله.
+
+## خطوات الـ Deserialization في جافا
+
+لإسترجاع حالة الكائن التي تم حفظها في ملف معين, عليك اتباع الخطوات التالية:
+
+1.  إنشاء كائن فارغ من نفس نوع الكائن الذي نريد إستراجع حالته من الملف.
+2.  تجهيز كائن من الكلاس `FileInputStream` الذي يستخدم لإدخال بيانات ملف محدد في الذاكرة.
+3.  تجهيز كائن من الكلاس `ObjectInputStream` ليعيد خلق الكائن في الذاكرة.
+4.  قراءة حالة الكائن بواسطة الدالة `readObject()` و تخزينها في الكائن الفارغ الذي قمنا بإنشائه في الخطوة الأولى, و هنا سيكون عليك أن تفعل Downcasting لتحول نوع الكائن الذي ترجعه الدالة `readObject()` إلى نوع الكائن الحقيقي لأنها ترجع الكائن الموجود في الذاكرة كـ `Object` و ليس كنوعه الحقيقي.
+5.  عند الإنتهاء من عملية النسخ, نقوم بقطع كل إتصال قمنا بإجرائه مع هذا الملف.
+
+## مثال شامل حول المزامنة في جافا
+
+في المثال التالي قمنا بتعريف كلاس إسمه `Editor`, يطبق الإنترفيس `Serializable`, و يملك المتغيرات التالية:  
+`language`, `encoding`, `fontSize`, `fontFamily`, `autoSave`, `autoComplete`, `direction`.
+
+المتغير `direction` قمنا بتعريفه كـ `transient` لأننا لا نريد أن يتم حفظ قيمته عندما نفعل Serialization.
+
+بعدها قمنا بتعريف كلاس آخر إسمه `Main` قمنا فيه بتطبيق مبدأي الـ Serialization و الـ Deserialization.  
+من السطر 22 إلى السطر 52 قمنا بتطبيق مبدأ الـ Deserialization.  
+من السطر 59 إلى السطر 90 قمنا بتطبيق مبدأ الـ Serialization.
+
+الملف الذي قمنا بتخزين حالة الكائن فيه قمنا بتسميته `user-prefrences.ser`.  
+عند تشغيل البرنامج سيتم إنشاؤه في المجلد الذي يحتوي على المشروع.
+
+  
+
+إنتبه: في حال ظهرت لك مشكلة في الكلاس `Editor` قم فقط بإضافة الكود التالي بداخل حدود الكلاس, أي في السطر رقم 4 أو في السطر رقم 12 و سنشرح لك معنى هذا السطر لاحقاً.  
+`private static final long serialVersionUID = 1L;`
+
+  
+
+#### مثال
+
+Editor.java
+
+import java.io.Serializable;                      // Serializable هنا قمنا باستدعاء الإنترفيس
+ 
+public class Editor implements Serializable {     // Serializable يطبق الإنترفيس Editor هنا قمنا بتعريف كلاس إسمه
+ 
+    public String language;
+    public String encoding;
+    public String fontSize;
+    public String fontFamily;
+    public boolean autoSave;
+    public boolean autoComplete;
+    public transient String direction;            // transient كـ direction قمنا بتعريف المتغير
+ 
+}
+
+  
+Main.java
+
+import java.io.File;                     // File هنا قمنا باستدعاء الكلاس
+import java.io.FileInputStream;          // FileInputStream هنا قمنا باستدعاء الكلاس
+import java.io.FileOutputStream;         // FileOutputStream هنا قمنا باستدعاء الكلاس
+import java.io.ObjectInputStream;        // ObjectInputStream هنا قمنا باستدعاء الكلاس
+import java.io.ObjectOutputStream;       // ObjectOutputStream هنا قمنا باستدعاء الكلاس
+import java.io.IOException;              // IOException هنا قمنا باستدعاء الكلاس
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // e إسمه Editor في كل مرة نقوم فيها بتشغيل البرنامج سيتم إنشاء كائن من الكلاس
+        Editor e \= new Editor();
+ 
+ 
+        // لمعرفة إذا كان يوجد ملف يحفظ حالة الكائن أم لا user-prefrences.ser بعدها سيتم البحث عن الملف
+        if ( new File("./user-prefrences.ser").exists() )
+        {
+            // منه e موجوداً سيحاول البرنامج إستعادة حالة الكائن user-prefrences.ser في حال كان الملف
+            try
+            {
+                // في الذاكرة user-prefrences.ser حتى نستطيع إدخال المعلومات الموجودة في الملف FileInputStream هنا قمنا بإنشاء كائن نوعه
+                FileInputStream fis \= new FileInputStream("./user-prefrences.ser");
+ 
+                // في الذاكرة user-prefrences.ser المحفوظ في الملف Editor لنتمكن من إعادة خلق كائن الـ ObjectInputStream هنا قمنا بإنشاء كائن نوعه
+                ObjectInputStream ois \= new ObjectInputStream(fis);
+ 
+                // e و قمنا بتخزين حالته في الكائن Editor هنا قمنا بقراءة حالة الكائن الذي تم خلقه في الذاكرة ككائن من الكلاس
+                e = (Editor) ois.readObject();
+ 
+                // user-prefrences.ser في الأخير قمنا بقطع كل إتصال قمنا بإجرائه مع الملف
+                fis.close();
+                ois.close();
+ 
+                // في حال عدم حدوث أي خطأ, سيتم طباعة الجملة التالية التي تعني أن العملية تمت بنجاح
+                System.out.println("Deserialized data has been created in the memory");
+                System.out.println("Language:      " + e.language);
+                System.out.println("Encoding:      " + e.encoding);
+                System.out.println("Font size:     " + e.fontSize);
+                System.out.println("Font family:   " + e.fontFamily);
+                System.out.println("Auto save:     " + e.autoSave);
+                System.out.println("Direction:     " + e.direction);
+                System.out.println("Auto Complete: " + e.autoComplete);
+                System.out.println();
+            }
+            catch(IOException | ClassNotFoundException ex)
+            {
+                // في حال حدوث أي خطأ عند محاولة إسترجاع حالة الكائن سيتم عرضعه
+                System.out.println(ex.getMessage());
+            }
+        }
+ 
+ 
+ 
+ 
+        // user-prefrences.ser و حفظها في ملف جديد إسمه e هنا حاولنا تغيير حالة الكائن
+        try
+        {
+            // ( أي قمنا بتغيير إعدادات البرنامج ) e هنا قمنا بتغيير قيم الكائن
+            e.language   = "arabic";
+            e.encoding   = "utf-8";
+            e.fontSize   = "12pt";
+            e.fontFamily = "tahoma";
+            e.autoSave   = true;
+            e.direction  = "right to left";
+ 
+            // .ser إمتداده ,user-prefrences.ser هنا قمنا بإنشاء ملف إسمه
+            FileOutputStream fos \= new FileOutputStream("./user-prefrences.ser");
+ 
+            // user-prefrences.ser لنتمكن من استخراج حالة أي كائن موجود في الذاكرة و وضعها في الملف ObjectOutputStream هنا قمنا بإنشاء كائن نوعه
+            ObjectOutputStream oos \= new ObjectOutputStream(fos);
+ 
+            // لحفظ الإعدادات التي قمنا بإدخالها user-prefrences.ser في الملف e هنا قمنا بنسخ حالة الكائن
+            oos.writeObject(e);
+ 
+            // user-prefrences.ser في الأخير قمنا بقطع كل إتصال قمنا بإجرائه مع الملف
+            oos.close();
+            fos.flush();
+            fos.close();
+ 
+            // في حال عدم حدوث أي خطأ, سيتم طباعة الجملة التالية التي تعني أن العملية تمت بنجاح
+            System.out.println("Serialized data has been saved in the project in a file called user-prefrences.ser");
+        }
+        catch(IOException ex)
+        {
+            // في حال حدوث أي خطأ عند نسخ البيانات من الذاكرة إلى الملف سيتم عرضه
+            System.out.println(ex.getMessage());
+        }
+ 
+    }
+ 
+}
+
+  
+
+في المرة الأولى التي تقوم فيها بتشغيل البرنامج ستحصل على النتيجة التالية.
+
+Serialized data has been saved in the project in a file called user-prefrences.ser 
+
+  
+
+في المرة الثانية التي تقوم فيها بتشغيل البرنامج ستحصل على النتيجة التالية.
+
+Deserialized data has been created in the memory
+Language:      arabic
+Encoding:      utf-8
+Font size:     12pt
+Font family:   tahoma
+Auto save:     true
+Direction:     null
+Auto Complete: false
+
+Serialized data has been saved in the project in a file called user-prefrences.ser 
+
+  
+
+بما أنه قد تم إنشاء الملف `user-prefrences.ser` بنجاح, يمكنك البحث عنه و فتحه بواسطة أي محرر و عندها ستتمكن من رؤية شكل المعلومات التي كانت مسجلة في الذاكرة.
+
+لاحظ أنه لم يتم حفظ قيمة المتغير `direction` في الملف لأننا قمنا بتعريفها كـ `transient`, لذلك تم إعطائه القيمة `null` كقيمة إفتراضية.
+
+## مفهوم الثابت `serialVersionUID` في جافا
+
+كل كلاس يطبق الإنترفيس `Serializable` يتم إعطاءه رقم إصدار خاص فيه.  
+هذا الرقم يتم تخزينه في المتغير `serialVersionUID`.
+
+إذاً كل كلاس يطبق الإنترفيس `Serializable`, يملك متغير إسمه `serialVersionUID` حتى لو لم يتم تعريفه.
+
+رقم الإصدار يضمن أن المرسل و المستقبل للملف على الشبكة يملكون نفس نسخة الكلاس للكائن المحفوظ في الملف.  
+في حال كان رقم الإصدار في كلاس المرسل مختلف عن رقم الإصدار في كلاس المستقبل يتم رمي إستثناء من النوع `InvalidClassException`.
+
+إذاً رقم الإصدار `serialVersionUID` مهم جداً عند بناء تطبيق يشارك البيانات بين سيرفر و عميل, أي يوجد تطبيق على السيرفر و تطبيق عند المستخدم العادي مرتبطان مع بعضهما البعض. سنرى ذلك في الدرس التالي.
+
+بشكل عام, تعريف المتغير `serialVersionUID` ليس أمراً إجبارياً في حال كنت تبني برنامج لا تشارك فيه البيانات مع برنامج آخر, لأن جافا أصلاً ستقوم بتعريفه عنك في حال لم تقم بتعريفه بنفسك, لكن في بعض بيئات العمل مثل بيئة Eclipse, نلاحظ أن الـ Complier يظهر تحذير في حال لم نقم بتعريف المتغير `serialVersionUID` من جديد في البرنامج, لذلك ننصحك بتعريفه في جميع الحالات لأنه لن يؤثر أصلاً على الكود.
+
+  
+
+### طريقة تعريف الثابت `serialVersionUID`
+
+في البداية يمكنك وضع أي Access Modifier و لن يشكل ذلك أي فرق هنا, لكنك مجبر على تعريفه كـ `static final long`.
+
+  
+
+#### مثال
+
+في الإصدار الأول من الكلاس `Editor` وضعنا قيمته `1L`
+
+private static final long serialVersionUID \= 1L; 
+
+  
+
+في الإصدار الثاني من الكلاس `Editor` وضعنا قيمته `2L`
+
+private static final long serialVersionUID \= 2L;

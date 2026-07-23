@@ -1,0 +1,264 @@
+---
+title: "CSSالروابط"
+source: "https://harmash.com/tutorials/css/links"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:09.724Z"
+---
+
+## تصميم الروابط
+
+الرابط قد يأتي بأشكال عديدة في الصفحة فقد يوضع كنص تحته خط، أيقونة صغيرة، صورة كبيرة أو زر.
+
+Button Link Button Link Text Link Text Link
+
+في هذا الدرس ستتعلم كيف تحسّن أشكال الروابط و ألوانها بالإضافة إلى تحسين تأثيرتها التي تظهر حين يتعامل المستخدم معها.
+
+## خصائص الروابط
+
+بدايةً الرابط نضعه بواسطة الوسم `<a>` و هذا الوسم إفتراضياً يظهر كنص لونه أزرق و تحته خط و هو يظهر على نفس مستوى الكلام الموجود في السطر لأنه يعتمد أسلوب الظهور `display: inline`.
+
+الشكل الإفتراضي للرابط يمكنك تغييره كيفما شئت حيث يمكنك تغيير لونه، لون خلفيته، تحديد حجمه و ما إلى ذلك.
+
+  
+
+في المثال التالي جعلنا الروابط تظهر بلون أحمر و قمنا بإزالة الخط الإفتراضي الذي يظهر تحتها.
+
+#### مثال
+
+a {
+    color: red;
+    text-decoration: none;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/link-fixed-style)
+
+في حال وضع خصائص الرابط بشكل مباشر للوسم كما فعلنا في المثال السابق فإن الرابط سيظل يظهر بنفس الشكل حتى لو قام المستخدم بالنقر عليه أو بتمرير الماوس فوقه. سبب ذلك أننا لم نحدد في أي حالة يكون بها الرابط نريد أن تتنفذ الخصائص بل وضعناها بشكل عام له.
+
+## حالات الروابط
+
+الرابط يملك أربع حالات أساسية يمكنك من خلالها تحديد كيف سيظهر حين يتفاعل المستخدم معه.  
+الحالات التالية يجب وضعها بالترتيب حتى تعمل كما يجب:
+
+*   `a:link` لتحديد شكل الرابط الذي لم يتم فتحه بعد.
+*   `a:visited` لتحديد شكل الرابط الذي سبق و تم فتحه.
+*   `a:hover` لتحديد شكل الرابط حين يتم تمرير مؤشر الماوس فوقه.
+*   `a:active` لتحديد شكل الرابط في الوقت الذي يتم النقر فيه عليه.
+
+  
+
+في المثال التالي قمنا بتحديد الخصائص التي سيتم تطبيقها على الرابط على حسب حالته.
+
+#### مثال
+
+/\* إذا لم يتم فتحه بعد \*/
+a:link {
+    color: green;
+}
+
+/\* إذا تم فتحه من قبل \*/
+a:visited {
+    color: gray;
+}
+
+/\* عند تم تمرير مؤشر الماوس فوقه \*/
+a:hover {
+    color: purple;
+}
+
+/\* في الوقت الذي يتم فيه النقر عليه \*/
+a:active {
+    color: red;
+} 
+
+[جرب الكود](/tryit?file=/tutorials/css/links/link-states)
+
+الحالة `a:hover` في شاشات اللمس ( Touch Screens ) لا ترصد متى يبتعد إصبع المستخدم عن الشاشة إلا في حال قام بالنقر على شيء آخر موجود في الصفحة.
+
+  
+
+### تحديد خصائص بعض حالات الرابط
+
+ليس بالضرورة أن تقوم بتحديد جميع الخصائص فيمكنك على سبيل المثال تحديد خصائص الرابط بشكل عام و خصائصه في حال تمرير مؤشر الماوس فوق الرابط فقط كما يفعل أغلب المصممين.
+
+في المثال التالي قمنا بجعل الروابط تظهر دائماً بلون أخضر و بدون خط تحتها، و عند تمرير مؤشر الماوس فوقها يتم إظهار الخط.
+
+#### مثال
+
+a {
+    color: green;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/define-general-and-hover-state)
+
+  
+
+### تجميع خصائص حالات الرابط
+
+في المثال التالي قمنا بتحديد أن الروابط التي لم تُفتح بعد و الروابط التي فتحت ستظهر بلون أخضر و بدون خط تحتها، و عند تمرير مؤشر الماوس فوقها و عند النقر عليها يتم إظهار الخط.
+
+**ملاحظة:** هذا الأسلوب يعطي نفس نتيجة الأسلوب الذي اعتمدناه في المثال السابق.
+
+#### مثال
+
+a:link, a:visited {
+    color: green;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/combine-link-states)
+
+## عرض الرابط بأشكال مختلفة
+
+في المثال التالي قمنا بعرض الرابط كزر خلفيته زرقاء.
+
+#### المثال الأول
+
+a {
+    display: inline-block;
+    color: white;
+    background: #1e87f0;
+    border: 2px solid #1e87f0;
+    border-radius: 4px;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+a:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/link-button)
+
+  
+
+في المثال التالي قمنا بعرض الرابط كزر تظهر خلفيته عند تمرير مؤشر الماوس فوقه.
+
+#### المثال الثاني
+
+a {
+    display: inline-block;
+    color: black;
+    background: none;
+    border: 2px solid #1e87f0;
+    border-radius: 4px;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+a:hover {
+    color: white;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/link-button-without-background)
+
+  
+
+في المثال التالي قمنا بعرض الرابط كزر فيه نص و بجانبه أيقونة.
+
+#### المثال الثالث
+
+a {
+    display: inline-block;
+    color: white;
+    background-color: #0b5ed7;
+    border: 2px solid #0b5ed7;
+    border-radius: 4px;
+    padding: 5px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a:hover {
+    border-color: #0b51d7;
+    background-color: #0b51d7;
+}
+            
+a .material-icons {
+    font-size: 24px;
+    vertical-align: bottom;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/link-button-with-icon)
+
+  
+
+في المثال التالي قمنا بعرض الزر على امتداد سطر كامل و جعلنا النص يظهر في وسطه و أحرفه تظهر بشكل كبير.
+
+#### المثال الرابع
+
+a {
+    display: block;
+    color: white;
+    font-variant: small-caps;
+    text-align: center;
+    background: #1e87f0;
+    border: 2px solid #1e87f0;
+    border-radius: 4px;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+a:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/link-button-with-display-block)
+
+## حل مشكلة تعليق التأثير في شاشات اللمس
+
+كحل مقترح لمشكلة عدم رصد شاشات اللمس لإصبع المستخدم حين يزيله عن الرابط هو أن يتم وضعه الحالة `:hover` الميديا التالي.
+
+@media(hover: hover) and (pointer: fine) {
+    /\* يتم تعريفها هنا hover الخاصية \*/
+}
+
+  
+
+هنا قمنا بإعادة المثال السابق مع وضع تأثير تمرير مؤشر الماوس بداخل الميديا المساعد لرصد لمس شاشة.
+
+#### مثال
+
+a {
+    display: block;
+    color: white;
+    font-variant: small-caps;
+    text-align: center;
+    background: #1e87f0;
+    border: 2px solid #1e87f0;
+    border-radius: 4px;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+@media(hover: hover) and (pointer: fine) {
+    a:hover {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+    }
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/links/fix-hover-effect-on-touch-screens)

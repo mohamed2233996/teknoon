@@ -1,0 +1,179 @@
+---
+title: "JavaFXالكلاس RadioButton"
+source: "https://harmash.com/tutorials/javafx/radiobutton"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:56.270Z"
+---
+
+## مقدمة
+
+الكلاس `RadioButton` يستخدم لإضافة Radio Button في واجهة المستخدم.
+
+الـ `RadioButton` يستخدم في العادة عند وضع عدة خيارات ( Options ) للمستخدم و تجبره على إختيار واحدة منهم.
+
+لوضع مجموعة من الـ `RadioButton` و جعل `RadioButton` واحد يمكن إختياره في نفس الوقت, عليك وضعهم ضمن مجموعة واحدة.  
+لا تقلق ستفهم المقصود لاحقاً من الأمثلة.
+
+  
+
+### بناء الكلاس `RadioButton`
+
+public class RadioButton
+extends ToggleButton
+
+## كونستركتورات الكلاس `RadioButton`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `RadioButton`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public RadioButton()` ينشئ كائن من الكلاس `RadioButton` يمثل Radio Button لا يوجد بجانبه نص.
+
+2
+
+`public RadioButton(String text)` ينشئ كائن من الكلاس `RadioButton` يمثل Radio Button بجانبه نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه بجانب الـ Radio Button.
+
+## دوال الكلاس `RadioButton`
+
+الجدول التالي يحتوي على دوال الكلاس `RadioButton` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `RadioButton` الذي قام بإستدعائها كنص.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `RadioButton` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public final void setTextFill(Paint value)` تستخدم لتحديد لون نص كائن الـ `RadioButton` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من إحدى الكلاسات التي ترث من الكلاس `Paint` و التي يمكن إستخدامها لتحديد درجة اللون.
+
+4
+
+`public final void setBackground(Background value)` تستخدم لوضع لون أو صورة كخلفية لكائن الـ `RadioButton` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس `Background` يشير إلى درجة اللون أو الصورة التي سيتم وضعها كخلفية.
+
+5
+
+`public final void setFont(Font newFont)` تستخدم لتحديد حجم و نوع خط كائن الـ `RadioButton` الذي قام بإستدعائها.  
+مكان الباراميتر `newFont` نضع كائن من الكلاس `Font` يمثل خصائص الخط الجديد.
+
+6
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان الـ `RadioButton` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+7
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان الـ `RadioButton` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+8
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم الـ `RadioButton` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `RadioButton` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `RadioButton` بالـ Pixel.
+
+9
+
+`public final void setContentDisplay(ContentDisplay value)` تستخدم لتحديد مكان ظهور الأيقونة التي تم إضافتها لكائن الـ `RadioButton` الذي قام باستدعائها.  
+  
+مكان الباراميتر `value` نضع إحدى ثوابت الكلاس `ContentDisplay`:  
+
+*   الثابت `LEFT` يجعل الصورة تظهر يسار النص كما يظهر بشكل إفتراضي.
+*   الثابت `RIGHT` يجعل الصورة تظهر يمين النص.
+*   الثابت `TOP` يجعل الصورة تظهر تحت النص.
+*   الثابت `BOTTOM` يجعل الصورة تظهر فوق النص.
+*   الثابت `CENTER` يجعل النص يظهر على الصورة.
+*   الثابت `GRAPHIC_ONLY` يجعل الصورة فقط تظهر.
+*   الثابت `TEXT_ONLY` يجعل النص فقط يظهر.
+
+10
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `RadioButton` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+11
+
+`public final void setOnAction(EventHandler<ActionEvent> e)` تستخدم لتنفيذ أوامر معينة عند النقر على كائن الـ `RadioButton` الذي قام بإستدعائها.
+
+12
+
+`public final boolean isSelected()` تستخدم لمعرفة إذا تم إختيار كائن الـ `RadioButton` الذي قام بإستدعائها, أي كان ظاهراً أنه منقور عليه أم لا.  
+ترجع `true` إذا كان يبدو أنه منقور عليه و ترجع `false` إذا كان لا يبدو كذلك.
+
+13
+
+`public final void setSelected(boolean value)` تستخدم لإختيار أو إلغاء إختيار الكائن الـ `RadioButton` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع `true` إذا أردنا جعله مختاراً, و نضع `false` إذا لم نرد جعله كذلك.
+
+14
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `RadioButton` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `RadioButton` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `RadioButton` و إضافته في النافذة.
+
+![طريقة إضافة RadioButton في javafx](/content-images/javafx/radiobutton/1784305195470-ibxzcz.PNG)
+
+[شاهد المثال](/tutorials/javafx/radiobutton/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط الـ `RadioButton`.
+
+![طريقة تغيير حجم و لون خط الكائن RadioButton في javafx](/content-images/javafx/radiobutton/1784305195560-83vgur.PNG)
+
+[شاهد المثال](/tutorials/javafx/radiobutton/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة جعل المستخدم قادر على إختيار `RadioButton` واحد ضمن مجموعة من الـ `RadioButton`.
+
+![طريقة جعل المستخدم قادر على إختيار RadioButton واحد ضمن مجموعة من الـ RadioButton في javafx](/content-images/javafx/radiobutton/1784305195654-5am4cl.gif)
+
+[شاهد المثال](/tutorials/javafx/radiobutton/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة معرفة الـ `RadioButton` الذي تم اختياره عليه عند النقر على `Button`.
+
+![طريقة معرفة الـ RadioButton الذي تم اختياره عند النقر على زر في javafx](/content-images/javafx/radiobutton/1784305195751-slsoun.gif)
+
+[شاهد المثال](/tutorials/javafx/radiobutton/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة تنفيذ أوامر عند النقر على الـ `RadioButton`.
+
+![طريقة تنفيذ أوامر عند النقر على الـ RadioButton في javafx](/content-images/javafx/radiobutton/1784305196251-sn0jaj.gif)
+
+[شاهد المثال](/tutorials/javafx/radiobutton/example-5)

@@ -1,0 +1,1224 @@
+---
+title: "CSSFlexbox"
+source: "https://harmash.com/tutorials/css/flexbox"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:43.220Z"
+---
+
+## ما هو Flexbox
+
+Flexbox هو مجموعة من الخصائص التي يمكنك استخدامها لترتيب العناصر بشكل مرن جداً فهو يتيح لك تحديد مكان ظهور العناصر، حجمها و كيف ستتمدد أفقياً و عمودياً، الهوامش بين العناصر و غيرها.
+
+1
+
+2
+
+3
+
+  
+
+في هذا الدرس سنتعرف على جميع الخصائص التالية و القيم التي يمكن إعطائها لها:
+
+`flex-direction` `flex-wrap` `flex-flow` `justify-content` `align-items` `align-content` `align-self` `flex-grow` `flex-shrink` `flex-basis` `order`
+
+## البدء باستخدام Flexbox
+
+لتفهم كيف تستطيع ترتيب العناصر بواسطة أسلوب Flexbox سنفترض بدايةً أنه عندنا العناصر التالية.
+
+<div\>1</div\>
+<div\>2</div\>
+<div\>3</div\>
+
+أول شيء يجب فعله للبدء باستخدام أسلوب Flexbox هو وضع العناصر بداخل عنصر آخر ليكون بمثابة حاوية لها كالتالي.
+
+<div class\="flex-container"\>
+    <div\>1</div\>
+    <div\>2</div\>
+    <div\>3</div\>
+</div\>
+
+الآن يجب يجب إعطاء العنصر الذي يمثّل الحاوية الخاصية `display:flex;` كما يلي.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/display-flex)
+
+  
+
+بعد فعل الخطوات السابقة تستطيع استخدام جميع خصائص Flexbox على العناصر الموجودة في الحاوية لتقوم بترتيبها بالشكل الذي تريده.
+
+## الخاصية `flex-direction`
+
+تستخدم هذه الخاصية لتحديد كيف سيتم صف العناصر أفقياً أو عمودياً، و هذه القيم التي يمكن إعطائها لها.
+
+  
+
+### القيمة `row`
+
+تستخدم هذه القيمة لصف العناصر أفقياً من اليمين إلى اليسار، و هذه هي القيمة الإفتراضية.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758123-36pvzn.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-direction-row)
+
+  
+
+### القيمة `row-reverse`
+
+لصف العناصر أفقياً من اليسار إلى اليمين.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758216-eh2ne4.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-direction-row-reverse)
+
+  
+
+### القيمة `column`
+
+تستخدم هذه القيمة لصف العناصر عمودياً من أعلى إلى أسفل.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758305-o3w1l9.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-direction-column)
+
+  
+
+### القيمة `column-reverse`
+
+تستخدم هذه القيمة لصف العناصر عمودياً من أسفل إلى أعلى.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758397-nvvu71.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-direction-column-reverse)
+
+## الخاصية `flex-wrap`
+
+تستخدم هذه الخاصية لتحديد كيف ستظهر العناصر في حال لم يكن هناك مساحة كافية لعرضها. فيما يلي القيم التي يمكن إعطائها لها.
+
+  
+
+### القيمة `nowrap`
+
+تستخدم هذه القيمة لجعل العناصر لا تظهر على أكثر من سطر أو عمود حتى و إن كان هناك حاجة لذلك، و هذه هي القيمة الإفتراضية.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758485-jognhj.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-wrap-nowrap)
+
+  
+
+### القيمة `wrap`
+
+تستخدم هذه القيمة لجعل العناصر تظهر على أكثر من سطر أو عمود إن كان هناك حاجة لذلك.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758576-cf469a.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-wrap-wrap)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758667-5vvhwd.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-wrap-wrap-2)
+
+  
+
+### القيمة `wrap-reverse`
+
+تستخدم هذه القيمة لجعل العناصر تظهر على أكثر من سطر أو عمود و بشكل عكسي إن كان هناك حاجة لذلك.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758754-lg9cey.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-wrap-wrap-reverse)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap-reverse;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758844-q5xbnc.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-wrap-wrap-reverse-2)
+
+## الخاصية `justify-content`
+
+تستخدم هذه الخاصية لتحديد الجهة التي سيتم فيها صف العناصر أو لتحديد الهوامش فيما بينهم. فيما يلي القيم التي يمكن إعطائها لها.
+
+  
+
+### القيمة `flex-start`
+
+تستخدم هذه القيمة لجعل العناصر يتم جذبها لأول الحاوية، و هذه هي القيمة الإفتراضية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304758932-f3ruwo.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-flex-start)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759018-37m7ct.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-flex-start-2)
+
+  
+
+### القيمة `flex-end`
+
+تستخدم هذه القيمة لجعل العناصر يتم جذبها لآخر الحاوية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759105-gv8pfi.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-flex-end)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759190-h33ixb.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-flex-end-2)
+
+  
+
+### القيمة `center`
+
+تستخدم هذه القيمة لجعل العناصر يتم جذبها إلى وسط الحاوية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759279-syao3u.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-center)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759365-wtr6h6.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-center-2)
+
+  
+
+### القيمة `space-between`
+
+تستخدم هذه القيمة لإضافة هامش تلقائي و متساوي بين العناصر.  
+بالنسبة للعناصر الموضوعة في الحاوية فإن الخاصية `space-between` تعتبر بديل للخاصية `margin` لهذا لا تستخدمها مع بعض.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759460-i65m4l.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-space-between)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759546-49n82v.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-space-between-2)
+
+  
+
+### القيمة `space-around`
+
+تستخدم هذه القيمة لإضافة هامش تلقائي و متساوي حول العناصر.  
+بالنسبة للعناصر الموضوعة في الحاوية فإن الخاصية `space-between` تعتبر بديل للخاصية `margin` لهذا لا تستخدمها مع بعض.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759635-rk5qjf.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-space-around)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759719-dn5u3c.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-space-around-2)
+
+  
+
+### القيمة `space-evenly`
+
+تستخدم هذه القيمة لإضافة هامش تلقائي حول العناصر يساوي حجمها.  
+بالنسبة للعناصر الموضوعة في الحاوية فإن الخاصية `space-between` تعتبر بديل للخاصية `margin` لهذا لا تستخدمها مع بعض.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759805-6uxdus.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-space-evenly)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759889-ngix9d.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/justify-content-space-evenly-2)
+
+## الخاصية `align-items`
+
+تستخدم هذه الخاصية لتحديد كيف ستتمدد العناصر الموجودة في الحاوية. فيما يلي القيم التي يمكن إعطائها لها.
+
+  
+
+### القيمة `stretch`
+
+تستخدم هذه القيمة لجعل العناصر تتمدد على كامل المساحة المتوفرة.
+
+في حال كنت ستستخدم الخاصية `stretch` لجعل العناصر تتمدد عمودياً أو أفقياً، لا تقم بتحديد طولها أو عرضها بذات الوقت بواسطة الخاصيتين `height` و `width` حتى لا يحدث تعارض.
+
+  
+
+في حال كان أسلوب صف العناصر أفقي فإنها ستظهر على النحو التالي.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304759975-8lxuky.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-stretch)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760059-tojpkz.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-stretch-2)
+
+  
+
+### القيمة `flex-start`
+
+تستخدم هذه القيمة لجعل العناصر تبدأ بالظهور من أول الحاوية و تتمدد عند الحاجة. و هذه هي القيمة الإفتراضية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760154-qfqv9f.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-flex-start)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760239-u32mpf.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-flex-start-2)
+
+  
+
+### القيمة `flex-end`
+
+تستخدم هذه القيمة لجعل العناصر تبدأ بالظهور من آخر الحاوية و تتمدد عند الحاجة.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760327-f06i01.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-flex-end)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760414-xf0gxy.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-flex-end-2)
+
+  
+
+### القيمة `center`
+
+تستخدم هذه القيمة لجعل العناصر تبدأ بالظهور في منتصف الحاوية و تتمدد عند الحاجة.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760531-48au54.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-center)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760630-20ptah.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-center-2)
+
+  
+
+### القيمة `baseline`
+
+تستخدم هذه القيمة لجعل العناصر تبدأ بالظهور من بداية الصف و تتمدد عند الحاجة.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760738-7indg0.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-items-baseline)
+
+## الخاصية `align-content`
+
+تستخدم هذه الخاصية لتحديد الجهة التي سيتم فيها صف الأسطر و الأعمدة أو لتحديد الهوامش فيما بينهم. إذاً هي تشبه الخاصية `align-items` من حيث الفكرة مع فارق واحد و هو أن الأخيرة مخصصة للعناصر الموجودة في الحاوية و ليس الأعمدة و الأسطر التي يتم صف العناصر عليها. فيما يلي القيم التي يمكن إعطائها لها.
+
+  
+
+### القيمة `flex-start`
+
+تستخدم هذه القيمة لجعل الأسطر تبدأ بالظهور من بداية الحاوية، و هذه هي القيمة الإفتراضية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760832-6kfwmp.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-flex-start)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304760968-325emc.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-flex-start-2)
+
+  
+
+### القيمة `flex-end`
+
+تستخدم هذه القيمة لجعل الأسطر تبدأ بالظهور من آخر الحاوية، و هذه هي القيمة الإفتراضية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761055-3efp71.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-flex-end)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761145-bre7d0.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-flex-end-2)
+
+  
+
+### القيمة `center`
+
+تستخدم هذه القيمة لجعل الأسطر أو الأعمدة تبدأ بالظهور في وسط الحاوية، و هذه هي القيمة الإفتراضية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761236-yjidtn.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-center)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761327-wil1xe.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-center-2)
+
+  
+
+### القيمة `stretch`
+
+تستخدم هذه القيمة لجعل الأسطر أو الأعمدة تتمدد على كامل المساحة المتوفرة في الحاوية.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761421-aw4buj.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-stretch)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761519-2cn4vc.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-stretch-2)
+
+  
+
+### القيمة `space-between`
+
+تستخدم هذه القيمة لإضافة هامش تلقائي بين الأسطر أو الأعمدة.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761609-tpal4n.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-space-between)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761701-3vtwyo.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-space-between-2)
+
+  
+
+### القيمة `space-arround`
+
+تستخدم هذه القيمة لإضافة هامش تلقائي حول الأسطر أو الأعمدة.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761791-2oqwe1.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-space-around)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761877-3jvhxk.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-space-around-2)
+
+  
+
+### القيمة `space-evenly`
+
+تستخدم هذه القيمة لإضافة هامش تلقائي حول الأسطر أو الأعمدة يساوي حجمها.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: space-evenly;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304761965-kvb74w.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-space-evenly)
+
+  
+
+في حال كان أسلوب صف العناصر عمودي فإنها ستظهر على النحو التالي.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-evenly;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762054-rst9df.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-content-space-evenly-2)
+
+## الخاصية `align-self`
+
+يمكن استخدام هذه الخاصية على أي عنصر موجود في الحاوية لتغيير موقع أو طريقة ظهوره التي تم تحديدها بالأساس لجميع عناصر الحاوية بواسطة الخاصية `align-items`.
+
+بالنسبة للقيم التي يمكن وضعها للخاصية `align-self` فهي نفسها القيم التي يمكن إعطائها للخاصية `align-items`.
+
+  
+
+في المثال التالي قمنا بجعل العناصر تظهر على سطر واحد و في وسط الحاوية و لكننا جعلنا عنصر واحد يظهر في أعلاها.
+
+#### المثال الأول
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.item-2 {
+    align-self: flex-start;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762171-nqlgs5.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-self-flex-start)
+
+  
+
+في المثال التالي قمنا بجعل العناصر تظهر على سطر واحد و في وسط الحاوية و لكننا جعلنا عنصر واحد يظهر في أسفلها.
+
+#### المثال الثاني
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.item-2 {
+    align-self: flex-end;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762259-afxbvd.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-self-flex-end)
+
+  
+
+في المثال التالي قمنا بجعل العناصر تظهر على سطر واحد و في آخر الحاوية و لكننا جعلنا عنصر واحد يظهر في وسطها.
+
+#### المثال الثالث
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.item-2 {
+    align-self: center;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762351-aa6hyu.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-self-center)
+
+  
+
+في المثال التالي قمنا بجعل العناصر تظهر على سطر واحد و في آخر الحاوية و لكننا جعلنا عنصر واحد يظهر على الخط الأساسي الذي يمكن للعناصر أن تظهر عنده.
+
+#### المثال الرابع
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.item-2 {
+    align-self: baseline;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762439-leej8q.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-self-baseline)
+
+  
+
+في المثال التالي قمنا بجعل العناصر تظهر على سطر واحد و في وسط الحاوية و لكننا جعلنا عنصر واحد يظهر على كامل المساحة المتوفرة.
+
+#### المثال الخامس
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.item-2 {
+    align-self: stretch;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762525-h1pj09.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/align-self-stretch)
+
+## الخاصية `flex-shrink`
+
+يمكن استخدام هذه الخاصية على أي عنصر موجود في الحاوية لجعل حجمه يتقلص نسبةً لباقي العناصر.
+
+القيمة الإفتراضية التي يملكها كل عنصر بشكل تلقائي هي 1 و كلما تم إعطاؤه عدد أكبر كلما أصبح حجمه أصغر.
+
+  
+
+في المثال التالي لاحظ أن العنصر الذي يملك قيمة أعلى حجمه هو الأصغر.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-1 {
+    flex-shrink: 1;
+}
+
+.item-2 {
+    flex-shrink: 2;
+}
+
+.item-3 {
+    flex-shrink: 3;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762619-jbfh7l.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-shrink)
+
+## الخاصية `flex-grow`
+
+يمكن استخدام هذه الخاصية على أي عنصر موجود في الحاوية لجعله حجمه يتضاعف نسبةً لباقي العناصر إذا كان هناك مساحة متاحة.
+
+القيمة الإفتراضية التي يملكها كل عنصر بشكل تلقائي هي 0 و كلما تم إعطاؤه عدد أكبر كلما أصبح حجمه أكبر.  
+في حال إعطاء جميع عناصر الحاوية قيم متساوية مثل 1 فإنك لن تلاحظ أي فرق.
+
+  
+
+في المثال التالي لاحظ أن حجم العنصر الأول سيحاول أن يظهر على كل المساحة المتاحة لأن حجمه هو 1 في حين أن أحجام العناصر الأخرى هو 0 لأننا لم نقم بتغييرها.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-1 {
+    flex-grow: 1;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762705-vbrpj2.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-grow)
+
+## الخاصية `flex-basis`
+
+يمكن استخدام هذه الخاصية على أي عنصر موجود في الحاوية لتحديد حجمه كيفما شئت، و هذه القيم التي يمكن إعطائها لها.
+
+  
+
+### عدد محدد
+
+في المثال التالي حددنا أن حجم العنصر الأول هو 150 بكسل.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-1 {
+    flex-basis: 150px;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762795-uni7xq.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-basis)
+
+  
+
+### القيمة `auto`
+
+تستخدم لجعل حجم العنصر يتحدد بشكل تلقائي نسبةً لما يحتويه، و هذه هي القيمة الإفتراضية.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-1 {
+    flex-basis: auto;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762880-dath68.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-basis-auto)
+
+## الخاصية `order`
+
+يمكن استخدام هذه الخاصية على أي عنصر موجود في الحاوية لتحديد حجمه الأساسي إن كان بالإمكان ذلك، و هذه القيم التي يمكن إعطائها لها.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-1 {
+    order: 4;
+}
+
+.item-2 {
+    order: 2;
+}
+
+.item-3 {
+    order: 1;
+}
+
+.item-4 {
+    order: 3;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304762969-ijcp3b.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/order)
+
+## الخاصية `flex`
+
+يمكنك استخدام هذه الخاصية لتحديد ثلاث قيم للعنصر الموضوع في الحاوية بشكل مختصر و هي القيم التالية بذات الترتيب:
+
+flex: \[flex-grow\] \[flex-shrink\] \[flex-basis\];
+
+في المثال التالي حددنا أن حجم العنصر الثاني الأساسي هو 300 بكسل و أن قيمة تصغيره 1 حتى يكون قابل للتصغير عند الحاجة, قيمة تكبيره هي 0 مما يعني أنه لا يمكن تكبيره أكثر من الرقم الأساسي حتى لو كان هناك مساحة متوفرة.
+
+#### مثال
+
+<div class\="flex-container"\>
+  <div\>1</div\>
+  <div style\="flex: 0 1 300px"\>2</div\>
+  <div\>3</div\>
+</div\> 
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304763060-u2s1c2.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex)
+
+## الخاصية `flex-flow`
+
+يمكنك استخدام هذه الخاصية لتحديد قيمة الخاصيتين `flex-direction` و `flex-wrap` للحاوية بشكل مختصر بالترتيب التالي:
+
+flex: \[flex-direction\] \[flex-wrap\];
+
+في المثال التالي حددنا أن العنصر سيتم ترتيبها في الحايوية أفقياً و أنها يمكن أن تظهر على سطر جديد في حال لم يكن هناك مساحة كافية لإظهارها على سطر واحد.
+
+#### مثال
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+النتيجة
+
+![](/content-images/css/flexbox/1784304763152-whajbr.png)
+
+[جرب الكود](/tryit?file=/tutorials/css/flexbox/flex-flow)

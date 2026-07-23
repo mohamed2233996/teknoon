@@ -1,0 +1,86 @@
+---
+title: "Swingالإنترفيس KeyListener"
+source: "https://harmash.com/tutorials/swing/awt-keylistener"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:29.584Z"
+---
+
+الإنترفيس `KeyListener` يستخدم للتنبه لأي تفاعل يجريه المستخدم من لوحة المفاتيح.
+
+الإنترفيس `KeyListener` يحتوي على ثلاث دوال يجب أن تفعل لها Override عند إنشاء كائن منه:  
+
+*   الدالة `keyTyped(KeyEvent e)`: يتم إستدعاءها بعد أن يتم طباعة الحرف الذي قام المستخدم بالنقر عليه من لوحة المفاتيح.
+*   الدالة `keyPressed(KeyEvent e)`: يتم إستدعاءها عنما يقوم المستخدم بالنقر على أي زر من لوحة المفاتيح و قبل أن يرفع إصبعه عنه.
+*   الدالة `keyReleased(KeyEvent e)`: يتم إستدعاءها بعد أن يقوم المستخدم بإزالة إصبعه عن الزر الذي نقر عليه من لوحة المفاتيح.
+
+  
+
+#### مثال
+
+Main.java
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        JFrame frame \= new JFrame("KeyListener demo");          // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        JTextField textField \= new JTextField();                // textField إسمه Text Field هنا أنشأنا
+        JLabel label \= new JLabel("Enter any thing");           // label إسمه Label هنا أنشأنا
+        JLabel labelResult \= new JLabel();                      // فارغ labelResult إسمه Label هنا أنشأنا
+        JButton button \= new JButton("Get text");               // button إسمه Button هنا أنشأنا
+ 
+        label.setBounds(40, 40, 100, 30);                       // frame في الـ label هنا قمنا بتحديد حجم و موقع الكائن
+        textField.setBounds(150, 40, 150, 30);                  // frame في الـ textField هنا قمنا بتحديد حجم و موقع الكائن
+        button.setBounds(40, 120, 80, 30);                      // frame في الـ button هنا قمنا بتحديد حجم و موقع الكائن
+        labelResult.setBounds(150, 120, 150, 30);               // frame في الـ labelResult هنا قمنا بتحديد حجم و موقع الكائن
+ 
+        frame.add(label);                                       // frame في الـ label هنا أضفنا الكائن
+        frame.add(textField);                                   // frame في الـ textField هنا أضفنا الكائن
+        frame.add(button);                                      // frame في الـ button هنا أضفنا الكائن
+        frame.add(labelResult);                                 // frame في الـ labelResult هنا أضفنا الكائن
+ 
+        frame.setSize(360, 250);                                // هنا قمنا بتحديد حجم النافذة. عرضها 360 و طولها 250
+        frame.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.setLayout(null);                                  // لذلك قمنا بتحديد مكان كل شيء قمنا بإضافته في النافذة Layout Manager أي لم نستخدم أي null هنا وضعنا
+        frame.setVisible(true);                                 // هنا جعلنا النافذة مرئية
+ 
+        button.addActionListener(new ActionListener() {         // button هنا نضع الأوامر التي نريد تنفيذها عند النقر على الزر
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                labelResult.setText(textField.getText());       // button عند النقر على الـ label و وضعه كنص للكائن textField سيتم جلب النص الموجود في الكائن
+            }
+        });
+ 
+        // textField هنا نضع الأوامر التي نريد تنفيذها عند كتابة أو حذف أي حرف موجود في مربع النص
+        // و هو في داخل مربع النص سيتم عرض النص الذي أدخله Enter إذا قام المستخدم بالنقر على الزر
+        textField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) { }
+ 
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK\_ENTER)
+                    labelResult.setText(textField.getText());
+            }
+ 
+            @Override
+            public void keyReleased(KeyEvent e) { }
+        });
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+قم بإدخال أي نص في الـ Text Field, ثم أنقر على الزر Enter من لوحة المفاتيح أو على الزر Get Text الموجود في النافذة لتحصل على النص الموجود في مربع النص.
+
+![مثال يشرح طريقة تعريف الحدث KeyListener في جافا](/content-images/swing/awt-keylistener/1784305409569-98ql00.PNG)

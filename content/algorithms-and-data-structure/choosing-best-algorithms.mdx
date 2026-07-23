@@ -1,0 +1,723 @@
+---
+title: "تحديات برمجيةإختيار الخوارزمية الأفضل"
+source: "https://harmash.com/tutorials/algorithms-and-data-structure/choosing-best-algorithms"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:25:11.880Z"
+---
+
+## مقدمة
+
+في الدرس السابق تعلمنا كيف يتم تقييم أداء الكود و متى يتم إعتباره ممتازاً, جيداً, مقبولاً و سيئاً.
+
+الآن سنتفق على أننا دائماً يجب أن نكتب الكود بأفضل شكل ممكن حتى نحصل على أفضل أداء ممكن من ناحية الوقت الذي يحتاجه الكود حتى يتنفذ بالكامل.  
+في هذا الدرس سنضع عدة تمارين يمكن حلها بأكثر من طريقة و سنحدد أي الطرق هي الطرق الأفضل بناءً على قواعد تقييم الكود التي تعلمناها في الدرس السابق.
+
+## المثال الأول
+
+لنفترض أننا نريد حساب ناتج جمع جميع الأعداد الموجودة بين `1` و `n`.
+
+  
+
+### الحل الأول
+
+لحل هذا التمرين يمكن تجهيز متغير إسمه `s` لحفظ المجموع النهائي, ثم ننشئ حلقة من `1` إلى `n` و في كل دورة فيها نقوم بإضافة قيمة العداد `i` على قيمة المتغير `s`.  
+الحل التالي هو الحل التقليدي و الذي اعتدنا أن نفعله, و بالمناسبة فإن تقييم هذا الحل هو O(n) لأن الحلقة تعيد تنفيذ الموضوع فيها بمقدار قيمة `n`.
+
+Python
+
+Java
+
+C#
+
+C++
+
+C
+
+s = 0
+n = int(input("Enter n: "))
+
+for i in range(1, n + 1):
+    s += i
+
+print("s =", s)
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String args\[\])
+    {
+        Scanner input \= new Scanner(System.in);
+        int s \= 0;
+        int n;
+        
+        System.out.print("Enter n: ");
+        n = input.nextInt();
+        
+        for (int i \= 1; i <= n ; i++)
+        {
+            s += i;
+        }
+        
+        System.out.println("s = " + s);
+    }
+
+}
+
+using System;
+
+class Program
+{
+    static void Main(string\[\] args)
+    {
+        int s = 0;
+        int n;
+
+        Console.Write("Enter n: ");
+        n = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= n; i++)
+        {
+            s += i;
+        }
+
+        Console.WriteLine("s = " + s);
+
+        Console.ReadKey();
+    }
+    
+}
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int s = 0;
+    int n;
+
+    cout << "Enter n: ";
+    cin >> n;
+
+    for (int i = 1; i <= n; i++)
+    {
+        s += i;
+    }
+
+    cout << "s = " << s;
+
+    return 0;
+}
+
+#include <stdio.h>
+
+void main()
+{
+    int s = 0;
+    int n;
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++)
+    {
+        s += i;
+    }
+
+    printf("s = %d", s);
+}
+
+  
+  
+
+هل هذا الحل هو الحل الأفضل أم يمكن إيجاد حل أفضل يستغرق وقت أقل في التنفيذ؟
+
+الجواب هو كلا, لأنه يمكن حساب ناتج جمع كل الأرقام الموجودة من `1` إلى `n` بدون استخدام حلقة و بأمر واحد فقط!  
+هذا ما سنراه في الحل الثاني.
+
+  
+
+### الحل الثاني
+
+لحساب ناتج جمع جميع الأرقام الموجودة من `1` إلى `n` سنستخدم القاعدة `n * (n + 1) / 2` و التي ندرسها في مادة الرياضيات.  
+إذاً سنكتب أمر يتنفذ مرة واحدة فقط بدل استخدام حلقة و بالتالي فإن الخوارزمية تعتبر أسرع و أفضل خوارزمية ممكنة لأن وقت تنفيذها ثابت.  
+بمعنى أخر, تقييم الكود التالي هو O(1).
+
+Python
+
+Java
+
+C#
+
+C++
+
+C
+
+n = int(input("Enter n: "))
+
+s = n \* (n + 1) / 2
+
+print("s =", s)
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String args\[\])
+    {
+        Scanner input \= new Scanner(System.in);
+        int s, n;
+        
+        System.out.print("Enter n: ");
+        n = input.nextInt();
+        
+        s = n \* (n + 1) / 2;
+        
+        System.out.println("s = " + s);
+    }
+
+}
+
+using System;
+
+class Program
+{
+    static void Main(string\[\] args)
+    {
+        int s, n;
+
+        Console.Write("Enter n: ");
+        n = int.Parse(Console.ReadLine());
+
+        s = n \* (n + 1) / 2;
+
+        Console.WriteLine("s = " + s);
+
+        Console.ReadKey();
+    }
+    
+}
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int s, n;
+
+    cout << "Enter n: ";
+    cin >> n;
+
+    s = n \* (n + 1) / 2;
+
+    cout << "s = " << s;
+
+    return 0;
+}
+
+#include <stdio.h>
+
+void main()
+{
+    int s, n;
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+
+    s = n \* (n + 1) / 2;
+
+    printf("s = %d", s);
+}
+
+## المثال الثاني
+
+لنفترض أننا نريد حساب قيمة `n!`.
+
+  
+
+### الحل الأول
+
+لحل هذا التمرين يمكن إستخدام أسلوب الـ Recursion, أي تعريف دالة تستدعي نفسها.  
+الحل التالي هو الحل التقليدي و لكنه يعتبر الأسوأ على الإطلاق لأن تقييم هذا الحل هو O(n!) و هذا يعتبر أسوء تقييم ممكن.
+
+Python
+
+Java
+
+C#
+
+C++
+
+C
+
+def factorial(n):
+    if n > 0:
+        return n \* factorial(n - 1)
+    return 1
+
+n = int(input("Enter n: "))
+print(str(n) + '! =', factorial(n))
+
+import java.util.Scanner;
+
+public class Main
+{
+    public static int factorial(int n)
+    {
+        if (n > 0)
+        {
+            return n \* factorial(n - 1);
+        }
+        
+        return 1;
+    }
+    
+    public static void main(String args\[\])
+    {
+        Scanner input \= new Scanner(System.in);
+        int n;
+        
+        System.out.print("Enter n: ");
+        n = input.nextInt();
+        
+        System.out.println(n + "! = " + factorial(n));
+        
+    }
+}
+
+using System;
+
+class Program
+{
+    static int Factorial(int n)
+    {
+        if (n > 0)
+        {
+            return n \* Factorial(n - 1);
+        }
+
+        return 1;
+    }
+
+    static void Main(string\[\] args)
+    {
+        int n;
+
+        Console.Write("Enter n: ");
+        n = int.Parse(Console.ReadLine());
+        
+        Console.WriteLine(n + "! = " + Factorial(n));
+
+        Console.ReadKey();
+    }
+}
+
+#include <iostream>
+
+using namespace std;
+
+int factorial(int n)
+{
+    if (n > 0)
+    {
+        return n \* factorial(n - 1);
+    }
+
+    return 1;
+}
+
+int main()
+{
+    int n;
+
+    cout << "Enter n: ";
+    cin >> n;
+
+    cout << n << "! = " << factorial(n);
+
+    return 0;
+}
+
+#include <stdio.h>
+
+int factorial(int n)
+{
+    if ( n > 0 )
+    {
+        return n \* factorial(n - 1);
+    }
+
+    return 1;
+}
+
+void main()
+{
+    int n;
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+
+    printf("%d! = %d", n, factorial(n));
+}
+
+  
+  
+
+### الحل الثاني
+
+يمكن حل التمرين السابق باستخدام حلقة عادية بدل تعريف دالة تستدعي نفسها.  
+الحل التالي أفضل من الحل السابق و يعتبر حل مقبول أيضاً لأن تقييم هذا الحل هو O(n).
+
+Python
+
+Java
+
+C#
+
+C++
+
+C
+
+def factorial(n):
+    f = 1
+    for i in range(1, n + 1):
+        f \*= i
+    return f
+
+
+n = int(input("Enter n: "))
+print(str(n) + '! =', factorial(n))
+
+import java.util.Scanner;
+
+public class Main {
+    
+    public static int factorial(int n)
+    {
+        int f \= 1;
+        
+        for (int i \= 1; i <= n; i++) 
+        {
+            f \*= i;
+        }
+        
+        return f;
+    }
+    
+    public static void main(String args\[\])
+    {
+        
+        Scanner input \= new Scanner(System.in);
+        int n;
+        
+        System.out.print("Enter n: ");
+        n = input.nextInt();
+        
+        System.out.println(n + "! = " + factorial(n));
+    }
+
+}
+
+using System;
+
+class Program
+{
+    static int Factorial(int n)
+    {
+        int f = 1;
+
+        for (int i = 1; i <= n; i++)
+        {
+            f \*= i;
+        }
+
+        return f;
+    }
+
+    static void Main(string\[\] args)
+    {
+        int n;
+
+        Console.Write("Enter n: ");
+        n = int.Parse(Console.ReadLine());
+        
+        Console.WriteLine(n + "! = " + Factorial(n));
+
+        Console.ReadKey();
+    }
+    
+}
+
+#include <iostream>
+
+using namespace std;
+
+int factorial(int n)
+{
+    int f = 1;
+        
+    for (int i = 1; i <= n; i++) 
+    {
+        f \*= i;
+    }
+        
+    return f;
+}
+
+int main()
+{
+    int n;
+
+    cout << "Enter n: ";
+    cin >> n;
+
+    cout << n << "! = " << factorial(n);
+
+    return 0;
+}
+
+#include <stdio.h>
+
+int factorial(int n)
+{
+    int f = 1;
+        
+    for (int i = 1; i <= n; i++) 
+    {
+        f \*= i;
+    }
+        
+    return f;
+}
+
+void main()
+{
+
+    int n;
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+
+    printf("%d! = %d", n, factorial(n));
+
+}
+
+## المثال الثالث
+
+لنفترض أننا نريد طباعة جميع الأرقام المزدوجة الموجودة من `0` إلى `n`.
+
+  
+
+### الحل الأول
+
+لحل هذا التمرين يمكن إنشاء حلقة من `0` إلى `n` و في كل دورة نشيّك على قيمة العداد `i` لمعرفة ما إن كان باقي القسمة يساوي `0` أم لا.  
+إذا كان باقي القسمة هو `0` فمعنى ذلك أن قيمة العداد `i` عبارة عن عدد مزدوج و بالتالي سنقوم بطباعتها.  
+تقييم هذا الحل هو O(n) و لكنه لا يعتبر الحل الأفضل لأنه كان بالإمكان تقليص وقت التنفيذ إلى النصف, أي إلى O(n/2) كما سترى في الحل الثاني.
+
+Python
+
+Java
+
+C#
+
+C++
+
+C
+
+n = int(input("Enter n: "))
+
+for i in range(n + 1):
+    if i % 2 == 0:
+        print(i, end=" ")
+
+import java.util.Scanner;
+
+public class Main {
+    
+    public static void main(String args\[\])
+    {
+        Scanner input \= new Scanner(System.in);
+        int n;
+        
+        System.out.print("Enter n: ");
+        n = input.nextInt();
+        
+        for (int i \= 0; i <= n; i++)
+        {
+            if (i % 2 == 0)
+            {
+                System.out.print(i + " ");
+            }
+        }
+    }
+
+}
+
+using System;
+
+class Program
+{
+    static void Main(string\[\] args)
+    {
+        int n;
+
+        Console.Write("Enter n: ");
+        n = int.Parse(Console.ReadLine());
+
+        for (int i = 0; i <= n; i++)
+        {
+            if (i % 2 == 0)
+            {
+                Console.Write(i + " ");
+            }
+        }
+
+        Console.ReadKey();
+    }
+    
+}
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+
+    cout << "Enter n: ";
+    cin >> n;
+
+    for (int i = 0; i <= n; i++)
+    {
+        if (i % 2 == 0)
+        {
+            cout << i << " ";
+        }
+    }
+
+    return 0;
+}
+
+#include <stdio.h>
+
+void main()
+{
+
+    int n;
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+    
+    for (int i = 0; i <= n; i++)
+    {
+        if (i % 2 == 0)
+        {
+            printf("%d ", i);
+        }
+    }
+
+}
+
+  
+  
+
+### الحل الثاني
+
+يمكنك حل التمرين السابق بطريقة أسهل و أكثر كفاءة.  
+ببساطة يمكنك إنشاء حلقة من `0` إلى `n` و جعل قيمة العداد `i` تزيد `2` في كل دورة.  
+بما أن قيمة العداد ستزيد `2` في كل دورة بدل `1` فهذا يعني أن عدد الخطوات التي سيتم تنفيذها هو النصف و بالتالي تقييم الكود سيكون O(n/2).
+
+Python
+
+Java
+
+C#
+
+C++
+
+C
+
+n = int(input("Enter n: "))
+
+for i in range(0, n + 1, 2):
+    print(i, end=" ")
+
+import java.util.Scanner;
+
+public class Main {
+    
+    public static void main(String args\[\])
+    {
+        Scanner input \= new Scanner(System.in);
+        int n;
+        
+        System.out.print("Enter n: ");
+        n = input.nextInt();
+        
+        for (int i \= 0; i <= n; i += 2)
+        {
+            System.out.print(i + " ");
+        }
+    }
+
+}
+
+using System;
+
+class Program
+{
+    static void Main(string\[\] args)
+    {
+        int n;
+
+        Console.Write("Enter n: ");
+        n = int.Parse(Console.ReadLine());
+
+        for (int i = 0; i <= n; i += 2)
+        {
+            Console.Write(i + " ");
+        }
+
+        Console.ReadKey();
+    }
+    
+}
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+
+    cout << "Enter n: ";
+    cin >> n;
+
+    for (int i = 0; i <= n; i += 2)
+    {
+        cout << i << " ";
+    }
+
+    return 0;
+}
+
+#include <stdio.h>
+
+void main()
+{
+
+    int n;
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+    
+    for (int i = 0; i <= n; i += 2)
+    {
+        printf("%d ", i);
+    }
+
+}

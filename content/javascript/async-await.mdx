@@ -1,0 +1,120 @@
+---
+title: "جافاسكربتasync و await"
+source: "https://harmash.com/tutorials/javascript/async-await"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:14:30.047Z"
+---
+
+## أهمية `async` و `await`
+
+نستخدم الكلمتين `async` و `await` للتعامل مع [البرومس](/tutorials/javascript/promises) بشكل أكثر سهولة.  
+إذاً تنفيذ البرومس سيصبح أكثر سهولة في حال قمت باستخدام هاتين الكلمتين.
+
+## طريقة استخدام `async` و `await`
+
+الكلمة `async` يمكن أن تستخدم عند تعريف الدالة التي ترجع كائن البرومس و من بعدها يصبح عليك استخدام الكملة `await` عند استدعاء الدالة التي تنفذ البرومس.
+
+الكلمة `await` تجعل مفسر الكود ينتظر إلى حين يتم إرجاع النتيجة من البرومس سواء كانت نتيجة سليمة أو فيها خطأ. لذلك عند استخدامها لا يجب استدعاء الدالة `then()` من البرومس.
+
+  
+
+### قبل استخدام `async` و `await`
+
+في المثال التالي قمنا ببناء دالة إسمها `fetchData()` مهمتها إنشاء برومس يعطينا قيمة عشوائية بين 1 و 10 بعد مرور ثانية واحدة.  
+**ملاحظة:** جعلناه يتأخر في الرد مدة ثانية واحدة عمداً كمحاكات للمدة التي قد يسغرقها السيرفر في الرد.
+
+#### مثال
+
+// هنا قمنا بتعريف دالة تقوم بإرجاع برومس عندما يتم استدعاءها
+function fetchData() {
+    return new Promise((resolve) => {
+        // هنا أنشأنا مؤقت لجعل تنفيذ أوامر البرومس يتم بعد مرور ثانية
+        setTimeout(() => {
+            // هنا قمنا بتعريف متغير قيمته عبارة عن عدد عشوائي بين 1 و 10
+            const value = Math.floor(Math.random() \* 10) + 1;
+            // value هنا قمنا بإرجاع قيمة
+            resolve(value);
+        }, 1000);
+    });
+}
+
+// سيتم تنفيذها عند النقر على الزر الموجود في الصفحة executePromise() الدالة
+function executePromise() {
+    // لتنفيذ البرومس و الحصول على نتيجته then() و من ثم الدالة fetchData() هنا قمنا باستدعاء الدالة
+    fetchData().then((value) => { 
+        // demo يساوي id النتيجة التي يرجعها سيتم عرضها في العنصر الذي يملك
+        document.querySelector('#demo').innerHTML = 'Result = ' + value;
+    });
+}
+
+[جرب الكود](/tryit?file=/tutorials/javascript/async-await/without-async-await)
+
+لم نضف الدالة `reject()` في كائن البرومس عمداً حتى يكون فهم الكود أسهل.
+
+  
+
+### بعد استخدام `async` و `await`
+
+الآن سنقوم بإعادة المثال السابق مع التعديل عليه لاستخدام `async` و `await` حتى تلاحظ الفرق بين الأسلوبين.
+
+#### مثال
+
+// هنا قمنا بتعريف دالة تقوم بإرجاع برومس عندما يتم استدعاءها
+async function fetchData() {
+    return new Promise((resolve) => {
+        // هنا أنشأنا مؤقت لجعل تنفيذ أوامر البرومس يتم بعد مرور ثانية
+        setTimeout(() => {
+            // هنا قمنا بتعريف متغير قيمته عبارة عن عدد عشوائي بين 1 و 10
+            const value = Math.floor(Math.random() \* 10) + 1;
+            // value هنا قمنا بإرجاع قيمة
+            resolve(value);
+        }, 1000);
+    });
+}
+
+// سيتم تنفيذها عند النقر على الزر الموجود في الصفحة executePromise() الدالة
+async function executePromise() {
+    // data لتنفيذ البرومس و تخزين نتيجته أياً كانت في المتغير fetchData() هنا قمنا باستدعاء الدالة
+    let data = await fetchData();
+    // demo يساوي id في العنصر الذي يملك data هنا قمنا بعرض النتيجة المخزنة في المتغير
+    document.querySelector('#demo').innerHTML = 'Result = ' + data;
+}
+
+[جرب الكود](/tryit?file=/tutorials/javascript/async-await/async-await)
+
+عندما تكون الدالة ستنتظر أن يتم تنفيذ برومس فيها، فإنه يجب جعل الدالة نفسها متزامنة من خلال إضافة الكلمة `async` قبل الكلمة `function` أثناء تعريفها، و لذلك قمنا بتعريف الدالة `executePromise()` كدالة متزامنة.
+
+## معالجة أخطاء البرومس
+
+في حال كنت تتعامل مع البرومس بأسلوب `async` و `await` و كان المحتمل أن يحدث خطأ ( Error ) عند التنفيذ أو أن البرومس نفسه قد يرجع قيم خاطئة فعندها يمكنك حماية الكود بواسطة `try` و `catch` كما يلي.
+
+#### مثال
+
+// هنا قمنا بتعريف دالة تقوم بإرجاع برومس عندما يتم استدعاءها
+async function fetchData() {
+    return new Promise((resolve) => {
+        // هنا أنشأنا مؤقت لجعل تنفيذ أوامر البرومس يتم بعد مرور ثانية
+        setTimeout(() => {
+            // هنا قمنا بتعريف متغير قيمته عبارة عن عدد عشوائي بين 1 و 10
+            const value = Math.floor(Math.random() \* 10) + 1;
+            // value هنا قمنا بإرجاع قيمة
+            resolve(value);
+        }, 1000);
+    });
+}
+
+// سيتم تنفيذها عند النقر على الزر الموجود في الصفحة executePromise() الدالة
+async function executePromise() {
+    try {
+        // data لتنفيذ البرومس و تخزين نتيجته أياً كانت في المتغير fetchData() هنا قمنا باستدعاء الدالة
+        let data = await fetchData();
+        // demo يساوي id في المتغير الذي يملك data هنا قمنا بعرض النتيجة المخزنة في المتغير
+        document.querySelector('#demo').innerHTML = 'Result = ' + data;
+    }
+    catch(error) {
+        // demo يساوي id  هنا قمنا بعرض الخطأ الذي قد يحدث في العنصر الذي يملك
+        document.querySelector('#demo').innerHTML = error;
+    }
+}
+
+[جرب الكود](/tryit?file=/tutorials/javascript/async-await/handle-async-function-errors)

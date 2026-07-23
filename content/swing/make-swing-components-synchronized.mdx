@@ -1,0 +1,202 @@
+---
+title: "Swingحل مشكلة المزامنة"
+source: "https://harmash.com/tutorials/swing/make-swing-components-synchronized"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:40.949Z"
+---
+
+## مفهوم مشكلة المزامنة
+
+عند برمجة تطبيق كبير فإنك حتماً ستحتاج إلى تنفيذ عدة أوامر في وقت واحد, أي ستحتاج إلى إستخدام Threads.  
+فمثلاً قد تجعل برنامجك يتعامل مع قاعدة بيانات و يتصل بالنت في نفس الوقت. هنا طبعاً ستضطر إلى تنفيذ كل عملية منهم ضمن Thread مختلف حتى تتمكن من تشغيلهم في نفس الوقت.
+
+  
+
+### معلومة تقنية
+
+تشغيل عدة Threads في نفس الوقت قد يتنج عنه مشكلة التضارب ( Conflict ) و التي تحدث عند وجود إثنين Threads يتنفذون في نفس الوقت و وصلوا إلى مرحلة أصبح فيها كل Thread منهم بحاجة إلى إستخدام شيء يستخدمه الـ Thread الآخر.
+
+فعلياً, مشكلة التضارب تحدث في حال لم نجعل الـ Threads يعملون بشكل متزامن Synchronized إذا كانوا سيستخدمون بعض المصادر المشتركة أثناء عملهم.
+
+جميع الأشياء المتوفرة في الـ Swing و التي يمكن إضافتها في النافذة لا تتنفذ بشكل متزامن الأمر الذي قد يؤدي إلى تعليق البرنامج في حال إستخدام Threads يستخدمون مصادر مشتركة.
+
+## الطريقة الأولى لحل مشكلة المزامنة
+
+الخطوات التي عليك فعلها في حال كنت لا تريد وراثة الكلاس `JFrame`:
+
+1.  إفعل `import` للكلاس `SwingUtilities`.
+2.  قم ببناء دالة نوعها `private static void` و أعطها أي إسم تريد, ثم ضع فيها كل الكود الذي يجب أن تكتبه لبناء النافذة.
+3.  في الدالة `main()` قم بإستدعاء الدالة `invokeLater()` و مرر لها كائن من الإنترفيس `Runnable` و إفعل Override للدالة `run()` و إجعلها فقط تستدعي الدالة التي تبني النافذة.
+
+  
+
+import javax.swing.SwingUtilities;
+
+public class Main {
+
+    private static void createAndShowGUI() {
+        // هنا نضع كود إنشاء النافذة و محتوياتها
+    }
+
+    public static void main(String\[\] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // هنا نقوم فقط بإستدعاء الدالة التي تنشئ النافذة
+                createAndShowGUI();
+            }
+        });
+    }
+} 
+
+  
+
+المثال التالي يعلمك طريقة تجهيز محتوى الـ Frame ليعمل بشكل متزامن.
+
+#### مثال
+
+Main.java
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.FlowLayout;
+import javax.swing.SwingUtilities;
+ 
+public class Main {
+ 
+    // هنا نضع كود إنشاء النافذة و محتوياتها
+    private static void createAndShowGUI() {
+        JFrame f \= new JFrame();                            // أي قمنا بإنشاء نافذة JFrame هنا أنشأنا كائن من الكلاس
+        f.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        f.setSize(300, 200);                                // هنا قمنا بتحديد حجم النافذة. عرضها 300 و طولها 200
+        f.setLayout(new FlowLayout());                      // لترتيب الأشياء التي نضيفها بداخلها FlowLayout هنا جعلنا النافذة تستخدم الـ
+ 
+        // Buttons هنا قمنا بتعريف إثنين
+        JButton b1 \= new JButton("Button 1");
+        JButton b2 \= new JButton("Button 2");
+ 
+        // في النافذة Buttons هنا قمنا بإضافة الـ
+        f.add(b1);
+        f.add(b2);
+ 
+        // هنا جعلنا النافذة مرئية
+        f.setVisible(true);
+    }
+ 
+    public static void main(String\[\] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // هنا نقوم فقط بإستدعاء الدالة التي تنشئ النافذة
+                createAndShowGUI();
+            }
+        });
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+![طريقة جعل محتوى ال JFrame متزامن في جافا](/content-images/swing/make-swing-components-synchronized/1784305420825-v2hzhd.PNG)
+
+## الطريقة الثانية لحل مشكلة المزامنة
+
+الخطوات التي عليك فعلها في حال كنت تريد وراثة الكلاس `JFrame`:
+
+1.  إفعل `import` للكلاس `SwingUtilities`.
+2.  قم بوارثة الكلاس `JFrame`.
+3.  قم ببناء دالة نوعها `private void` و أعطها أي إسم تريد, ثم ضع فيها كل الكود الذي يجب أن تكتبه لبناء النافذة.
+4.  إجعل الكونستركتور يستدعي الدالة التي تقوم ببناء النافذة.
+5.  في الدالة `main()` قم بإستدعاء الدالة `invokeLater()` و مرر لها كائن من الإنترفيس `Runnable` و إفعل Override للدالة `run()`, ثم قم بإنشاء كائن من الكلاس, و عندها سيقوم الكونستركتور بإستدعاء الدالة التي تبني النافذة.
+
+  
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+public class Main extends JFrame {
+
+    public Main() {
+        createAndShowGUI();
+    }
+
+    private void createAndShowGUI() {
+        // هنا نضع كود إنشاء النافذة و محتوياتها
+    }
+
+    public static void main(String\[\] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // هنا نقوم فقط بإستدعاء الدالة التي تنشئ النافذة
+                new Main();
+            }
+        });
+    }
+} 
+
+  
+
+المثال التالي يعلمك طريقة تجهيز محتوى الـ Frame ليعمل بشكل متزامن.
+
+#### مثال
+
+Main.java
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.FlowLayout;
+import javax.swing.SwingUtilities;
+ 
+// و بالتالي أصبح إنشاء كائن منه يمثل إنشاء نافذة JFrame يرث من الكلاس Main هنا جعلنا الكلاس
+public class Main extends JFrame {
+ 
+    // فقط createAndShowGUI() سيقوم الكونستركتور بإستدعاء الدالة Main عند إنشاء كائن من الكلاس
+    public Main() {
+        createAndShowGUI();
+    }
+ 
+    // هنا نضع كود إنشاء النافذة و محتوياتها
+    private void createAndShowGUI() {
+        setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        setSize(300, 200);                                // هنا قمنا بتحديد حجم النافذة. عرضها 300 و طولها 200
+        setLayout(new FlowLayout());                      // لترتيب الأشياء التي نضيفها بداخلها FlowLayout هنا جعلنا النافذة تستخدم الـ
+ 
+        // Buttons هنا قمنا بتعريف إثنين
+        JButton b1 \= new JButton("Button 1");
+        JButton b2 \= new JButton("Button 2");
+ 
+        // في النافذة Buttons هنا قمنا بإضافة الـ
+        add(b1);
+        add(b2);
+ 
+        // هنا جعلنا النافذة مرئية
+        setVisible(true);
+    }
+ 
+    public static void main(String\[\] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // createAndShowGUI() هنا سيقوم الكونستركتور بإستدعاء الدالة .Main هنا نقوم فقط بإنشاء كائن من الكلاس
+                new Main();
+            }
+        });
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+![طريقة جعل محتوى ال JFrame متزامن في جافا](/content-images/swing/make-swing-components-synchronized/1784305420925-j9n0g4.PNG)
+
+  
+  
+
+إذا كنت تستخدم الـ GUI Builder الموجود في برنامج الـ Net Beans لبناء واجهة المستخدم, ستلاحظ أنه يراعي مشكلة المزامنة إذا إضطلعت على الأوامر التي يكتبها عنك كلما أضفت شيئاً جديداً.  
+كما أنه يقوم بتسمية الدالة التي يضع فيها كود إنشاء النافذة `initComponents()`.
+
+  
+
+إذاً إلى هنا, أنت تعلمت كيف تبني واجهة مستخدم بواسطة الـ Swing و تعرفت على مختلف الأشياء التي يمكن إضافتها في الواجهة.  
+في الدرس التالي ستتعلم كيف تقوم ببناء برامج و ألعاب بسيطة بواسطة الـ Swing حتى تعرف كيف تستفيد من كل ما تعلمته سابقاً في البرامج التي قد تبنيها مستقبلاً.

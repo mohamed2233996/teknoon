@@ -1,0 +1,102 @@
+---
+title: "Swingالكلاس CardLayout"
+source: "https://harmash.com/tutorials/swing/cardlayout"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:18.045Z"
+---
+
+## مقدمة
+
+الكلاس `CardLayout` يستخدم لترتيب الأشياء التي نضيفها فوق بعضها البعض بحيث يسمح لك بإظهار شيء واحد فقط في كل مرة.
+
+  
+
+### بناؤه
+
+public class CardLayout
+extends Object
+implements LayoutManager2, Serializable
+
+## كونستركتورات الكلاس `CardLayout`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `CardLayout`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public CardLayout()` يرتب الأشياء التي نضيفها فوق بعضها البعض بحيث يسمح بإظهار شيء واحد فقط في كل مرة.
+
+2
+
+`public CardLayout(int hgap, int vgap)` يرتب الأشياء التي نضيفها فوق بعضها البعض بحيث يسمح بإظهار شيء واحد فقط في كل مرة مع وضع مسافة فارغة بينهم.  
+  
+
+*   مكان الباراميتر `hgap` نضع رقم يمثل حجم الفراغ أفقياً بين الأشياء التي نضيفها.
+*   مكان الباراميتر `vgap` نضع رقم يمثل حجم الفراغ عامودياً بين الأشياء التي نضيفها.
+
+## دوال الكلاس `CardLayout`
+
+الجدول التالي يحتوي على أهم الدوال الموجودة في الكلاس `CardLayout`.
+
+الدالة مع تعريفها
+
+1
+
+`public void next(Container parent)` تستخدم لإظهار الشيء التالي الموضوع في محتوى النافذة أو الحاوية.
+
+2
+
+`public void previous(Container parent)` تستخدم لإظهار الشيء السابق الموضوع في النافذة أو الحاوية.
+
+3
+
+`public void first(Container parent)` تستخدم لإظهار أول شيء تم وضعه في النافذة أو الحاوية.
+
+4
+
+`public void last(Container parent)` تستخدم لإظهار آخر شيء تم وضعه في النافذة أو الحاوية.
+
+5
+
+`public void show(Container parent, String name)` تستخدم لإظهار الشيء الموضوع في النافذة أو الحاوية من خلال إسمه.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة ترتيب محتوى الـ Frame بواسطة الكلاس `CardLayout`.
+
+![طريقة ترتيب محتوى ال JFrame بواسطة الكلاس CardLayout في جافا](/content-images/swing/cardlayout/1784305397852-bogt7i.PNG)
+
+[شاهد المثال](/tutorials/swing/cardlayout/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تقليب محتوى الـ Frame.  
+في كل مرة يتم فيها النقر على زر, سيتم عرض الزر التالي الذي أضيف بعده.
+
+![طريقة تقليب محتوى ال JFrame عند إستخدام ال CardLayout في جافا](/content-images/swing/cardlayout/1784305397944-5v6y4k.PNG)
+
+[شاهد المثال](/tutorials/swing/cardlayout/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة ترتيب محتوى الـ Frame بإستخدام أكثر من Layout Manager.
+
+*   الزر Next يعرض الـ Panel التالية في الـ Panel اليمنى.
+*   الزر Previous يعرض الـ Panel السابقة في الـ Panel اليمنى.
+*   الزر First يعرض أول Panel تم إضافتها في الـ Panel اليمنى.
+*   الزر Last يعرض آخر Panel تم إضافتها في الـ Panel اليمنى.
+
+![طريقة ترتيب محتوى ال JFrame بإستخدام أكثر من Layout Manager في جافا](/content-images/swing/cardlayout/1784305398034-avmpau.PNG)
+
+[شاهد المثال](/tutorials/swing/cardlayout/example-3)

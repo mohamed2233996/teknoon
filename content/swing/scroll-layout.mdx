@@ -1,0 +1,70 @@
+---
+title: "Swingطريقة إنشاء Scroll Layout"
+source: "https://harmash.com/tutorials/swing/scroll-layout"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:23.934Z"
+---
+
+لجعل الـ Frame أو الـ Window تظهر Scroll Bar عند الحاجة, نضع كائن من الكلاس `JScrollPane` كأول عنصر فيها ثم نضيف شيء واحد بداخله.  
+فمثلاً يمكنك أن تضع كائن `JTable`, `JList`, `JLabel`, `JPanel` إلخ..
+
+إذاً في حال أردت وضع أكثر من شيء في النافذة يمكنك إنشاء كائن من الكلاس `JPanel` و ضع أي محتوى تريد بداخله.  
+بعدها مرر كائن الـ `JPanel` في كونستركتور كائن الـ `JScrollPane`.
+
+  
+
+### مثال
+
+المثال التالي يعلمك طريقة جعل النافذة تظهر Scroll Bar عند الحاجة حتى يتمكن المستخدم من مشاهدة كامل الصورة.
+
+ملاحظة: عليك إنشاء مجلد و وضع الصورة التي تريد وضعها على `JLabel` بداخله كما في الصورة التالية.
+
+![](/content-images/swing/scroll-layout/1784305401993-brr4c4.PNG)
+
+الصورة توضح أننا أضفنا مجلد إسمه `images` و وضعنا فيه صورة واحدة إسمها `white-cat.jpeg`.
+
+  
+
+#### مثال
+
+Main.java
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        JFrame frame \= new JFrame("Scroll Layout demo");
+ 
+        // و الذي سيمثل الصورة JLabel هنا قمنا بإنشاء كائن من الكلاس
+        JLabel label \= new JLabel();
+ 
+        // label هنا وضعنا الصورة كأيقونة للـ
+        label.setIcon(new ImageIcon(Main.class.getResource("images/white-cat.jpeg")));
+ 
+        // عند الحاجة Scroll Bar حتى تظهر JScrollPane هنا وضعنا الصورة بداخل كائن من الكلاس
+        JScrollPane scrollPane \= new JScrollPane(label);
+ 
+        // كعنصر النافذة الوحيد scrollPane هنا وضعنا الـ
+        frame.add(scrollPane);
+ 
+        frame.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.pack();                                           // هنا جعلنا حجم النافذة يناسب حجم المحتوى
+        frame.setVisible(true);                                 // هنا جعلنا النافذة مرئية
+ 
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+![طريقة إنشاء Scroll Layout حتى يتمكن المستخدم من مشاهدة كامل الصورة في جافا](/content-images/swing/scroll-layout/1784305402765-vfough.PNG)
+
+إذا قمت بتصغير حجم النافذة سيتم إظهار Scroll Bar كما في الصورة التالية.
+
+![](/content-images/swing/scroll-layout/1784305403920-3zhqnr.PNG)

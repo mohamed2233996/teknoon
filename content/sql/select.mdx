@@ -1,0 +1,381 @@
+---
+title: "SQLأمر جلب بيانات من قاعدة البيانات"
+source: "https://harmash.com/tutorials/sql/select"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:10.300Z"
+---
+
+## الأمر `SELECT`
+
+الأمر `SELECT` يستخدم لجلب البيانات من قاعدة البيانات.
+
+  
+
+### طريقة استخدامه
+
+عند جلب البيانات من جدول يمكنك تحديد إسم كل عمود تريد جلب البيانات منه كما يلي.
+
+SELECT column1, column2, ...
+FROM table\_name;
+
+أيضاً، تستطيع استخدام الرمز `*` لتحديد جميع أعمدة الجدول بشكل تلقائي كما يلي.
+
+SELECT \* FROM table\_name;
+
+يمكن جلب البيانات من أكثر من جدول في ذات الوقت و هذا الأمر سنتطرق له في دروس متقدمة.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `employees` يحتوي على بيانات 10 موظفين.
+
+#### مثال
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من ستة أعمدة employees هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE employees (
+    id         INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    first\_name VARCHAR(50),
+    last\_name  VARCHAR(20),
+    is\_married BOOLEAN,
+    salary     DECIMAL(7,2),
+    birthday   Date
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 موظفين
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- في البداية هو حتى يكون عدد القيم الموضوعة يساوي عدد أعمدة الجدول null سبب وضع الكلمة
+\-- ستقوم قاعدة البيانات بوضع رقم تعرفة مختلف لكل سطر null مكان الكلمة
+INSERT INTO employees VALUES (null, "Ahmad", "Alhazem", false, 800, "1990-10-23");
+INSERT INTO employees VALUES (null, "Rami", "Algharib", false, 750, "1992-05-08");
+INSERT INTO employees VALUES (null, "Said", "Alnaja", true, 900, "1988-07-12");
+INSERT INTO employees VALUES (null, "Noura", "Jamali", false, 845, "1994-12-04");
+INSERT INTO employees VALUES (null, "Amani", "Sarrouf", true, 1000, "1991-10-27");
+INSERT INTO employees VALUES (null, "Mhamad", "Harmush", false, 700, "1993-11-12");
+INSERT INTO employees VALUES (null, "Ahmad", "Asaadi", true, 850, "1995-03-10");
+INSERT INTO employees VALUES (null, "Mostafa", "Shawki", true, 920, "1990-02-14");
+INSERT INTO employees VALUES (null, "Jana", "Alkassem", false, 780, "1991-08-12");
+INSERT INTO employees VALUES (null, "Houssam", "Zahrani", true, 880, "1985-09-20");
+
+  
+
+بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم إنشاء قاعدة البيانات `harmash` و إنشاء الجدول `employees` بداخلها.  
+قم بالنقر على إسم قاعدة البيانات `harmash` من القائمة اليسرى حتى تبدأ بالتعامل معها و تطبيق ما ستتعلمه في هذا الدرس.
+
+## جلب جميع البيانات الموجودة في الجدول
+
+قم بتنفيذ الإستعلام التالي لجلب جميع البيانات المخزنة في الجدول `employees`.  
+إذاً هذا الإستعلام يعرض جميع المعلومات المتوفرة حول الموظفين.
+
+**ملاحظة:** إستخدمنا الرمز `*` لتحديد جميع الأعمدة الموجودة في الجدول.
+
+#### مثال
+
+SELECT \* FROM employees;
+
+النتيجة
+
+id
+
+first\_name
+
+last\_name
+
+is\_married
+
+salary
+
+birthday
+
+1
+
+Ahmad
+
+Alhazem
+
+0
+
+800.00
+
+1990-10-23
+
+2
+
+Rami
+
+Algharib
+
+0
+
+750.00
+
+1992-05-08
+
+3
+
+Said
+
+Alnaja
+
+1
+
+900.00
+
+1988-07-12
+
+4
+
+Noura
+
+Jamali
+
+0
+
+845.00
+
+1994-12-04
+
+5
+
+Amani
+
+Sarrouf
+
+1
+
+1000.00
+
+1991-10-27
+
+6
+
+Mhamad
+
+Harmush
+
+0
+
+700.00
+
+1993-11-12
+
+7
+
+Ahmad
+
+Asaadi
+
+1
+
+850.00
+
+1995-03-10
+
+8
+
+Mostafa
+
+Shawki
+
+1
+
+920.00
+
+1990-02-14
+
+9
+
+Jana
+
+Alkassem
+
+0
+
+780.00
+
+1991-08-12
+
+10
+
+Houssam
+
+Zahrani
+
+1
+
+880.00
+
+1985-09-20
+
+## تحديد أسماء الحقول التي سيتم جلبها من الجدول
+
+قم بتنفيذ الإستعلام التالي لجلب جميع البيانات الموجودة في الحقول `first_name` و `last_name` و `salary`.  
+إذاً هذا الإستعلام يعرض أسماء جميع الموظفين و رواتبهم.
+
+#### مثال
+
+SELECT first\_name, last\_name, salary
+FROM employees;
+
+النتيجة
+
+first\_name
+
+last\_name
+
+salary
+
+Ahmad
+
+Alhazem
+
+800.00
+
+Rami
+
+Algharib
+
+750.00
+
+Said
+
+Alnaja
+
+900.00
+
+Noura
+
+Jamali
+
+845.00
+
+Amani
+
+Sarrouf
+
+1000.00
+
+Mhamad
+
+Harmush
+
+700.00
+
+Ahmad
+
+Asaadi
+
+850.00
+
+Mostafa
+
+Shawki
+
+920.00
+
+Jana
+
+Alkassem
+
+780.00
+
+Houssam
+
+Zahrani
+
+880.00
+
+## تغيير أسماء الأعمدة عند جلبها من الجدول
+
+لتبديل إسم أي عمود سيتم إرجاعه في النتيجة بإسم آخر، نضع الكلمة `AS` بعد إسم العمود و يليها الإسم الذي نريد إعطاؤه له.
+
+الإستعلام التالي يجلب نفس المعلومات التي جلبها الإستعلام السابق مع فرق واحد و هو أننا قمنا بتبديل أسماء الأعمدة التي تم إرجاعها.
+
+*   إسم العمود `first_name` قمنا بتبديله إلى `First Name`
+*   إسم العمود `last_name` قمنا بتبديله إلى `Last Name`
+*   إسم العمود `salary` قمنا بتبديله إلى `Salary`
+
+#### مثال
+
+SELECT first\_name AS 'First Name', last\_name AS 'Last Name', salary AS 'Salary'
+FROM employees;
+
+النتيجة
+
+First Name
+
+Last Name
+
+Salary
+
+Ahmad
+
+Alhazem
+
+800.00
+
+Rami
+
+Algharib
+
+750.00
+
+Said
+
+Alnaja
+
+900.00
+
+Noura
+
+Jamali
+
+845.00
+
+Amani
+
+Sarrouf
+
+1000.00
+
+Mhamad
+
+Harmush
+
+700.00
+
+Ahmad
+
+Asaadi
+
+850.00
+
+Mostafa
+
+Shawki
+
+920.00
+
+Jana
+
+Alkassem
+
+780.00
+
+Houssam
+
+Zahrani
+
+880.00
+
+  
+
+هناك عدة طرق لاستخدام الكلمة `AS` ستدرسها بشكل خاص في درس لاحق.

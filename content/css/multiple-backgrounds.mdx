@@ -1,0 +1,46 @@
+---
+title: "CSSخلفيات متعددة"
+source: "https://harmash.com/tutorials/css/multiple-backgrounds"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:48.519Z"
+---
+
+## مفهوم الخلفيات المتعددة
+
+في درس [الخلفيات](/tutorials/css/background) رأينا أنه يمكن وضع صورة كخلفية للعنصر و تعرفنا على جميع الخصائص المتعلقة بهذا الأمر. في هذا الدرس ستتعلم كيف تستطيع إضافة أكثر من خلفية في ذات الوقت و تحديد كيفية ظهورهم باستخدام نفس الخصائص التي درستها سابقاً.
+
+Here, there are 2 background images added to the same element.
+
+## كيفية وضع أكثر من صورة في الخلفية
+
+بشكل عام، لوضع أكثر من صورة في خلفية العنصر و لتحديد خصائص ظهور كل صورة منها، عليك فقط وضع فواصل بين قيم الخصائص التي يمكنك استخدامها مع الخلفيات مع مراعاة الترتيب الذي تم فيه إضافة الصور. فمثلاً إن كنت ستضع صورتين في الخلفية، فإن الصورة التي توضع أولاً سيتم عرضها فوق الصورة الأخرى في حال تم عرضهما في ذات المكان.
+
+خصائص الخلفيات `background-image` `background-repeat` `background-size` `background-position` `background-attachment` `background` و القيم التي يمكن إعطاءها لها شرحناها بالتفصيل في درس [الخلفيات](/tutorials/css/background) و لهذا نرجوا منك مراجعة ذاك الدرس في حال مرت معك أي قيمة لم تفهم سبب استخدامنا لها.
+
+  
+
+في المثال التالي قمنا بوضع صورتين كخلفية للعنصر، مع تحديد خصائص ظهور كل واحدة منهما.
+
+#### المثال الأول
+
+div {
+    background-image: url(pyramids.png), url(paper.png);
+    background-repeat: no-repeat, repeat;
+    background-position: right center, left bottom;
+    background-size: 70px 70px, contain;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-backgrounds/example-1)
+
+  
+
+هنا قمنا بإعادة المثال السابق مع تعريف خصائص الخلفتين بشكل مختصر.
+
+#### المثال الثاني
+
+div {
+    background: url(pyramids.png) right center no-repeat, url(paper.png) repeat left bottom;
+    background-size: 70px 70px, contain;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/multiple-backgrounds/example-2)

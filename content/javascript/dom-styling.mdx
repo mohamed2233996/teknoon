@@ -1,0 +1,223 @@
+---
+title: "جافاسكربتتعديل تصميم العناصر"
+source: "https://harmash.com/tutorials/javascript/dom-styling"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:13:55.866Z"
+---
+
+## تعديل تصميم العنصر في جافاسكربت
+
+الكائن `document` يوفر العديد من الطرق التي يمكن من خلالها تعديل تصميم العناصر، سواء بتمرير خصائص CSS بشكل مباشر لها أو من خلال إعطاء العناصر كلاسات CSS فيها خصائص التصميم التي نريد تطبيقها عليها.
+
+في هذا الدرس ستتعلم كل الطرق التي يمكنك من خلالها تعديل تصميم العناصر بواسطة جافاسكربت.
+
+## تعديل تصميم العنصر بشكل مباشر
+
+يمكنك استخدام الخاصية `style.propertyName` لإعطاء العنصر أي خاصية CSS مع القيمة التي تريد إضافتها له بشكل مباشر.  
+مكان الكلمة propertyName نمرر إسم الخاصية التي نريد إضافتها للعنصر بأسلوب Camel Case.
+
+كتابة أسماء خصائص CSS بأسلوب Camel Case يكون بإزالة أي رمز `-` موجود في الإسم و بدء الكلمة الموجودة بعده بحرف كبير على النحو التالي:
+
+*   `display` نكتبها `style.display`
+*   `margin-top` نكتبها `style.marginTop`
+
+في المثال التالي قمنا بإنشاء كائن يمثل العنصر الذي يملك id يساوي `demo` و من بعدها قمنا بتغيير بعض خصائصه.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element هنا قمنا بتغيير بعض خصائص العنصر الذي يمثله المتغير
+element.style.color = 'blue';
+element.style.fontFamily = 'Arial';
+element.style.fontWeight = 'bold';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/style)
+
+الأسلوب السابق، يمرر خصائص CSS بشكل مباشر للعنصر كما يلي و يمكنك رؤية هذا الأمر على الحاسوب إذا قمت بالإقتراب من العنصر ثم نقرت بزر الفأرة الأيمن و اخترت Inspect أو Inspect Element.
+
+`<p id="demo" style="color: blue; font-family: Arial; font-weight: bold;">My style is changed.</p>`
+
+## إضافة / حذف كلاس CSS من العنصر
+
+يمكنك استخدام الخاصية `classList` و من ثم استدعاء إحدى التالية منها للتعامل مع كلاسات العنصر:
+
+*   `classList.add()` لإضافة كلاس جديد في العنصر.
+*   `classList.remove()` لحذف كلاس موجود في العنصر.
+*   `classList.toggle()` لإضافة كلاس في العنصر إن لم يكن موجوداً فيه و لحذفه منه إن كان كذلك.
+
+بغض النظر عن الدالة التي نستخدمها منهم، فإنه يجب تمرير إسم الكلاس كنص لهم.
+
+الدالة `classList.add()` و الدالة `classList.remove()` يمكنك تمرير إسم أكثر من كلاس لهم في ذات الوقت و عندها سيتم إضافة أو حذف أكثر من كلاس من العنصر في ذات الوقت.
+
+  
+
+### أمثلة حول إضافة كلاس
+
+في المثال التالي قمنا بإضافة الكلاس `highlight` للعنصر الذي يملك id يساوي `demo`.
+
+#### المثال الأول
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element للعنصر الذي يمثله المتغير highlight هنا قمنا بإضافة الكلاس
+element.classList.add('highlight');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classlist.add)
+
+في المثال التالي قمنا بإضافة الكلاس `highlight` و الكلاس `highlight-border` للعنصر الذي يملك id يساوي `demo`.
+
+#### المثال الثاني
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element للعنصر الذي يمثله المتغير highlight-border و highlight هنا قمنا بإضافة الكلاس
+element.classList.add('highlight', 'highlight-border');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classlist.add-multiple)
+
+  
+
+### أمثلة حول إزالة كلاس
+
+في المثال التالي قمنا بإزالة الكلاس `highlight` من العنصر الذي يملك id يساوي `demo`.
+
+#### المثال الأول
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element من العنصر الذي يمثله المتغير highlight هنا قمنا بإزالة الكلاس
+element.classList.remove('highlight');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classlist.remove)
+
+في المثال التالي قمنا بإزالة الكلاس `highlight` و الكلاس `highlight-border` من العنصر الذي يملك id يساوي `demo`.
+
+#### المثال الثاني
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element من العنصر الذي يمثله المتغير highlight-border و highlight هنا قمنا بإزالة الكلاس
+element.classList.remove('highlight', 'highlight-border');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classlist.remove-multiple)
+
+  
+
+### مثال حول تناوب الكلاس
+
+في المثال التالي قمنا بجعل العنصر الذي يملك id يساوي `demo` يتناوب على استخدم الكلاس `highlight`، و هذا يعني أنه:
+
+*   في حال كان العنصر بالأساس يستخدم الكلاس فإنه سيتم إزالته منه.
+*   في حال كان العنصر بالأساس لا يستخدم الكلاس فإنه سيتم إضافته له.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// highlight يتناوب على استخدام الكلاس element هنا قمنا بجعل العنصر الذي يمثله المتغير
+// للعنصر لأنه في الأساس لا يستخدمه highlight في حالتنا سنلاحظ أنه سيتم إضافة الكلاس
+element.classList.toggle('highlight');
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classlist.toggle)
+
+## معرفة ما إن كان العنصر يستخدم كلاس ما
+
+يمكنك استخدام الدالة `classList.contains()` لمعرفة ما إن كان العنصر يستخدم كلاس محدد أم لا.  
+بين أقواس الدالة يجب تمرير إسم الكلاس المراد التأكد من وجوده أو عدمه كنص.  
+الدالة ترجع `true` إذا كان العنصر يحتوي على الكلاس، و ترجع `false` إن لم يكن كذلك.
+
+في المثال التالي قمنا بفحص العنصر الذي يملك id يساوي `demo` لمعرفة ما إن كان يستخدم الكلاس `highlight` أم لا.
+
+#### مثال
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// أم لا highlight و معرفة ما إن كان يستخدم الكلاس element هنا قمنا بفحص العنصر الذي يمثله المتغير
+// لأنه يستخدم هذا الكلاس true و التي في حالتنا ستكون result نتيجة الفحص قمنا بتخزينها في المتغير
+var result = element.classList.contains('highlight');
+
+// في آخر الصفحة result هنا قمنا بطباعة قيمة المتغير
+document.write(\`result = ${result}\`);
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classlist.contains)
+
+## تبديل قيمة `class` بقيمة أخرى
+
+يمكنك استخدام الخاصية `className` لتغيير قيمة الخاصية `class` للعنصر كما هي أو للإضافة عليها.
+
+ننصح باستخدام الدالتين `classList.add()` و `classList.remove()` لإضافة و حذف الكلاسات من العنصر بدلاً من استخدام الخاصية `className` لأن التعامل معهما أكثر سهولة و يجنبك حذف كلاسات من العنصر عن طريق الخطأ.
+
+في المثال التالي قمنا بتبديل جميع الكلاسات التي يستخدمها العنصر الذي يملك id يساوي `demo` بالكلاس `danger`.
+
+#### المثال الأول
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// فقط danger يستخدم الكلاس element هنا قمنا بجعل العنصر الذي يمثله المتغير 
+element.className = 'danger';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classname)
+
+في المثال التالي قمنا بإضافة الكلاس `highlight-border` للعنصر الذي يملك id يساوي `demo`.
+
+#### المثال الثاني
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// element للعنصر الذي يمثله المتغير highlight-border هنا قمنا بإضافة الكلاس
+element.className += 'highlight-border';
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/classname-append-class)
+
+## معرفة خصائص التصميم التي إعتمدها المتصفح
+
+الكائن `window` يتيح لك معرفة كافة خصائص القيم المطبقة على العنصر.
+
+يمكنك استدعاء الدالة `window.getComputedStyle()` للحصول على كائن فيه جميع الخصائص CSS المطبقة على العنصر و من ثم يمكنك المرور عليهم واحدة تلو الأخرى بواسطة حلقة، أو تستطيع استخدام الدالة `getPropertyValue()` لمعرفة قيمة خصائص محددة مطبقة على العنصر.
+
+في المثال التالي قمنا بعرض بعض خصائص و قيم CSS المطبقة على العنصر الذي يملك id يساوي `demo`.
+
+#### المثال الأول
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// elementStyle في المتغير element المطبقة على العنصر الذي يمثله المتغير CSS هنا قمنا بتخزين خصائص و قيم
+var elementStyle = window.getComputedStyle(element);
+
+// element المطبقة على العنصر الذي يمثله المتغير CSS هنا قمنا بعرض بعض قيم خصائص
+document.write('color = ' + elementStyle.getPropertyValue('color') + '<br>');
+document.write('font-family = ' + elementStyle.getPropertyValue('font-family') + '<br>');
+document.write('font-size = ' + elementStyle.getPropertyValue('font-size') + '<br>');
+document.write('background = ' + elementStyle.getPropertyValue('background') + '<br>');
+document.write('padding = ' + elementStyle.getPropertyValue('padding'));
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/get-computed-value-for-an-element)
+
+في المثال التالي قمنا باستخدام حلقة لعرض جميع خصائص و قيم CSS المطبقة على العنصر الذي يملك id يساوي `demo`.
+
+#### المثال الثاني
+
+// element في متغير إسمه demo يساوي id هنا قمنا بتخزين العنصر الذي يملك
+var element = document.getElementById('demo');
+
+// elementStyle في المتغير element المطبقة على العنصر الذي يمثله المتغير CSS هنا قمنا بتخزين خصائص و قيم
+var elementStyle = window.getComputedStyle(element);
+        
+// المطبقة على العنصر CSS هنا قمنا بإنشاء حلقة تعرض جميع خصائص و قيم
+// ملاحظة: سيظهر لك الخصائص الإفتراضية + التي قمت أنت بإضافتها للعنصر
+for (let i=0; i<elementStyle.length; i++) {
+    document.write(elementStyle\[i\] + ': ' + elementStyle.getPropertyValue(elementStyle\[i\]) + '<br>');
+}
+
+[جرب الكود](/tryit?file=/tutorials/javascript/dom-styling/get-all-computed-properties-for-the-element)

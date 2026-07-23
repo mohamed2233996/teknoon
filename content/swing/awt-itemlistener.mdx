@@ -1,0 +1,61 @@
+---
+title: "Swingالإنترفيس ItemListener"
+source: "https://harmash.com/tutorials/swing/awt-itemlistener"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:27.377Z"
+---
+
+الإنترفيس `ItemListener` يستخدم للتنبه كلما قام المستخدم بالنقر على الشيء.
+
+المثال التالي يعلمك طريقة معرفة حالة الـ Check Box, أي معرفة إذا تم إختياره أم لا.
+
+  
+
+#### مثال
+
+Main.java
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JCheckBox;
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        JFrame frame \= new JFrame("ItemListener demo");       // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        JCheckBox checkBox \= new JCheckBox("Check Box");      // checkBox إسمه Check Box هنا أنشأنا
+        JLabel label \= new JLabel();                          // label إسمه Label هنا أنشأنا
+ 
+        checkBox.setBounds(40, 40, 100, 30);                     // frame في الـ checkBox هنا قمنا بتحديد حجم و موقع الـ
+ 
+        label.setBounds(40, 70, 200, 30);                        // frame في الـ label هنا قمنا بتحديد حجم و موقع الـ
+        label.setText("Check Box is not checked");               // checkBox سيتم تبديل هذا النص عند النقر هلى الـ .label هنا قمنا بإعطاء نص للـ
+ 
+        frame.add(checkBox);                                     // frame في الـ checkBox هنا أضفنا الـ
+        frame.add(label);                                        // frame في الـ label هنا أضفنا الـ
+ 
+        frame.setSize(300, 250);                                 // هنا قمنا بتحديد حجم النافذة. عرضها 300 و طولها 250
+        frame.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);    // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.setLayout(null);                                   // لذلك قمنا بتحديد مكان كل شيء قمنا بإضافته في النافذة Layout Manager أي لم نستخدم أي null هنا وضعنا
+        frame.setVisible(true);                                  // هنا جعلنا النافذة مرئية
+ 
+        checkBox.addItemListener(new ItemListener() {            // أي كلما تغيرت حالته .checkBox هنا نضع الأوامر التي نريد تنفيذها عند النقر على الـ
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(checkBox.isSelected())                        // سيتم طباعة النص التالي checkBox إذا كان يوجد علامة صح على الـ
+                    label.setText("Check Box is checked");
+                else                                             // سيتم طباعة النص التالي checkBox إذا كان لا يوجد علامة صح على الـ
+                    label.setText("Check Box is not checked");
+            }
+        });
+ 
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+![مثال يشرح طريقة تعريف الحدث ItemListener في جافا](/content-images/swing/awt-itemlistener/1784305407368-l9w8fh.PNG)

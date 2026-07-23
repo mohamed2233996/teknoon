@@ -1,0 +1,200 @@
+---
+title: "Swingالكلاس JSplitPane"
+source: "https://harmash.com/tutorials/swing/jsplitpane"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:02.937Z"
+---
+
+## مقدمة
+
+الكلاس `JSplitPane` يسمى Split Pane و يستخدم لتقسيم الـ Frame إلى عدة أقسام مع إمكانية سحب الأقسام يدوياً.  
+إذاً الـ Split Pane يضيف Splitter في الـ Frame فيقسمها إلى قسمين أساسيين.  
+يستطيع المستخدم تحريك هذا الـ Splitter لتغيير حجم الأقسام الموجودة في الـ Frame لعرض محتواها بالشكل الذي يريده.
+
+يمكن تحديد الـ Split Pane لتقسيم الـ Frame عامودياً أو أفقياً.  
+و يمكن تقسيم القسم الواحد إلى عدة أقسام أيضاً و هذا يسمى Nested Split Panes.
+
+لجعل القسم الذي تريد إضافته في الـ Split Pane يظهر Scroll Bar عند الحاجة ضعه بداخل `JScrollPane`.
+
+لا تقلق ستفهم كل شيء لاحقاً من الأمثلة.
+
+  
+
+### بناؤه
+
+public class JSplitPane
+extends JComponent
+implements Accessible
+
+## كونستركتورات الكلاس `JSplitPane`
+
+الجدول التالي يحتوي على أهم الكونستركتورات الموجودة في الكلاس `JSplitPane`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JSplitPane()` ينشئ كائن من الكلاس `JSplitPane` يضيف Splitter في الـ Frame, فيقسمها إلى قسمين بالعرض.  
+  
+ملاحظة: إذا لم تضع أي شيء في الأقسام, سيقوم بوضع زر واحد في كل قسم.
+
+2
+
+`public JSplitPane(int orientation)` ينشئ كائن من الكلاس `JSplitPane` يضيف Splitter في الـ Frame, فيقسمها إلى قسمين بالعرض أو الطول.  
+مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `JSplitPane` المخصصة لتحديد طريقة تقسيم الـ Frame.  
+  
+الثوابت التي يسمح باستخدامها هي:  
+
+*   `JSplitPane.VERTICAL_SPLIT` يقسم الـ Frame بالطول.
+*   `JSplitPane.HORIZONTAL_SPLIT` يقسم الـ Frame بالعرض.
+
+  
+إفتراضياً, الـ Split Pane يستخدم الثابت `JSplitPane.HORIZONTAL`.  
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.  
+  
+ملاحظة: إذا لم تضع أي شيء في الأقسام, سيقوم بوضع زر واحد في كل قسم.
+
+3
+
+`public JSplitPane(int orientation, Component leftComponent, Component rightComponent)` ينشئ كائن من الكلاس `JSplitPane` يضيف Splitter في الـ Frame, فيقسمها إلى قسمين بالعرض أو الطول مع تحديد محتوى كل قسم.  
+  
+
+*   مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `JSplitPane` المخصصة لتحديد طريقة تقسيم الـ Frame.
+*   مكان الباراميتر `leftComponent` نضع الشيء الذي نريده أن يظهر في القسم الأيسر أو الأعلى.
+*   مكان الباراميتر `rightComponent` نضع الشيء الذي نريده أن يظهر في القسم الأيمن أو الأسفل.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.
+
+4
+
+`public JSplitPane(int orientation, boolean continuousLayout, Component leftComponent, Component rightComponent)` ينشئ كائن من الكلاس `JSplitPane` يضيف Splitter في الـ Frame, فيقسمها إلى قسمين بالعرض أو الطول مع تحديد محتوى كل قسم, بالإضافة إلى تحديد إذا كان سيتم رسم الـ Frame مباشرةً عند تحريك الـ Splitter.  
+  
+
+*   مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `JSplitPane` المخصصة لتحديد طريقة تقسيم الـ Frame.
+*   مكان الباراميتر `continuousLayout` نضع `true` حتى يتم رسم الـ Frame مباشرةً عند تحريك الـ Splitter, بالتالي لن يظهر خط أسود عند تحريكه.
+*   مكان الباراميتر `leftComponent` نضع الشيء الذي نريده أن يظهر في القسم الأيسر أو الأعلى.
+*   مكان الباراميتر `rightComponent` نضع الشيء الذي نريده أن يظهر في القسم الأيمن أو الأسفل.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.
+
+## دوال الكلاس `JSplitPane`
+
+الجدول التالي يحتوي على أهم الدوال الموجودة في الكلاس `JSplitPane`.
+
+الدالة مع تعريفه
+
+1
+
+`public void setOrientation(int orientation)` تستخدم لتحديد ما إذا كان سيتم تقسيم الـ Frame أفقياً أم عامودياً.  
+مكان الباراميتر `orientation` نضع إحدى الثوابت الموجودة في الكلاس `JSplitPane` المخصصة لتحديد طريقة تقسيم الـ Frame.  
+  
+الثوابت التي يسمح باستخدامها هي:  
+
+*   `JSplitPane.VERTICAL_SPLIT` يقسم الـ Frame بالطول.
+*   `JSplitPane.HORIZONTAL_SPLIT` يقسم الـ Frame بالعرض.
+
+  
+إفتراضياً, الـ Split Pane يستخدم الثابت `JSplitPane.HORIZONTAL`.  
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ Orientation بواسطة الثوابت المخصصة لذلك.
+
+2
+
+`public void setContinuousLayout(boolean continuousLayout)` تستخدم لتحديد إذا كان سيتم رسم الـ Frame مباشرةً عند تحريك الـ Splitter أم لا.  
+بمعنى آخر, لتحديد إذا كان سيتم تحديث الـ Frame لحظة بلحظة أثناء تحريك الـ Splitter.  
+مكان الباراميتر `continuousLayout` نضع `true` إذا أردنا أن يتم رسم الـ Frame مباشرةً عند تحريك الـ Splitter, بالتالي لن يظهر خط أسود عند تحريكه. و نضع `false` إذا لم نرد ذلك.
+
+3
+
+`public void setDividerLocation(int location)` تستخدم لتحديد موقع الـ Splitter في الـ Frame.  
+مكان الباراميتر `location` نضع عدد صحيح يحدد موقع الـ Splitter الأولي في الـ Frame.
+
+4
+
+`public void setDividerSize(int size)` تستخدم لتحديد موقع الـ Splitter في الـ Frame.  
+مكان الباراميتر `location` نضع عدد صحيح يحدد موقع الـ Splitter الأولي في الـ Frame.
+
+5
+
+`public void setOneTouchExpandable(boolean isOneTouchExpandable)` تستخدم لإضافة سهمين صغيرين على الـ Splitter يستخدمان لتحريكه بسرعة في إتجاه محدد.  
+مكان الباراميتر `isOneTouchExpandable` نضع `true` إذا أردنا إظهار السهمين. و نضع `false` إذا لم نرد ذلك.
+
+6
+
+`public void setLeftComponent(Component comp)` تستخدم لتحديد الشيء الذي سيتم وضعه في يسار ( أو أعلى ) الـ Splitter.  
+مكان الباراميتر `comp` نضع أي شيء نريد وضعه في ذلك المكان.
+
+7
+
+`public void setRightComponent(Component comp)` تستخدم لتحديد الشيء الذي سيتم وضعه في يمين ( أو أسفل ) الـ Splitter.  
+مكان الباراميتر `comp` نضع أي شيء نريد وضعه في ذلك المكان.
+
+8
+
+`public void setTopComponent(Component comp)` تستخدم لتحديد الشيء الذي سيتم وضعه في أعلى ( أو يسار ) الـ Splitter.  
+مكان الباراميتر `comp` نضع أي شيء نريد وضعه في ذلك المكان.
+
+9
+
+`public void setBottomComponent(Component comp)` تستخدم لتحديد الشيء الذي سيتم وضعه في أسفل ( أو يمين ) الـ Splitter.  
+مكان الباراميتر `comp` نضع أي شيء نريد وضعه في ذلك المكان.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إضافة الـ Splitter في الـ Frame لتقسيمها إلى قسمين.  
+ملاحظة: إفتراضياً, إذا لم تحدد محتوى أقسام الـ Frame ستجد أنه يضع زر واحد في كل قسم.
+
+![طريقة إضافة JSplitPane في ال JFrame في جافا](/content-images/swing/jsplitpane/1784305381936-rtjsyn.PNG)
+
+[شاهد المثال](/tutorials/swing/jsplitpane/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تحديد حجم الـ Splitter, إضافة أسهم عليه لجعل المستخدم قادراً على تحريكه بسرعة, بالإضافة إلى إخفاء اللون الأسود الذي يظهر عند تحريكه.
+
+![طريقة تحديد حجم ال splitter و حل مشكلة اللون الأسود التي تظهر عند تحريكه في جافا](/content-images/swing/jsplitpane/1784305382034-onqrb3.PNG)
+
+[شاهد المثال](/tutorials/swing/jsplitpane/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تقسيم الـ Frame إلى قسمين بالطول, أي إظهار الـ Splitter بشكل أفقي.
+
+![طريقة إظهار ال splitter بشكل أفقي في جافا](/content-images/swing/jsplitpane/1784305382133-tfynbn.PNG)
+
+[شاهد المثال](/tutorials/swing/jsplitpane/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة وضع إثنين Splitter في الـ Frame.
+
+![طريقة وضع إثنين splitter في ال frame في جافا](/content-images/swing/jsplitpane/1784305382227-6rn3ec.PNG)
+
+[شاهد المثال](/tutorials/swing/jsplitpane/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة وضع أي محتوى تريده في الـ Split Pane و إضافة Scroll Bar للأقسام أيضاً.
+
+![طريقة وضع قائمة Jو صورة ImageIcon في ال JSplitPane في جافا](/content-images/swing/jsplitpane/1784305382916-1uicej.PNG)
+
+[شاهد المثال](/tutorials/swing/jsplitpane/example-5)

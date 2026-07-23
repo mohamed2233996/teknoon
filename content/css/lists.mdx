@@ -1,0 +1,407 @@
+---
+title: "CSSقوائم التعداد"
+source: "https://harmash.com/tutorials/css/lists"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:12:14.644Z"
+---
+
+## مفهوم قوائم التعداد
+
+قوائم التعداد نوعان، قوائم مرتبة ( Order Lists ) يبدأ فيها كل عنصر برقم يدل على موقعه فيها أو قوائم غير مرتبة ( Unordered Lists ) حيث يكون هناك دائرة، مربع، رمز مخصص أو صورة في بداية كل عنصر.
+
+الرقم أو الرمز الذي يظهر في بداية العنصر يسمى مُحدّد العنصر ( Item marker ) مهما كان شكله أو نوعه.
+
+### Ordered List
+
+1.  Web Design
+2.  Front End
+3.  Back End
+
+1.  Web Design
+2.  Front End
+3.  Back End
+
+### Unordered List
+
+1.  Web Design
+2.  Front End
+3.  Back End
+
+1.  Web Design
+2.  Front End
+3.  Back End
+
+  
+
+في هذا الدرس ستتعلم كيف تحدد نوع التنقيط و الترقيم، كيف تعرض صورة بدل التنقيط، كيف تحدد ما إن كان التنقيط أو الترقيم سيظهر بداخل أو خارج القائمة.
+
+## تحديد نوع الترقيم و التنقيط
+
+يمكنك تحديد نوع الترقيم الذي سيظهر في القائمة التي تحصل عليها بواسطة الوسم `<ol>` باستخدام الخاصية `list-style-type` و تمرير إحدى القيم التالية لها.
+
+القيمة
+
+معناها
+
+`arabic-indic`
+
+لإظهار ترقيم عربي.
+
+`decimal`
+
+لإظهار ترقيم إنجليزي.
+
+`decimal-leading-zero`
+
+لإظهار ترقيم إنجليزي مع إظهار صفر إضافي ناحية اليسار إذا كان الرقم بين 0 و 9.
+
+`lower-alpha`
+
+لإظهار ترقيم على شكل أحرف إنجليزية صغيرة الحجم.
+
+`upper-alpha`
+
+لإظهار ترقيم على شكل أحرف إنجليزية كبيرة الحجم.
+
+`lower-roman`
+
+لإظهار ترقيم على شكل أحرف رومانية صغيرة الحجم.
+
+`upper-roman`
+
+لإظهار ترقيم على شكل أحرف رومانية كبيرة الحجم.
+
+`hebrew`
+
+لإظهار ترقيم عبري.
+
+  
+
+في المثال التالي قمنا بتجربة أنواع الترقيم المختلفة.
+
+#### المثال الأول
+
+.arabic-indic {
+    list-style-type: arabic-indic;
+}
+
+.decimal {
+    list-style-type: decimal;
+}
+
+.decimal-leading-zero {
+    list-style-type: decimal-leading-zero;
+}
+
+.lower-alpha {
+    list-style-type: lower-alpha;
+}
+
+.upper-alpha {
+    list-style-type: upper-alpha;
+}
+
+.lower-roman {
+    list-style-type: lower-roman;
+}
+
+.upper-roman {
+    list-style-type: upper-roman;
+}
+
+.hebrew {
+    list-style-type: hebrew;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/ol-list-style-type)
+
+  
+
+يمكنك تحديد نوع التنقيط الذي سيظهر في القائمة التي تحصل عليها بواسطة الوسم `<ul>` باستخدام الخاصية `list-style-type` أيضاً و تمرير إحدى القيم التالية لها.
+
+القيمة
+
+معناها
+
+`disc`
+
+لإظهار دائرة.
+
+`circle`
+
+لإظهار دائرة فارغة.
+
+`square`
+
+لإظهار مربع.
+
+  
+
+في المثال التالي قمنا بتجربة أنواع التنقيط المختلفة.
+
+#### المثال الثاني
+
+.disc {
+    list-style-type: disc;
+}
+
+.circle {
+    list-style-type: circle;
+}
+
+.square {
+    list-style-type: square;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/ul-list-style-type)
+
+  
+
+سواء كنت تستخدم قائمة نوعها `<ol>` أو `<ul>` يمكنك تمرير القيم التالية للخاصية `list-style-type` أيضاً.
+
+القيمة
+
+معناها
+
+`none`
+
+لإظهار العناصر بدون ترقيم أو تنقيط.
+
+`inherit`
+
+لجعل العنصر يرث نوع الترقيم أو التنقيط المعتمد في القائمة الأب.
+
+`'string'`
+
+مكان الكلمة `string` يمكن تمرير أي نص، رمز أو إيموجي ليتم إظهاره في بداية كل عنصر.
+
+  
+
+في المثال التالي قمنا بإخفاء الترقيم و التنقيط.
+
+#### المثال الثالث
+
+ol, ul {
+    list-style-type: none;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-type-none)
+
+  
+
+في المثال التالي قمنا بجعل القائمة الداخلية تستخدم نفس نوع الترقيم المُستخدم في القائمة الخارجية.
+
+#### المثال الرابع
+
+ol {
+    list-style-type: lower-alpha;
+}
+
+ol ol {
+    list-style-type: inherit;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-type-inherit)
+
+  
+
+في المثال التالي قمنا بعرض رمز في بداية كل عنصر.
+
+#### المثال الخامس
+
+ol, ul {
+    list-style-type: '- ';
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-type-string)
+
+  
+
+في المثال التالي قمنا بعرض إيموجي في بداية كل عنصر.
+
+#### المثال السادس
+
+ol, ul {
+    list-style-type: '👉 ';
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-type-emojy)
+
+## عرض صورة في بداية كل عنصر
+
+في القائمة التي تحصل عليها بواسطة الوسم `<ul>` يمكنك عرض صورة صغيرة أو لون في بداية كل عنصر بدلاً من التنقيط التقليدي باستخدام الخاصية `list-style-image` و تمرير إحدى القيم التالية لها.
+
+القيمة
+
+معناها
+
+`url()`
+
+بين أقواس هذه الدالة يجب تمرير مسار الصورة المراد عرضها في بداية كل عنصر.
+
+`linear-gradient()`
+
+بين أقواس هذه الدالة يجب تمرير إتجاه عرض اللون و تدرج الألوان المراد إظهارها.
+
+`radial-gradient()`
+
+بين أقواس هذه الدالة يجب تمرير تدرج الألوان المراد إظهارها.
+
+`none`
+
+لإزالة الصورة من بداية العنصر كل عنصر و هذه القيمة الإفتراضية.
+
+  
+
+في المثال التالي قمنا بعرض صورة في بداية كل عنصر.
+
+#### المثال الأول
+
+ul {
+    list-style-image: url('circle.png');
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-image)
+
+  
+
+في المثال التالي قمنا بعرض مربع متدرج الألوان في بداية كل عنصر.
+
+#### المثال الثاني
+
+ul {
+    list-style-image: linear-gradient(to left bottom, red, blue);
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-image-linear-gradient)
+
+  
+
+في المثال التالي قمنا بعرض مربع متدرج الألوان و بشكل دائري في بداية كل عنصر.
+
+#### المثال الثالث
+
+ul {
+    list-style-image: radial-gradient(red, blue);
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-image-radial-gradient)
+
+## تحديد مكان محددات العناصر
+
+يمكنك تحديد مكان ظهور محددات العناصر باستخدام الخاصية `list-style-position` و تمرير إحدى القيم التالية لها.
+
+القيمة
+
+معناها
+
+`inside`
+
+لإظهار المحددات بداخل حدود العناصر.
+
+`outside`
+
+لإظهار المحددات خارج حدود العناصر و هذه القيمة الإفتراضية.
+
+  
+
+في المثال التالي قمنا بإظهار محددات العناصر مرة بداخل حدودها و مرة خارجها.  
+**ملاحظة:** قمنا بإظهار حدود العناصر حتى تلاحظ الفرق.
+
+#### مثال
+
+ul li {
+    border: 1px solid;
+}
+
+.inside {
+    list-style-position: inside;
+}
+
+.outside {
+    list-style-position: outside;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/list-style-position)
+
+## تعديل تصميم القائمة و العناصر
+
+CSS تتيج لك تعديل تصميم القوائم كيفما تشاء حيث تستطيع إضافة ألوان، حدود، خلفيات للعناصر بالإضافة إلى تعديل تصميم محددات العناصر بشكل كلي.
+
+إفتراضياً، المتصفحات على اختلاف أنواعها تضيف للقوائم هوامش داخلية ( Padding ) و خارجية ( Margin ) بشكل إفتراضي و بنسب مختلفة. ننصحك دائماً بإزالة الهوامش الإفتراضية أو تحديدها بنفسك لكي تظهر بشكل موحّد في جميع المتصفحات.
+
+  
+
+### الوصول لخصائص القوائم
+
+الأسلوب التالي يتيح لك الوصول لخصائص القائمة و التعديل عليها كيفما تشاء.
+
+/\* لإضافة خصائص للقائمة بحد ذاتها \*/
+ul {
+
+}
+
+/\* لإضافة خصائص لجميع عناصر القائمة \*/
+ul li {
+    
+}
+
+/\* لإضافة خصائص لجميع محددات عناصر القائمة \*/
+ul li::marker {
+    
+}
+
+  
+
+في المثال التالي قمنا بتعديل هوامش القائمة الإفتراضية، لون خلفيتها، لون عناصرها و ألوان المحددات الموجودة فيها.
+
+#### مثال
+
+ul {
+    margin: 0;
+    padding: 5px 10px;
+    list-style-type: disc;
+    list-style-position: inside;
+    background: deepskyblue;
+}
+
+ul li {
+    background: darkslateblue;
+    color: white;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+ul li::marker {
+    color: gold;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/customize-list)
+
+## عرض أيقونة في بداية العنصر
+
+إذا كنت تستخدم أيقونات جوجل أو أيقونات Font Awesome فإنه بإمكانك أيضاً استخدام هذه الأيقونات كمحددات في القوائم، حيث يمكنك عرض أيقوناتهم في بداية كل عنصر بالإضافة إلى تخصيص طريقة عرضها حتى تظهر بشكل الذي تريده.
+
+في المثال التالي قمنا بعرض أيقونة النجمة الموجودة ضمن أيقونات FontAwesome في بداية كل عنصر و قمنا بتلوينها و تحديد حجمها و إبعاد نص العناصر عنها أيضاً.
+
+#### مثال
+
+ul {
+    list-style-type: '\\f006'; /\* رمز إظهار النجمة \*/
+    padding: 0 0 0 15px;
+    margin: 0;
+}
+            
+ul li {
+    padding-left: 5px;
+    line-height: 26px;
+}
+            
+ul li::marker {
+    font-family: "Font Awesome 6 Free";
+    font-weight: bold;
+    font-size: 14px;
+    color: gold;
+}
+
+[جرب الكود](/tryit?file=/tutorials/css/lists/use-fontawesome-as-marker)

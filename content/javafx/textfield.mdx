@@ -1,0 +1,152 @@
+---
+title: "JavaFXالكلاس TextField"
+source: "https://harmash.com/tutorials/javafx/textfield"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:47.293Z"
+---
+
+## مقدمة
+
+الكلاس `TextField` يستخدم لإضافة مربع نص ( Text Field ) في واجهة المستخدم.  
+ملاحظة: الـ Text Field يظهر سطر واحد بداخله و لا يمكن جعله يتألف من أكثر من سطر.
+
+  
+
+### بناء الكلاس `TextField`
+
+public class TextField
+extends TextInputControl
+
+## كونستركتورات الكلاس `TextField`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `TextField`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public TextField()` ينشئ كائن من الكلاس `TextField` يمثل مربع نص فارغ.
+
+2
+
+`public TextField(String text)` ينشئ كائن من الكلاس `TextField` يمثل مربع نص فيه نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه بداخل الـ`TextField`.
+
+## دوال الكلاس `TextField`
+
+الجدول التالي يحتوي على دوال الكلاس `TextField` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `TextField` الذي قام بإستدعائها كنص.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `TextField` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public final void setTextFill(Paint value)` تستخدم لتحديد لون نص كائن الـ `TextField` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من إحدى الكلاسات التي ترث من الكلاس `Paint` و التي يمكن إستخدامها لتحديد درجة اللون.
+
+4
+
+`public final void setBackground(Background value)` تستخدم لوضع لون أو صورة كخلفية لكائن الـ `TextField` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس `Background` يشير إلى درجة اللون أو الصورة التي سيتم وضعها كخلفية.
+
+5
+
+`public final void setFont(Font newFont)` تستخدم لتحديد حجم و نوع خط كائن الـ `TextField` الذي قام بإستدعائها.  
+مكان الباراميتر `newFont` نضع كائن من الكلاس `Font` يمثل خصائص الخط الجديد.
+
+6
+
+`public final void setPadding(Insets value)` تستخدم لإضافة هامش ( مسافة فارغة ) حول نص كائن الـ `TextField` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس Insets يمثل حجم الهامش حول النص من كل الجهات.
+
+7
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان الـ `TextField` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+8
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان الـ `TextField` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+9
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم الـ `TextField` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `TextField` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `TextField` بالـ Pixel.
+
+10
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `TextField` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل لتغير النص الموجود بداخله.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+11
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `TextField` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `TextField` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `TextField` و إضافته في النافذة.
+
+![طريقة إضافة TextField في javafx](/content-images/javafx/textfield/1784305186893-p6kv3h.PNG)
+
+[شاهد المثال](/tutorials/javafx/textfield/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم خط الـ `TextField`.
+
+![طريقة تغيير حجم خط الكائن TextField في javafx](/content-images/javafx/textfield/1784305186992-y2e6xo.PNG)
+
+[شاهد المثال](/tutorials/javafx/textfield/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة الحصول على النص المدخل في الـ `TextField`.
+
+![طريقة الحصول على النص المدخل في الـ TextField عند النقر على زر في javafx](/content-images/javafx/textfield/1784305187086-qu1ca7.gif)
+
+[شاهد المثال](/tutorials/javafx/textfield/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة الحصول على النص المدخل في `TextField` و تحويله إلى رقم.
+
+![طريقة تحويل نص الـ TextField إلى رقم في javafx](/content-images/javafx/textfield/1784305187185-pcivuv.gif)
+
+[شاهد المثال](/tutorials/javafx/textfield/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة إظهار نص إرشاد في الـ `TextField` في حال كان فارغاً.
+
+![طريقة إظهار نص إرشاد في الـ TextField في حال كان فارغاً في javafx](/content-images/javafx/textfield/1784305187278-sbvjc1.gif)
+
+[شاهد المثال](/tutorials/javafx/textfield/example-5)

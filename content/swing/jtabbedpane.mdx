@@ -1,0 +1,156 @@
+---
+title: "Swingالكلاس JTabbedPane"
+source: "https://harmash.com/tutorials/swing/jtabbedpane"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:48.112Z"
+---
+
+## مقدمة
+
+الكلاس `JTabbedPane` يستخدم لإضافة (Tabbed Pane) في واجهة المستخدم.  
+الـ Tabbed Pane تستخدم لوضع عدة Panels في مكان واحد مع إمكانية إظهار Panel واحد منهم في وقت واحد.
+
+كل Panel توضع بداخل الـ Tabbed Pane تملك Tab خاص فيها.  
+عندما يقوم المستخدم بالنقر على الـ Tab فإنها تظهر الـ Panel التي بداخلها.
+
+إفتراضياً, الـ Tabbed Pane يظهر حدود عند إضافته في النافذة. و يمكنك وضع العدد الذي تريده من الـ Panels بداخله.
+
+  
+
+### بناؤه
+
+public class JTabbedPane
+extends JComponent
+implements Serializable, Accessible, SwingConstan
+
+  
+
+### طريقة التعامل معه
+
+لإضافة Panel في الـ Tabbed Pane نستخدم الدالة `addTab()` أو الدالة `insertTab()`.
+
+كل Panel تضيفه في الـ Tabbed Pane يتم إعطائه رقم Index بشكل تلقائي.  
+الـ Panel الأول يحمل الـ Index رقم 0.  
+الـ Panel الثاني يحمل الـ Index رقم 1 إلخ..
+
+لإظهار Panel محدد من الـ Panels الموجودين إستخدام الدالة `setSelectedComponent()` أو الدالة `setSelectedIndex()`.
+
+  
+
+محتوى الـ Tab ليس بالضرورة أن يكون Panel.  
+يمكن أن يكون أي شيء مثل Label, Button, Text Box إلخ..  
+لكنك على الأغلب ستجعل كل Tab يظهر Panel و تضع المحتوى الذي تريده بداخلها.
+
+## كونستركتورات الكلاس `JTabbedPane`
+
+الجدول التالي يحتوي على جميع الكونستركتورات الموجودة في الكلاس `JTabbedPane`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JTabbedPane()` ينشئ كائن من الكلاس `JTabbedPane` يمثل Tabbed Pane فارغ يظهر الـ Tabs التي نضيفها فيه في الأعلى.  
+سبب ظهور الـ Tabs في الأعلى هو أن الـ Tabbed Pane يستخدم إفتراضياً الثابت `JTabbedPane.TOP` لتحديد مكان ظهورهم.
+
+2
+
+`public JTabbedPane(int tabPlacement)` ينشئ كائن من الكلاس `JTabbedPane` يمثل Tabbed Pane فارغ يظهر الـ Tabs التي نضيفها فيه في المكان الذي نريده.  
+  
+مكان الباراميتر `tabPlacement` نضع إحدى الثوابت التالية:  
+
+*   `JTabbedPane.TOP`: يجعل الـ Tabs يظهرون في أعلا الـ Tabbed Pane.
+*   `JTabbedPane.BOTTOM`: يجعل الـ Tabs يظهرون في أسفل الـ Tabbed Pane.
+*   `JTabbedPane.RIGHT`: يجعل الـ Tabs يظهرون في يمين الـ Tabbed Pane.
+*   `JTabbedPane.LEFT`: يجعل الـ Tabs يظهرون في يسار الـ Tabbed Pane.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ `tabPlacement بواسطة الثوابت المخصصة لذلك.`
+
+3
+
+`public JTabbedPane(int tabPlacement, int tabLayoutPolicy)` ينشئ كائن من الكلاس `JTabbedPane` يمثل Tabbed Pane فارغ يظهر الـ Tabs التي نضيفها فيه في المكان الذي نريده.  
+كما أنه يحدد إذا كان سيتم إضافة Scroll Bar في حال كانت مساحة الـ Tabbed Pane غير كافية لإظهار جميع الـ Tabs وراء بعضهم. أو لتحديد إذا كان سيضعهم فوق بعضهم كما يفعل إفتراضياً,  
+  
+مكان الباراميتر `tabPlacement` نضع إحدى الثوابت التالية:  
+
+*   `JTabbedPane.TOP`: يجعل الـ Tabs يظهرون في أعلا الـ Tabbed Pane.
+*   `JTabbedPane.BOTTOM`: يجعل الـ Tabs يظهرون في أسفل الـ Tabbed Pane.
+*   `JTabbedPane.RIGHT`: يجعل الـ Tabs يظهرون في يمين الـ Tabbed Pane.
+*   `JTabbedPane.LEFT`: يجعل الـ Tabs يظهرون في يسار الـ Tabbed Pane.
+
+  
+  
+مكان الباراميتر `tabLayoutPolicy` نضع إحدى الثوابت التالية:  
+
+*   `JTabbedPane.WRAP_TAB_LAYOUT`: يجعل الـ Tabs يظهرون فوق بعضهم البعض في حال كانت مساحة الـ Tabbed Pane غير كافية لإظهار جميع الـ Tabs وراء بعضهم.
+*   `JTabbedPane.SCROLL_TAB_LAYOUT`: يضيف Scroll Bar خاص للإنتقال بين الـ Tabs في حال كانت مساحة الـ Tabbed Pane غير كافية لإظهار جميع الـ Tabs وراء بعضهم.
+
+  
+يرمي الإستثناء IllegalArgumentException في حال لم يتم تحديد الـ `tabPlacement` أو الـ `tabLayoutPolicy` بواسطة الثوابت المخصصة لذلك.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JTabbedPane` و إضافة Panels بداخله. ثم إضافته في النافذة.
+
+![طريقة إضافة JTabbedPane في ال JFrame و إضافة jpanel بداخله في جافا](/content-images/swing/jtabbedpane/1784305367627-zvb6eo.PNG)
+
+[شاهد المثال](/tutorials/swing/jtabbedpane/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يوضح طريقة ظهور الـ Tabs في حال لم يتم تغيير الـ Tab Layout Policy و كانت مساحة الـ Tabbed Pane غير كافية لإظهار جميع الـ Tabs وراء بعضهم.
+
+![طريقة تغيير مكان ظهور ال Tabs في ال JTabbedPane في جافا](/content-images/swing/jtabbedpane/1784305367719-1x226n.PNG)
+
+[شاهد المثال](/tutorials/swing/jtabbedpane/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة إظهار Scroll Bar في حال كانت مساحة الـ Tabbed Pane غير كافية لإظهار جميع الـ Tabs وراء بعضهم.
+
+![طريقة إظهار Scroll Bar في حال كانت مساحة ال Tabbed Pane غير كافية لإظهار جميع الـ Tabs وراء بعضهم.](/content-images/swing/jtabbedpane/1784305367816-mwa5c7.PNG)
+
+[شاهد المثال](/tutorials/swing/jtabbedpane/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة إظهار الـ Tabs في أسفل الـ Tabbed Pane و إضافة Scroll Bar في حال كانت مساحة الـ Tabbed Pane غير كافية لإظهار جميع الـ Tabs وراء بعضهم.
+
+![طريقة إظهار ال tabs أسفل ال Tabbed Pane ](/content-images/swing/jtabbedpane/1784305367910-fryjrz.PNG)
+
+[شاهد المثال](/tutorials/swing/jtabbedpane/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة وضع أيقوانات للـ Tabs.
+
+![طريقة وضع أيقوانات لل tabs](/content-images/swing/jtabbedpane/1784305368007-48z3yu.PNG)
+
+[شاهد المثال](/tutorials/swing/jtabbedpane/example-5)
+
+  
+  
+
+### المثال السادس
+
+المثال التالي يعلمك طريقة إضافة زر إغلاق لكل Tab يتم إضافتها في الـ Tabbed Pane.
+
+![طريقة إضافة زر إغلاق لكل tab في جافا](/content-images/swing/jtabbedpane/1784305368098-5lczsj.PNG)
+
+[شاهد المثال](/tutorials/swing/jtabbedpane/example-6)

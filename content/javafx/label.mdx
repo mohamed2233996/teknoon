@@ -1,0 +1,226 @@
+---
+title: "JavaFXالكلاس Label"
+source: "https://harmash.com/tutorials/javafx/label"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:42.023Z"
+---
+
+## مقدمة
+
+الكلاس `Label` يستخدم لإضافة عنوان (Label) في واجهة المستخدم.  
+محتوى هذا العنوان يمكن أن يكون: نص, أيقونة, نص و أيقونة بجانبه.
+
+  
+
+### بناء الكلاس `Label`
+
+public class Label
+extends Labeled
+
+## كونستركتورات الكلاس `Label`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس الـ`Label`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public Label()` ينشئ كائن من الكلاس `Label` يمثل عنوان فارغ.
+
+2
+
+`public Label(String text)` ينشئ كائن من الكلاس `Label` يمثل عنوان.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه كعنوان.
+
+3
+
+`public Label(String text, Node graphic)` ينشئ كائن من الكلاس `Label` يمثل نص و أيقونة معاً كعنوان.  
+  
+
+*   مكان الباراميتر `text` نمرر النص الذي نريد وضعه في العنوان.
+*   مكان الباراميتر `graphic` نمرر كائن من الكلاس `Node` يمثل الأيقونة التي سيتم وضعها في العنوان.
+
+## دوال الكلاس `Label`
+
+الجدول التالي يحتوي على دوال الكلاس `Label` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `Label` الذي قام بإستدعائها كنص.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `Label` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public final void setTextFill(Paint value)` تستخدم لتحديد لون نص كائن الـ `Label` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من إحدى الكلاسات التي ترث من الكلاس `Paint` و التي يمكن إستخدامها لتحديد درجة اللون.
+
+4
+
+`public final void setBackground(Background value)` تستخدم لوضع لون أو صورة كخلفية لكائن الـ `Label` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس `Background` يشير إلى درجة اللون أو الصورة التي سيتم وضعها كخلفية.
+
+5
+
+`public final void setFont(Font newFont)` تستخدم لتحديد حجم و نوع خط كائن الـ `Label` الذي قام بإستدعائها.  
+مكان الباراميتر `newFont` نضع كائن من الكلاس `Font` يمثل خصائص الخط الجديد.
+
+6
+
+`public final void setUnderline(boolean value)` تستخدم لوضع خط تحت نص كائن الـ `Label` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة `true` لإظهار خط تحت النص.
+
+7
+
+`public final void setRotate(double degree)` تستخدم لإدارة نص كائن الـ `Label` الذي قام بإستدعائها.  
+مكان الباراميتر `degree` نضع رقم يمثل درجة الدوران.
+
+8
+
+`public final void setWrapText(boolean value)` تستخدم لجعل نص كائن الـ `Label` الذي قام بإستدعائها ينزل على سطر جديد في حال كان لا يسع في سطر واحد.  
+مكان الباراميتر `value` نضع القيمة `true` لجعل الأحرف تظهر على سطر جديد عند الحاجة.
+
+9
+
+`public final void setLineSpacing(double value)` تستخدم لتحديد المسافة بين كل سطرين في نص كائن الـ `Label` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع رقم يمثل المسافة بين كل سطرين بالـ Pixel.
+
+10
+
+`public final void setPadding(Insets value)` تستخدم لإضافة هامش ( مسافة فارغة ) حول نص كائن الـ `Label` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس Insets يمثل حجم الهامش حول النص من كل الجهات.
+
+11
+
+`public final void setScaleX(double value)` تستخدم لتمطيط الـ `Label` الذي قام باستدعائها بشكل أفقي.  
+مكان الباراميتر `value` نضع رقم يمثل كم مرة سيتم مضاعفة حجمه أفقياً.
+
+12
+
+`public final void setScaleY(double value)` تستخدم لتمطيط الـ `Label` الذي قام باستدعائها بشكل عامودي.  
+مكان الباراميتر `value` نضع رقم يمثل كم مرة سيتم مضاعفة حجمه عامودياً.
+
+13
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان الـ `Label` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+14
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان الـ `Label` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+15
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم الـ `Label` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `Label` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `Label` بالـ Pixel.
+
+16
+
+`public final void setContentDisplay(ContentDisplay value)` تستخدم لتحديد مكان ظهور الأيقونة التي تم إضافتها لكائن الـ `Label` الذي قام باستدعائها.  
+  
+مكان الباراميتر `value` نضع إحدى ثوابت الكلاس `ContentDisplay`:  
+
+*   الثابت `LEFT` يجعل الصورة تظهر يسار النص كما يظهر بشكل إفتراضي.
+*   الثابت `RIGHT` يجعل الصورة تظهر يمين النص.
+*   الثابت `TOP` يجعل الصورة تظهر تحت النص.
+*   الثابت `BOTTOM` يجعل الصورة تظهر فوق النص.
+*   الثابت `CENTER` يجعل النص يظهر على الصورة.
+*   الثابت `GRAPHIC_ONLY` يجعل الصورة فقط تظهر.
+*   الثابت `TEXT_ONLY` يجعل النص فقط يظهر.
+
+17
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `Label` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل للنقر عليه.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+18
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `Label` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `Label` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `Label` و إضافته في النافذة.
+
+![طريقة إضافة Label في javafx](/content-images/javafx/label/1784305181397-jt7whe.PNG)
+
+[شاهد المثال](/tutorials/javafx/label/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم و لون خط الـ`Label`.
+
+![طريقة تغيير حجم و لون خط الكائن Label في javafx](/content-images/javafx/label/1784305181493-k9ytaa.PNG)
+
+[شاهد المثال](/tutorials/javafx/label/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة تغيير لون خلفية الـ `Label` و إضافة هامش حوله.
+
+![طريقة تغيير لون الكائن Label و إضاقة هامش حوله في javafx](/content-images/javafx/label/1784305181580-easslb.PNG)
+
+[شاهد المثال](/tutorials/javafx/label/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة إضافة أيقونة للـ `Label` مع تحديد مكان ظهورها.
+
+![طريقة إضافة أيقونة للـ Label مع تحديد مكان ظهورها في javafx](/content-images/javafx/label/1784305181720-mbh1jk.PNG)
+
+[شاهد المثال](/tutorials/javafx/label/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة عرض نص الـ `Label` بشكل عامودي.
+
+![طريقة عرض نص الـ Label عامودياً في javafx](/content-images/javafx/label/1784305181813-jjbfqx.PNG)
+
+[شاهد المثال](/tutorials/javafx/label/example-5)
+
+  
+  
+
+### المثال السادس
+
+المثال التالي يعلمك طريقة عرض نص الـ `Label` بشكل مائل.
+
+![طريقة عرض نص الـ Label بشكل مائل في javafx](/content-images/javafx/label/1784305181904-8xgbpl.PNG)
+
+[شاهد المثال](/tutorials/javafx/label/example-6)
+
+  
+  
+
+### المثال السابع
+
+المثال التالي يعلمك طريقة تنفيذ أوامر عند تمرير الفأرة فوق الـ`Label`.
+
+![طريقة تنفيذ أوامر عند تمرير الفأرة فوق الـ Label في javafx](/content-images/javafx/label/1784305182001-rl7cvt.gif)
+
+[شاهد المثال](/tutorials/javafx/label/example-7)

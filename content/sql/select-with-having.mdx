@@ -1,0 +1,287 @@
+---
+title: "SQLوضع شروط على الأسطر التي تم تجميعها"
+source: "https://harmash.com/tutorials/sql/select-with-having"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:09:32.428Z"
+---
+
+## الجملة `HAVING`
+
+في حال تجميع الحقول بواسطة الجملة `GROUP BY` و إجراء إحصاء ما عليها بواسطة إحدى [الدوال التجميعية](/tutorials/sql/aggregate-functions) يمكن استخدام الجملة `HAVING` لإعادة فلترة الأسطر المجمعة.
+
+إذاً الجملة `HAVING` تسمح بوضع شروط يتم تطبيقها على الأسطر المجمعة لتحديد أي منها سيتم إبقاؤه في النتيجة النهائية.
+
+كمثال بسيط، في حال كنت تريد إجراء إحصاء لمعرفة متوسط رواتب موظفي الشركة في كل بلد، و بعد معرفة متوسط الرواتب في كل بلد تريد معرفة أي بلدان تعطي موظفيها متوسط راتب يتجاوز 800 دولار. هنا نقوم بتجميع الرواتب على حسب البلدان و من ثم نحسب متوسط الراتب في كل بلد، و في النهاية نقوم بفلترة الأسطر و إبقاء التي يتجاوز متوسط الراتب فيها 800 دولار.
+
+  
+
+### طريقة استخدامها
+
+SELECT column\_name(s)
+FROM table\_name
+WHERE condition
+GROUP BY column\_name(s)
+HAVING condition
+ORDER BY column\_name(s);
+
+*   بعد الكلمة `WHERE` يمكننا وضع شروط على القيم التي سيتم تجميعها من الأساس.
+*   بعد الكلمة `GROUP BY` نضع إسم كل عمود نريد أن يتم تجميع القيم بناءاً عليه.
+*   بعد الكلمة `HAVING` يمكننا وضع شروط لفلترة النتيجة النهائية التي سيتم إرجاعها.
+
+الشرط الذي يمكن وضعه بواسطة الجملة `WHERE` يتم تطبيقه قبل جلب الأسطر، أما الشرط الذي يمكن وضعه بواسطة الجملة `HAVING` فيتم تطبيقه على الأسطر التي تم تجميعها في النهاية و من ثم نريد فلترتها.
+
+## تجهيز قاعدة البيانات التي سنطبق عليها
+
+قم بتنفيذ الإستعلام التالي حتى تنشئ قاعدة بيانات جديدة إسمها `harmash` و تنشئ فيها جدول إسمه `employees` يحتوي على بيانات 10 موظفين.
+
+#### الإستعلام
+
+\-- سيتم حذفها harmash في حال كان يوجد بالأساس قاعدة بيانات إسمها
+DROP DATABASE IF EXISTS harmash;
+
+\-- harmash هنا قمنا بإنشاء قاعدة بيانات جديدة إسمها
+CREATE DATABASE harmash;
+
+\-- harmash هنا قمنا بتحديد أن أي إستعلام جديد سيتم تنفيذه على قاعدة البيانات
+USE harmash;
+
+\-- يتألف من 5 أعمدة employees هنا قمنا بإنشاء جدول جديد إسمه
+\-- لأننا قمنا بتحديدها قبل إستدعاء هذا الأمر harmash سيتم إنشاء هذا الجدول بداخل قاعدة البيانات
+CREATE TABLE employees (
+    id       INT NOT NULL PRIMARY KEY AUTO\_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    gender   VARCHAR(20),
+    country  VARCHAR(50),
+    salary   DECIMAL(7,2)
+);
+
+\-- هنا قمنا بإضافة 10 أسطر في الجدول, أي أضفنا معلومات 10 موظفين
+\-- لاحظ أننا لم نحدد أسماء الأعمدة التي سنضع فيها البيانات لأننا قمنا بملئ جميع المعلومات
+\-- مكان كل حقل لن نقوم بوضع قيمة فيه null بما أننا لم نحدد أسماء الأعمدة التي سنملأها لاحظ أننا مجبورين على وضع كلمة
+\-- الموضوعة في بداية كل أمر سيتم إستبدالها بترقيم تلقائي من قبل قاعدة البيانات null و لا تنسى أن الكلمة
+INSERT INTO employees VALUES (null, "rami", "male", "Lebanon", 700);
+INSERT INTO employees VALUES (null, "ahmad", "male", "Syria", 800);
+INSERT INTO employees VALUES (null, "hanan", "female", "KSA", 750);
+INSERT INTO employees VALUES (null, "saly", "female", "Lebanon", 650);
+INSERT INTO employees VALUES (null, "samir", "male", "Egypt", 600);
+INSERT INTO employees VALUES (null, "hamad", "male", "KSA", 700);
+INSERT INTO employees VALUES (null, "abdullah", "male", "KSA", 800);
+INSERT INTO employees VALUES (null, "rashed", "male", "Oman", 900);
+INSERT INTO employees VALUES (null, "majed", "male", "Yaman", 820);
+INSERT INTO employees VALUES (null, "malak", "female", "Morocco", 860);
+
+فيما يلي البيانات التي قمنا بإضافتها في الجدول `employees`.
+
+id
+
+user
+
+gender
+
+country
+
+salary
+
+1
+
+rami
+
+male
+
+Lebanon
+
+700.00
+
+2
+
+ahmad
+
+male
+
+Syria
+
+800.00
+
+3
+
+hanan
+
+female
+
+KSA
+
+750.00
+
+4
+
+saly
+
+female
+
+Lebanon
+
+650.00
+
+5
+
+samir
+
+male
+
+Egypt
+
+600.00
+
+6
+
+hamad
+
+male
+
+KSA
+
+700.00
+
+7
+
+abdullah
+
+male
+
+KSA
+
+800.00
+
+8
+
+rashed
+
+male
+
+Oman
+
+900.00
+
+9
+
+majed
+
+male
+
+Yaman
+
+820.00
+
+10
+
+malak
+
+female
+
+Morocco
+
+860.00
+
+## أمثلة حول وضع شروط بعد تجميع قيم الأعمدة
+
+الإستعلام التالي يقوم بعرض متوسط الرواتب الذي يتم دفعه للموظفين من كل بلد.
+
+ما فعلناه لإجراء هذا الإحصاء هو تجميع أسماء البلدان الموجودة في الحقل `country` بواسطة الكلمة `GROUP BY`.  
+بعدها قمنا باستخدام الدالة `AVG()` لحساب متوسط رواتب الموظفين الموجودين في كل مجموعة منهم، أي متوسط الموظفين الذين عندهم نفس قيمة الحقل `country`.
+
+**ملاحظة:** في هذا الإستعلام لم نقم بفلترة النتيجة التي سترجع بل عرضناها كما هي.
+
+#### المثال الأول
+
+SELECT country, AVG(salary)   \-- country سيتم حسابه بعد أن يتم تجميع قيم الحقل salary متوسط الحقول
+FROM employees
+GROUP BY country;             \-- على أساسهم AVG() سيتم تنفيذ الدالة country بعد أن يتم تجميع القيم الموجودة في العامود
+
+يمكنك إضافة أسماء للأعمدة و تغيير طريقة ظهور متوسط الرواتب كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT
+    country AS 'country',
+    FORMAT(AVG(salary), 2) AS 'Average Salary'
+FROM
+    employees
+GROUP BY
+    country;
+
+النتيجة
+
+Country
+
+Average Salary
+
+Egypt
+
+600.00
+
+KSA
+
+750.00
+
+Lebanon
+
+675.00
+
+Morocco
+
+860.00
+
+Oman
+
+900.00
+
+Syria
+
+800.00
+
+Yaman
+
+820.00
+
+  
+
+الإستعلام التالي يقوم بعرض متوسط الرواتب الذي يتم دفعه للموظفين من كل بلد و الذي يتجاوز 800 دولار.
+
+ما فعلناه لإجراء هذا الإحصاء هو تجميع أسماء البلدان الموجودة في الحقل `country` بواسطة الكلمة `GROUP BY`.  
+بعدها قمنا باستخدام الدالة `AVG()` لحساب متوسط رواتب الموظفين الموجودين في كل مجموعة منهم، أي متوسط الموظفين الذين عندهم نفس قيمة الحقل `country`.  
+بعدها قمنا بفلترة الأسطر المجمعة لإبقاء متوسط البلدان التي يتجاوز متوسط رواتب الموظفين فيها 800$، و فعلنا ذلك من خلال وضع شرط بواسطة الكلمة `HAVING` حددنا فيه أننا نريد إبقاء الأسطر التي فيها `salary` أكبر من `800`.
+
+#### المثال الثاني
+
+SELECT country, AVG(salary)   \-- country سيتم حسابه بعد أن يتم تجميع قيم الحقل salary متوسط الحقول
+FROM employees
+GROUP BY country              \-- على أساسهم AVG() سيتم تنفيذ الدالة country بعد أن يتم تجميع القيم الموجودة في العامود
+HAVING AVG(salary) \> 800;     \-- أكبر من 800 فقط salary النتيجة النهائية سيتم عرض الأسطر التي تحتوي على متوسط
+
+يمكنك إضافة أسماء للأعمدة و تغيير طريقة ظهور متوسط الرواتب كما يلي حتى تظهر النتيجة النهائية بشكل أوضح و مفهوم.
+
+SELECT
+    country AS 'Country',
+    FORMAT(AVG(salary), 2) AS 'Average Salary'
+FROM
+    employees
+GROUP BY
+    country
+HAVING
+    AVG(salary) \> 800;
+
+النتيجة
+
+Country
+
+Average Salary
+
+Morocco
+
+860.00
+
+Oman
+
+900.00
+
+Yaman
+
+820.00

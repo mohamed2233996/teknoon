@@ -1,0 +1,309 @@
+---
+title: "بايثونتعدد الأشكال"
+source: "https://harmash.com/tutorials/python/polymorphism"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:16:10.873Z"
+---
+
+## مفهوم تعدد الأشكال
+
+تعدد الأشكال أو بوليمورفيزم ( Polymorphism ) هو مجرد أسلوب في كتابة الكود يقصد منه بناء دالة تنفذ أوامر مختلفة على حسب الكائن الذي نمرره لها عند إستدعائها.  
+تعدد الأشكال يكون مرتبط بشكل أساسي بالوراثة حيث تكون الدالة مبنية على أساس الكلاس الأب، و عند إستدعائها نمرر لها كائن من إحدى الكلاسات التي ترث منه.
+
+## دوال جاهزة في بايثون تطبق مبدأ تعدد الأشكال
+
+من أبرز الدوال التي نستخدمها و التي تطبق مبدأ تعدد الأشكال هي الدالة `len()` التي سبق أن تعاملنا معها في أكثر من درس و لكن كل مرة كنا نستخدمها لسبب مختلف.  
+فمثلاً، عند تمرير نص لهذه الدالة فإنها ترجع عدد أحرفه. و عند تمرير مصفوفة لهذه الدالة فإنها ترجع عدد عناصرها.
+
+في المثال التالي قمنا بتعريف كائن إسمه `string` وضعنا فيه نص عادي، و كائن نوعه `list` إسمه `aList` وضعنا فيه 5 عناصر.  
+بعدها قمنا بطباعة ما سترجعه الدالة `len()` في حال تمرير الكائن `string` و الكائن `aList` لها.
+
+#### مثال
+
+Test.py
+
+\# يحتوي على نص string هنا قمنا بتعريف كائن إسمه
+string = 'Python tutorial for beginners'
+
+\# وضعنا فيه مجموعة أعداد صحيحة aList إسمه هنا قمنا بتعريف
+aList = \[10, 20, 30, 40, 50\]
+
+\# len() الذي سترجعه الدالة string هنا قمنا بعرض عدد أحرف الكائن
+print('Number of characters in string is:', len(string))
+
+\# len() الذي سترجعه الدالة aهنا قمنا بعرض عدد عناصر الكائن
+print('Number of elements in aList is:', len(aList))
+
+النتيجة
+
+Number of characters in string is: 29  
+Number of elements in aList is: 5
+
+نلاحظ أنه عند تمرير الكائن `string` للدالة `len()` قامت بإرجاع عدد أحرفه. و عند تمرير الكائن `aList` قامت بإرجاع عدد عناصره. مما يعني أن الدالة `len()` تقوم بفحص نوع الكائن الذي يمرر لها و على أساس نوعه تقوم بإرجاع القيمة.
+
+  
+
+في بايثون، يمكن استخدام الدالة الجاهزة `isinstance()` لمعرفة ما إذا كان الكائن قد تم إنشاؤه من كلاس معين أم لا.  
+في حال كان منشئاً منه فإنها ترجع `True`، و إن لم يكن كذلك فإنها ترجع `False`.
+
+  
+
+الآن، بما أن الدالة `len()` تقوم بفحص نوع الكائن الذي نمرره لها فهذا يعني أنها على الأرجح معرّفة كالتالي.
+
+def len(obj):
+    
+    \# str هو obj هنا كأننا قلنا: هل نوع الكائن الذي تم تمرير مكان الكائن
+    if isinstance(obj, str):
+        \# أي نص ،str إذا كان نوع الكائن الذي تم تمريره للدالة هو
+        \# سيتم تنفيذ الكود الخاص بحساب عدد أحرفه و من ثم إرجاعه 
+        
+    \# list هو obj هنا كأننا قلنا: هل نوع الكائن الذي تم تمرير مكان الكائن
+    elif isinstance(obj, list):
+        \# أي مصفوفة ،list إذا كان نوع الكائن الذي تم تمريره للدالة هو
+        \# سيتم تنفيذ الكود الخاص بحساب عدد عناصرها و من ثم إرجاعه
+
+## بناء دالة تطبق مبدأ تعدد الأشكال
+
+في المثال التالي قمنا بتعريف دالة إسمها `print_sum()` مصممة للتعامل مع ثلاث أنواع من الكائنات.
+
+*   إذا مررنا لها عدد صحيح نوعه `int`، فإنها تقوم بطباعة ناتج جمع الأرقام الموجودة فيه.
+*   إذا مررنا لها نص نوعه `str` و لكنه عبارة عدد صحيح، فإنها تقوم بتحويل الأحرف الموجودة فيه لأرقام و من ثم تقوم بطباعة ناتج جمع هذه الأرقام.
+*   إذا مررنا لها مصفوفة نوعها `list` تحتوي على أعداد صحيحة أو نصوص تمثل أعداد صحيحة، فإنها تقوم بطباعة ناتج جمع هذه العناصر.
+
+#### مثال
+
+Test.py
+
+\# obj تحتوي على باراميتر إسمه print\_sum هنا قمنا بتعريف دالة إسمها
+def print\_sum(obj):
+
+    \# سنستخدمه عند إجراء أي عملية جمع لذلك قمنا بتجهيزه و إعطاءه القيمة 0 s المتغير 
+    s = 0
+
+    \# أي إذا كانت قيمته عبارة عن عدد صحيح ،int إذا كان قيمته نوعها obj الكود التالي مهمته حساب ناتج جمع الأرقام الموجودة في الكائن
+    if isinstance(obj, int):
+        while obj:
+            s += obj % 10
+            obj //= 10
+        print('Sum of digits:', s)
+
+    \# أي إذا كانت قيمته عبارة عن نص يمثل عدد صحيح ،str إذا كان قيمته نوعها obj الكود التالي مهمته حساب ناتج جمع الأرقام الموجودة في الكائن
+    elif isinstance(obj, str):
+        for c in obj:
+            s += int(c)
+        print('Sum of characters:', s)
+
+    \# list إذا كان عبارة عن مصفوفة نوعها obj الكود التالي مهمته حساب ناتج جمع قيم العناصر الموجودة في الكائن
+    elif isinstance(obj, list):
+        for e in obj:
+            s += int(e)
+        print('Sum of elements:', s)
+
+    \# list أو str أو int ليس obj الكود التالي مهتمه طباعة جملة تنبيه في حال كان نوع قيمة الكائن
+    else:
+        print('This function is not made for this type!')
+        
+
+print\_sum(12345)              \# و تمرير عدد صحيح لها print\_sum() هنا قمنا باستدعاء الدالة
+print\_sum('12345')            \# و تمرير نص يمثل عدد صحيح لها print\_sum() هنا قمنا باستدعاء الدالة
+print\_sum(\[1, 2, 3, 4, 5\])    \# لها list و تمرير مجموعة أعداد كـ print\_sum() هنا قمنا باستدعاء الدالة
+print\_sum((1, 2, 3, 4, 5))    \# لها tuple و تمرير مجموعة أعداد كـ print\_sum() هنا قمنا باستدعاء الدالة
+
+النتيجة
+
+Sum of digits: 15  
+Sum of characters: 15  
+Sum of elements: 15  
+This function is not made for this type!
+
+## تطبيق مبدأ تعدد الأشكال مع الوراثة
+
+في المثال التالي قمنا بتعريف كلاس مجرّد إسمه `BaseCountry` يعتبر الكلاس الأساسي لأي كلاس يمثل بلد و بالتالي أي كلاس سننشئه ليمثل بلد ما يجب أن يرث منه. في هذا الكلاس قمنا بتجهيز 3 دوال مجرّدة أيضاً.  
+بعدها قمنا بتعريف كلاس إسمه `Egypt` و كلاس إسمه `Australia` يرثان من الكلاس `BaseCountry` و يفعلان Override لكل الدوال التي ورثوها منه.  
+بعدها قمنا بإنشاء دالة إسمها `print_country_info()` مهمتها إستدعاء جميع الدوال الموجودة في الكائن الذي نمرره لها بشرط أن يكون هذا الكائن قد تم إنشاؤه من كلاس يرث من الكلاس `BaseCountry`.
+
+في النهاية قمنا بإنشاء كائن من الكلاس `Egypt` و كائن من الكلاس `Australia` و تمرير كل كائن منهما للدالة `print_country_info()`.
+
+#### مثال
+
+BaseCountry.py
+
+\# يحتوي على 3 دوال فارغة BaseCountry هنا قمنا بإنشاء كلاس إسمه
+class BaseCountry:
+
+    def name(self):
+        pass
+
+    def capital(self):
+        pass
+
+    def language(self):
+        pass
+
+Egypt.py
+
+\# حتى نستطيع الوراثة منه BaseCountry الموجود في الموديول BaseCountry هنا قمنا بتضمين الكلاس
+from BaseCountry import BaseCountry
+
+\# للدوال الثلاثة الموجودة فيه Override و يفعل BaseCountry يرث من الكلاس Egypt هنا قمنا بإنشاء كلاس فارغ إسمه
+class Egypt(BaseCountry):
+
+    def name(self):
+        print('Country: Egypt')
+
+    def capital(self):
+        print('Capital: Cairo')
+
+    def language(self):
+        print('Language: Arabic')
+
+Australia.py
+
+\# حتى نستطيع الوراثة منه BaseCountry الموجود في الموديول BaseCountry هنا قمنا بتضمين الكلاس
+from BaseCountry import BaseCountry
+
+\# للدوال الثلاثة الموجودة فيه Override و يفعل BaseCountry يرث من الكلاس Australia هنا قمنا بإنشاء كلاس فارغ إسمه
+class Australia(BaseCountry):
+
+    def name(self):
+        print('Country: Australia')
+
+    def capital(self):
+        print('Capital: Canberra')
+
+    def language(self):
+        print('Language: English')
+
+Test.py
+
+\# حتى نستطيع التعامل معهم Australia و Egypt ,BaseCountry هنا قمنا بتضمين الكلاسات
+from BaseCountry import BaseCountry
+from Egypt import Egypt
+from Australia import Australia
+
+\# obj عند استدعاء هذه الدالة, إذا كان الكائن الذي تم تمريره مكان الباراميتر .obj فيها باراميتر واحد إسمه print\_country\_info هنا قمنا بتعريف دالة إسمها
+\# else سيتم إستدعاء الدوال الثلاثة الموجودة فيه. و إن لم يكن كذلك سيتم تنفيذ أمر الطباعة الموضوع في الجملة BaseCountry أصله كائن من كلاس يرث من الكلاس
+def print\_country\_info(obj):
+    if isinstance(obj, BaseCountry):
+        obj.name()
+        obj.capital()
+        obj.language()
+    else:
+        print('You should pass an object of type BaseCountry')
+    print('----------------------------------------------')
+
+\# australia إسمه Australia و كائن من الكلاس egypt إسمه Egypt هنا قمنا بإنشاء كائن من الكلاس
+egypt = Egypt()
+australia = Australia()
+
+\# لكي يتم إستدعاء الدوال الثلاثة منهم australia و egypt و مررنا لها الكائنين print\_country\_info() هنا قمنا باستدعاء الدالة
+print\_country\_info(egypt)
+print\_country\_info(australia)
+
+\# else و تمرير نص عادي لها. لاحظ كيف أنها ستقوم بتنفيذ أمر الطباعة الموضوع في الجملة print\_country\_info() هنا قمنا باستدعاء الدالة
+print\_country\_info('A string object')
+
+نتيجة تشغيل الملف `Test`.
+
+Country: Egypt  
+Capital: Cairo  
+Language: Arabic  
+\----------------------------------------------  
+Country: Australia  
+Capital: Canberra  
+Language: English  
+\----------------------------------------------  
+You should pass an object of type BaseCountry  
+\----------------------------------------------
+
+## تطبيق مبدأ تعدد الأشكال مع المصفوفات و مع الوراثة
+
+في المثال التالي قمنا بتعريف كلاس مجرّد إسمه `BaseCountry` يعتبر الكلاس الأساسي لأي كلاس يمثل بلد و بالتالي أي كلاس سننشئه ليمثل بلد ما يجب أن يرث منه. في هذا الكلاس قمنا بتجهيز 3 دوال مجرّدة أيضاً.  
+بعدها قمنا بتعريف كلاس إسمه `Egypt` و كلاس إسمه `Australia` يرثان من الكلاس `BaseCountry` و يفعلان Override لكل الدوال التي ورثوها منه.
+
+بعدها قمنا بإنشاء كائن من الكلاس `Egypt` و كائن من الكلاس `Australia` و من ثم وضعناهما في `list` إسمه `countries`.  
+في النهاية قمنا بإنشاء حلقة تمر على جميع الكائنات الموضوعة في الكائن و تستدعي الدوال الثلاثة من كل كائن تم إنشاؤه من كلاس يرث من الكلاس `BaseCountry`.
+
+#### مثال
+
+BaseCountry.py
+
+\# يحتوي على 3 دوال فارغة BaseCountry هنا قمنا بإنشاء كلاس إسمه
+class BaseCountry:
+
+    def name(self):
+        pass
+
+    def capital(self):
+        pass
+
+    def language(self):
+        pass
+
+Egypt.py
+
+\# حتى نستطيع الوراثة منه BaseCountry الموجود في الموديول BaseCountry هنا قمنا بتضمين الكلاس
+from BaseCountry import BaseCountry
+
+\# للدوال الثلاثة الموجودة فيه Override و يفعل BaseCountry يرث من الكلاس Egypt هنا قمنا بإنشاء كلاس فارغ إسمه
+class Egypt(BaseCountry):
+
+    def name(self):
+        print('Country: Egypt')
+
+    def capital(self):
+        print('Capital: Cairo')
+
+    def language(self):
+        print('Language: Arabic')
+
+Australia.py
+
+\# حتى نستطيع الوراثة منه BaseCountry الموجود في الموديول BaseCountry هنا قمنا بتضمين الكلاس
+from BaseCountry import BaseCountry
+
+\# للدوال الثلاثة الموجودة فيه Override و يفعل BaseCountry يرث من الكلاس Australia هنا قمنا بإنشاء كلاس فارغ إسمه
+class Australia(BaseCountry):
+
+    def name(self):
+        print('Country: Australia')
+
+    def capital(self):
+        print('Capital: Canberra')
+
+    def language(self):
+        print('Language: English')
+
+Test.py
+
+\# حتى نستطيع التعامل معهم Australia و Egypt ,BaseCountry هنا قمنا بتضمين الكلاسات
+from BaseCountry import BaseCountry
+from Egypt import Egypt
+from Australia import Australia
+
+\# australia إسمه Australia و كائن من الكلاس egypt إسمه Egypt هنا قمنا بإنشاء كائن من الكلاس
+egypt = Egypt()
+australia = Australia()
+
+\# countries قمنا بتسميته list في australia و egypt هنا قمنا بوضع الكائنين
+countries = \[egypt, australia\]
+
+\# country و في كل مرة تخزن كائن واحد في الكائن countries هنا قمنا بإنشاء حلقة تمر على كل عنصر ( أي كائن ) في الكائن
+\# سيتم إستدعاء الدوال الثلاثة الموجودة فيه BaseCountry أصله كائن من كلاس يرث من الكلاس country إذا كان
+for country in countries:
+    if isinstance(country, BaseCountry):
+        country.name()
+        country.capital()
+        country.language()
+        print('------------------')
+
+نتيجة تشغيل الملف `Test`.
+
+Country: Egypt  
+Capital: Cairo  
+Language: Arabic  
+\------------------  
+Country: Australia  
+Capital: Canberra  
+Language: English  
+\------------------

@@ -1,0 +1,82 @@
+---
+title: "Swingالإنترفيس FocusListener"
+source: "https://harmash.com/tutorials/swing/awt-focuslistener"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:23:34.776Z"
+---
+
+الإنترفيس `FocusListener` يستخدم للإشارة إلى الشيء الحالي الذي يتفاعل معه المستخدم و الذي يمكنه التحكم به من خلال الكيبورد.
+
+الإنترفيس `FocusListener` يحتوي على دالتين يجب أن تفعل لهما Override عند إنشاء كائن منه:  
+
+*   الدالة `focusGained(FocusEvent e)`: يتم إستدعاءها عندما يقوم المستخدم بالنقر داخل شيء.
+*   الدالة `focusLost(FocusEvent e)`: يتم إستدعاءها عنما يقوم المستخدم بالنقر خارج الشيء الذي كان يتعامل معه.
+
+  
+
+#### مثال
+
+Main.java
+
+import java.awt.Color;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+ 
+public class Main {
+ 
+    public static void main(String\[\] args) {
+ 
+        JFrame frame \= new JFrame("FocusListener demo");   // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        JLabel nameLabel \= new JLabel("Name");             // nameLabel إسمه Label هنا أنشأنا
+        JLabel passLabel \= new JLabel("Password");         // passLabel إسمه Label هنا أنشأنا
+        JTextField nameField \= new JTextField();           // nameField إسمه Text Field هنا أنشأنا
+        JPasswordField passField \= new JPasswordField();   // passField إسمه Text Field هنا أنشأنا
+ 
+        nameLabel.setBounds(30, 50, 60, 25);               // frame في الـ nameLabel هنا قمنا بتحديد حجم و موقع الكائن
+        nameField.setBounds(100, 50, 150, 25);             // frame في الـ nameField هنا قمنا بتحديد حجم و موقع الكائن
+        passLabel.setBounds(30, 90, 60, 25);               // frame في الـ passLabel هنا قمنا بتحديد حجم و موقع الكائن
+        passField.setBounds(100, 90, 150, 25);             // frame في الـ passField هنا قمنا بتحديد حجم و موقع الكائن
+ 
+        frame.add(nameLabel);                             // frame في الـ nameLabel هنا أضفنا الكائن
+        frame.add(nameField);                             // frame في الـ nameField هنا أضفنا الكائن
+        frame.add(passLabel);                             // frame في الـ passLabel هنا أضفنا الكائن
+        frame.add(passField);                             // frame في الـ passField هنا أضفنا الكائن
+ 
+        // خصيصاً لتغيير لون خلفية أي مربع نص يتعامل معه المستخدم حالياً fl أنشأنا هذا الكائن
+        FocusListener fl \= new FocusListener() {
+ 
+            @Override
+            public void focusGained(FocusEvent e) {
+                // هنا قلنا أنه سيتم تلوين خلفية مربع النص الحالي الذي يمكن الكتابة فيه بالأصفر
+                e.getComponent().setBackground(Color.yellow);
+            }
+ 
+            @Override
+            public void focusLost(FocusEvent e) {
+                // هنا قلنا أنه سيتم تلوين خلفية مربع النص الذي لم يعد يتفاعل معه المستخدم باللون الأبيض
+                e.getComponent().setBackground(Color.white);
+            }
+ 
+        };
+ 
+        nameField.addFocusListener(fl);                         // fl بالحدث nameField هنا ربطنا الكائن
+        passField.addFocusListener(fl);                         // fl بالحدث nameField هنا ربطنا الكائن
+ 
+        frame.setSize(300, 200);                                // هنا قمنا بتحديد حجم النافذة. عرضها 300 و طولها 200
+        frame.setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.setLayout(null);                                  // لذلك قمنا بتحديد مكان كل شيء قمنا بإضافته في النافذة Layout Manager أي لم نستخدم أي null هنا وضعنا
+        frame.setVisible(true);                                 // هنا جعلنا النافذة مرئية
+ 
+    }
+ 
+}
+
+ستظهر لك النافذة التالية عند التشغيل.
+
+لاحظ أنه دائماً سيتم تلوين لون خلفية الـ Text Field الحالي الذي تتفاعل معه بالأصفر.
+
+![مثال يشرح طريقة تعريف الحدث FocusListener في جافا](/content-images/swing/awt-focuslistener/1784305414760-lt4y5k.PNG)

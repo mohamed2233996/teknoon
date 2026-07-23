@@ -1,0 +1,372 @@
+---
+title: "Reactالعرض المشروط"
+source: "https://harmash.com/tutorials/react/conditional-rendering"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:15:00.772Z"
+---
+
+## مفهوم العرض المشروط في React
+
+العرض المشروط ( Conditional Rendering ) هو تحديد ما إذا كان عنصر أو مجموعة من العناصر سيتم عرضها أم لا بناءً على شروط معينة. بمعنى آخر، يمكنك التحكم في محتوى واجهة المستخدم بناءً على البيانات المتاحة أو حالة التطبيق.
+
+  
+
+### أساليب وضع الشروط
+
+يوجد عدة طرق يمكن اتباعها لوضع شروط تحدد ما هو المحتوى الذي سيتم عرضه:
+
+*   إستخدام جمل الشرط التقليدية في جافاسكربت `if` و `else if` و `else`.
+*   إستخدام جملة الشرط `switch` الموجودة في جافاسكربت.
+*   إستخدام العامل `?:` الموجود في جافاسكربت.
+*   إستخدام العامل `&&` و هذا الأسلوب خاص بمكتبة React.
+
+في هذا الدرس سنتعرف على جميع الطرق التي يمكن من خلالها وضع شروط لتحديد ما هو المحتوى الذي سيتم عرضه.
+
+## تحضير مشروع للتطبيق العملي
+
+إفعل الخطوات التالية تباعاً حتى تنشئ مشروع جديد و تطبق فيه الأمثلة كما فعلنا بالضبط:
+
+1.  قم بإنشاء مشروع جديد إسمه `demo-app`.
+2.  بداخل المجلد `src` تجد ملف إسمه `App.js` قم بحذف كل الكود الإفتراضي الموجود فيه.
+3.  بداخل المجلد `src` قم بإنشاء مجلد جديد إسمه `components` لأننا سنضع بداخله مكوّنات.
+4.  بداخل المجلد `components` قم بإنشاء ملف إسمه `UserGreeting.js` لأنه سيمثل مكوّن.
+5.  بداخل المجلد `components` قم بإنشاء ملف إسمه `QuestGreeting.js` لأنه سيمثل مكوّن.
+
+قم بنسخ الأوامر التالية و وضعها في المشروع و تأكد من إضافتها في الملفات الصحيحة.  
+**ملاحظة:** الأوامر الجاهزة التي طلبنا منك نسخها كما هي سبق و شرحناها بالتفصيل في دروس سابقة.
+
+#### تمهيد المشروع
+
+/src/components/UserGreeting.js
+
+// UserGreeting هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+// بداخل هذا المكون سيتم عرض رسالة ترحيب بإسم المستخدم
+function UserGreeting(props) {
+    return <p\>Hello {props.user}, welcome back!</p\>;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف UserGreeting هنا قمنا بجعل المكون
+export default UserGreeting;
+
+/src/components/GuestGreeting.js
+
+// GuestGreeting هنا قمنا بتعريف دالة تمثل مكوّن إسمه
+// بداخل هذا المكون سيتم عرض رسالة ترحيب و الطلب من المستخدم أن يسجل دخوله
+function GuestGreeting() {
+    return <p\>Hello, please login!</p\>;
+}
+
+// يمكن الوصول إليه من خارج هذا الملف GuestGreeting هنا قمنا بجعل المكون
+export default GuestGreeting;
+
+في هذا المشروع قمنا بتجهيز مكوّنين هما `<UserGreeting>` و `<GuestGreeting>` لأننا سنقوم لاحقاً بوضع شرط يحدد أي منهما يجب أن يتم عرضه في واجهة المستخدم.
+
+## إستخدام جملة الشرط `if` في React
+
+الجمل الشرطية `if` و `else if` و `else` يمكن استخدامها بداخل المكوّن لتحديد ما هو المحتوى الذي سيتم عرضه فيه.
+
+لا يمكن استخدام هذه الجمل بشكل مباشر ضمن المحتوى المهيء بأسلوب JSX.
+
+  
+
+في المثال التالي قمنا باستخدام الجملة الشرطية `if` و الجملة الشرطية `else` لتحديد ما هو المحتوى الذي سيتم عرضه.  
+إذا كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض محتوى، و إذا كانت قيمته تساوي `false` سيتم عرض محتوى آخر.
+
+#### المثال الأول
+
+/src/App.js
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+
+    // true تساوي isLogged هنا قمنا بوضع شرط يحدد المحتوى الذي سيتم عرضه إذا كانت قيمة
+    if (isLogged) {
+        return <p\>Hello, welcome back!</p\>;
+    }
+    // true لا تساوي isLogged هنا قمنا بوضع شرط يحدد المحتوى الذي سيتم عرضه إذا كانت قيمة
+    else {
+        return <p\>Hello, please login!</p\>;
+    }
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/if-statement)
+
+  
+
+في المثال التالي قمنا باستخدام الجملة الشرطية `if` و الجملة الشرطية `else` لتحديد أي مكوّن سيتم عرض محتواه.
+
+*   إذا كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض محتوى المكون `<UserGreeting>`.
+*   إذا كانت قيمة المتغير `isLogged` تساوي `false` سيتم عرض محتوى المكون `<GuestGreeting>`.
+
+#### المثال الثاني
+
+/src/App.js
+
+// GuestGreeting و المكون UserGreeting هنا قمنا بتضمين المكون
+import UserGreeting from "./components/UserGreeting";
+import GuestGreeting from "./components/GuestGreeting";
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+    // 'Mhamad' و قيمته user هنا قمنا بتعريف متغير إسمه 
+    let user = 'Mhamad';
+
+    // true تساوي isLogged هنا قمنا بوضع شرط و هو إذا كانت قيمة
+    // <UserGreeting> سيتم عرض محتوى المكون
+    if (isLogged) {
+        return <UserGreeting user\={user} />;
+    }
+    // true لا تساوي isLogged و هنا قمنا بوضع شرط و هو إذا كانت قيمة
+    // <GuestGreeting> سيتم عرض محتوى المكون 
+    else {
+        return <GuestGreeting />;
+    }
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/if-statement-render-component)
+
+## إستخدام جملة الشرط `switch` في React
+
+جملة الشرط `switch` يمكن استخدامها بداخل المكوّن لتحديد ما هو المحتوى الذي سيتم عرضه فيه من بين مجموعة إحتمالات.
+
+لا يمكن استخدام هذه الجملة بشكل مباشر ضمن المحتوى المهيء بأسلوب JSX.
+
+  
+
+في المثال التالي قمنا باستخدام جملة الإختبار `switch` لتحديد ما هو المحتوى الذي سيتم عرضه.  
+إذا كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض محتوى، و إذا كانت قيمته تساوي `false` سيتم عرض محتوى آخر.
+
+#### المثال الأول
+
+/src/App.js
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+
+    // من أجل تحديد المحتوى الذي سيتم عرضه isLogged هنا قمنا بفحص قيمة
+    switch (isLogged) {
+        // سيتم عرض المحتوى التالي true تساوي isLogged إذا كانت قيمة
+        case true:
+            return <p\>Hello, welcome back!</p\>;
+        // سيتم عرض المحتوى التالي false تساوي isLogged إذا كانت قيمة
+        case false:
+            return <p\>Hello, please login!</p\>;
+    }
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/switch-statement)
+
+  
+
+في المثال التالي قمنا باستخدام الجملة الشرطية `if` لتحديد أي مكوّن سيتم عرض محتواه.
+
+*   إذا كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض محتوى المكون `<UserGreeting>`.
+*   إذا كانت قيمة المتغير `isLogged` تساوي `false` سيتم عرض محتوى المكون `<GuestGreeting>`.
+
+#### المثال الثاني
+
+/src/App.js
+
+// GuestGreeting و المكون UserGreeting هنا قمنا بتضمين المكون
+import UserGreeting from "./components/UserGreeting";
+import GuestGreeting from "./components/GuestGreeting";
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+    // 'Mhamad' و قيمته user هنا قمنا بتعريف متغير إسمه 
+    let user = 'Mhamad';
+
+    // من أجل تحديد المحتوى الذي سيتم عرضه isLogged هنا قمنا بفحص قيمة
+    switch (isLogged) {
+        //  <UserGreeting> سيتم عرض محتوى المكون true تساوي isLogged إذا كانت قيمة
+        case true:
+            return <UserGreeting user\={user} />;
+        //  <GuestGreeting> سيتم عرض محتوى المكون false تساوي isLogged إذا كانت قيمة
+        case false:
+            return <GuestGreeting />;
+    }
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/switch-statement-render-component)
+
+## إستخدام العامل `?:` في React
+
+العامل `?:` يمكن استخدامه بداخل المكوّن لوضع تعبير ( Expression ) يمثل شرط يحدد ما هو المحتوى الذي سيتم عرضه فيه من بين إحتمالين فقط.
+
+يمكن استخدام هذا العامل بشكل مباشر ضمن المحتوى المهيئ بأسلوب JSX.
+
+يجب وضع التعبير الشرطي المبني بواسطة العامل `?:` بين أقواس بداية و نهاية `{ }` إذا كان هناك احتمال أن لا يتم قراءته كتعبير.
+
+  
+
+في المثال التالي قمنا باستخدام العامل `?:` لتحديد ما هو المحتوى الذي سيتم عرضه.
+
+*   إذا كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض المحتوى الموضوع بعد الرمز `?`.
+*   إذا كانت قيمة المتغير `isLogged` لا تساوي `true` سيتم عرض المحتوى الموضوع بعد الرمز `:`.
+
+#### المثال الأول
+
+/src/App.js
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+
+    // من أجل تحديد المحتوى الذي سيتم عرضه isLogged هنا قمنا بفحص قيمة
+    // سيتم عرض المحتوى الموضوع بعد الرمز ؟ true تساوي isLogged إذا كانت قيمة
+    // : سيتم عرض المحتوى الموضوع بعد الرمز false تساوي isLogged و إذا كانت قيمة
+    return (
+        <>
+            { isLogged ? <p\>Hello, welcome back!</p\> : <p\>Hello, please login!</p\> }
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/ternary-operator)
+
+  
+
+في المثال التالي قمنا باستخدام العامل `?:` لتحديد أي مكوّن سيتم عرض محتواه.
+
+*   إذا كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض محتوى المكون `<UserGreeting>`.
+*   إذا كانت قيمة المتغير `isLogged` تساوي `false` سيتم عرض محتوى المكون `<GuestGreeting>`.
+
+#### المثال الثاني
+
+/src/App.js
+
+// GuestGreeting و المكون UserGreeting هنا قمنا بتضمين المكون
+import UserGreeting from "./components/UserGreeting";
+import GuestGreeting from "./components/GuestGreeting";
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+    // 'Mhamad' و قيمته user هنا قمنا بتعريف متغير إسمه 
+    let user = 'Mhamad';
+
+    // من أجل تحديد المحتوى الذي سيتم عرضه isLogged هنا قمنا بفحص قيمة
+    // <UserGreeting> سيتم عرض محتوى المكون true تساوي isLogged إذا كانت قيمة
+    // <GuestGreeting> سيتم عرض محتوى المكون false تساوي isLogged و إذا كانت قيمة
+    return (
+        <>
+            { isLogged ? <UserGreeting user\={user} /> : <GuestGreeting /> }
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/ternary-operator-render-component)
+
+## إستخدام العامل `&&` في React
+
+العامل `&&` يمكن استخدامه لوضع تعبير ( Expression ) يمثل شرط و إذا تحقق يتم عرض المحتوى الموضوع بعده سواء كان وسم عادي أو مكوّن.
+
+يمكن استخدام هذا العامل بشكل مباشر ضمن المحتوى المهيئ بأسلوب JSX.
+
+يجب وضع التعبير الشرطي المبني بواسطة العامل `&&` بين أقواس بداية و نهاية `{ }` إذا كان هناك احتمال أن لا يتم قراءته كتعبير.
+
+  
+
+في المثال التالي قمنا باستخدام العامل `&&` لتحديد ما إن كان يجب عرض المحتوى أم لا.
+
+*   التعبير الشرطي الأول معناه إن كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض المحتوى الموضوع بعد الرمز `&&`.
+*   التعبير الشرطي الثاني معناه إن كانت قيمة المتغير `isLogged` لا تساوي `true` سيتم عرض المحتوى الموضوع بعد الرمز `&&`.
+
+#### المثال الأول
+
+/src/App.js
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+
+    // من أجل تحديد المحتوى الذي سيتم عرضه isLogged هنا قمنا بفحص قيمة
+    // سيتم عرض المحتوى true تساوي isLogged التعبير الشرطي الأول معناه إن كانت قيمة
+    // سيتم عرض المحتوى true لا تساوي isLogged التعبير الشرطي الثاني معناه إن كانت قيمة
+    return (
+        <>
+            { isLogged && <p\>Hello, welcome back!</p\> }
+            { !isLogged && <p\>Hello, please login!</p\> }
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/logical-and-operator)
+
+  
+
+في المثال التالي قمنا باستخدام العامل `&&` لتحديد أي مكوّن سيتم عرض محتواه.
+
+*   إذا كانت قيمة المتغير `isLogged` تساوي `true` سيتم عرض محتوى المكون `<UserGreeting>`.
+*   إذا كانت قيمة المتغير `isLogged` لا تساوي `true` سيتم عرض محتوى المكون `<GuestGreeting>`.
+
+#### المثال الثاني
+
+/src/App.js
+
+// GuestGreeting و المكون UserGreeting هنا قمنا بتضمين المكون
+import UserGreeting from "./components/UserGreeting";
+import GuestGreeting from "./components/GuestGreeting";
+
+// الذي يمثل الحاوية الرئيسية في واجهة المستخدم <App> هنا قمنا بتعريف المكون
+function App() {
+    // true و قيمته isLogged هنا قمنا بتعريف متغير إسمه 
+    let isLogged = true;
+    // 'Mhamad' و قيمته user هنا قمنا بتعريف متغير إسمه 
+    let user = 'Mhamad';
+
+    // من أجل تحديد المحتوى الذي سيتم عرضه isLogged 
+    // <UserGreeting> سيتم عرض محتوى المكون true تساوي isLogged التعبير الشرطي الأول معناه إن كانت قيمة
+    //  <GuestGreeting> سيتم عرض محتوى المكون true لا تساوي isLogged التعبير الشرطي الثاني معناه إن كانت قيمة
+    return (
+        <>
+            { isLogged && <UserGreeting user\={user} /> }
+            { !isLogged && <GuestGreeting /> }
+        </>
+    );
+}
+
+// يمكن الوصول إليه من خارج هذا الملف لأنه المكون App هنا قمنا بجعل المكون
+// index.html  الرئيسي في الصفحة و الذي يتم تضمينه بشكل تلقائي في الملف
+export default App;
+
+[جرب الكود](/trywebapp?file=/tutorials/react/conditional-rendering/logical-and-operator-render-component)

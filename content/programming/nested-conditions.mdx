@@ -1,0 +1,163 @@
+---
+title: "الشروط المتداخلة في البرمجة"
+source: "https://harmash.com/tutorials/programming/nested-conditions"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:07:53.250Z"
+---
+
+## مفهوم الشروط المتداخلة
+
+الشروط المتداخلة ( Nested Conditions ) يُقصد بها وضع شرط بداخل شرط. أي وضع جملة شرط بداخل جملة شرط و هذا الأمر نفعله عادةً لجعل قراءة الكود أكثر سهولة في حال كنا بحاجة لوضع الكثير من الشروط حتى ننفذ أوامر محددة.
+
+هذا الدرس سيكون عبارة عن أمثلة تتعلم من خلالها طرق مختلفة لوضع شروط منطقية و الحصول على نفس النتيجة.
+
+## طريقة وضع شرط بداخل شرط
+
+في حال أردنا بناء برنامج يحسب كم يجب أن يكون مرتب من يتم قبوله في الوظيفة فهنا يمكننا وضع عدة شروط متداخلة على أساسها يتم تحديد المرتب كما في الصورة التالية.
+
+![الشروط المتداخلة - Nested Conditions](/content-images/programming/nested-conditions/1784304473234-dps2m8.png)
+
+الشروط الموضوعة في الصورة نقرأها على الشكل التالي:
+
+*   إن لم يكن عنده خبرة سنة واحدة على الأقل سيتم إعلامه بأنه لا يمكنه التقديم على الوظيفة.
+*   إن كان عنده خبرة سنة واحدة على الأقل و لكنه غير متزوج، سيكون مرتبه 800$.
+*   إن كان عنده خبرة سنة واحدة على الأقل و كان متزوجاً، سيكون مرتبه 1000$.
+
+  
+
+في المثال التالي سيطلب من المستخدم إدخال عدد سنوات خبرته و إن كان متزوجاً أم لا.  
+بعدها سيتم إعلامه كم سيكون مرتبه إذا تم قبوله في الوظيفة.
+
+ملاحظة: إن لم يجب على سؤال ما إن كان متزوجاً أم لا بواسطة كلمة `yes` أو `no` سيتم إعلامه أن جوابه غير مقبول.
+
+#### الحل الأول
+
+var experience;
+var is\_married;
+
+write("Enter years of experience: ");
+experience = read();
+
+write("Are you married (yes/no): ");
+is\_married = read();
+ 
+if(experience >= 1)
+{
+    if (is\_married == "yes")
+    {
+        write("Your salary will be 1000$ per month.");
+    }
+    else if (is\_married == "no")
+    {
+        write("Your salary will be 800$ per month.");
+    }
+    else
+    {
+        write("Error: your answer can be 'yes' or 'no' only.");
+    }
+}
+else
+{
+    write("Sorry.. The job requires at least one year of experience!");
+}
+
+**النتيجة:** ستكون كما يلي إذا تم إدخال نفس القيم التي تظهر بلون مختلف وقت التشغيل.
+
+Enter years of experience: 3  
+Are you married (yes/no): no  
+Your salary will be 800$ per month.
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/nested-conditions/ex-1) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/nested-conditions/ex-1)
+
+  
+
+هذه المرة سنجعل الجملة الشرطية الأولى ترى إذا كانت خبرة المستخدم أصغر من 1.  
+في هذه الحالة لاحظ أننا وضعنا جمل الشرط الداخلية بداخل الجملة `else`.
+
+#### الحل الثاني
+
+var experience;
+var is\_married;
+
+write("Enter years of experience: ");
+experience = read();
+
+write("Are you married (yes/no): ");
+is\_married = read();
+ 
+if(experience < 1)
+{
+    write("Sorry.. The job requires at least one year of experience!");
+}
+else
+{
+    if (is\_married == "yes")
+    {
+        write("Your salary will be 1000$ per month.");
+    }
+    else if (is\_married == "no")
+    {
+        write("Your salary will be 800$ per month.");
+    }
+    else
+    {
+        write("Error: your answer can be 'yes' or 'no' only.");
+    }
+}
+
+**النتيجة:** ستكون كما يلي إذا تم إدخال نفس القيم التي تظهر بلون مختلف وقت التشغيل.
+
+Enter years of experience: 3  
+Are you married (yes/no): no  
+Your salary will be 800$ per month.
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/nested-conditions/ex-2) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/nested-conditions/ex-2)
+
+  
+
+هذه المرة لن نستخدم أسلوب الشروط المتداخلة بل سنعتمد على العامل `&&`.
+
+#### الحل الثالث
+
+var experience;
+var is\_married;
+
+write("Enter years of experience: ");
+experience = read();
+
+write("Are you married (yes/no): ");
+is\_married = read();
+
+if(is\_married != "yes" && is\_married != "no")
+{
+    write("Error: your answer can be 'yes' or 'no' only.");
+}
+else if(experience >= 1 && is\_married == "yes")
+{
+    write("Your salary will be 1000$ per month.");
+}
+else if(experience >= 1 && is\_married == "no")
+{
+    write("Your salary will be 800$ per month.");
+}
+else if(experience < 1)
+{
+    write("Sorry.. The job requires at least one year of experience!");
+}
+
+**النتيجة:** ستكون كما يلي إذا تم إدخال نفس القيم التي تظهر بلون مختلف وقت التشغيل.
+
+Enter years of experience: 3  
+Are you married (yes/no): no  
+Your salary will be 800$ per month.
+
+[جرب الكود](/algo-editor?file=/tutorials/programming/nested-conditions/ex-3) [إفهم الكود](/code-stepper?location=/ar/tutorials/programming/nested-conditions/ex-3)
+
+## هل استخدام الشروط المتداخلة أمر إجباري؟
+
+كلا طبعاً، فكما لاحظت في الأمثلة السابقة أننا استطعنا كتابة البرنامج الواحد بثلاث طرق مختلفة و حصلنا على النتيجة ذاتها.  
+و من هذا المنطلق نريدك أن تكون على قناعة تامة بأنك قادرة على كتابة الكود دائماً بطرق مختلفة.
+
+إستخدام أسلوب الشروط المتداخلة أمر يريحك للغاية عند كتابة الكود و عند الحاجة للتعديل عليه مستقبلاً لهذا فإننا نستخدمه كثيراً في مشاريعنا البرمجية عندما نتعامل مع شروط تكون مبنية على بعضها.
+
+في الختام، عليك دائماً أن تحاول فهم الكود الذي أمامك لا أن تحفظه، و لتفهمه جيداً عليك تحليل طريقة عمله سطراً سطراً كما فعلنا.

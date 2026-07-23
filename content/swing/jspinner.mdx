@@ -1,0 +1,137 @@
+---
+title: "Swingالكلاس JSpinner"
+source: "https://harmash.com/tutorials/swing/jspinner"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:22:34.462Z"
+---
+
+## مقدمة
+
+الكلاس `JSpinner` يستخدم لإضافة Spinner في واجهة المستخدم.  
+الـ Spinner عبارة عن مربع نص يحتوي على قيم جاهزة.  
+يمكن للمستخدم إختيار إحدى القيم الموجودة فيه بالنقر على الأسهم الملتصقة به, أو باستخدام أسهم لوحة المفاتيح △ ▽ , و يمكنه إدخال القيمة بنفسه.
+
+  
+
+### بناؤه
+
+public class JSpinner
+extends JComponent
+implements Accessible
+
+  
+
+### طريقة التعامل معه
+
+عند التعامل مع الـ Spinner فأنت لا تضع فيه القيم مباشرةً. بل تضعهم في الـ Model الخاصة به.  
+إذاً سيكون عليك إنشاء كائن من إحدى الكلاسات التي تنفذ الإنترفيس `SpinnerModel` و وضعه كـ Model لكائن الـ `JSpinner`.  
+بعدها يمكنك إضافة العدد الذي تريده من القيم في كائن الـ `SpinnerModel` و التي ستظهر بدورها في الـ Spinner.
+
+  
+
+الكلاسات المهمة التي تطبق الإنترفيس `SpinnerModel` و التي يمكن إستخدامها:
+
+*   `SpinnerListModel`: يستخدم لتخزين قيم من مصفوفة عادية أو من كائن من إحدى الكلاسات التي تنفذ الإنترفيس `List`, مثل الكلاس `ArrayList`.
+*   `SpinnerNumberModel`: يستخدم لتخزين أرقام في الـ Spinner.
+*   `SpinnerDateModel`: يستخدم لتخزين التاريخ أو الوقت في الـ Spinner.
+
+  
+
+لا تقلق ستفهم كل شيء من الأمثلة.
+
+## كونستركتورات الكلاس `JSpinner`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `JSpinner`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public JSpinner()` ينشئ كائن من الكلاس `JSpinner` يمثل Spinner فيه 0 كقيمة أولية نوعها `Integer`.  
+هنا الكائن `JSpinner` يستخدم كائن من الكلاس `SpinnerNumberModel` كـ Model إفتراضية.
+
+2
+
+`public JSpinner(SpinnerModel model)` ينشئ كائن من الكلاس `JSpinner` يمثل Spinner لها Model محددة. أي لها قيم محددة.  
+مكان الباراميتر `model` نمرر كائن من إحدى الكلاسات التي تنفذ الإنترفيس `SpinnerModel`.  
+  
+يرمي الإستثناء `NullPointerException` في حال كان الـ Model فارغاً, أي قيمته تساوي `null`.
+
+## دوال الكلاس `JSpinner`
+
+الجدول التالي يحتوي على بعض دوال الكلاس `JSpinner`.
+
+الدالة مع تعريفها
+
+1
+
+`public Ojbect getValue()` ترجع القيمة الحالية الظاهرة في كائن الـ `JSpinner` الذي قام بإستدعائها.
+
+2
+
+`public void setValue(Ojbect value)` تستخدم لتحديد القيمة الأولية التي ستظهر في كائن الـ `JSpinner` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع القيمة.  
+  
+ترمي الإستثناء IllegalArgumentException في حال كان نوع القيمة الموضوعة لا يلائم نوع الـ Model المستخدمة.
+
+3
+
+`public void addChangeListener(ChangeListenerener)` تستخدم لتنفيذ أوامر معينة عند تغيير قيمة كائن الـ `JSpinner` الذي قام بإستدعائها.  
+مكان الباراميتر `listener` نضع كائن من الكلاس `ChangeListener` و نفعل بداخله Override لدالة إسمها `stateChanged(StateEvent e)`.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `JSpinner` لخلق Spinner و إضافته في النافذة.
+
+![طريقة إضافة JSpinner في ال JFrame في جافا](/content-images/swing/jspinner/1784305354056-pm6j2p.PNG)
+
+[شاهد المثال](/tutorials/swing/jspinner/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تنفيذ أوامر في كل مرة يتم فيها تغيير قيمة الـ Spinner.
+
+![طريقة تنفيذ أوامر في كل مرة يتم فيها تغيير قيمة ال JSpinner في جافا](/content-images/swing/jspinner/1784305354150-vaeqql.PNG)
+
+[شاهد المثال](/tutorials/swing/jspinner/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة إنشاء Model لجعل الـ Spinner مخصص فقط لتخزين أرقام. بالإضافة إلى تحديد أقل و أكثر قيمة يمكن وضعها فيه.
+
+![طريقة تحديد أقل و أكثر قيمة يمكن وضعها في ال JSpinner في جافا](/content-images/swing/jspinner/1784305354241-sw31g7.PNG)
+
+[شاهد المثال](/tutorials/swing/jspinner/example-3)
+
+  
+  
+
+### المثال الربع
+
+المثال التالي يعلمك طريقة إنشاء Model لجعل الـ Spinner مخصص فقط لتخزين مصفوفة من النصوص.
+
+![طريقة تحديد أقل و أكثر قيمة يمكن وضعها في ال JSpinner في جافا](/content-images/swing/jspinner/1784305354334-tq2ghz.PNG)
+
+[شاهد المثال](/tutorials/swing/jspinner/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة إنشاء واجهة لإدخال الوقت تحتوي 4 Spinners.  
+عند النقر على الزر Display Time سيتم إظهار الوقت الذي تم تحديده في Label.
+
+![إنشاء واجهة لإدخال الوقت من خلال JSpinner في جافا](/content-images/swing/jspinner/1784305354449-58qq4w.PNG)
+
+[شاهد المثال](/tutorials/swing/jspinner/example-5)

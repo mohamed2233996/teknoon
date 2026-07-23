@@ -1,0 +1,144 @@
+---
+title: "JavaFXالكلاس TextArea"
+source: "https://harmash.com/tutorials/javafx/textarea"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:19:51.716Z"
+---
+
+## مقدمة
+
+الكلاس `TextArea` يستخدم لإضافة مربع نص كبير يتألف من أكثر من سطر ( Text Area ) في واجهة المستخدم.
+
+  
+
+### بناء الكلاس `TextArea`
+
+public class TextArea
+extends TextInputControl
+
+## كونستركتورات الكلاس `TextArea`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `TextArea`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`public TextArea()` ينشئ كائن من الكلاس `TextArea` يمثل مربع نص فارغ.
+
+2
+
+`public TextArea(String text)` ينشئ كائن من الكلاس `TextArea` يمثل مربع نص فيه نص.  
+مكان الباراميتر `text` نمرر النص الذي نريد وضعه بداخل الـ `TextArea`.
+
+## دوال الكلاس `TextArea`
+
+الجدول التالي يحتوي على دوال الكلاس `TextArea` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public String getText()` ترجع نص كائن الـ `TextArea` الذي قام بإستدعائها كنص.
+
+2
+
+`public void setText(String text)` تستخدم لتبديل نص كائن الـ `TextArea` الذي قام بإستدعائها.  
+مكان الباراميتر `text` نضع النص الجديد.
+
+3
+
+`public final void setFont(Font newFont)` تستخدم لتحديد حجم و نوع خط كائن الـ `TextArea` الذي قام بإستدعائها.  
+مكان الباراميتر `newFont` نضع كائن من الكلاس `Font` يمثل خصائص الخط الجديد.
+
+4
+
+`public final void setPadding(Insets value)` تستخدم لإضافة هامش ( مسافة فارغة ) حول نص كائن الـ `TextArea` الذي قام باستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس Insets يمثل حجم الهامش حول النص من كل الجهات.
+
+5
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان الـ `TextArea` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+6
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان الـ `TextArea` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+7
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم الـ `TextArea` الذي قام باستدعائها.  
+  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `TextArea` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `TextArea` بالـ Pixel.
+
+8
+
+`public final void setDisable(boolean value)` تستخدم لجعل نص كائن الـ `TextArea` الذي قام باستدعائها يبدو غير مفعّل, أي يصبح لونه باهتاً و غير قابل لتغير النص الموجود بداخله.  
+مكان الباراميتر `value` نضع القيمة `true` لجعله غير مفعّل.
+
+9
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `TextArea` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `TextArea` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `TextArea` و إضافته في النافذة.
+
+![طريقة إضافة TextArea في javafx](/content-images/javafx/textarea/1784305190960-qae94x.PNG)
+
+[شاهد المثال](/tutorials/javafx/textarea/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تغيير نوع و حجم خط الـ `TextArea`.
+
+![طريقة تغيير حجم خط الكائن TextArea في javafx](/content-images/javafx/textarea/1784305191048-4e0q2n.PNG)
+
+[شاهد المثال](/tutorials/javafx/textarea/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة جعل النص بداخل الـ `TextArea` ينزل على سطر جديد بشكل تلقائي على سطر جديد بدل إظهار `ScrollBar` بالعرض.
+
+![طريقة جعل النص بداخل الـ TextArea ينزل على سطر جديد بشكل تلقائي في javafx](/content-images/javafx/textarea/1784305191509-a33743.gif)
+
+[شاهد المثال](/tutorials/javafx/textarea/example-3)
+
+  
+  
+
+### المثال الرابع
+
+المثال التالي يعلمك طريقة الحصول على النص المدخل في الـ `TextArea`.
+
+![طريقة الحصول على النص المدخل في الـ TextArea عند النقر على زر في javafx](/content-images/javafx/textarea/1784305191608-lrpwjb.gif)
+
+[شاهد المثال](/tutorials/javafx/textarea/example-4)
+
+  
+  
+
+### المثال الخامس
+
+المثال التالي يعلمك طريقة الحصول على عدد الأسطر و الأحرف الموجودة في `TextArea`.
+
+المثال عبارة واجهة مستخدم فيها `TextArea` و إثنين `Label`.  
+كلما تم إدخال أو حذف حرف في الـ `TextArea` سيتم إظهار عدد الأسطر الحالية في `Label` و عدد الأحرف الحالية في `Label` آخر.
+
+![طريقة حساب عدد الأحرف و الأسطر المدخلة في الـ TextArea في javafx](/content-images/javafx/textarea/1784305191703-ilplt0.gif)
+
+[شاهد المثال](/tutorials/javafx/textarea/example-5)

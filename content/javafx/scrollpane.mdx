@@ -1,0 +1,109 @@
+---
+title: "JavaFXالكلاس ScrollPane"
+source: "https://harmash.com/tutorials/javafx/scrollpane"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:21:14.965Z"
+---
+
+## مقدمة
+
+الكلاس `ScrollPane` يستخدم لإنشاء حاوية يضاف لها شرط تمرير ( `ScrollBar` ) بشكل تلقائي عند الحاجة لجعل المستخدم قادر على رؤية كل ما تحتويه النافذة مهما كان حجم شاشة الجهاز الذي يستخدمه.  
+هذه الحاوية يمكنها أن تحتوي على شيء واحد فقط. مع الإشارة إلى أن هذا الشيء يمكن أن يكون زر, صورة, حاوية أخرى إلخ..
+
+إفتراضياً, الشيء الذي تضيفه في كائن الـ `ScrollPane` يظهر في الأعلى من جهة اليسار و لكنك تستطيع تحديد مكان ظهوره.
+
+  
+
+### بناء الكلاس `ScrollPane`
+
+@DefaultProperty(value="content")
+public class ScrollPane
+extends Control
+
+## كونستركتورات الكلاس `ScrollPane`
+
+الجدول التالي يحتوي على كونستركتورات الكلاس `ScrollPane`.
+
+الكونستركتور مع تعريفه
+
+1
+
+`ScrollPane()` ينشئ كائن من الكلاس `ScrollPane` يمثل حاوية فارغة.
+
+2
+
+`ScrollPane(Node content)` ينشئ كائن من الكلاس `ScrollPane` يمثل حاوية مع تحديد الشيء الذي نريد وضعه فيها.  
+مكان الباراميتر `content` نمرر الشيء الذي نريد وضعه فيها.
+
+## دوال الكلاس `ScrollPane`
+
+الجدول التالي يحتوي على دوال الكلاس `ScrollPane` الأكثر إستخداماً.
+
+الدالة مع تعريفها
+
+1
+
+`public void setPrefSize(double prefWidth, double prefHeight)` تستخدم لتحديد حجم كائن الـ `ScrollPane` الذي قام باستدعائها.  
+
+*   مكان الباراميتر `prefWidth` نضع رقم يمثل عرض الـ `ScrollPane` بالـ Pixel.
+*   مكان الباراميتر `prefHeight` نضع رقم يمثل طول الـ `ScrollPane` بالـ Pixel.
+
+2
+
+`public final void setTranslateX(double value)` تستخدم لتحديد مكان كائن الـ `ScrollPane` الذي قام باستدعائها أفقياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من اليسار إلى اليمين.
+
+3
+
+`public final void setTranslateY(double value)` تستخدم لتحديد مكان كائن الـ `ScrollPane` الذي قام باستدعائها عامودياً.  
+مكان الباراميتر `value` نضع رقم يمثل كم Pixel سيتم إزاحته من الأعلى إلى الأسفل.
+
+4
+
+`public final void setBackground(Background value)` تستخدم لوضع لون أو صورة كخلفية لكائن الـ `ScrollPane` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نضع كائن من الكلاس `Background` يشير إلى درجة اللون أو الصورة التي سيتم وضعها كخلفية.
+
+5
+
+`public final void setStyle(String value)` تستخدم لتعديل تصميم كائن الـ `ScrollPane` الذي قام بإستدعائها.  
+مكان الباراميتر `value` يمكنك تمرير إسم و قيمة أي خاصية تريد تعديلها في كائن الـ `ScrollPane` بأسلوب لغة CSS لإظهاره بالشكل الذي تريده.
+
+6
+
+`public final void setContent(Node value)` تستخدم لتحديد الشيء الذي سيتم وضعه بداخل كائن الـ `ScrollPane` الذي قام بإستدعائها.  
+مكان الباراميتر `value` نمرر الشيء الذي نريد وضعه فيه.
+
+## أمثلة شاملة
+
+  
+
+### المثال الأول
+
+المثال التالي يعلمك طريقة إنشاء كائن من الكلاس `ScrollPane` و وضعه كـ Root Node.
+
+![طريقة وضع محتوى النافذة في ScrollPane في JavaFX](/content-images/javafx/scrollpane/1784305274228-u65rvu.PNG)
+
+[شاهد المثال](/tutorials/javafx/scrollpane/example-1)
+
+  
+  
+
+### المثال الثاني
+
+المثال التالي يعلمك طريقة تحديد حجم و مكان ظهور الأشياء التي نضيفها في `ScrollPane`.  
+لإظهار محتوى الـ `ScrollPane` في وسطه, سنضع فيه `StackPane`, و بداخله سنضيف الشيئ الذي نريد وضعه.
+
+![طريقة تحديد حجم و مكان ظهور الأشياء التي نضيفها في ScrollPane في JavaFX](/content-images/javafx/scrollpane/1784305274389-eya22g.PNG)
+
+[شاهد المثال](/tutorials/javafx/scrollpane/example-2)
+
+  
+  
+
+### المثال الثالث
+
+المثال التالي يعلمك طريقة عرض صورة بدخل `ScrollPane`.
+
+![طريقة عرض صورة بداخل ScrollPane في JavaFX](/content-images/javafx/scrollpane/1784305274951-9ulvc3.PNG)
+
+[شاهد المثال](/tutorials/javafx/scrollpane/example-3)

@@ -1,0 +1,109 @@
+---
+title: "HTMLأزرار الراديو"
+source: "https://harmash.com/tutorials/html/radio-buttons"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:11:00.755Z"
+---
+
+## مفهوم زر الراديو
+
+زر الراديو ( Radio Button ) عبارة عن زر دائري الشكل عند النقر عليه يظهر بداخله نقطة كبيرة تشير إلى أنه قد تم اختياره.
+
+نستخدم أزرار الراديو لعرض عدة خيارات أمام المستخدم و جعله قادراً على اختيار أحدها فقط.
+
+في هذا الدرس سنتعلم كيفية إضافة أزرار راديو في الصفحة بالإضافة لكيفية وضعها ضمن مجموعات.
+
+## إضافة زر راديو
+
+لإضافة زر راديو يمكنك استخدام الوسم `<input>` على هذا النحو `<input type="radio">`.
+
+يمكنك إضافة الخصائص التالية لهذا الوسم:
+
+*   `id` نضيفها له في حال أردنا ربطه بوسم `<label>`.
+*   `name` نضيفها له حتى يتم إرسال القيمة الموضوعة فيه عند النقر على زر الإرسال.
+*   `value` لإعطائه القيمة التي سيتم إرسالها عند النقر على زر الإرسال.
+*   `disabled` لجعله يظهر بلون باهت و قيمته غير قابلة للتغيير.
+*   `checked` نضيفها له لجعله مختاراً بشكل افتراضي عندما تفتح الصفحة.
+
+  
+
+### معلومة تقنية
+
+كل مجموعة أزرار راديو يتم إضافتها في الصفحة يجب إعطاؤها نفس الإسم - أي إعطاؤها `name` موحّد - لأنه حين يجد المتصفح أزرار راديو تملك نفس الإسم سيفهم مباشرةً أنها تنتمي لمجموعة واحدة و بالتالي يجب جعل المستخدم قادر على اختيار أحدها فقط و ليس كلها.
+
+و بالنسبة للنص الذي ستظهره بجانب الزر، قم دائماً بوضعه بواسطة الوسم `<label>` مع ربطه بالزر لأن المتصفح سيعتبر المستخدم نقر على الزر نفسه عندما ينقر على النص المربوط به.
+
+  
+
+في المثال التالي قمنا بعرض ثلاث أزرار راديو.
+
+#### المثال الأول
+
+<input type\="radio" id\="ar" name\="language" value\="arabic"\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="radio" id\="en" name\="language" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="radio" id\="fr" name\="language" value\="french"\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/radio-buttons/radio-buttons)
+
+  
+
+في المثال التالي قمنا بعرض ثلاث أزرار راديو مع جعل الأول يظهر مُختاراً بشكل إفتراضي.
+
+#### المثال الثاني
+
+<input type\="radio" id\="ar" name\="language" value\="arabic" checked\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="radio" id\="en" name\="language" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="radio" id\="fr" name\="language" value\="french"\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/radio-buttons/radio-button-with-checked)
+
+  
+
+في المثال التالي قمنا بعرض ثلاث أزرار راديو مع جعل الأول يظهر مُختاراً بشكل إفتراضي و الثالث غير مفعّل لجعل المستخدم غير قادر على تغيير قيمته.
+
+#### المثال الثالث
+
+<input type\="radio" id\="ar" name\="language" value\="arabic" checked\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="radio" id\="en" name\="language" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="radio" id\="fr" name\="language" value\="french" disabled\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/radio-buttons/radio-button-with-disabled)
+
+  
+
+في المثال التالي قمنا بعرض مجموعتين من أزرار الراديو مع جعل الزر الأول في كل مجموعة يظهر مختاراً بشكل إفتراضي.  
+المجموعة الأولى أعطيناها الإسم `gender` و الثانية أعطيناها الإسم `language`.
+
+#### المثال الرابع
+
+<input type\="radio" id\="male" name\="gender" value\="male" checked\>
+<label for\="male"\>Male</label\><br\>
+
+<input type\="radio" id\="female" name\="gender" value\="female"\>
+<label for\="female"\>Female</label\><br\>
+
+<input type\="radio" id\="ar" name\="language" value\="arabic" checked\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="radio" id\="en" name\="language" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="radio" id\="fr" name\="language" value\="french"\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/radio-buttons/radio-buttons-groups)

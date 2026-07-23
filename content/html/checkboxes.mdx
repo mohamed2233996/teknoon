@@ -1,0 +1,108 @@
+---
+title: "HTMLخانات الإختيار"
+source: "https://harmash.com/tutorials/html/checkboxes"
+source_site: "هرمش (harmash.com)"
+imported_at: "2026-07-17T16:10:59.126Z"
+---
+
+## مفهوم خانة الاختيار
+
+خانة الإختيار ( Check Box ) عبارة عن زر مربع الشكل عند النقر عليه يظهر بداخله علامة صح تشير إلى أنه قد تم اختياره و عند النقر عليه مجدداً تختفي علامة الصح للإشارة إلى أنه لم يعد مختاراً.
+
+نستخدم خانات الاختيار لعرض خيار واحد أو عدة خيارات أمام المستخدم و جعله قادراً على اختيار ما يريد منها أو حتى اختيارها كلها.
+
+في هذا الدرس سنتعلم كيفية إضافة خانات اختيار في الصفحة بالإضافة لكيفية وضعها ضمن مجموعات.
+
+## إضافة خانة اختيار
+
+لإضافة خانة اختيار يمكنك استخدام الوسم `<input>` على هذا النحو `<input type="checkbox">`.
+
+يمكنك إضافة الخصائص التالية لهذا الوسم:
+
+*   `id` نضيفها له في حال أردنا ربطه بوسم `<label>`.
+*   `name` نضيفها له حتى يتم إرسال القيمة الموضوعة فيه عند النقر على زر الإرسال.
+*   `value` لإعطائه القيمة التي سيتم إرسالها عند النقر على زر الإرسال.
+*   `disabled` لجعله يظهر بلون باهت و قيمته غير قابلة للتغيير.
+*   `checked` نضيفها له لجعله مختاراً بشكل افتراضي عندما تفتح الصفحة.
+
+  
+
+### معلومة تقنية
+
+بالنسبة للنص الذي ستظهره بجانب الخانة، قم دائماً بوضعه بواسطة الوسم `<label>` مع ربطه بالخانة لأن المتصفح سيعتبر المستخدم نقر على الخانة نفسها عندما ينقر على النص المربوط بها.
+
+خانات الإختيار يمكن إعطاؤها أسماء مختلفة - أي إعطاؤها `name` مختلف - لجعل المتصفح يرسل إسم و قيمة كل خيار موضوع سواء قام المستخدم باختياره أم لم يفعل على هذا النحو `option1=arabic & option2=english & option3=null` و يمكن إعطاؤها نفس الإسم في حال أردت إرسال القيم التي اختارها منهم فقط على شكل مصفوفة على هذا النحو `[arabic, english]`.
+
+لا تقلق في حال لم تفهم ما ذكرناه حول الخاصية `name` لأنك الآن تدرس كيفية تصميم الموقع و ليس كيفية برمجته.
+
+  
+
+في المثال التالي قمنا بعرض ثلاث خانات اختيار مع إعطاء إسم و قيمة مختلفة لكل واحد منهم.
+
+#### المثال الأول
+
+<input type\="checkbox" id\="ar" name\="option1" value\="arabic"\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="checkbox" id\="en" name\="option2" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="checkbox" id\="fr" name\="option3" value\="french"\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/checkboxes/checkboxes-with-different-names)
+
+  
+
+في المثال التالي قمنا بعرض ثلاث خانات اختيار مع إعطائهم نفس الأسماء.
+
+**ملاحظة:** بالنسبة للمستخدم فإنه لن يشعر بأي فرق بين هذا المثال و المثال السابق حيث سيرى نفس الصفحة أما بالنسبة للصفحة التي ستتلقى البيانات فهذه المرة سيصلها فقط القيم التي قام المستخدم باختيارها و ستلاحظ هذا الأمر بنفسك عند تجربة الكود.
+
+#### المثال الثاني
+
+<input type\="checkbox" id\="ar" name\="languages\[\]" value\="arabic"\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="checkbox" id\="en" name\="languages\[\]" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="checkbox" id\="fr" name\="languages\[\]" value\="french"\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/checkboxes/checkboxes-with-same-names)
+
+عند إعطاء الخانات نفس الإسم بواسطة الخاصية `name` يجب إضافة الرمز `[]` في نهاية الإسم حتى يعلم المتصفح أن المستخدم قد يرسل أكثر من قيمة مما يجعله يقوم بإرسال جميع القيم التي يختارها عند النقر على زر إرسال البيانات كما فعلنا في المثال السابق حيث وضعنا `name="languages[]"` و ليس `name="languages"`.
+
+  
+
+في المثال التالي قمنا بعرض ثلاث خانات اختيار مع جعل الأول يظهر مُختاراً بشكل إفتراضي.
+
+#### المثال الثالث
+
+<input type\="checkbox" id\="ar" name\="option1" value\="arabic" checked\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="checkbox" id\="en" name\="option2" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="checkbox" id\="fr" name\="option3" value\="french"\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/checkboxes/checkbox-with-checked)
+
+  
+
+في المثال التالي قمنا بعرض ثلاث خانات اختيار مع جعل الأول يظهر مُختاراً بشكل إفتراضي و غير مفعّل أيضاً لجعل المستخدم غير قادر على تغيير قيمته.
+
+#### المثال الرابع
+
+<input type\="checkbox" id\="ar" name\="option1" value\="arabic" checked disabled\>
+<label for\="ar"\>Arabic</label\><br\>
+
+<input type\="checkbox" id\="en" name\="option2" value\="english"\>
+<label for\="en"\>English</label\><br\>
+
+<input type\="checkbox" id\="fr" name\="option3" value\="french"\>
+<label for\="fr"\>French</label\>
+
+[جرب الكود](/tryit?file=/tutorials/html/checkboxes/checkbox-with-checked-and-disabled)
