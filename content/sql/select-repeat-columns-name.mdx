@@ -2,7 +2,7 @@
 title: "تكرار إسم الأعمدة الموضوعة في الإستعلام"
 source: "https://harmash.com/tutorials/sql/select-repeat-columns-name"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:14.061Z"
+imported_at: "2026-07-23T12:27:45.771Z"
 ---
 
 ## مفهوم تكرار إسم العمود
@@ -74,61 +74,14 @@ FROM
 
 النتيجة
 
-Product
-
-Price ($)
-
-Tax ($)
-
-Final Price ($)
-
-Keyboard
-
-15.00
-
-1.500
-
-16.500
-
-Camera
-
-44.99
-
-4.499
-
-49.489
-
-HDD 1TB
-
-70.00
-
-7.000
-
-77.000
-
-SSD 1TB
-
-274.66
-
-27.466
-
-302.126
-
-Mouse
-
-8.50
-
-0.850
-
-9.350
-
-Table
-
-44.55
-
-4.455
-
-49.005
+| Product | Price ($) | Tax ($) | Final Price ($) |
+| --- | --- | --- | --- |
+| Keyboard | 15.00 | 1.500 | 16.500 |
+| Camera | 44.99 | 4.499 | 49.489 |
+| HDD 1TB | 70.00 | 7.000 | 77.000 |
+| SSD 1TB | 274.66 | 27.466 | 302.126 |
+| Mouse | 8.50 | 0.850 | 9.350 |
+| Table | 44.55 | 4.455 | 49.005 |
 
   
 
@@ -152,9 +105,9 @@ SELECT 10.55 AS 'Number without format'
 
 النتيجة
 
-Number without format
-
-10.55
+| Number without format |
+| --- |
+| 10.55 |
 
   
 
@@ -166,9 +119,9 @@ SELECT FORMAT(10.55, 0) AS 'Number with format'
 
 النتيجة
 
-Number with format
-
-11
+| Number with format |
+| --- |
+| 11 |
 
 ## مثال حول تعديل القيم التي سيرجعها الإستعلام بواسطة الدالة `FORMAT()`
 
@@ -197,72 +150,11 @@ FROM
 
 النتيجة
 
-Product
-
-Price ($)
-
-Price (€)
-
-Price (LL)
-
-Price (SAR)
-
-Keyboard
-
-15.00
-
-13.50
-
-22500
-
-56
-
-Camera
-
-44.99
-
-40.49
-
-67485
-
-169
-
-HDD 1TB
-
-70.00
-
-63.00
-
-105000
-
-263
-
-SSD 1TB
-
-274.66
-
-247.19
-
-411990
-
-1030
-
-Mouse
-
-8.50
-
-7.65
-
-12750
-
-32
-
-Table
-
-44.55
-
-40.10
-
-66825
-
-167
+| Product | Price ($) | Price (€) | Price (LL) | Price (SAR) |
+| --- | --- | --- | --- | --- |
+| Keyboard | 15.00 | 13.50 | 22500 | 56 |
+| Camera | 44.99 | 40.49 | 67485 | 169 |
+| HDD 1TB | 70.00 | 63.00 | 105000 | 263 |
+| SSD 1TB | 274.66 | 247.19 | 411990 | 1030 |
+| Mouse | 8.50 | 7.65 | 12750 | 32 |
+| Table | 44.55 | 40.10 | 66825 | 167 |

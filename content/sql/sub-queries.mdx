@@ -2,7 +2,7 @@
 title: "SQLالإستعلامات المتداخلة"
 source: "https://harmash.com/tutorials/sql/sub-queries"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:10:06.687Z"
+imported_at: "2026-07-23T12:28:59.873Z"
 ---
 
 ## مفهوم الإستعلامات المتدخلة
@@ -80,115 +80,18 @@ INSERT INTO scientists VALUES (null, "Jana", 7500, "Canada", "North America");
 
 في يلي البيانات التي قمنا بإضافتها في الجدول `scientists`.
 
-id
-
-name
-
-salary
-
-country
-
-continent
-
-1
-
-Ahmad
-
-4200.00
-
-KSA
-
-Asia
-
-2
-
-Rami
-
-2750.00
-
-Egypt
-
-Africa
-
-3
-
-Said
-
-3900.00
-
-Lebanon
-
-Asia
-
-4
-
-Noura
-
-3150.00
-
-Algeria
-
-Africa
-
-5
-
-Amani
-
-2950.00
-
-Morocco
-
-Africa
-
-6
-
-Mhamad
-
-3700.00
-
-Lebanon
-
-Asia
-
-7
-
-Wissam
-
-3550.00
-
-Oman
-
-Asia
-
-8
-
-Mostafa
-
-4120.00
-
-Qatar
-
-Asia
-
-9
-
-Houssam
-
-6800.00
-
-Germany
-
-Europe
-
-10
-
-Jana
-
-7500.00
-
-Canada
-
-North America
+| id | name | salary | country | continent |
+| --- | --- | --- | --- | --- |
+| 1 | Ahmad | 4200.00 | KSA | Asia |
+| 2 | Rami | 2750.00 | Egypt | Africa |
+| 3 | Said | 3900.00 | Lebanon | Asia |
+| 4 | Noura | 3150.00 | Algeria | Africa |
+| 5 | Amani | 2950.00 | Morocco | Africa |
+| 6 | Mhamad | 3700.00 | Lebanon | Asia |
+| 7 | Wissam | 3550.00 | Oman | Asia |
+| 8 | Mostafa | 4120.00 | Qatar | Asia |
+| 9 | Houssam | 6800.00 | Germany | Europe |
+| 10 | Jana | 7500.00 | Canada | North America |
 
 ## أمثلة شاملة على كتابة إستعلامات متداخلة
 
@@ -202,25 +105,9 @@ WHERE salary \= (SELECT MAX(salary) FROM scientists)  \-- (scientists موجود
 
 النتيجة
 
-id
-
-name
-
-salary
-
-country
-
-continent
-
-10
-
-Jana
-
-7500.00
-
-Canada
-
-North America
+| id | name | salary | country | continent |
+| --- | --- | --- | --- | --- |
+| 10 | Jana | 7500.00 | Canada | North America |
 
 الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
 
@@ -238,41 +125,16 @@ WHERE salary < (SELECT AVG(salary) FROM scientists)  \-- (scientists موجود 
 
 النتيجة
 
-name
-
-salary
-
-Ahmad
-
-4200.00
-
-Rami
-
-2750.00
-
-Said
-
-3900.00
-
-Noura
-
-3150.00
-
-Amani
-
-2950.00
-
-Mhamad
-
-3700.00
-
-Wissam
-
-3550.00
-
-Mostafa
-
-4120.00
+| name | salary |
+| --- | --- |
+| Ahmad | 4200.00 |
+| Rami | 2750.00 |
+| Said | 3900.00 |
+| Noura | 3150.00 |
+| Amani | 2950.00 |
+| Mhamad | 3700.00 |
+| Wissam | 3550.00 |
+| Mostafa | 4120.00 |
 
 الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
 
@@ -299,13 +161,9 @@ HAVING total \= (SELECT MAX(t.total) AS max\_count
 
 النتيجة
 
-continent
-
-total
-
-Asia
-
-5
+| continent | total |
+| --- | --- |
+| Asia | 5 |
 
 الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
 

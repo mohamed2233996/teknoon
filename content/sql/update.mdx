@@ -2,7 +2,7 @@
 title: "SQLأمر تحديث البيانات المخزنة في الجدول"
 source: "https://harmash.com/tutorials/sql/update"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:24.065Z"
+imported_at: "2026-07-23T12:27:56.288Z"
 ---
 
 ## الأمر `UPDATE`
@@ -69,93 +69,18 @@ INSERT INTO users VALUES (null, "Rayan", "Kasabi", "KSA");
 
 البيانات التي قمنا بإضافتها بشكل إفتراضي في الجدول `users`.
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Rami
-
-Masri
-
-Lebanon
-
-2
-
-Ahmad
-
-Naji
-
-Syria
-
-3
-
-Hanan
-
-Mostafa
-
-KSA
-
-4
-
-Saly
-
-Harmush
-
-Lebanon
-
-5
-
-Samir
-
-Saleh
-
-Lebanon
-
-6
-
-Hamad
-
-Akel
-
-Syria
-
-7
-
-Abdullah
-
-Helmi
-
-Egypt
-
-8
-
-Rashed
-
-Masri
-
-Oman
-
-9
-
-Majed
-
-Alali
-
-Yaman
-
-10
-
-Rayan
-
-Kasabi
-
-KSA
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Rami | Masri | Lebanon |
+| 2 | Ahmad | Naji | Syria |
+| 3 | Hanan | Mostafa | KSA |
+| 4 | Saly | Harmush | Lebanon |
+| 5 | Samir | Saleh | Lebanon |
+| 6 | Hamad | Akel | Syria |
+| 7 | Abdullah | Helmi | Egypt |
+| 8 | Rashed | Masri | Oman |
+| 9 | Majed | Alali | Yaman |
+| 10 | Rayan | Kasabi | KSA |
 
 ## أمثلة حول تحديث بيانات الجدول
 
@@ -171,93 +96,18 @@ SELECT \* FROM users;       \-- لمعرفة التغيرات الجديدة use
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Ziad
-
-Masri
-
-Lebanon
-
-2
-
-Ahmad
-
-Naji
-
-Syria
-
-3
-
-Hanan
-
-Mostafa
-
-KSA
-
-4
-
-Saly
-
-Harmush
-
-Lebanon
-
-5
-
-Samir
-
-Saleh
-
-Lebanon
-
-6
-
-Hamad
-
-Akel
-
-Syria
-
-7
-
-Abdullah
-
-Helmi
-
-Egypt
-
-8
-
-Rashed
-
-Masri
-
-Oman
-
-9
-
-Majed
-
-Alali
-
-Yaman
-
-10
-
-Rayan
-
-Kasabi
-
-KSA
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Ziad | Masri | Lebanon |
+| 2 | Ahmad | Naji | Syria |
+| 3 | Hanan | Mostafa | KSA |
+| 4 | Saly | Harmush | Lebanon |
+| 5 | Samir | Saleh | Lebanon |
+| 6 | Hamad | Akel | Syria |
+| 7 | Abdullah | Helmi | Egypt |
+| 8 | Rashed | Masri | Oman |
+| 9 | Majed | Alali | Yaman |
+| 10 | Rayan | Kasabi | KSA |
 
 نلاحظ أن أول سطر و الذي كان يملك رقم `id` يساوي `1` تم تحديث قيمة الحقل `first_name` فيه و أصبحت قيمته `'Ziad'`.
 
@@ -279,93 +129,18 @@ SELECT \* FROM users;                            \-- لمعرفة التغيرا
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Ziad
-
-Masri
-
-Lebanon
-
-2
-
-Ahmad
-
-Naji
-
-Syria
-
-3
-
-Maria
-
-Chaar
-
-KSA
-
-4
-
-Saly
-
-Harmush
-
-Lebanon
-
-5
-
-Samir
-
-Saleh
-
-Lebanon
-
-6
-
-Hamad
-
-Akel
-
-Syria
-
-7
-
-Abdullah
-
-Helmi
-
-Egypt
-
-8
-
-Rashed
-
-Masri
-
-Oman
-
-9
-
-Majed
-
-Alali
-
-Yaman
-
-10
-
-Rayan
-
-Kasabi
-
-KSA
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Ziad | Masri | Lebanon |
+| 2 | Ahmad | Naji | Syria |
+| 3 | Maria | Chaar | KSA |
+| 4 | Saly | Harmush | Lebanon |
+| 5 | Samir | Saleh | Lebanon |
+| 6 | Hamad | Akel | Syria |
+| 7 | Abdullah | Helmi | Egypt |
+| 8 | Rashed | Masri | Oman |
+| 9 | Majed | Alali | Yaman |
+| 10 | Rayan | Kasabi | KSA |
 
 نلاحظ أن ثالث سطر و الذي كان يملك رقم `id` يساوي `3` تم تحديث قيمة الحقلين `first_name` و `last_name` فيه إلى القيمتين `'Maria'` و `'Chaar'`.
 
@@ -383,93 +158,18 @@ SELECT \* FROM users;          \-- لمعرفة التغيرات الجديدة 
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Ziad
-
-Masri
-
-Canada
-
-2
-
-Ahmad
-
-Naji
-
-Syria
-
-3
-
-Maria
-
-Chaar
-
-KSA
-
-4
-
-Saly
-
-Harmush
-
-Canada
-
-5
-
-Samir
-
-Saleh
-
-Canada
-
-6
-
-Hamad
-
-Akel
-
-Syria
-
-7
-
-Abdullah
-
-Helmi
-
-Egypt
-
-8
-
-Rashed
-
-Masri
-
-Oman
-
-9
-
-Majed
-
-Alali
-
-Yaman
-
-10
-
-Rayan
-
-Kasabi
-
-KSA
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Ziad | Masri | Canada |
+| 2 | Ahmad | Naji | Syria |
+| 3 | Maria | Chaar | KSA |
+| 4 | Saly | Harmush | Canada |
+| 5 | Samir | Saleh | Canada |
+| 6 | Hamad | Akel | Syria |
+| 7 | Abdullah | Helmi | Egypt |
+| 8 | Rashed | Masri | Oman |
+| 9 | Majed | Alali | Yaman |
+| 10 | Rayan | Kasabi | KSA |
 
 نلاحظ أنه تم تغيير قيمة كل سطر كان يملك `country` يساوي `'Lebanon'` إلى `'Canada'`.
 
@@ -486,92 +186,17 @@ SELECT \* FROM users;          \-- لمعرفة التغيرات الجديدة 
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Ziad
-
-Masri
-
-Palestine
-
-2
-
-Ahmad
-
-Naji
-
-Palestine
-
-3
-
-Maria
-
-Chaar
-
-Palestine
-
-4
-
-Saly
-
-Harmush
-
-Palestine
-
-5
-
-Samir
-
-Saleh
-
-Palestine
-
-6
-
-Hamad
-
-Akel
-
-Palestine
-
-7
-
-Abdullah
-
-Helmi
-
-Palestine
-
-8
-
-Rashed
-
-Masri
-
-Palestine
-
-9
-
-Majed
-
-Alali
-
-Palestine
-
-10
-
-Rayan
-
-Kasabi
-
-Palestine
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Ziad | Masri | Palestine |
+| 2 | Ahmad | Naji | Palestine |
+| 3 | Maria | Chaar | Palestine |
+| 4 | Saly | Harmush | Palestine |
+| 5 | Samir | Saleh | Palestine |
+| 6 | Hamad | Akel | Palestine |
+| 7 | Abdullah | Helmi | Palestine |
+| 8 | Rashed | Masri | Palestine |
+| 9 | Majed | Alali | Palestine |
+| 10 | Rayan | Kasabi | Palestine |
 
 نلاحظ أنه تم تحديث قيمة الحقل `country` لكل الأسطر الموجودة في الجدول `users` إلى القيمة `'Palestine'`.

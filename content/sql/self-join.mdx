@@ -2,14 +2,14 @@
 title: "SQLطرق ربط معلومات الجدول نفسه عند جلبها"
 source: "https://harmash.com/tutorials/sql/self-join"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:51.749Z"
+imported_at: "2026-07-23T12:28:33.909Z"
 ---
 
 ## مفهوم الربط الذاتي
 
 في حال كان الجدول نفسه يحتوي على أعمدة قيمها مترابطة ببعضها البعض و تريد إسترجاعها بشكل مرتب، هنا يجب أن تربط الأعمدة مع بعضها بأسلوب يقال له ربط ذاتي ( Self Join ) لأننا نتعامل مع أعمدة موجودة في نفس الجدول.
 
-![SQL SELF JOIN](/content-images/sql/self-join/1784304591416-7vs7wd.PNG)
+![SQL SELF JOIN](/content-images/sql/self-join/1784809713363-q0tgxr.PNG)
 
   
 
@@ -54,41 +54,13 @@ INSERT INTO employees VALUES (null, "Samir", 1);
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `employees`.
 
-id
-
-name
-
-manager\_id
-
-1
-
-Rami
-
-NULL
-
-2
-
-Ahmad
-
-1
-
-3
-
-Hanan
-
-1
-
-4
-
-Saly
-
-1
-
-5
-
-Samir
-
-1
+| id | name | manager\_id |
+| --- | --- | --- |
+| 1 | Rami | NULL |
+| 2 | Ahmad | 1 |
+| 3 | Hanan | 1 |
+| 4 | Saly | 1 |
+| 5 | Samir | 1 |
 
 نلاحظ أن جدول الموظفين يتضمن عامودين متشابهين هما `id` و `manager_id` و فكرتهما هي التالية:
 
@@ -114,7 +86,7 @@ Samir
 
 في مثالنا الحالي، النسخة الأولى من الجدول `employees` سنقوم بتسميتها `e1`، و النسخة الثانية منه سنقوم بتسميتها `e2` كما يلي.
 
-![مثال حول SELF JOIN](/content-images/sql/self-join/1784304591527-wvnzvj.PNG)
+![مثال حول SELF JOIN](/content-images/sql/self-join/1784809713468-kojru4.PNG)
 
 ## أمثلة حول ربط معلومات الجدول نفسه ببعضها عند جلبها
 
@@ -122,7 +94,7 @@ Samir
 
 ما فعلناه لربط القيم المشتركة في الجدول نفسه ببعضها هو إعطاء الجدول إسمين مختلفين هما `e1` و `e2` مع وضع الكلمة `JOIN` بينهما. الصورة التالية توضح كيف سيتم ربط قيم الجدولين.
 
-![](/content-images/sql/self-join/1784304591618-l8385a.PNG)
+![](/content-images/sql/self-join/1784809713565-2slrau.PNG)
 
 إذاً سيتم جلب قيم العمودين `id` و `name` من الجدول `e1`, و قيم العمود `name` من الجدول `e2`.
 
@@ -139,35 +111,12 @@ ON
 
 النتيجة
 
-Employee ID
-
-Employee
-
-Manager
-
-2
-
-Ahmad
-
-Rami
-
-3
-
-Hanan
-
-Rami
-
-4
-
-Saly
-
-Rami
-
-5
-
-Samir
-
-Rami
+| Employee ID | Employee | Manager |
+| --- | --- | --- |
+| 2 | Ahmad | Rami |
+| 3 | Hanan | Rami |
+| 4 | Saly | Rami |
+| 5 | Samir | Rami |
 
   
 
@@ -175,7 +124,7 @@ Rami
 
 ما فعلناه لربط كل القيم الموجودة في الجدول نفسه ببعضها هو إعطاء الجدول إسمين مختلفين هما `e1` و `e2` مع وضع الكلمة `LEFT JOIN` بينهما. الصورة التالية توضح كيف سيتم ربط قيم الجدولين.
 
-![](/content-images/sql/self-join/1784304591730-el7w5a.PNG)
+![](/content-images/sql/self-join/1784809713878-1nccup.PNG)
 
 إذاً سيتم جلب قيم العمودين `id` و `name` من الجدول `e1`، و قيم العمود `name` من الجدول `e2`.
 
@@ -192,41 +141,13 @@ ON
 
 النتيجة
 
-Employee ID
-
-Employee
-
-Manager
-
-1
-
-Rami
-
-NULL
-
-2
-
-Ahmad
-
-Rami
-
-3
-
-Hanan
-
-Rami
-
-4
-
-Saly
-
-Rami
-
-5
-
-Samir
-
-Rami
+| Employee ID | Employee | Manager |
+| --- | --- | --- |
+| 1 | Rami | NULL |
+| 2 | Ahmad | Rami |
+| 3 | Hanan | Rami |
+| 4 | Saly | Rami |
+| 5 | Samir | Rami |
 
   
 
@@ -245,38 +166,10 @@ ON
 
 النتيجة
 
-Employee ID
-
-Employee
-
-Manager
-
-1
-
-Rami
-
-No Manager
-
-2
-
-Ahmad
-
-Rami
-
-3
-
-Hanan
-
-Rami
-
-4
-
-Saly
-
-Rami
-
-5
-
-Samir
-
-Rami
+| Employee ID | Employee | Manager |
+| --- | --- | --- |
+| 1 | Rami | No Manager |
+| 2 | Ahmad | Rami |
+| 3 | Hanan | Rami |
+| 4 | Saly | Rami |
+| 5 | Samir | Rami |

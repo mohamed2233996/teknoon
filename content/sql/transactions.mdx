@@ -2,7 +2,7 @@
 title: "تنفيذ كل الأوامر أو إلغاءها كلها"
 source: "https://harmash.com/tutorials/sql/transactions"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:10:01.734Z"
+imported_at: "2026-07-23T12:28:53.521Z"
 ---
 
 ## مفهوم الـ Transaction
@@ -75,87 +75,34 @@ INSERT INTO products VALUES (null, 'Chair', 80);
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `users`.
 
-users
-
-id
-
-username
-
-email
-
-1
-
-Mhamad
-
-mhamad@example.com
-
-2
-
-Hala
-
-mhamad@example.com
-
-3
-
-Sarah
-
-mhamad@example.com
+| users |
+| --- |
+| id | username | email |
+| 1 | Mhamad | mhamad@example.com |
+| 2 | Hala | mhamad@example.com |
+| 3 | Sarah | mhamad@example.com |
 
   
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `products`.
 
-products
-
-id
-
-title
-
-available
-
-1
-
-Mouse
-
-86
-
-2
-
-Keyboard
-
-140
-
-3
-
-Printer
-
-45
-
-4
-
-Screen
-
-32
-
-5
-
-Chair
-
-80
+| products |
+| --- |
+| id | title | available |
+| 1 | Mouse | 86 |
+| 2 | Keyboard | 140 |
+| 3 | Printer | 45 |
+| 4 | Screen | 32 |
+| 5 | Chair | 80 |
 
   
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `orders`.
 
-orders
-
-user\_id
-
-product\_id
-
-quantity
-
-sale\_date
+| orders |
+| --- |
+| user\_id | product\_id | quantity | sale\_date |
+|  |  |  |  |
 
 ## طريقة وضع الكود بداخل Transaction
 
@@ -226,63 +173,21 @@ COMMIT;
 
 إذا قمت بعرض بيانات الجدول `products` ستلاحظ أنه تم تحديث قيمة الحقل `available` حيث كانت 32 ثم أصبحت 22.
 
-products
-
-id
-
-title
-
-available
-
-1
-
-Mouse
-
-86
-
-2
-
-Keyboard
-
-140
-
-3
-
-Printer
-
-45
-
-4
-
-Screen
-
-22
-
-5
-
-Chair
-
-80
+| products |
+| --- |
+| id | title | available |
+| 1 | Mouse | 86 |
+| 2 | Keyboard | 140 |
+| 3 | Printer | 45 |
+| 4 | Screen | 22 |
+| 5 | Chair | 80 |
 
 و إذا قمت بعرض بيانات الجدول `orders` ستلاحظ أنه تم إضافة سطر جديد فيه كما يلي.
 
-orders
-
-user\_id
-
-product\_id
-
-quantity
-
-sale\_date
-
-1
-
-4
-
-10
-
-2024-07-11
+| orders |
+| --- |
+| user\_id | product\_id | quantity | sale\_date |
+| 1 | 4 | 10 | 2024-07-11 |
 
 ## التراجع عن تنفيذ أوامر الـ Transaction
 
@@ -327,60 +232,18 @@ ROLLBACK;
 
 إذا قمت بعرض بيانات الجدول `products` ستلاحظ أنها لم تتغير.
 
-products
-
-id
-
-title
-
-available
-
-1
-
-Mouse
-
-86
-
-2
-
-Keyboard
-
-140
-
-3
-
-Printer
-
-45
-
-4
-
-Screen
-
-22
-
-5
-
-Chair
-
-80
+| products |
+| --- |
+| id | title | available |
+| 1 | Mouse | 86 |
+| 2 | Keyboard | 140 |
+| 3 | Printer | 45 |
+| 4 | Screen | 22 |
+| 5 | Chair | 80 |
 
 و إذا قمت بعرض بيانات الجدول `orders` ستلاحظ أنه لم تتغير أيضاُ.
 
-orders
-
-user\_id
-
-product\_id
-
-quantity
-
-sale\_date
-
-1
-
-4
-
-10
-
-2024-07-11
+| orders |
+| --- |
+| user\_id | product\_id | quantity | sale\_date |
+| 1 | 4 | 10 | 2024-07-11 |

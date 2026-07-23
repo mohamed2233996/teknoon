@@ -2,7 +2,7 @@
 title: "SQLطرق ربط المعلومات عند جلبها"
 source: "https://harmash.com/tutorials/sql/joins"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:47.712Z"
+imported_at: "2026-07-23T12:28:27.585Z"
 ---
 
 ## مفهوم ربط المعلومات عند جلبها
@@ -15,7 +15,7 @@ imported_at: "2026-07-17T16:09:47.712Z"
 
 عند جلب المعلومات المخزنة في عدة جداول و في وقت واحد، يوجد 4 طرق أساسية لتحديد كيف سيتم دمج معلوماتهم التي سيتم إرجاعها كما يلي.
 
-![أنواع العلاقات في قواعد البيانات](/content-images/sql/joins/1784304586079-g2t93r.PNG)
+![أنواع العلاقات في قواعد البيانات](/content-images/sql/joins/1784809706172-5huunz.PNG)
 
 *   إذا اخترت الدمج Inner Join فأنت بذلك تريد الحصول فقط على القيم المشتركة بين الجدولين.
 *   إذا اخترت الدمج Full Join فأنت بذلك تريد الحصول على القيم المشتركة و الغير مشتركة بين الجدولين.
@@ -86,147 +86,32 @@ INSERT INTO users VALUES (null, "rayan", "Rayan", "Kasabi", null);
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `countries`.
 
-countries
-
-id
-
-name
-
-1
-
-KSA
-
-2
-
-Oman
-
-3
-
-Egypt
-
-4
-
-Kuwait
-
-5
-
-Bahrain
+| countries |
+| --- |
+| id | name |
+| 1 | KSA |
+| 2 | Oman |
+| 3 | Egypt |
+| 4 | Kuwait |
+| 5 | Bahrain |
 
   
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `users`.
 
-users
-
-id
-
-username
-
-first\_name
-
-last\_name
-
-country\_id
-
-1
-
-rami
-
-Rami
-
-Masri
-
-1
-
-2
-
-ahmad
-
-Ahmad
-
-Naji
-
-2
-
-3
-
-hanan
-
-Hanan
-
-Mostafa
-
-5
-
-4
-
-saly
-
-Saly
-
-Harmush
-
-NULL
-
-5
-
-samir
-
-Samir
-
-Saleh
-
-3
-
-6
-
-hamad
-
-Hamad
-
-Akel
-
-2
-
-7
-
-abdullah
-
-Abdullah
-
-Helmi
-
-1
-
-8
-
-rashed
-
-Rashed
-
-Masri
-
-5
-
-9
-
-majed
-
-Majed
-
-Alali
-
-NULL
-
-10
-
-rayan
-
-Rayan
-
-Kasabi
-
-NULL
+| users |
+| --- |
+| id | username | first\_name | last\_name | country\_id |
+| 1 | rami | Rami | Masri | 1 |
+| 2 | ahmad | Ahmad | Naji | 2 |
+| 3 | hanan | Hanan | Mostafa | 5 |
+| 4 | saly | Saly | Harmush | NULL |
+| 5 | samir | Samir | Saleh | 3 |
+| 6 | hamad | Hamad | Akel | 2 |
+| 7 | abdullah | Abdullah | Helmi | 1 |
+| 8 | rashed | Rashed | Masri | 5 |
+| 9 | majed | Majed | Alali | NULL |
+| 10 | rayan | Rayan | Kasabi | NULL |
 
   
 
@@ -234,7 +119,7 @@ NULL
 
 إذا وضعنا الجدولين بجانب بعض، سنلاحظ كيف ربطنا قيم الجدول `users` بقيم الجدول `countries` من خلال رقم التعرفة `id` الخاص بكل بلد.
 
-![تحليل علاقة جداول قواعد البيانات](/content-images/sql/joins/1784304586689-q538yp.PNG)
+![تحليل علاقة جداول قواعد البيانات](/content-images/sql/joins/1784809706458-s2hk74.PNG)
 
 ### ملاحظات حول الجدول `users`
 
@@ -275,7 +160,7 @@ ON table1.table2\_id \= table\_2.id
 نقصد بالقيم المشتركة بين الجداول، هو عندما يكون الجدول يشير إلى معلومة موجودة في جدول آخر. عندها تكون المعلومة مشتركة بينهما.  
 الصورة التالية توضح القيم المشتركة بين الجدولين `users` و `countries`.
 
-![SQL INNER JOIN](/content-images/sql/joins/1784304586942-tqprij.PNG)
+![SQL INNER JOIN](/content-images/sql/joins/1784809706780-fnfzbb.PNG)
 
   
 
@@ -294,53 +179,15 @@ ON users.country\_id \= countries.id;                           \-- countries ا
 
 النتيجة
 
-id
-
-username
-
-country
-
-1
-
-rami
-
-KSA
-
-2
-
-ahmad
-
-Oman
-
-3
-
-hanan
-
-Bahrain
-
-5
-
-samir
-
-Egypt
-
-6
-
-hamad
-
-Oman
-
-7
-
-abdullah
-
-KSA
-
-8
-
-rashed
-
-Bahrain
+| id | username | country |
+| --- | --- | --- |
+| 1 | rami | KSA |
+| 2 | ahmad | Oman |
+| 3 | hanan | Bahrain |
+| 5 | samir | Egypt |
+| 6 | hamad | Oman |
+| 7 | abdullah | KSA |
+| 8 | rashed | Bahrain |
 
 لاحظ أن كل مستخدم لا يملك `country_id` لم يتم وضعه في النتيجة.  
 الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
@@ -352,7 +199,7 @@ Bahrain
 لجلب كل قيم الجدول الأيسر بالإضافة إلى القيم المشتركة معه من الجدول الأيمن نضع بين الجداول `LEFT OUTER JOIN` أو `LEFT JOIN`.  
 الفكرة هنا هي أنه في حال كانت القيم التي ننوي إحضارها من الجداول الأيسر غير موجودة في الجدول الأيمن فإننا أيضاً نريد وضعها كما يلي.
 
-![SQL LEFT JOIN](/content-images/sql/joins/1784304587173-3ozf9v.PNG)
+![SQL LEFT JOIN](/content-images/sql/joins/1784809706984-ftn0fd.PNG)
 
   
 
@@ -368,71 +215,18 @@ ON users.country\_id \= countries.id;                           \-- countries ا
 
 النتيجة
 
-id
-
-username
-
-country
-
-1
-
-rami
-
-KSA
-
-2
-
-ahmad
-
-Oman
-
-3
-
-hanan
-
-Bahrain
-
-4
-
-saly
-
-NULL
-
-5
-
-samir
-
-Egypt
-
-6
-
-hamad
-
-Oman
-
-7
-
-abdullah
-
-KSA
-
-8
-
-rashed
-
-Bahrain
-
-9
-
-majed
-
-NULL
-
-10
-
-rayan
-
-NULL
+| id | username | country |
+| --- | --- | --- |
+| 1 | rami | KSA |
+| 2 | ahmad | Oman |
+| 3 | hanan | Bahrain |
+| 4 | saly | NULL |
+| 5 | samir | Egypt |
+| 6 | hamad | Oman |
+| 7 | abdullah | KSA |
+| 8 | rashed | Bahrain |
+| 9 | majed | NULL |
+| 10 | rayan | NULL |
 
 لاحظ أنه تم وضع جميع المستخدمين و من كان يملك منهم رقم بلد تم ذكر إسم بلده.  
 الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
@@ -444,7 +238,7 @@ NULL
 لجلب كل قيم الجدول الأيمن بالإضافة إلى القيم المشتركة معه من الجدول الأيسر نضع بين الجداول `RIGHT OUTER JOIN` أو `RIGHT JOIN`.  
 الفكرة هنا هي أنه في حال كانت القيم التي ننوي إحضارها من الجداول الأيسر غير موجودة في الجدول الأيمن فإننا أيضاً نريد وضعها كما يلي.
 
-![SQL RIGHT JOIN](/content-images/sql/joins/1784304587420-0k3nqp.PNG)
+![SQL RIGHT JOIN](/content-images/sql/joins/1784809707292-icvny6.PNG)
 
   
 
@@ -460,59 +254,16 @@ ON users.country\_id \= countries.id;                           \-- countries ا
 
 النتيجة
 
-id
-
-username
-
-country
-
-1
-
-rami
-
-KSA
-
-2
-
-ahmad
-
-Oman
-
-3
-
-hanan
-
-Bahrain
-
-5
-
-samir
-
-Egypt
-
-6
-
-hamad
-
-Oman
-
-7
-
-abdullah
-
-KSA
-
-8
-
-rashed
-
-Bahrain
-
-NULL
-
-NULL
-
-Kuwait
+| id | username | country |
+| --- | --- | --- |
+| 1 | rami | KSA |
+| 2 | ahmad | Oman |
+| 3 | hanan | Bahrain |
+| 5 | samir | Egypt |
+| 6 | hamad | Oman |
+| 7 | abdullah | KSA |
+| 8 | rashed | Bahrain |
+| NULL | NULL | Kuwait |
 
 لاحظ أنه تم وضع جميع البلدان سواء كان هناك مستخدمين منها أم لم يكن و تم وضع أسماء بلدان المستخدمين.  
 الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.
@@ -524,7 +275,7 @@ Kuwait
 نقصد بالقيم المشتركة و الغير مشتركة هي أنه يجب إحضار كل المعلومات الموجودة في الجداول مع ربط القيم المشتركة بينهما.  
 الصورة التالية توضح القيم المشتركة و الغير مشتركة بين الجدولين `users` و `countries`.
 
-![SQL FULL JOIN](/content-images/sql/joins/1784304587676-vips1i.PNG)
+![SQL FULL JOIN](/content-images/sql/joins/1784809707521-s515tn.PNG)
 
   
 
@@ -559,77 +310,19 @@ ON users.country\_id \= countries.id
 
 النتيجة
 
-id
-
-username
-
-country
-
-1
-
-rami
-
-KSA
-
-2
-
-ahmad
-
-Oman
-
-3
-
-hanan
-
-Bahrain
-
-4
-
-saly
-
-NULL
-
-5
-
-samir
-
-Egypt
-
-6
-
-hamad
-
-Oman
-
-7
-
-abdullah
-
-KSA
-
-8
-
-rashed
-
-Bahrain
-
-9
-
-majed
-
-NULL
-
-10
-
-rayan
-
-NULL
-
-NULL
-
-NULL
-
-Kuwait
+| id | username | country |
+| --- | --- | --- |
+| 1 | rami | KSA |
+| 2 | ahmad | Oman |
+| 3 | hanan | Bahrain |
+| 4 | saly | NULL |
+| 5 | samir | Egypt |
+| 6 | hamad | Oman |
+| 7 | abdullah | KSA |
+| 8 | rashed | Bahrain |
+| 9 | majed | NULL |
+| 10 | rayan | NULL |
+| NULL | NULL | Kuwait |
 
 لاحظ أنه تم وضع جميع المستخدمين و جميع البلدان سواء كان هناك مستخدمين منها أم لم يكن.  
 الفيديو التالي يشرح كود الإستعلام بدقة و يشرح كيف حصلنا على النتيجة.

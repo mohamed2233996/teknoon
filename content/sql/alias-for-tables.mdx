@@ -2,7 +2,7 @@
 title: "SQLوضع أسماء مختصرة للجداول"
 source: "https://harmash.com/tutorials/sql/alias-for-tables"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:49.689Z"
+imported_at: "2026-07-23T12:28:30.555Z"
 ---
 
 ## الكلمة `AS` مع الجداول
@@ -84,153 +84,38 @@ INSERT INTO users VALUES (null, "rayan", "Rayan", "Kasabi", null);
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `countries`.
 
-countries
-
-id
-
-name
-
-1
-
-KSA
-
-2
-
-Oman
-
-3
-
-Egypt
-
-4
-
-Kuwait
-
-5
-
-Bahrain
+| countries |
+| --- |
+| id | name |
+| 1 | KSA |
+| 2 | Oman |
+| 3 | Egypt |
+| 4 | Kuwait |
+| 5 | Bahrain |
 
   
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `users`.
 
-users
-
-id
-
-username
-
-first\_name
-
-last\_name
-
-country\_id
-
-1
-
-rami
-
-Rami
-
-Masri
-
-1
-
-2
-
-ahmad
-
-Ahmad
-
-Naji
-
-2
-
-3
-
-hanan
-
-Hanan
-
-Mostafa
-
-5
-
-4
-
-saly
-
-Saly
-
-Harmush
-
-NULL
-
-5
-
-samir
-
-Samir
-
-Saleh
-
-3
-
-6
-
-hamad
-
-Hamad
-
-Akel
-
-2
-
-7
-
-abdullah
-
-Abdullah
-
-Helmi
-
-1
-
-8
-
-rashed
-
-Rashed
-
-Masri
-
-5
-
-9
-
-majed
-
-Majed
-
-Alali
-
-NULL
-
-10
-
-rayan
-
-Rayan
-
-Kasabi
-
-NULL
+| users |
+| --- |
+| id | username | first\_name | last\_name | country\_id |
+| 1 | rami | Rami | Masri | 1 |
+| 2 | ahmad | Ahmad | Naji | 2 |
+| 3 | hanan | Hanan | Mostafa | 5 |
+| 4 | saly | Saly | Harmush | NULL |
+| 5 | samir | Samir | Saleh | 3 |
+| 6 | hamad | Hamad | Akel | 2 |
+| 7 | abdullah | Abdullah | Helmi | 1 |
+| 8 | rashed | Rashed | Masri | 5 |
+| 9 | majed | Majed | Alali | NULL |
+| 10 | rayan | Rayan | Kasabi | NULL |
 
   
 
 إذا وضعنا الجدولين بجانب بعض سنلاحظ كيف ربطنا قيم الجدول `users` بقيم الجدول `countries` من خلال رقم التعرفة `id` الخاص بكل بلد.
 
-![العلاقة بين الجدولين users و countries](/content-images/sql/alias-for-tables/1784304589661-p7x3le.PNG)
+![العلاقة بين الجدولين users و countries](/content-images/sql/alias-for-tables/1784809710522-mksu9z.PNG)
 
 ## متى نحتاج وضع أسماء مختصرة؟
 
@@ -271,49 +156,18 @@ FROM users AS u;
 
 النتيجة
 
-first\_name
-
-last\_name
-
-Rami
-
-Masri
-
-Ahmad
-
-Naji
-
-Hanan
-
-Mostafa
-
-Saly
-
-Harmush
-
-Samir
-
-Saleh
-
-Hamad
-
-Akel
-
-Abdullah
-
-Helmi
-
-Rashed
-
-Masri
-
-Majed
-
-Alali
-
-Rayan
-
-Kasabi
+| first\_name | last\_name |
+| --- | --- |
+| Rami | Masri |
+| Ahmad | Naji |
+| Hanan | Mostafa |
+| Saly | Harmush |
+| Samir | Saleh |
+| Hamad | Akel |
+| Abdullah | Helmi |
+| Rashed | Masri |
+| Majed | Alali |
+| Rayan | Kasabi |
 
   
 
@@ -340,68 +194,15 @@ ON u.country\_id \= c.id;
 
 النتيجة
 
-id
-
-username
-
-country
-
-1
-
-rami
-
-KSA
-
-2
-
-ahmad
-
-Oman
-
-3
-
-hanan
-
-Bahrain
-
-4
-
-saly
-
-NULL
-
-5
-
-samir
-
-Egypt
-
-6
-
-hamad
-
-Oman
-
-7
-
-abdullah
-
-KSA
-
-8
-
-rashed
-
-Bahrain
-
-9
-
-majed
-
-NULL
-
-10
-
-rayan
-
-NULL
+| id | username | country |
+| --- | --- | --- |
+| 1 | rami | KSA |
+| 2 | ahmad | Oman |
+| 3 | hanan | Bahrain |
+| 4 | saly | NULL |
+| 5 | samir | Egypt |
+| 6 | hamad | Oman |
+| 7 | abdullah | KSA |
+| 8 | rashed | Bahrain |
+| 9 | majed | NULL |
+| 10 | rayan | NULL |

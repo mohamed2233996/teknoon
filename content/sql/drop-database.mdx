@@ -2,7 +2,7 @@
 title: "SQLأمر حذف قاعدة بيانات"
 source: "https://harmash.com/tutorials/sql/drop-database"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:08:52.086Z"
+imported_at: "2026-07-23T12:27:24.562Z"
 ---
 
 ## الأمر `DROP DATABASE`
@@ -25,7 +25,7 @@ DROP DATABASE db\_name;
 
 في البداية، سنحاول حذف قاعدة البيانات `harmash` التي قمنا بإنشائها في الدرس السابق كما يظهر في الصورة التالية.
 
-![Readymade database](/content-images/sql/drop-database/1784304531464-ks5itx.PNG)
+![Readymade database](/content-images/sql/drop-database/1784809643656-39jbwy.PNG)
 
   
 
@@ -45,7 +45,7 @@ DROP DATABASE harmash;
 
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم حذف قاعدة البيانات `harmash` و ستختفي من القائمة اليسرى التي تظهر فيها جميع قواعد البيانات كالتالي.
 
-![DROP DATABASE](/content-images/sql/drop-database/1784304531677-a53gx5.PNG)
+![DROP DATABASE](/content-images/sql/drop-database/1784809643834-7frn7e.PNG)
 
 ## محاولة حذف قاعدة بيانات غير موجودة
 
@@ -72,7 +72,7 @@ Can't drop database 'harmash'; database doesn't exist
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيظهر لك خطأ كالتالي.  
 هذا الخطأ يعني أنه لا يمكنك حذف قاعدة البيانات `harmash` لأنه لا يوجد في الأصل قاعدة بيانات بهذا الإسم.
 
-![Can't drop database; database doesn't exist](/content-images/sql/drop-database/1784304531875-u60k2i.PNG)
+![Can't drop database; database doesn't exist](/content-images/sql/drop-database/1784809644297-ega7rm.PNG)
 
 ## طريقة التأكد من أن قاعدة البيانات المراد حذفها موجودة
 
@@ -98,7 +98,7 @@ MySQL returned an empty result set (i.e. zero rows).
 
 بعد تنفيذ الإستعلام السابق في phpMyAdmin لن يحاول مفسر الإستعلام حذف قاعدة البيانات لأنها أساساً غير موجودة، كما أنه لن يظهر أي خطأ في نتيجة الإستعلام كما حدث سابقاً.
 
-![DROP DATABASE IF EXISTS](/content-images/sql/drop-database/1784304532076-nikzbh.PNG)
+![DROP DATABASE IF EXISTS](/content-images/sql/drop-database/1784809644553-wjwdjg.PNG)
 
 ## الطريقة الأفضل لحذف قاعدة بيانات
 

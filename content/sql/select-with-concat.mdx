@@ -2,7 +2,7 @@
 title: "SQLدمج الأعمدة التي تم جلبها من قاعدة البيانات"
 source: "https://harmash.com/tutorials/sql/select-with-concat"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:12.031Z"
+imported_at: "2026-07-23T12:27:44.127Z"
 ---
 
 ## مفهوم دمج الأعمدة التي تم جلبها من قاعدة البيانات
@@ -42,9 +42,9 @@ SELECT 5 + 2 + 7;
 
 النتيجة
 
-5 + 2 + 7
-
-14
+| 5 + 2 + 7 |
+| --- |
+| 14 |
 
   
 
@@ -56,9 +56,9 @@ SELECT 5 + 2 + 7 AS 'Total';
 
 النتيجة
 
-Total
-
-14
+| Total |
+| --- |
+| 14 |
 
   
 
@@ -71,9 +71,9 @@ SELECT 'Mhamad' + 'Harmush';
 
 النتيجة
 
-'Mhamad' + 'Harmush'
-
-0
+| 'Mhamad' + 'Harmush' |
+| --- |
+| 0 |
 
 نلاحظ أنه حاول جمعها كما يجمع الأعداد العادية و بما أنه لم يستطع جمعهما وضع صفر كناتج الجمع.
 
@@ -87,9 +87,9 @@ SELECT CONCAT('Mhamad', 'Harmush') AS 'Full Name';
 
 النتيجة
 
-Full Name
-
-MhamadHarmush
+| Full Name |
+| --- |
+| MhamadHarmush |
 
 نلاحظ أنه تم عرض الكلمتين كنص واحد و لكنهما يظهران بشكل متلاصق.
 
@@ -103,9 +103,9 @@ SELECT CONCAT('Mhamad', ' ' ,'Harmush') AS 'Full Name';
 
 النتيجة
 
-Full Name
-
-Mhamad Harmush
+| Full Name |
+| --- |
+| Mhamad Harmush |
 
 نلاحظ أنه تم عرض الكلمتين كنص واحد و و تم وضع المسافة الفارغة التي أضفناها بينهما كما أردنا.
 
@@ -168,49 +168,18 @@ FROM
 
 النتيجة
 
-Employee
-
-Salary
-
-Ahmad Alhazem
-
-800.00$
-
-Rami Algharib
-
-750.00$
-
-Said Alnaja
-
-900.00$
-
-Noura Jamali
-
-845.00$
-
-Amani Sarrouf
-
-1000.00$
-
-Mhamad Harmush
-
-700.00$
-
-Ahmad Asaadi
-
-850.00$
-
-Mostafa Shawki
-
-920.00$
-
-Jana Alkassem
-
-780.00$
-
-Houssam Zahrani
-
-880.00$
+| Employee | Salary |
+| --- | --- |
+| Ahmad Alhazem | 800.00$ |
+| Rami Algharib | 750.00$ |
+| Said Alnaja | 900.00$ |
+| Noura Jamali | 845.00$ |
+| Amani Sarrouf | 1000.00$ |
+| Mhamad Harmush | 700.00$ |
+| Ahmad Asaadi | 850.00$ |
+| Mostafa Shawki | 920.00$ |
+| Jana Alkassem | 780.00$ |
+| Houssam Zahrani | 880.00$ |
 
   
 
@@ -223,24 +192,15 @@ FROM employees;
 
 النتيجة
 
-Employees Salaries
-
-1- Ahmad Alhazem salary is 800.00$
-
-2- Rami Algharib salary is 750.00$
-
-3- Said Alnaja salary is 900.00$
-
-4- Noura Jamali salary is 845.00$
-
-5- Amani Sarrouf salary is 1000.00$
-
-6- Mhamad Harmush salary is 700.00$
-
-7- Ahmad Asaadi salary is 850.00$
-
-8- Mostafa Shawki salary is 920.00$
-
-9- Jana Alkassem salary is 780.00$
-
-10- Houssam Zahrani salary is 880.00$
+| Employees Salaries |
+| --- |
+| 1- Ahmad Alhazem salary is 800.00$ |
+| 2- Rami Algharib salary is 750.00$ |
+| 3- Said Alnaja salary is 900.00$ |
+| 4- Noura Jamali salary is 845.00$ |
+| 5- Amani Sarrouf salary is 1000.00$ |
+| 6- Mhamad Harmush salary is 700.00$ |
+| 7- Ahmad Asaadi salary is 850.00$ |
+| 8- Mostafa Shawki salary is 920.00$ |
+| 9- Jana Alkassem salary is 780.00$ |
+| 10- Houssam Zahrani salary is 880.00$ |

@@ -2,7 +2,7 @@
 title: "SQLدمج الجداول في جدول واحد"
 source: "https://harmash.com/tutorials/sql/union"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:20.741Z"
+imported_at: "2026-07-23T12:27:52.602Z"
 ---
 
 ## مفهوم دمج الجداول في جدول واحد
@@ -110,105 +110,25 @@ INSERT INTO customers VALUES (null, "Houssam", "Zahrani", "houssam@example.com")
 
 الجدول `employees` يتضمن معلومات 5 موظفين كما يلي.
 
-id
-
-first\_name
-
-last\_name
-
-salary
-
-1
-
-Ahmad
-
-Alhazem
-
-800.00
-
-2
-
-Rami
-
-Asaadi
-
-750.00
-
-3
-
-Said
-
-Alnaja
-
-900.00
-
-4
-
-Noura
-
-Jamali
-
-845.00
-
-5
-
-Amani
-
-Sarrouf
-
-1000.00
+| id | first\_name | last\_name | salary |
+| --- | --- | --- | --- |
+| 1 | Ahmad | Alhazem | 800.00 |
+| 2 | Rami | Asaadi | 750.00 |
+| 3 | Said | Alnaja | 900.00 |
+| 4 | Noura | Jamali | 845.00 |
+| 5 | Amani | Sarrouf | 1000.00 |
 
   
 
 الجدول `customers` يتضمن معلومات 5 عملاء كما يلي.
 
-id
-
-first\_name
-
-last\_name
-
-email
-
-1
-
-Ahmad
-
-Alhazem
-
-ahmad@example
-
-2
-
-Rami
-
-Asaadi
-
-rami@example
-
-3
-
-Mostafa
-
-Shawki
-
-mostafa@example
-
-4
-
-Jana
-
-Alkassem
-
-jana@example
-
-5
-
-Houssam
-
-Zahrani
-
-houssam@example
+| id | first\_name | last\_name | email |
+| --- | --- | --- | --- |
+| 1 | Ahmad | Alhazem | ahmad@example |
+| 2 | Rami | Asaadi | rami@example |
+| 3 | Mostafa | Shawki | mostafa@example |
+| 4 | Jana | Alkassem | jana@example |
+| 5 | Houssam | Zahrani | houssam@example |
 
   
 
@@ -234,59 +154,16 @@ SELECT id, first\_name, last\_name from employees   \-- قمنا بجلب قيم
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-1
-
-Ahmad
-
-Alhazem
-
-2
-
-Rami
-
-Asaadi
-
-3
-
-Mostafa
-
-Shawki
-
-4
-
-Jana
-
-Alkassem
-
-5
-
-Houssam
-
-Zahrani
-
-3
-
-Said
-
-Alnaja
-
-4
-
-Noura
-
-Jamali
-
-5
-
-Amani
-
-Sarrouf
+| id | first\_name | last\_name |
+| --- | --- | --- |
+| 1 | Ahmad | Alhazem |
+| 2 | Rami | Asaadi |
+| 3 | Mostafa | Shawki |
+| 4 | Jana | Alkassem |
+| 5 | Houssam | Zahrani |
+| 3 | Said | Alnaja |
+| 4 | Noura | Jamali |
+| 5 | Amani | Sarrouf |
 
 لاحظ أن الجدول لا يحتوي على أسطر جميع حقولها فيها نفس القيم.
 
@@ -308,70 +185,17 @@ SELECT id, first\_name, last\_name from employees   \-- قمنا بجلب قيم
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-1
-
-Ahmad
-
-Alhazem
-
-2
-
-Rami
-
-Asaadi
-
-3
-
-Mostafa
-
-Shawki
-
-4
-
-Jana
-
-Alkassem
-
-5
-
-Houssam
-
-Zahrani
-
-1
-
-Ahmad
-
-Alhazem
-
-2
-
-Rami
-
-Asaadi
-
-3
-
-Said
-
-Alnaja
-
-4
-
-Noura
-
-Jamali
-
-5
-
-Amani
-
-Sarrouf
+| id | first\_name | last\_name |
+| --- | --- | --- |
+| 1 | Ahmad | Alhazem |
+| 2 | Rami | Asaadi |
+| 3 | Mostafa | Shawki |
+| 4 | Jana | Alkassem |
+| 5 | Houssam | Zahrani |
+| 1 | Ahmad | Alhazem |
+| 2 | Rami | Asaadi |
+| 3 | Said | Alnaja |
+| 4 | Noura | Jamali |
+| 5 | Amani | Sarrouf |
 
 لاحظ أن الجدول يحتوي على أسطر حقولها فيها نفس القيم.

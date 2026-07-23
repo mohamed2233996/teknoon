@@ -2,7 +2,7 @@
 title: "SQLأمر جلب بيانات من قاعدة البيانات"
 source: "https://harmash.com/tutorials/sql/select"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:10.300Z"
+imported_at: "2026-07-23T12:27:42.467Z"
 ---
 
 ## الأمر `SELECT`
@@ -83,137 +83,18 @@ SELECT \* FROM employees;
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-is\_married
-
-salary
-
-birthday
-
-1
-
-Ahmad
-
-Alhazem
-
-0
-
-800.00
-
-1990-10-23
-
-2
-
-Rami
-
-Algharib
-
-0
-
-750.00
-
-1992-05-08
-
-3
-
-Said
-
-Alnaja
-
-1
-
-900.00
-
-1988-07-12
-
-4
-
-Noura
-
-Jamali
-
-0
-
-845.00
-
-1994-12-04
-
-5
-
-Amani
-
-Sarrouf
-
-1
-
-1000.00
-
-1991-10-27
-
-6
-
-Mhamad
-
-Harmush
-
-0
-
-700.00
-
-1993-11-12
-
-7
-
-Ahmad
-
-Asaadi
-
-1
-
-850.00
-
-1995-03-10
-
-8
-
-Mostafa
-
-Shawki
-
-1
-
-920.00
-
-1990-02-14
-
-9
-
-Jana
-
-Alkassem
-
-0
-
-780.00
-
-1991-08-12
-
-10
-
-Houssam
-
-Zahrani
-
-1
-
-880.00
-
-1985-09-20
+| id | first\_name | last\_name | is\_married | salary | birthday |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Ahmad | Alhazem | 0 | 800.00 | 1990-10-23 |
+| 2 | Rami | Algharib | 0 | 750.00 | 1992-05-08 |
+| 3 | Said | Alnaja | 1 | 900.00 | 1988-07-12 |
+| 4 | Noura | Jamali | 0 | 845.00 | 1994-12-04 |
+| 5 | Amani | Sarrouf | 1 | 1000.00 | 1991-10-27 |
+| 6 | Mhamad | Harmush | 0 | 700.00 | 1993-11-12 |
+| 7 | Ahmad | Asaadi | 1 | 850.00 | 1995-03-10 |
+| 8 | Mostafa | Shawki | 1 | 920.00 | 1990-02-14 |
+| 9 | Jana | Alkassem | 0 | 780.00 | 1991-08-12 |
+| 10 | Houssam | Zahrani | 1 | 880.00 | 1985-09-20 |
 
 ## تحديد أسماء الحقول التي سيتم جلبها من الجدول
 
@@ -227,71 +108,18 @@ FROM employees;
 
 النتيجة
 
-first\_name
-
-last\_name
-
-salary
-
-Ahmad
-
-Alhazem
-
-800.00
-
-Rami
-
-Algharib
-
-750.00
-
-Said
-
-Alnaja
-
-900.00
-
-Noura
-
-Jamali
-
-845.00
-
-Amani
-
-Sarrouf
-
-1000.00
-
-Mhamad
-
-Harmush
-
-700.00
-
-Ahmad
-
-Asaadi
-
-850.00
-
-Mostafa
-
-Shawki
-
-920.00
-
-Jana
-
-Alkassem
-
-780.00
-
-Houssam
-
-Zahrani
-
-880.00
+| first\_name | last\_name | salary |
+| --- | --- | --- |
+| Ahmad | Alhazem | 800.00 |
+| Rami | Algharib | 750.00 |
+| Said | Alnaja | 900.00 |
+| Noura | Jamali | 845.00 |
+| Amani | Sarrouf | 1000.00 |
+| Mhamad | Harmush | 700.00 |
+| Ahmad | Asaadi | 850.00 |
+| Mostafa | Shawki | 920.00 |
+| Jana | Alkassem | 780.00 |
+| Houssam | Zahrani | 880.00 |
 
 ## تغيير أسماء الأعمدة عند جلبها من الجدول
 
@@ -310,71 +138,18 @@ FROM employees;
 
 النتيجة
 
-First Name
-
-Last Name
-
-Salary
-
-Ahmad
-
-Alhazem
-
-800.00
-
-Rami
-
-Algharib
-
-750.00
-
-Said
-
-Alnaja
-
-900.00
-
-Noura
-
-Jamali
-
-845.00
-
-Amani
-
-Sarrouf
-
-1000.00
-
-Mhamad
-
-Harmush
-
-700.00
-
-Ahmad
-
-Asaadi
-
-850.00
-
-Mostafa
-
-Shawki
-
-920.00
-
-Jana
-
-Alkassem
-
-780.00
-
-Houssam
-
-Zahrani
-
-880.00
+| First Name | Last Name | Salary |
+| --- | --- | --- |
+| Ahmad | Alhazem | 800.00 |
+| Rami | Algharib | 750.00 |
+| Said | Alnaja | 900.00 |
+| Noura | Jamali | 845.00 |
+| Amani | Sarrouf | 1000.00 |
+| Mhamad | Harmush | 700.00 |
+| Ahmad | Asaadi | 850.00 |
+| Mostafa | Shawki | 920.00 |
+| Jana | Alkassem | 780.00 |
+| Houssam | Zahrani | 880.00 |
 
   
 

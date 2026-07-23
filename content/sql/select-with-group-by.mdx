@@ -2,7 +2,7 @@
 title: "SQLتجميع قيم الحقول المشتركة"
 source: "https://harmash.com/tutorials/sql/select-with-group-by"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:30.780Z"
+imported_at: "2026-07-23T12:28:03.332Z"
 ---
 
 ## الجملة `GROUP BY`
@@ -68,115 +68,18 @@ INSERT INTO employees VALUES (null, "malak", "female", "Morocco", 860);
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `employees`.
 
-id
-
-user
-
-gender
-
-country
-
-salary
-
-1
-
-rami
-
-male
-
-Lebanon
-
-700.00
-
-2
-
-ahmad
-
-male
-
-Syria
-
-800.00
-
-3
-
-hanan
-
-female
-
-KSA
-
-750.00
-
-4
-
-saly
-
-female
-
-Lebanon
-
-650.00
-
-5
-
-samir
-
-male
-
-Egypt
-
-600.00
-
-6
-
-hamad
-
-male
-
-KSA
-
-700.00
-
-7
-
-abdullah
-
-male
-
-KSA
-
-800.00
-
-8
-
-rashed
-
-male
-
-Oman
-
-900.00
-
-9
-
-majed
-
-male
-
-Yaman
-
-820.00
-
-10
-
-malak
-
-female
-
-Morocco
-
-860.00
+| id | user | gender | country | salary |
+| --- | --- | --- | --- | --- |
+| 1 | rami | male | Lebanon | 700.00 |
+| 2 | ahmad | male | Syria | 800.00 |
+| 3 | hanan | female | KSA | 750.00 |
+| 4 | saly | female | Lebanon | 650.00 |
+| 5 | samir | male | Egypt | 600.00 |
+| 6 | hamad | male | KSA | 700.00 |
+| 7 | abdullah | male | KSA | 800.00 |
+| 8 | rashed | male | Oman | 900.00 |
+| 9 | majed | male | Yaman | 820.00 |
+| 10 | malak | female | Morocco | 860.00 |
 
 ## أمثلة حول تجميع قيم الأعمدة
 
@@ -197,21 +100,15 @@ FROM employees;
 
 النتيجة
 
-country
-
-Egypt
-
-KSA
-
-Lebanon
-
-Morocco
-
-Oman
-
-Syria
-
-Yaman
+| country |
+| --- |
+| Egypt |
+| KSA |
+| Lebanon |
+| Morocco |
+| Oman |
+| Syria |
+| Yaman |
 
 نلاحظ أنه عند تجميع أسماء البلدان لا يتم وضع إسم البلد أكثر من مرة في حال كان مكرراً في الجدول.
 
@@ -238,37 +135,15 @@ GROUP BY country;
 
 النتيجة
 
-Country
-
-Number of Employees
-
-Egypt
-
-1
-
-KSA
-
-3
-
-Lebanon
-
-2
-
-Morocco
-
-1
-
-Oman
-
-1
-
-Syria
-
-1
-
-Yaman
-
-1
+| Country | Number of Employees |
+| --- | --- |
+| Egypt | 1 |
+| KSA | 3 |
+| Lebanon | 2 |
+| Morocco | 1 |
+| Oman | 1 |
+| Syria | 1 |
+| Yaman | 1 |
 
 لاحظ أنه يوجد ثلاث موظفين من `KSA` و إثنين من `Lebanon` و باقي الدول يوجد واحد فيها.
 
@@ -293,17 +168,10 @@ GROUP BY gender;
 
 النتيجة
 
-Gender
-
-Number of Employees
-
-female
-
-3
-
-male
-
-7
+| Gender | Number of Employees |
+| --- | --- |
+| female | 3 |
+| male | 7 |
 
   
 
@@ -330,37 +198,15 @@ GROUP BY
 
 النتيجة
 
-Country
-
-Average Salary
-
-Egypt
-
-600.00
-
-KSA
-
-750.00
-
-Lebanon
-
-675.00
-
-Morocco
-
-860.00
-
-Oman
-
-900.00
-
-Syria
-
-800.00
-
-Yaman
-
-820.00
+| Country | Average Salary |
+| --- | --- |
+| Egypt | 600.00 |
+| KSA | 750.00 |
+| Lebanon | 675.00 |
+| Morocco | 860.00 |
+| Oman | 900.00 |
+| Syria | 800.00 |
+| Yaman | 820.00 |
 
   
 
@@ -388,53 +234,15 @@ GROUP BY
 
 النتيجة
 
-Country
-
-Number of Employees
-
-Total Salary
-
-Egypt
-
-1
-
-600.00
-
-KSA
-
-3
-
-2250.00
-
-Lebanon
-
-2
-
-1350.00
-
-Morocco
-
-1
-
-860.00
-
-Oman
-
-1
-
-900.00
-
-Syria
-
-1
-
-800.00
-
-Yaman
-
-1
-
-820.00
+| Country | Number of Employees | Total Salary |
+| --- | --- | --- |
+| Egypt | 1 | 600.00 |
+| KSA | 3 | 2250.00 |
+| Lebanon | 2 | 1350.00 |
+| Morocco | 1 | 860.00 |
+| Oman | 1 | 900.00 |
+| Syria | 1 | 800.00 |
+| Yaman | 1 | 820.00 |
 
   
 
@@ -466,65 +274,17 @@ GROUP BY
 
 النتيجة
 
-Country
-
-Gender
-
-Number of Employees
-
-Egypt
-
-male
-
-1
-
-KSA
-
-female
-
-1
-
-KSA
-
-male
-
-2
-
-Lebanon
-
-female
-
-1
-
-Lebanon
-
-male
-
-1
-
-Morocco
-
-female
-
-1
-
-Oman
-
-male
-
-1
-
-Syria
-
-male
-
-1
-
-Yaman
-
-male
-
-1
+| Country | Gender | Number of Employees |
+| --- | --- | --- |
+| Egypt | male | 1 |
+| KSA | female | 1 |
+| KSA | male | 2 |
+| Lebanon | female | 1 |
+| Lebanon | male | 1 |
+| Morocco | female | 1 |
+| Oman | male | 1 |
+| Syria | male | 1 |
+| Yaman | male | 1 |
 
 لاحظ أنه في حال كان يوجد بلد فيه موظفين ذكور و إناث فإن إسم البلد يظهر مرتين حتى يفصل لك عدد الذكور عن عدد الإناث.
 
@@ -562,32 +322,13 @@ GROUP BY country;
 
 النتيجة
 
-Country
-
-Number of Male Employees
-
-Egypt
-
-1
-
-KSA
-
-2
-
-Lebanon
-
-1
-
-Oman
-
-1
-
-Syria
-
-1
-
-Yaman
-
-1
+| Country | Number of Male Employees |
+| --- | --- |
+| Egypt | 1 |
+| KSA | 2 |
+| Lebanon | 1 |
+| Oman | 1 |
+| Syria | 1 |
+| Yaman | 1 |
 
 لاحظ أنه يوجد ثلاث موظفين من `KSA` و إثنين من `Lebanon` و باقي الدول يوجد واحد فيها.

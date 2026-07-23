@@ -2,7 +2,7 @@
 title: "SQLوضع قيمة إفتراضية لكل حالة"
 source: "https://harmash.com/tutorials/sql/case"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:35.721Z"
+imported_at: "2026-07-23T12:28:08.588Z"
 ---
 
 ## الجملة الشرطية `CASE`
@@ -68,71 +68,18 @@ INSERT INTO students VALUES (null, "Houssam", 120);
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `students`.
 
-id
-
-name
-
-math
-
-1
-
-Ahmad
-
-82
-
-2
-
-Rami
-
-87
-
-3
-
-Said
-
-73
-
-4
-
-Noura
-
-92
-
-5
-
-Amani
-
-78
-
-6
-
-Mhamad
-
-65
-
-7
-
-Ahmad
-
-45
-
-8
-
-Mostafa
-
-95
-
-9
-
-Jana
-
-68
-
-10
-
-Houssam
-
-120
+| id | name | math |
+| --- | --- | --- |
+| 1 | Ahmad | 82 |
+| 2 | Rami | 87 |
+| 3 | Said | 73 |
+| 4 | Noura | 92 |
+| 5 | Amani | 78 |
+| 6 | Mhamad | 65 |
+| 7 | Ahmad | 45 |
+| 8 | Mostafa | 95 |
+| 9 | Jana | 68 |
+| 10 | Houssam | 120 |
 
 ## أمثلة حول وضع قائمة إحتمالات للقيم التي ترجع
 
@@ -159,71 +106,18 @@ FROM
 
 النتيجة
 
-Id
-
-Name
-
-Math Note
-
-1
-
-Ahmad
-
-Passed
-
-2
-
-Rami
-
-Passed
-
-3
-
-Said
-
-Passed
-
-4
-
-Noura
-
-Passed
-
-5
-
-Amani
-
-Passed
-
-6
-
-Mhamad
-
-Passed
-
-7
-
-Ahmad
-
-Failed
-
-8
-
-Mostafa
-
-Passed
-
-9
-
-Jana
-
-Passed
-
-10
-
-Houssam
-
-Refer to Professor
+| Id | Name | Math Note |
+| --- | --- | --- |
+| 1 | Ahmad | Passed |
+| 2 | Rami | Passed |
+| 3 | Said | Passed |
+| 4 | Noura | Passed |
+| 5 | Amani | Passed |
+| 6 | Mhamad | Passed |
+| 7 | Ahmad | Failed |
+| 8 | Mostafa | Passed |
+| 9 | Jana | Passed |
+| 10 | Houssam | Refer to Professor |
 
   
 
@@ -255,90 +149,15 @@ FROM
 
 النتيجة
 
-Id
-
-Name
-
-Math (Percent)
-
-Math (Letter)
-
-1
-
-Ahmad
-
-82
-
-B
-
-2
-
-Rami
-
-87
-
-B
-
-3
-
-Said
-
-73
-
-C
-
-4
-
-Noura
-
-92
-
-A
-
-5
-
-Amani
-
-78
-
-C
-
-6
-
-Mhamad
-
-65
-
-D
-
-7
-
-Ahmad
-
-45
-
-E
-
-8
-
-Mostafa
-
-95
-
-A
-
-9
-
-Jana
-
-68
-
-D
-
-10
-
-Houssam
-
-120
-
-Refer to Professor
+| Id | Name | Math (Percent) | Math (Letter) |
+| --- | --- | --- | --- |
+| 1 | Ahmad | 82 | B |
+| 2 | Rami | 87 | B |
+| 3 | Said | 73 | C |
+| 4 | Noura | 92 | A |
+| 5 | Amani | 78 | C |
+| 6 | Mhamad | 65 | D |
+| 7 | Ahmad | 45 | E |
+| 8 | Mostafa | 95 | A |
+| 9 | Jana | 68 | D |
+| 10 | Houssam | 120 | Refer to Professor |

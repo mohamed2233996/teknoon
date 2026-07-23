@@ -2,7 +2,7 @@
 title: "SQLوضع شروط على الأسطر التي تم تجميعها"
 source: "https://harmash.com/tutorials/sql/select-with-having"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:32.428Z"
+imported_at: "2026-07-23T12:28:05.247Z"
 ---
 
 ## الجملة `HAVING`
@@ -72,115 +72,18 @@ INSERT INTO employees VALUES (null, "malak", "female", "Morocco", 860);
 
 فيما يلي البيانات التي قمنا بإضافتها في الجدول `employees`.
 
-id
-
-user
-
-gender
-
-country
-
-salary
-
-1
-
-rami
-
-male
-
-Lebanon
-
-700.00
-
-2
-
-ahmad
-
-male
-
-Syria
-
-800.00
-
-3
-
-hanan
-
-female
-
-KSA
-
-750.00
-
-4
-
-saly
-
-female
-
-Lebanon
-
-650.00
-
-5
-
-samir
-
-male
-
-Egypt
-
-600.00
-
-6
-
-hamad
-
-male
-
-KSA
-
-700.00
-
-7
-
-abdullah
-
-male
-
-KSA
-
-800.00
-
-8
-
-rashed
-
-male
-
-Oman
-
-900.00
-
-9
-
-majed
-
-male
-
-Yaman
-
-820.00
-
-10
-
-malak
-
-female
-
-Morocco
-
-860.00
+| id | user | gender | country | salary |
+| --- | --- | --- | --- | --- |
+| 1 | rami | male | Lebanon | 700.00 |
+| 2 | ahmad | male | Syria | 800.00 |
+| 3 | hanan | female | KSA | 750.00 |
+| 4 | saly | female | Lebanon | 650.00 |
+| 5 | samir | male | Egypt | 600.00 |
+| 6 | hamad | male | KSA | 700.00 |
+| 7 | abdullah | male | KSA | 800.00 |
+| 8 | rashed | male | Oman | 900.00 |
+| 9 | majed | male | Yaman | 820.00 |
+| 10 | malak | female | Morocco | 860.00 |
 
 ## أمثلة حول وضع شروط بعد تجميع قيم الأعمدة
 
@@ -209,37 +112,15 @@ GROUP BY
 
 النتيجة
 
-Country
-
-Average Salary
-
-Egypt
-
-600.00
-
-KSA
-
-750.00
-
-Lebanon
-
-675.00
-
-Morocco
-
-860.00
-
-Oman
-
-900.00
-
-Syria
-
-800.00
-
-Yaman
-
-820.00
+| Country | Average Salary |
+| --- | --- |
+| Egypt | 600.00 |
+| KSA | 750.00 |
+| Lebanon | 675.00 |
+| Morocco | 860.00 |
+| Oman | 900.00 |
+| Syria | 800.00 |
+| Yaman | 820.00 |
 
   
 
@@ -270,18 +151,8 @@ HAVING
 
 النتيجة
 
-Country
-
-Average Salary
-
-Morocco
-
-860.00
-
-Oman
-
-900.00
-
-Yaman
-
-820.00
+| Country | Average Salary |
+| --- | --- |
+| Morocco | 860.00 |
+| Oman | 900.00 |
+| Yaman | 820.00 |

@@ -2,7 +2,7 @@
 title: "أنواع العلاقات بين الجداول"
 source: "https://harmash.com/tutorials/sql/relationships-types"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:43.855Z"
+imported_at: "2026-07-23T12:28:22.848Z"
 ---
 
 ## مفهوم العلاقات في قواعد البيانات
@@ -66,19 +66,19 @@ imported_at: "2026-07-17T16:09:43.855Z"
 
 قد تجد خط بين الجدولين عليه `1 : 1` كالتالي.
 
-![علاقة واحد لواحد](/content-images/sql/relationships-types/1784304581418-vb7iwo.PNG)
+![علاقة واحد لواحد](/content-images/sql/relationships-types/1784809698895-4k1wql.PNG)
 
 قد تجد خط بين الجدولين في كل طرف منه يوجد `1` كالتالي.
 
-![علاقة واحد لواحد](/content-images/sql/relationships-types/1784304581505-utvf76.PNG)
+![علاقة واحد لواحد](/content-images/sql/relationships-types/1784809699210-vqicz4.PNG)
 
 قد تجد خط بين الجدولين في كل طرف منه يوجد خط واحد عامودي كالتالي.
 
-![علاقة واحد لواحد](/content-images/sql/relationships-types/1784304581590-sexit5.PNG)
+![علاقة واحد لواحد](/content-images/sql/relationships-types/1784809699313-ur7n9j.PNG)
 
 في حال كانت العلاقة محددة بدقة بين الجداول، سيتم وصل الخط الذي يربط الأعمدة المشتركة بين الجداول مباشرةً عليها، و هنا يمكننا وضع أي رمز من الرموز السابقة للإشارة إلى أن العلاقة بينهما هي واحد لواحد كالتالي.
 
-![علاقة واحد لواحد](/content-images/sql/relationships-types/1784304581678-6ney0b.PNG)
+![علاقة واحد لواحد](/content-images/sql/relationships-types/1784809699415-62c2cx.PNG)
 
   
 
@@ -87,7 +87,7 @@ imported_at: "2026-07-17T16:09:43.855Z"
 الصورة التالية توضح كيف تكون البيانات مخزنة في الجداول في حال كان نوع العلاقة واحد لواحد.  
 لاحظ أنه في الجدول `passports` لا يمكن وجود رقم `id` أي شخص أكثر من مرة لأنه بالمنطق لا يمكن السماح للشخص بالحصول على أكثر من جواز سفر.
 
-![مثال عملي حول علاقة واحد لواحد](/content-images/sql/relationships-types/1784304582179-mjzzkr.PNG)
+![مثال عملي حول علاقة واحد لواحد](/content-images/sql/relationships-types/1784809699740-db6skw.PNG)
 
 ## علاقة واحد لمتعدد ( One to Many )
 
@@ -105,23 +105,23 @@ imported_at: "2026-07-17T16:09:43.855Z"
 
 قد تجد خط بين الجدولين عليه `1 : M` كالتالي.
 
-![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784304582264-z44l3q.PNG)
+![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784809700266-a6er1f.PNG)
 
 قد تجد خط بين الجدولين في طرف منه يوجد `1` و في طرف آخر يوجد `M` كالتالي.
 
-![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784304582349-ad1fp1.PNG)
+![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784809700358-owa21q.PNG)
 
 قد تجد خط بين الجدولين في طرف منه يوجد `1` و في طرف آخر يوجد `%` كالتالي.
 
-![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784304582438-jdwil8.PNG)
+![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784809700463-m4sqkw.PNG)
 
 قد تجد خط بين الجدولين في طرف منه يوجد خط واحد عامودي و في طرف آخر يوجد ثلاث خطوط مرتبطة كالتالي.
 
-![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784304582527-lflycp.PNG)
+![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784809700550-izq7cw.PNG)
 
 في حال كانت العلاقة محددة بدقة بين الجداول، سيتم وصل الخط الذي يربط الأعمدة المشتركة بين الجداول مباشرةً عليها، و هنا يمكننا وضع أي رمز من الرموز السابقة للإشارة إلى أن العلاقة بينهما هي واحد لمتعدد كالتالي.
 
-![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784304582612-k044c3.PNG)
+![علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784809700641-7sxdvh.PNG)
 
   
 
@@ -130,7 +130,7 @@ imported_at: "2026-07-17T16:09:43.855Z"
 الصورة التالية توضح كيف تكون البيانات مخزنة في الجداول في حال كان نوع العلاقة واحد لمتعدد.  
 لاحظ أنه في الجدول `posts` يمكن وجود رقم `user_id` أي شخص أكثر من مرة لأنه بالمنطق يمكن للشخص كتابة أكثر من منشور أو مقال.
 
-![مثال عملي حول علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784304583207-ok9y46.PNG)
+![مثال عملي حول علاقة واحد لمتعدد](/content-images/sql/relationships-types/1784809701684-ppkjc5.PNG)
 
 ## علاقة متعدد لمتعدد ( Many to Many )
 
@@ -149,19 +149,19 @@ imported_at: "2026-07-17T16:09:43.855Z"
 
 قد تجد خط بين الجدولين عليه `M : M` كالتالي.
 
-![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784304583292-a2o6eo.PNG)
+![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784809701804-eclo42.PNG)
 
 قد تجد خط بين الجدولين في كل طرف منه يوجد `M` كالتالي.
 
-![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784304583383-2y7eub.PNG)
+![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784809701896-8tq47p.PNG)
 
 قد تجد خط بين الجدولين في كل طرف منه يوجد `%` كالتالي.
 
-![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784304583471-8yk46f.PNG)
+![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784809701988-q7mhhz.PNG)
 
 قد تجد خط بين الجدولين في كل طرف منه يوجد ثلاث خطوط مرتبطة كالتالي.
 
-![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784304583559-o1hkt5.PNG)
+![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784809702083-07ns3n.PNG)
 
   
 
@@ -177,13 +177,13 @@ imported_at: "2026-07-17T16:09:43.855Z"
 
 عند إضافة جدول وسيط بين الجدولين سيصبح شكل الرسم كالتالي.
 
-![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784304583644-4vnlwk.PNG)
+![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784809702176-tdwcfz.PNG)
 
 لاحظ أننا قمنا بتحويل العلاقة `M : M` بين الجدولين `students` و `methods` إلى علاقتين نوعهما `1 : M` عند ربطهما بالجدول الوسيط الذي قمنا بتسميته `students_methods` و ستفهم السبب بعد قليل.
 
 في حال كانت العلاقة محددة بدقة بين الجداول، سيتم وصل الخط الذي يربط الأعمدة المشتركة بين الجداول مباشرةً عليها، و هنا يمكننا وضع أي رمز من الرموز السابقة للإشارة إلى أن العلاقة بينهما هي واحد لمتعدد كالتالي.
 
-![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784304583747-79luy1.PNG)
+![علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784809702270-7mmcsv.PNG)
 
   
 
@@ -192,7 +192,7 @@ imported_at: "2026-07-17T16:09:43.855Z"
 الصورة التالية توضح كيف تكون البيانات مخزنة في الجداول في حال كان نوع العلاقة متعدد لمتعدد.  
 لاحظ كيف أصبحنا قادرين على جعل الطالب قادر أن يتسجل في عدة مواد في نفس الوقت، و المادة الواحدة يمكن أن يتسجل بها عدة طلاب في نفس الوقت أيضاً.
 
-![مثال عملي حول علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784304583844-fyudxw.PNG)
+![مثال عملي حول علاقة متعدد لمتعدد](/content-images/sql/relationships-types/1784809702833-bnzv27.PNG)
 
   
 

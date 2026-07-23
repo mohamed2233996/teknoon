@@ -2,7 +2,7 @@
 title: "تعيين العمود كمفتاح رئيسي"
 source: "https://harmash.com/tutorials/sql/primary-key"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:56.708Z"
+imported_at: "2026-07-23T12:28:44.140Z"
 ---
 
 ## مفهوم المفتاح الرئيسي
@@ -11,41 +11,13 @@ imported_at: "2026-07-17T16:09:56.708Z"
 
 كمثال بسيط، في الجدول التالي يمكننا الوصول لأي سطر من خلال `id` السطر.
 
-id
-
-first\_name
-
-last\_name
-
-1
-
-Ahmad
-
-Eid
-
-2
-
-Ramez
-
-Morad
-
-3
-
-Hassan
-
-Mortada
-
-4
-
-Saad
-
-Alkassem
-
-5
-
-Zaher
-
-Fahmi
+| id | first\_name | last\_name |
+| --- | --- | --- |
+| 1 | Ahmad | Eid |
+| 2 | Ramez | Morad |
+| 3 | Hassan | Mortada |
+| 4 | Saad | Alkassem |
+| 5 | Zaher | Fahmi |
 
   
 
@@ -161,45 +133,12 @@ CREATE TABLE users (
 
 لاحظ أن العمودين `id` و `username` يمكن أن يحتويا على قيم مكررة كما يلي.
 
-id
-
-username
-
-first\_name
-
-last\_name
-
-1
-
-ahmad
-
-Ahmad
-
-Eid
-
-2
-
-ahmad
-
-Ahmad
-
-Rashad
-
-2
-
-hassan
-
-Hassan
-
-Mortada
-
-3
-
-saad
-
-Saad
-
-Alkassem
+| id | username | first\_name | last\_name |
+| --- | --- | --- | --- |
+| 1 | ahmad | Ahmad | Eid |
+| 2 | ahmad | Ahmad | Rashad |
+| 2 | hassan | Hassan | Mortada |
+| 3 | saad | Saad | Alkassem |
 
 سبب قدرتنا على وضع قيم مكررة في العمودين `id` و `username` هو أن كل عمود منهما لا يشكل مفتاح رئيسي بحد ذاته، بل قيمتهما مع بعضهما هي ما تشكل المفتاح الرئيسي في كل سطر على النحو التالي:
 
@@ -214,29 +153,10 @@ Alkassem
 
 في الجدول السابق ممنوع تكرار نفس الـ `id` و الـ `username` في أكثر من سطر كم يلي.
 
-id
-
-username
-
-first\_name
-
-last\_name
-
-1
-
-ahmad
-
-Ahmad
-
-Eid
-
-1
-
-ahmad
-
-Ahmad
-
-Rashad
+| id | username | first\_name | last\_name |
+| --- | --- | --- | --- |
+| 1 | ahmad | Ahmad | Eid |
+| 1 | ahmad | Ahmad | Rashad |
 
 ## تعيين المفتاح الرئيسي بعد إنشاء الجدول
 

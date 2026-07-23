@@ -2,7 +2,7 @@
 title: "SQLطريقة تصميم قاعدة بيانات من الصفر"
 source: "https://harmash.com/tutorials/sql/building-database-from-scratch"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:10:14.212Z"
+imported_at: "2026-07-23T12:29:07.941Z"
 ---
 
 ## معرفة المعلومات الأساسية التي يجب تخزينها في المشروع
@@ -148,7 +148,7 @@ imported_at: "2026-07-17T16:10:14.212Z"
 
 الشكل العام للجداول التي سننشئها و التي سنربطها ببعضها سيكون كالتالي.
 
-![مرحلة تصميم و إنشاء قاعدة البيانات](/content-images/sql/building-database-from-scratch/1784304614112-7w9dqo.PNG)
+![مرحلة تصميم و إنشاء قاعدة البيانات](/content-images/sql/building-database-from-scratch/1784809747867-rociu4.PNG)
 
   
 
@@ -379,296 +379,53 @@ INSERT INTO comments VALUES (null, 'Execute the following code: cat /etc/passwd'
 
 ### الجدول `genders`
 
-id
-
-title
-
-1
-
-Male
-
-2
-
-Female
+| id | title |
+| --- | --- |
+| 1 | Male |
+| 2 | Female |
 
   
   
 
 ### الجدول `roles`
 
-id
-
-title
-
-1
-
-Administrator
-
-2
-
-Editor
-
-3
-
-Writer
-
-4
-
-Subscriber
+| id | title |
+| --- | --- |
+| 1 | Administrator |
+| 2 | Editor |
+| 3 | Writer |
+| 4 | Subscriber |
 
   
   
 
 ### الجدول `categories`
 
-id
-
-title
-
-1
-
-Programming
-
-2
-
-Operating Systems
-
-3
-
-Networking
-
-4
-
-Electronics
-
-5
-
-Artificial Intelligence
+| id | title |
+| --- | --- |
+| 1 | Programming |
+| 2 | Operating Systems |
+| 3 | Networking |
+| 4 | Electronics |
+| 5 | Artificial Intelligence |
 
   
   
 
 ### الجدول `users`
 
-id
-
-username
-
-password
-
-email
-
-first\_name
-
-last\_name
-
-birthdate
-
-phone
-
-gender\_id
-
-role\_id
-
-1
-
-mhamad
-
-pass1234
-
-mhamad@example.com
-
-Mhamad
-
-Harmush
-
-1994-05-12
-
-+96101708089
-
-1
-
-1
-
-2
-
-ahmad
-
-pass1234
-
-ahmad@exmaple.com
-
-Ahmad
-
-Masri
-
-1998-08-18
-
-+962358645235
-
-1
-
-2
-
-3
-
-hala
-
-pass1234
-
-hala@exmaple.com
-
-Hala
-
-Hassan
-
-1998-01-16
-
-+96370348927
-
-2
-
-4
-
-4
-
-rola
-
-pass1234
-
-rola@exmaple.com
-
-Rola
-
-Senjekdar
-
-2000-01-01
-
-+96325684752
-
-2
-
-4
-
-5
-
-ziad
-
-pass1234
-
-ziad@exmaple.com
-
-Ziad
-
-Asmar
-
-1992-05-2
-
-+966087046489
-
-1
-
-3
-
-6
-
-mostafa
-
-pass1234
-
-mostafa@exmaple.com
-
-Mostafa
-
-Kamel
-
-1988-02-12
-
-+97305654975
-
-1
-
-2
-
-7
-
-saly
-
-pass1234
-
-saly@exmaple.com
-
-Saly
-
-Saadi
-
-2001-11-17
-
-+94856215578
-
-2
-
-3
-
-8
-
-shahad
-
-pass1234
-
-shahad@exmaple.com
-
-Shahad
-
-Alanzy
-
-1995-08-08
-
-+985865862569
-
-2
-
-4
-
-9
-
-hazem
-
-pass1234
-
-hazem@exmaple.com
-
-Hazem
-
-Hassoun
-
-1997-06-17
-
-+964258258855
-
-1
-
-4
-
-10
-
-rana
-
-pass1234
-
-rana@exmaple.com
-
-Rana
-
-Karim
-
-1989-11-01
-
-+98215482365
-
-2
-
-4
+| id | username | password | email | first\_name | last\_name | birthdate | phone | gender\_id | role\_id |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | mhamad | pass1234 | mhamad@example.com | Mhamad | Harmush | 1994-05-12 | +96101708089 | 1 | 1 |
+| 2 | ahmad | pass1234 | ahmad@exmaple.com | Ahmad | Masri | 1998-08-18 | +962358645235 | 1 | 2 |
+| 3 | hala | pass1234 | hala@exmaple.com | Hala | Hassan | 1998-01-16 | +96370348927 | 2 | 4 |
+| 4 | rola | pass1234 | rola@exmaple.com | Rola | Senjekdar | 2000-01-01 | +96325684752 | 2 | 4 |
+| 5 | ziad | pass1234 | ziad@exmaple.com | Ziad | Asmar | 1992-05-2 | +966087046489 | 1 | 3 |
+| 6 | mostafa | pass1234 | mostafa@exmaple.com | Mostafa | Kamel | 1988-02-12 | +97305654975 | 1 | 2 |
+| 7 | saly | pass1234 | saly@exmaple.com | Saly | Saadi | 2001-11-17 | +94856215578 | 2 | 3 |
+| 8 | shahad | pass1234 | shahad@exmaple.com | Shahad | Alanzy | 1995-08-08 | +985865862569 | 2 | 4 |
+| 9 | hazem | pass1234 | hazem@exmaple.com | Hazem | Hassoun | 1997-06-17 | +964258258855 | 1 | 4 |
+| 10 | rana | pass1234 | rana@exmaple.com | Rana | Karim | 1989-11-01 | +98215482365 | 2 | 4 |
 
   
 
@@ -681,193 +438,36 @@ Karim
 
 ### الجدول `photos`
 
-id
-
-url
-
-physical\_path
-
-size\_KB
-
-user\_id
-
-1
-
-https://harmash.com/uploaded/photos/6546842.PNG
-
-uploaded/photos/6546842.PNG
-
-1027
-
-1
-
-2
-
-https://harmash.com/uploaded/photos/5324654.PNG
-
-uploaded/photos/5324654.PNG
-
-2088
-
-2
-
-3
-
-https://harmash.com/uploaded/photos/5249824.PNG
-
-uploaded/photos/5249824.PNG
-
-1512
-
-4
-
-4
-
-https://harmash.com/uploaded/photos/4578515.PNG
-
-uploaded/photos/4578515.PNG
-
-1065
-
-5
-
-5
-
-https://harmash.com/uploaded/photos/8789354.PNG
-
-uploaded/photos/8789354.PNG
-
-2005
-
-8
-
-6
-
-https://harmash.com/uploaded/photos/5878942.PNG
-
-uploaded/photos/5878942.PNG
-
-1687
-
-9
+| id | url | physical\_path | size\_KB | user\_id |
+| --- | --- | --- | --- | --- |
+| 1 | https://harmash.com/uploaded/photos/6546842.PNG | uploaded/photos/6546842.PNG | 1027 | 1 |
+| 2 | https://harmash.com/uploaded/photos/5324654.PNG | uploaded/photos/5324654.PNG | 2088 | 2 |
+| 3 | https://harmash.com/uploaded/photos/5249824.PNG | uploaded/photos/5249824.PNG | 1512 | 4 |
+| 4 | https://harmash.com/uploaded/photos/4578515.PNG | uploaded/photos/4578515.PNG | 1065 | 5 |
+| 5 | https://harmash.com/uploaded/photos/8789354.PNG | uploaded/photos/8789354.PNG | 2005 | 8 |
+| 6 | https://harmash.com/uploaded/photos/5878942.PNG | uploaded/photos/5878942.PNG | 1687 | 9 |
 
   
   
 
 ### الجدول `posts`
 
-id
-
-url
-
-title
-
-content
-
-publishing\_date
-
-are\_comments\_enabled
-
-user\_id
-
-category\_id
-
-1
-
-https://harmash.com/java/java-overview
-
-Java Overview
-
-Java is a popular programming language, created in...
-
-2020-03-01
-
-true
-
-5
-
-1
-
-2
-
-https://harmash.com/linux/linux-file-system
-
-Linux File System
-
-The Filesystem Hierarchy Standard (FHS) defines th...
-
-2020-03-03
-
-true
-
-1
-
-2
+| id | url | title | content | publishing\_date | are\_comments\_enabled | user\_id | category\_id |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | https://harmash.com/java/java-overview | Java Overview | Java is a popular programming language, created in... | 2020-03-01 | true | 5 | 1 |
+| 2 | https://harmash.com/linux/linux-file-system | Linux File System | The Filesystem Hierarchy Standard (FHS) defines th... | 2020-03-03 | true | 1 | 2 |
 
   
   
 
 ### الجدول `comments`
 
-id
-
-content
-
-publishing\_date
-
-parent\_comment\_id
-
-user\_id
-
-post\_id
-
-1
-
-Great introduction!
-
-2020-03-01
-
-NULL
-
-3
-
-1
-
-2
-
-Wow, this is very helpful.
-
-2020-03-02
-
-NULL
-
-4
-
-1
-
-3
-
-Where to find users passwords in Linux?
-
-2020-03-03
-
-NULL
-
-9
-
-2
-
-4
-
-Execute the following code: cat /etc/passwd
-
-2020-03-04
-
-3
-
-1
-
-2
+| id | content | publishing\_date | parent\_comment\_id | user\_id | post\_id |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Great introduction! | 2020-03-01 | NULL | 3 | 1 |
+| 2 | Wow, this is very helpful. | 2020-03-02 | NULL | 4 | 1 |
+| 3 | Where to find users passwords in Linux? | 2020-03-03 | NULL | 9 | 2 |
+| 4 | Execute the following code: cat /etc/passwd | 2020-03-04 | 3 | 1 | 2 |
 
 ## أمثلة شاملة حول استرجاع البيانات
 
@@ -891,9 +491,9 @@ WHERE roles.title \= 'Administrator'
 
 النتيجة
 
-email
-
-mhamad@example.com
+| email |
+| --- |
+| mhamad@example.com |
 
   
 
@@ -911,17 +511,10 @@ ON p.user\_id \= u.id
 
 النتيجة
 
-username
-
-post\_title
-
-ziad
-
-Java Overview
-
-mhamad
-
-Linux File System
+| username | post\_title |
+| --- | --- |
+| ziad | Java Overview |
+| mhamad | Linux File System |
 
   
 
@@ -946,25 +539,12 @@ GROUP BY r.title;
 
 النتيجة
 
-roles
-
-users
-
-Administrator
-
-1
-
-Editor
-
-2
-
-Writer
-
-2
-
-Subscriber
-
-5
+| roles | users |
+| --- | --- |
+| Administrator | 1 |
+| Editor | 2 |
+| Writer | 2 |
+| Subscriber | 5 |
 
   
 
@@ -997,71 +577,18 @@ ORDER BY
 
 النتيجة
 
-name
-
-gender
-
-role
-
-Mhamad Harmush
-
-Male
-
-Administrator
-
-Mostafa Kamel
-
-Male
-
-Editor
-
-Ahmad Masri
-
-Male
-
-Editor
-
-Hazem Hassoun
-
-Male
-
-Subscriber
-
-Rana Karim
-
-Female
-
-Subscriber
-
-Shahad Alanzy
-
-Female
-
-Subscriber
-
-Rola Senjekdar
-
-Female
-
-Subscriber
-
-Hala Hassan
-
-Female
-
-Subscriber
-
-Saly Saadi
-
-Female
-
-Writer
-
-Ziad Asmar
-
-Male
-
-Writer
+| name | gender | role |
+| --- | --- | --- |
+| Mhamad Harmush | Male | Administrator |
+| Mostafa Kamel | Male | Editor |
+| Ahmad Masri | Male | Editor |
+| Hazem Hassoun | Male | Subscriber |
+| Rana Karim | Female | Subscriber |
+| Shahad Alanzy | Female | Subscriber |
+| Rola Senjekdar | Female | Subscriber |
+| Hala Hassan | Female | Subscriber |
+| Saly Saadi | Female | Writer |
+| Ziad Asmar | Male | Writer |
 
   
 
@@ -1081,49 +608,18 @@ ON p.user\_id \= u.id;
 
 المثال الخامس
 
-username
-
-photo
-
-mhamad
-
-https://harmash.com/uploaded/photos/6546842.PNG
-
-ahmad
-
-https://harmash.com/uploaded/photos/5324654.PNG
-
-hala
-
-No Photo
-
-rola
-
-https://harmash.com/uploaded/photos/5249824.PNG
-
-ziad
-
-https://harmash.com/uploaded/photos/4578515.PNG
-
-mostafa
-
-No Photo
-
-saly
-
-No Photo
-
-shahad
-
-https://harmash.com/uploaded/photos/8789354.PNG
-
-hazem
-
-https://harmash.com/uploaded/photos/5878942.PNG
-
-rana
-
-No Photo
+| username | photo |
+| --- | --- |
+| mhamad | https://harmash.com/uploaded/photos/6546842.PNG |
+| ahmad | https://harmash.com/uploaded/photos/5324654.PNG |
+| hala | No Photo |
+| rola | https://harmash.com/uploaded/photos/5249824.PNG |
+| ziad | https://harmash.com/uploaded/photos/4578515.PNG |
+| mostafa | No Photo |
+| saly | No Photo |
+| shahad | https://harmash.com/uploaded/photos/8789354.PNG |
+| hazem | https://harmash.com/uploaded/photos/5878942.PNG |
+| rana | No Photo |
 
   
 
@@ -1147,35 +643,12 @@ JOIN posts p ON c.post\_id \= p.id;
 
 النتيجة
 
-username
-
-comment
-
-on\_post
-
-hala
-
-Great introduction!
-
-Java Overview
-
-rola
-
-Wow, this is very helpful.
-
-Java Overview
-
-hazem
-
-How to Users in Linux?
-
-Linux File System
-
-mhamad
-
-Execute the following code: cat /etc/passwd
-
-Linux File System
+| username | comment | on\_post |
+| --- | --- | --- |
+| hala | Great introduction! | Java Overview |
+| rola | Wow, this is very helpful. | Java Overview |
+| hazem | How to Users in Linux? | Linux File System |
+| mhamad | Execute the following code: cat /etc/passwd | Linux File System |
 
   
 
@@ -1201,29 +674,13 @@ GROUP BY c.title;
 
 النتيجة
 
-categories
-
-posts
-
-Programming
-
-1
-
-Operating Systems
-
-1
-
-Networking
-
-0
-
-Electronics
-
-0
-
-Artificial Intelligence
-
-0
+| categories | posts |
+| --- | --- |
+| Programming | 1 |
+| Operating Systems | 1 |
+| Networking | 0 |
+| Electronics | 0 |
+| Artificial Intelligence | 0 |
 
   
 
@@ -1243,10 +700,6 @@ ON c2.parent\_comment\_id \= c1.id;
 
 النتيجة
 
-comment
-
-reply
-
-Where to find users password in Linux?
-
-Execute the following code: cat /etc/passwd
+| comment | reply |
+| --- | --- |
+| Where to find users password in Linux? | Execute the following code: cat /etc/passwd |

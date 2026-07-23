@@ -2,7 +2,7 @@
 title: "SQLأمر إنشاء جدول"
 source: "https://harmash.com/tutorials/sql/create-table"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:08:57.753Z"
+imported_at: "2026-07-23T12:27:30.532Z"
 ---
 
 ## الأمر `CREATE TABLE`
@@ -31,7 +31,7 @@ CREATE TABLE table\_name (
 
 في الدرس السابق قمنا بإنشاء قاعدة بيانات إسمها `harmash`، قم بتحديدها لأننا سنتعامل معها.
 
-![قاعدة البيانات التي سنطبق عليها](/content-images/sql/create-table/1784304535920-p72vq9.PNG)
+![قاعدة البيانات التي سنطبق عليها](/content-images/sql/create-table/1784809648564-0e4i7c.PNG)
 
 ## إنشاء جدول جديد في قاعدة البيانات
 
@@ -59,7 +59,7 @@ CREATE TABLE books (
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم إنشاء الجدول `books` في قاعدة البيانات التي قمت بتحديدها قبل تنفيذ الإستعلام.  
 إذا افترضنا أننا قمنا بإنشاء الجدول في قاعدة بيانات إسمها `harmash` سيظهر الجدول فيها كالتالي.
 
-![الجدول الذي تم إنشاؤه](/content-images/sql/create-table/1784304536174-v7nncy.PNG)
+![الجدول الذي تم إنشاؤه](/content-images/sql/create-table/1784809648848-odc0q5.PNG)
 
   
 
@@ -67,7 +67,7 @@ CREATE TABLE books (
 
 في حال أردت رؤية أسماء أعمدة الجدول `books` من نافذة phpMyAdmin يمكنك النقر على الرمز `+` الموضوع بجانب إسمها حتى يظهرهم لك.
 
-![أسماء أعمدة الجدول](/content-images/sql/create-table/1784304536450-q55lhc.PNG)
+![أسماء أعمدة الجدول](/content-images/sql/create-table/1784809649117-7nclen.PNG)
 
   
 
@@ -76,7 +76,7 @@ CREATE TABLE books (
 في حال أردت رؤية معلومة مفصلة عن أعمدة الجدول `books` من نافذة phpMyAdmin يمكنك النقر على كلمة `Columns` الموضوع بجانب إسمها حتى يظهرهم لك.  
 هذه الصفحة تتيح لك رؤية كل تفاصيل أعمدة الجدول مع إمكانية إعادة تسميتها، تعديل أنواعها و حذفها إن أردت بدون كتابة أي أمر و لكن لا تهتم بهذه الأمور لأنك مهتم بتعلم كيف فعل كل شيء بواسطة أوامر SQL و ليس بواسطة phpMyAdmin.
 
-![نوع بيانات الأعمدة](/content-images/sql/create-table/1784304536792-hicr84.PNG)
+![نوع بيانات الأعمدة](/content-images/sql/create-table/1784809649523-70mum7.PNG)
 
   
 
@@ -84,7 +84,7 @@ CREATE TABLE books (
 
 في حال أردت الخروج من الجدول `books` و الرجوع للقسم الذي تكتب فيه أوامر SQL يمكنك النقر على إسم قاعدة البيانات و من ثم التوجه لقسم SQL كالتالي.
 
-![العودة لقسم SQL](/content-images/sql/create-table/1784304537217-fugreo.PNG)
+![العودة لقسم SQL](/content-images/sql/create-table/1784809649948-u7su16.PNG)
 
 ## محاولة إنشاء جدول موجود أصلاً في قاعدة البيانات
 
@@ -116,7 +116,7 @@ Table 'books' already exists
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيظهر لك خطأ كالتالي.  
 هذا الخطأ يعني أنه لا يمكنك إنشاء جدول في قاعدة البيانات `harmash` إسمه `books` لأنه في الأصل يوجد فيها جدول بهذا الإسم.
 
-![Table 'table\_name' already exists](/content-images/sql/create-table/1784304537483-uzcfw8.PNG)
+![Table 'table\_name' already exists](/content-images/sql/create-table/1784809650267-2bqmlj.PNG)
 
 ## طريقة التأكد من أن الجدول المراد إنشاؤه غير موجود
 
@@ -147,7 +147,7 @@ MySQL returned an empty result set (i.e. zero rows).
 
 بعد تنفيذ الإستعلام السابق في phpMyAdmin لن يحاول مفسر الإستعلامات إنشاء جدول جديد إسمه `books` لأنه يوجد أساساً في قاعدة البيانات جدول بهذا الإسم.
 
-![MySQL returned an empty result set (i.e. zero rows). ](/content-images/sql/create-table/1784304537740-6vsfx9.PNG)
+![MySQL returned an empty result set (i.e. zero rows). ](/content-images/sql/create-table/1784809650518-ui9y7e.PNG)
 
 ## تطبيق كل الأوامر السابقة في تمرين واحد
 

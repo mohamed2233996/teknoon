@@ -2,7 +2,7 @@
 title: "SQL تخزين قيم موحدة في العمود"
 source: "https://harmash.com/tutorials/sql/unique"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:37.461Z"
+imported_at: "2026-07-23T12:28:11.300Z"
 ---
 
 ## مفهوم القيم الموحدة
@@ -12,7 +12,7 @@ imported_at: "2026-07-17T16:09:37.461Z"
 
 كمثال بسيط، في هرمش ممنوع استعمال [mhamad](/users/Mhamad) كإسم مستخدم جديد لأنه يوجد حساب يستعمله كإسم مستخدم، و إذا حاولت فعل ذلك فإنه سيظهر لك تنبيه يخبرك بأنه غير متاح كما يلي.
 
-![مفهوم القيم الموحدة](/content-images/sql/unique/1784304577444-j7yx2k.PNG)
+![مفهوم القيم الموحدة](/content-images/sql/unique/1784809691280-b0gyjo.PNG)
 
 ## القيد `UNIQUE`
 
@@ -99,11 +99,9 @@ ADD CONSTRAINT uc\_users\_username UNIQUE (username);
 
 إذا قمت باستعراض بيانات الجدول `users` فإنه سيكون فارغاً كما يلي لأننا لم نقم بإضافة أي بيانات فيه بعد.
 
-id
-
-username
-
-country
+| id | username | country |
+| --- | --- | --- |
+|  |  |  |
 
 ## تجربة إدخال قيم في عمود نوعه `UNIQUE`
 
@@ -130,41 +128,13 @@ INSERT INTO users VALUES (null, "samir", "Egypt");
 
 إذا قمت بعرض جميع البيانات الموجودة في الجدول `users` فإنها ستبدو كالتالي.
 
-id
-
-username
-
-country
-
-1
-
-rami
-
-Lebanon
-
-2
-
-ahmad
-
-Syria
-
-3
-
-hanan
-
-KSA
-
-4
-
-saly
-
-Lebanon
-
-5
-
-samir
-
-Egypt
+| id | username | country |
+| --- | --- | --- |
+| 1 | rami | Lebanon |
+| 2 | ahmad | Syria |
+| 3 | hanan | KSA |
+| 4 | saly | Lebanon |
+| 5 | samir | Egypt |
 
   
 
@@ -198,44 +168,11 @@ INSERT INTO users VALUES (null, "rami2", "Oman");
 
 إذا قمت بعرض جميع البيانات الموجودة في الجدول `users` فإنها ستبدو كالتالي.
 
-id
-
-username
-
-country
-
-1
-
-rami
-
-Lebanon
-
-2
-
-ahmad
-
-Syria
-
-3
-
-hanan
-
-KSA
-
-4
-
-saly
-
-Lebanon
-
-5
-
-samir
-
-Egypt
-
-6
-
-rami2
-
-Oman
+| id | username | country |
+| --- | --- | --- |
+| 1 | rami | Lebanon |
+| 2 | ahmad | Syria |
+| 3 | hanan | KSA |
+| 4 | saly | Lebanon |
+| 5 | samir | Egypt |
+| 6 | rami2 | Oman |

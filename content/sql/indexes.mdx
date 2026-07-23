@@ -2,7 +2,7 @@
 title: "SQLالفهارس و أنواعها"
 source: "https://harmash.com/tutorials/sql/indexes"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:10:03.371Z"
+imported_at: "2026-07-23T12:28:56.038Z"
 ---
 
 ## مفهوم الفهارس و أنواعها
@@ -21,53 +21,13 @@ imported_at: "2026-07-17T16:10:03.371Z"
 
 الفهرس الذي نوعه Clustered يقوم بحفظ المعلومات من الأساس بشكل مرتب. فمثلاً عندما تقوم بتعيين أي عمود كمفتاح رئيسي ( Primary Key ) في الجدول، تقوم قاعدة البيانات بشكل تلقائي بإضافة فهرس له نوعه Clustered لهذا السبب كنا دائماً ما نجد قيم العمود `id` يتم إرجاعها بنفس الترتيب الذي تم فيه إضافتهم كما يلي.
 
-id
-
-username
-
-first\_name
-
-last\_name
-
-1
-
-ahmad
-
-Ahmad
-
-Eid
-
-2
-
-ramez
-
-Ramez
-
-Morad
-
-3
-
-hassan
-
-Hassan
-
-Mortada
-
-4
-
-saad
-
-Saad
-
-Alkassem
-
-5
-
-zaher
-
-Zaher
-
-Fahmi
+| id | username | first\_name | last\_name |
+| --- | --- | --- | --- |
+| 1 | ahmad | Ahmad | Eid |
+| 2 | ramez | Ramez | Morad |
+| 3 | hassan | Hassan | Mortada |
+| 4 | saad | Saad | Alkassem |
+| 5 | zaher | Zaher | Fahmi |
 
   
 
@@ -80,29 +40,13 @@ Fahmi
 كمثال بسيط، إذا أردنا وضع فهرس Non Clustered خاص للعمود `username` فهذا الفهرس سيحفظ قيم هذا العمود بشكل أبجدي مرتب و سيضع عنوان كل سطر في القرص الصلب تم منه إحضار القيم.  
 الطريقة التي يتم ترتيب القيم فيها لا يمكنك رؤيتها بعينك في قواعد البيانات و لكن يمكنك أن تتخيلها كما يلي.
 
-username
-
-address
-
-ahmad
-
-AB123FD123142
-
-hassan
-
-AB87393F83AD4
-
-ramez
-
-F83AB8D47393A
-
-saad
-
-80DDC62384AFB
-
-zaher
-
-BC01234ABDFE7
+| username | address |
+| --- | --- |
+| ahmad | AB123FD123142 |
+| hassan | AB87393F83AD4 |
+| ramez | F83AB8D47393A |
+| saad | 80DDC62384AFB |
+| zaher | BC01234ABDFE7 |
 
 الآن في حال أردت البحث عن الموظف من خلال إسم المستخدم `username` الخاص به فإن هذه العملية ستكون سريعة جداً حتى لو كانت قاعدة البيانات تضم مليون مستخدم، لأن قاعدة البيانات ستتمكن من إيجاد إسم المستخدم بكل سهولة في الفهرس و من بعدها ستوجهك للسطر أو الأسطر التي تملك القيمة التي بحثت عنها في الجدول الحقيقي.
 

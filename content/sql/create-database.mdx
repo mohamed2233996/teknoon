@@ -2,7 +2,7 @@
 title: "SQLأمر إنشاء قاعدة بيانات"
 source: "https://harmash.com/tutorials/sql/create-database"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:08:49.511Z"
+imported_at: "2026-07-23T12:27:21.702Z"
 ---
 
 ## الأمر `CREATE DATABASE`
@@ -38,7 +38,7 @@ CREATE DATABASE harmash;
 
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم إنشاء قاعدة بيانات جديدة إسمها `harmash` و ستظهر أمامك في القائمة اليسرى التي تظهر فيها جميع قواعد البيانات كالتالي.
 
-![CREATE DATABASE](/content-images/sql/create-database/1784304528922-tzwf8z.PNG)
+![CREATE DATABASE](/content-images/sql/create-database/1784809641124-i24mat.PNG)
 
 ## محاولة إنشاء قاعدة بيانات موجودة
 
@@ -65,7 +65,7 @@ Can't create database 'harmash'; database exists
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيظهر لك خطأ كالتالي.  
 هذا الخطأ يعني أنه لا يمكنك إنشاء قاعدة بيانات جديدة إسمها `harmash` لأنه يوجد في الأصل قاعدة بيانات إسمها `harmash`.
 
-![Can't create database 'db\_name'; database exists](/content-images/sql/create-database/1784304529246-d30v0m.PNG)
+![Can't create database 'db\_name'; database exists](/content-images/sql/create-database/1784809641450-qympub.PNG)
 
 ## طريقة التأكد من أن قاعدة البيانات المراد إنشاءها غير موجودة
 
@@ -91,7 +91,7 @@ MySQL returned an empty result set (i.e. zero rows).
 
 بعد تنفيذ الإستعلام السابق في phpMyAdmin لن يحاول مفسر الإستعلام إنشاء قاعدة البيانات لأنه يوجد أساساً قاعدة بيانات بنفس الإسم، كما أنه لن يظهر أي خطأ في نتيجة الإستعلام كما حدث سابقاً.
 
-![CREATE DATABASE IF NOT EXISTS](/content-images/sql/create-database/1784304529498-w8xr26.PNG)
+![CREATE DATABASE IF NOT EXISTS](/content-images/sql/create-database/1784809641694-4scbjg.PNG)
 
 ## الطريقة الأفضل لإنشاء قاعدة بيانات
 

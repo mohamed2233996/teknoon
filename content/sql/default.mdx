@@ -2,7 +2,7 @@
 title: "SQLوضع قيم إفتراضية للحقول"
 source: "https://harmash.com/tutorials/sql/default"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:55.042Z"
+imported_at: "2026-07-23T12:28:38.742Z"
 ---
 
 ## مفهوم القيم الإفتراضية
@@ -77,45 +77,12 @@ SELECT \* FROM users;
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Mhamad
-
-NULL
-
-Unknown
-
-2
-
-Ayman
-
-Mostafa
-
-Unknown
-
-3
-
-Ahmad
-
-Naji
-
-Syria
-
-4
-
-Saly
-
-Harmush
-
-NULL
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Mhamad | NULL | Unknown |
+| 2 | Ayman | Mostafa | Unknown |
+| 3 | Ahmad | Naji | Syria |
+| 4 | Saly | Harmush | NULL |
 
 نلاحظ أن العمود `country` يظهر فيه عدة قيم من بينها القيمة `NULL` و القيمة الإفتراضية `Unknown` و سنضع قراءة تحليلة لكل سطر تم إدخاله حتى تعرف السبب.
 

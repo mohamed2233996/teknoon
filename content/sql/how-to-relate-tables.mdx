@@ -2,92 +2,18 @@
 title: "كيف يتم ربط الجداول مع بعضها"
 source: "https://harmash.com/tutorials/sql/how-to-relate-tables"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:39.704Z"
+imported_at: "2026-07-23T12:28:16.356Z"
 ---
 
 ## لما لا نضع كل بيانات المشروع بداخل جدول واحد؟
 
 لنفترض أنك تريد تخزين معلومات الزبائن و طلبياتهم في جدول واحد. لاحظ كم سيكون هناك حقول فارغة و قيم متكررة في كل سطر.
 
-person\_id
-
-first\_name
-
-last\_name
-
-order\_number
-
-product\_1\_name
-
-product\_1\_price
-
-product\_2\_name
-
-product\_2\_price
-
-product\_3\_name
-
-product\_3\_price
-
-1
-
-Ahmad
-
-Alhazem
-
-NULL
-
-NULL
-
-NULL
-
-NULL
-
-NULL
-
-NULL
-
-NULL
-
-1
-
-Ahmad
-
-Alhazem
-
-100
-
-Computer Screen
-
-160
-
-NULL
-
-NULL
-
-NULL
-
-NULL
-
-1
-
-Ahmad
-
-Alhazem
-
-215
-
-Keyboard
-
-10
-
-Mouse
-
-7
-
-NULL
-
-NULL
+| person\_id | first\_name | last\_name | order\_number | product\_1\_name | product\_1\_price | product\_2\_name | product\_2\_price | product\_3\_name | product\_3\_price |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Ahmad | Alhazem | NULL | NULL | NULL | NULL | NULL | NULL | NULL |
+| 1 | Ahmad | Alhazem | 100 | Computer Screen | 160 | NULL | NULL | NULL | NULL |
+| 1 | Ahmad | Alhazem | 215 | Keyboard | 10 | Mouse | 7 | NULL | NULL |
 
 بشكل عام، تصميم الجدول بهذا الشكل سيئ جداً لأنه يحتوي على حقول كثيرة فارغة و قيم مكررة في كل سطر.
 
@@ -106,7 +32,7 @@ NULL
 
 لنفترض أننا نريد تخزين بيانات المستخدمين و نريد معرفة بلد كل واحد منهم. هنا لتجنب تكرار أسماء البلدان، يجب تخزين البلدان في جدول خاص. و بعدها نستطيع تخزين رقم تعرفة البلد فقط عند المستخدمين كما يلي.
 
-![كيف يتم ربط الجداول مع بعضها؟](/content-images/sql/how-to-relate-tables/1784304579504-5g66ie.PNG)
+![كيف يتم ربط الجداول مع بعضها؟](/content-images/sql/how-to-relate-tables/1784809695300-secq2n.PNG)
 
 لاحظ أن كل سطر في الجدول `countries` يملك رقم `id` خاص به، أي كل بلد يملك رقم تعرفة خاص به.  
 العمود `country_id` في الجدول `users` يستخدم قيم العمود `id` الموجودة في الجدول `countries` للإشارة إلى بلدان المستخدمين.
@@ -149,7 +75,7 @@ NULL
 
 أي إذا قمنا بتحديث قيمة الحقل `name` و الحقل `currency` في الجدول `countries` فإنها ستتحدث بشكل تلقائي بالنسبة لكل مستخدم مرتبط بها في الجدول `users` حيث أن جميع المستخدمين في هذا الجدول مرتبطين برقم `id` البلد الثابت في الجدول `countries` و ليس بقيمه بشكل مباشر.
 
-![كيف تتحدث القيمة مرة واحدة عند الجميع](/content-images/sql/how-to-relate-tables/1784304579597-n7oijp.PNG)
+![كيف تتحدث القيمة مرة واحدة عند الجميع](/content-images/sql/how-to-relate-tables/1784809695745-zy4dqx.PNG)
 
   
 
@@ -158,7 +84,7 @@ NULL
 إذا قمت بإضافة عمود جديد في الجدول `countries` سيتم إضافته أيضاً بالنسبة لجميع المستخدمين في الجدول `users`.  
 فمثلاً، في حال قمنا بإضافة عمود جديد في الجدول `countries` إسمه `symbol` وضعنا فيه رمز عملة كل بلد على النحو التالي.
 
-![كيف تضاف المعلومات الجديدة عند الجميع](/content-images/sql/how-to-relate-tables/1784304579689-bastli.PNG)
+![كيف تضاف المعلومات الجديدة عند الجميع](/content-images/sql/how-to-relate-tables/1784809696335-fp1l0e.PNG)
 
 الآن بدون إجراء أي تعديل في الجدول `users` يمكننا القول أن رمز العملة في دولة المستخدم `Ahmad Eid` يجب عرضه له `LBP`.
 
@@ -180,53 +106,13 @@ NULL
 
 كمثال بسيط، يمكنك دمج الجدولين `users` و `countries` في جدول واحد عند جلبها كما يلي.
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Ahmad
-
-Eid
-
-Lebanon
-
-2
-
-Ramez
-
-Morad
-
-Egypt
-
-3
-
-Hassan
-
-Mortada
-
-Oman
-
-4
-
-Saad
-
-Alkassem
-
-Lebanon
-
-5
-
-Zaher
-
-Fahmi
-
-Egypt
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Ahmad | Eid | Lebanon |
+| 2 | Ramez | Morad | Egypt |
+| 3 | Hassan | Mortada | Oman |
+| 4 | Saad | Alkassem | Lebanon |
+| 5 | Zaher | Fahmi | Egypt |
 
   
 

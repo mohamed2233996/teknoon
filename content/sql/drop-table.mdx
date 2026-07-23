@@ -2,7 +2,7 @@
 title: "SQLأمر حذف جدول"
 source: "https://harmash.com/tutorials/sql/drop-table"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:00.244Z"
+imported_at: "2026-07-23T12:27:33.168Z"
 ---
 
 ## الأمر `DROP TABLE`
@@ -23,7 +23,7 @@ DROP TABLE table\_name;
 
 سنتعامل مع قاعدة البيانات `harmash` و التي أنشأنا فيها جدول إسمه `books` في الدرس السابق كما يظهر في الصورة التالية.
 
-![قاعدة البيانات التي سنطبق عليها](/content-images/sql/drop-table/1784304539626-1xn7z7.PNG)
+![قاعدة البيانات التي سنطبق عليها](/content-images/sql/drop-table/1784809652477-e68o62.PNG)
 
 ## حذف جدول من قاعدة البيانات
 
@@ -43,7 +43,7 @@ DROP TABLE books;
 
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيتم حذف الجدول `books` من قاعدة البيانات التي قمت بتحديدها قبل تنفيذ الإستعلام.
 
-![](/content-images/sql/drop-table/1784304539801-ilxret.PNG)
+![](/content-images/sql/drop-table/1784809652652-7bf1r2.PNG)
 
 ## محاولة حذف جدول غير موجود أصلاً في قاعدة البيانات
 
@@ -70,7 +70,7 @@ Unknown table 'harmash.books'
 بعد تنفيذ الإستعلام السابق في phpMyAdmin سيظهر لك خطأ كالتالي.  
 هذا الخطأ يعني أنه لا يمكنك حذف جدول في قاعدة البيانات `harmash` إسمه `books` لأنه أصلاً غير موجود فيها.
 
-![](/content-images/sql/drop-table/1784304539980-c9hzbq.PNG)
+![](/content-images/sql/drop-table/1784809652972-bjc0wo.PNG)
 
 ## طريقة التأكد من أن الجدول المراد حذفه موجود
 
@@ -96,7 +96,7 @@ MySQL returned an empty result set (i.e. zero rows).
 
 بعد تنفيذ الإستعلام السابق في phpMyAdmin لن يحاول مفسر الإستعلام حذف الجدول من قاعدة البيانات لأنه أساساً غير موجود فيها، كما أنه لن يظهر أي خطأ في نتيجة الإستعلام كما حدث سابقاً.
 
-![](/content-images/sql/drop-table/1784304540234-ek6iy9.PNG)
+![](/content-images/sql/drop-table/1784809653158-fcq9jr.PNG)
 
 ## تطبيق كل الأوامر السابقة في تمرين واحد
 

@@ -2,7 +2,7 @@
 title: "SQLأمر حذف بيانات من الجدول"
 source: "https://harmash.com/tutorials/sql/delete"
 source_site: "هرمش (harmash.com)"
-imported_at: "2026-07-17T16:09:22.410Z"
+imported_at: "2026-07-23T12:27:54.247Z"
 ---
 
 ## الأمر `DELETE`
@@ -67,93 +67,18 @@ INSERT INTO users VALUES (null, "Rayan", "Kasabi", "KSA");
 
 في ما يلي البيانات التي قمنا بإضافتها بشكل إفتراضي في الجدول `users`.
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-1
-
-Rami
-
-Masri
-
-Lebanon
-
-2
-
-Ahmad
-
-Naji
-
-Syria
-
-3
-
-Hanan
-
-Mostafa
-
-KSA
-
-4
-
-Saly
-
-Harmush
-
-Lebanon
-
-5
-
-Samir
-
-Saleh
-
-Lebanon
-
-6
-
-Hamad
-
-Akel
-
-Syria
-
-7
-
-Abdullah
-
-Helmi
-
-Egypt
-
-8
-
-Rashed
-
-Masri
-
-Oman
-
-9
-
-Majed
-
-Alali
-
-Yaman
-
-10
-
-Rayan
-
-Kasabi
-
-KSA
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 1 | Rami | Masri | Lebanon |
+| 2 | Ahmad | Naji | Syria |
+| 3 | Hanan | Mostafa | KSA |
+| 4 | Saly | Harmush | Lebanon |
+| 5 | Samir | Saleh | Lebanon |
+| 6 | Hamad | Akel | Syria |
+| 7 | Abdullah | Helmi | Egypt |
+| 8 | Rashed | Masri | Oman |
+| 9 | Majed | Alali | Yaman |
+| 10 | Rayan | Kasabi | KSA |
 
 ## أمثلة حول حذف بيانات من الجدول
 
@@ -166,69 +91,15 @@ SELECT \* FROM users;              \-- users ثم أعرض جميع البيان
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-2
-
-Ahmad
-
-Naji
-
-Syria
-
-3
-
-Hanan
-
-Mostafa
-
-KSA
-
-6
-
-Hamad
-
-Akel
-
-Syria
-
-7
-
-Abdullah
-
-Helmi
-
-Egypt
-
-8
-
-Rashed
-
-Masri
-
-Oman
-
-9
-
-Majed
-
-Alali
-
-Yaman
-
-10
-
-Rayan
-
-Kasabi
-
-KSA
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 2 | Ahmad | Naji | Syria |
+| 3 | Hanan | Mostafa | KSA |
+| 6 | Hamad | Akel | Syria |
+| 7 | Abdullah | Helmi | Egypt |
+| 8 | Rashed | Masri | Oman |
+| 9 | Majed | Alali | Yaman |
+| 10 | Rayan | Kasabi | KSA |
 
 نلاحظ أن أول سطر و الذي كان يملك رقم `id` يساوي `1` تم حذفه.
 
@@ -247,69 +118,15 @@ SELECT \* FROM users;                           \-- users ثم أعرض جميع
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
-
-2
-
-Ahmad
-
-Naji
-
-Syria
-
-3
-
-Hanan
-
-Mostafa
-
-KSA
-
-6
-
-Hamad
-
-Akel
-
-Syria
-
-7
-
-Abdullah
-
-Helmi
-
-Egypt
-
-8
-
-Rashed
-
-Masri
-
-Oman
-
-9
-
-Majed
-
-Alali
-
-Yaman
-
-10
-
-Rayan
-
-Kasabi
-
-KSA
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+| 2 | Ahmad | Naji | Syria |
+| 3 | Hanan | Mostafa | KSA |
+| 6 | Hamad | Akel | Syria |
+| 7 | Abdullah | Helmi | Egypt |
+| 8 | Rashed | Masri | Oman |
+| 9 | Majed | Alali | Yaman |
+| 10 | Rayan | Kasabi | KSA |
 
 نلاحظ أنه تم حذف كل سطر كان يملك `country` يساوي `Lebanon`.
 
@@ -324,12 +141,8 @@ SELECT \* FROM users;   \-- users ثم أعرض جميع البيانات الم
 
 النتيجة
 
-id
-
-first\_name
-
-last\_name
-
-country
+| id | first\_name | last\_name | country |
+| --- | --- | --- | --- |
+|  |  |  |  |
 
 نلاحظ أنه قد تم حذف جميع أسطر الجدول `users`.
