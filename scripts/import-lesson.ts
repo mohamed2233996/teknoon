@@ -6,10 +6,13 @@ import path from "path";
 import fetch from "node-fetch";
 import * as cheerio from "cheerio";
 import TurndownService from "turndown";
+import { gfm } from "turndown-plugin-gfm";
+
+const turndown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
+turndown.use(gfm);
 
 const SITE_ORIGIN = "https://harmash.com";
 
-const turndown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
 
 async function downloadImage(url: string, destDir: string): Promise<string> {
   const res = await fetch(url);
